@@ -36,10 +36,6 @@
             android:textColor="@android:color/black"
             android:textSize="15sp" />
 
-        <View style="@style/xc_v_line_gray_d8d8d8"
-            android:visibility="gone"
-            />
-
         <TextView
             android:id="@+id/xc_id_fragment_search_cancle"
             android:layout_width="50dp"

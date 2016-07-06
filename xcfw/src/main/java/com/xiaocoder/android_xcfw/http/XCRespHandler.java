@@ -7,7 +7,7 @@ import com.xiaocoder.android_xcfw.io.XCLog;
 /**
  * @author xiaocoder
  * @email fengjingyu@foxmail.com
- * @description 回调接口的一个抽象类
+ * @description 回调接口的一个抽象类（适配接口）
  */
 public abstract class XCRespHandler<T> implements XCIRespHandler<T> {
 

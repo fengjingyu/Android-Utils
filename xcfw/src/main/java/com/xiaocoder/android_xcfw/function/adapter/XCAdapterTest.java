@@ -35,7 +35,7 @@ public class XCAdapterTest extends XCBaseAdapter<String> {
         if (list == null || list.size() == 0) {
             return null;
         }
-        bean = list.get(position);
+        String bean = list.get(position);
         if (convertView == null) {
             XCLog.i("convertView==null?--true" + position);
         } else {

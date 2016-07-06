@@ -49,7 +49,7 @@ public class BaseAdapterActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            bean = list.get(position);
+            String bean = list.get(position);
 
             ViewHolder holder = null;
 

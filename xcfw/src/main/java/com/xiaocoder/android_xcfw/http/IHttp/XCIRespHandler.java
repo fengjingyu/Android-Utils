@@ -19,6 +19,7 @@ public interface XCIRespHandler<T> {
 
     /**
      * 如果解析失败：一定得返回null
+     * 最好放在子线程
      */
     T onParse2Model(XCReqInfo reqInfo, XCRespInfo respInfo);
 

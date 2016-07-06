@@ -150,7 +150,7 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            bean = list.get(position);
+            XCSearchRecordModel bean = list.get(position);
 
             SearchRecoderViewHolder holder = null;
 

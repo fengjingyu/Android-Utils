@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.xiaocoder.android_xcfw.application.XCConstant;
+import com.xiaocoder.android_xcfw.json.XCJsonParse;
 import com.xiaocoder.android_xcfw.util.UtilString;
 
 import java.io.File;
@@ -349,12 +350,12 @@ public class XCLog {
     /**
      * 格式化打印json到控制台
      */
-    public static void logFormatContent(boolean bindLineAndlLog, String tag, String hint, String content) {
+    public static void logFormatContent(boolean bindLineAndlLog, String tag, String hint, String str) {
 
         if (isOutput) {
+            String content = XCJsonParse.format(str);
             try {
                 Log.i(tag, "－－－－－－－－－－－－－－－－－－  " + hint + " MSG BEGIN －－－－－－－－－－－－－－－－－－");
-
                 if (content != null) {
                     if (bindLineAndlLog) {
                         String[] msgLines = content.split("\n");

@@ -24,6 +24,13 @@ public class JsonRespHandler extends BaseRespHandler<JsonModel> {
 
     }
 
+    /**
+     * 该方法是在子线程中的，解析失败返回null
+     *
+     * @param xcReqInfo
+     * @param xcRespInfo
+     * @return
+     */
     @Override
     public JsonModel onParse2Model(XCReqInfo xcReqInfo, XCRespInfo xcRespInfo) {
 

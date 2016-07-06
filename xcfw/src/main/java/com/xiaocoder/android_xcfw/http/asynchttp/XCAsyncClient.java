@@ -84,7 +84,6 @@ public class XCAsyncClient implements XCIHttpClient {
             if (UtilCollections.isListAvaliable(values)) {
                 httpClient.addHeader(entry.getKey(), entry.getValue().get(0));
             }
-
         }
     }
 

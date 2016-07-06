@@ -153,7 +153,6 @@ public class XCHttpHandlerCtrl {
                 if (UtilCollections.isListAvaliable(values)) {
                     XCLog.i(XCConstant.TAG_HTTP, "headers----->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
-
             }
         }
     }
@@ -173,7 +172,7 @@ public class XCHttpHandlerCtrl {
 
             XCLog.i(XCConstant.TAG_HTTP, XCIO.LINE_SEPARATOR + reqInfo + XCIO.LINE_SEPARATOR);
 
-            XCLog.logFormatContent(XCConstant.TAG_HTTP, "", XCJsonParse.format(respInfo.getDataString()));
+            XCLog.logFormatContent(XCConstant.TAG_HTTP, "", respInfo.getDataString());
 
             // 这是抽象方法，子类实现解析方式,如果解析失败一定得返回null
             Object resultBean = respHandler.onParse2Model(reqInfo, respInfo);

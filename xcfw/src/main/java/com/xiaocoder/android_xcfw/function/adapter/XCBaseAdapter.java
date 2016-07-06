@@ -15,7 +15,6 @@ public abstract class XCBaseAdapter<T> extends BaseAdapter {
 
     public List<T> list;
     public Context context;
-    public T bean;
 
     public XCBaseAdapter(Context context, List<T> list) {
         this.list = list;

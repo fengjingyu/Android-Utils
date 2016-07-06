@@ -27,6 +27,13 @@ public class GsonRespHandler<T> extends BaseRespHandler<T> {
         this.clazz = clazz;
     }
 
+    /**
+     * 该方法是在子线程中的，解析失败返回null
+     *
+     * @param xcReqInfo
+     * @param xcRespInfo
+     * @return
+     */
     @Override
     public T onParse2Model(XCReqInfo xcReqInfo, XCRespInfo xcRespInfo) {
 

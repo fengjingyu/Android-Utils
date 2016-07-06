@@ -47,7 +47,7 @@ public class ContactsActivity extends BaseActivity {
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            bean = list.get(position);
+            UtilContacts.XCContactModel bean = list.get(position);
 
             ContactViewHolder holder = null;
 

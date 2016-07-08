@@ -145,7 +145,6 @@ public abstract class XCActivity extends FragmentActivity {
      * add + show
      */
     public Fragment showFragmentByClass(Class<? extends Fragment> fragment_class, int layout_id) {
-        // 显示点击的哪个fragment
         Fragment fragment = getFragmentByTag(fragment_class.getSimpleName());
         if (fragment == null) {
             try {

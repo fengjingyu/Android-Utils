@@ -1,13 +1,17 @@
 package com.xiaocoder.test;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 
-import com.xiaocoder.test_middle.base.BaseActivity;
 import com.xiaocoder.android_xcfw.util.UtilScreen;
+import com.xiaocoder.test_middle.base.BaseActivity;
 
 /**
  * @author xiaocoder
@@ -17,8 +21,13 @@ import com.xiaocoder.android_xcfw.util.UtilScreen;
 public class PropertyAnimActivity extends BaseActivity {
 
     private Button animButton;
+    private Button animButton2;
+    private Button animButton3;
 
     private boolean flag;
+
+
+    int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,40 +35,172 @@ public class PropertyAnimActivity extends BaseActivity {
         setContentView(R.layout.activity_property_anim);
 
         animButton = getViewById(R.id.id_animButton);
+        animButton2 = getViewById(R.id.id_animButton2);
+        animButton3 = getViewById(R.id.id_animButton3);
 
         animButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (flag) {
-                    flag = false;
-                    animButton.animate().
-                            // x方向
-                                    translationXBy(-(UtilScreen.getScreenWidthPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100))).
-                            setInterpolator(new DecelerateInterpolator()).
-                            // y方向
-                                    translationYBy(UtilScreen.getScreenHeightPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100)).
-                            setInterpolator(new AccelerateInterpolator(1.0f)).
-                            // 旋转
-                                    rotationBy(-1080).setDuration(2000).start();
-
-                } else {
-                    flag = true;
-                    animButton.animate().
-                            // x方向
-                                    translationX(UtilScreen.getScreenWidthPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100)).
-                            setInterpolator(new AccelerateInterpolator(1.0f)).
-                            // y方向
-                                    translationY(-(UtilScreen.getScreenHeightPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100))).
-                            setInterpolator(new DecelerateInterpolator()).
-                            // 旋转
-                                    rotation(1080).setDuration(2000).start();
-                }
-
+                demo1();
             }
         });
 
+        animButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                demo2();
+            }
+        });
+
+        animButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                demo3();
+            }
+        });
     }
+
+    private void demo3() {
+        int time = 1000;
+        ValueAnimator oaTranslate = ValueAnimator.ofFloat(700);
+        oaTranslate.setDuration(time);
+        oaTranslate.setInterpolator(new BounceInterpolator());
+        oaTranslate.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                System.out.println(i++ + "--" + animation.getAnimatedFraction() + "---" + animation.getAnimatedValue());
+                float value = (Float) animation.getAnimatedValue();
+                animButton3.setTranslationX(value);
+                animButton3.setTranslationY(-getY2(value));
+            }
+        });
+        // 旋转
+        ObjectAnimator oaRotation = ObjectAnimator.ofFloat(animButton3, "rotation", 0f, -720f);
+        oaRotation.setDuration(time);
+        // 透明度
+        ObjectAnimator oaAlpha = ObjectAnimator.ofFloat(animButton3, "alpha", 0.8f, 0.2f);
+        oaAlpha.setDuration(time);
+        // x缩放
+        ObjectAnimator oaScaleX = ObjectAnimator.ofFloat(animButton3, "scaleX", 1f, 0.5f);
+        oaScaleX.setDuration(time);
+        // y缩放
+        ObjectAnimator oaScaleY = ObjectAnimator.ofFloat(animButton3, "scaleY", 1f, 0.5f);
+        oaScaleY.setDuration(time);
+
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(oaTranslate, oaRotation, oaAlpha, oaScaleX, oaScaleY);
+        set.start();
+    }
+
+    /**
+     * 这里是根据三个坐标点{（0,0），（350,350），（700,0）}计算出来的抛物线方程
+     */
+    private float getY2(float x) {
+        return -0.0028571428F * x * x + 2.0F * x;
+    }
+
+    private void demo2() {
+
+        ValueAnimator oaTranslate = ValueAnimator.ofFloat(700);
+        oaTranslate.setDuration(1500);
+        oaTranslate.setInterpolator(new BounceInterpolator());
+        oaTranslate.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                System.out.println(i++ + "--" + animation.getAnimatedFraction() + "---" + animation.getAnimatedValue());
+                float value = (Float) animation.getAnimatedValue();
+                animButton2.setTranslationX(-value);
+                animButton2.setTranslationY(-getY2(value));
+            }
+        });
+
+        // 旋转
+        ObjectAnimator oaRotation = ObjectAnimator.ofFloat(animButton2, "rotation", 0f, -360f);
+        oaRotation.setDuration(1500);
+        // 透明度
+        ObjectAnimator oaAlpha = ObjectAnimator.ofFloat(animButton2, "alpha", 0.8f, 0.2f);
+        oaAlpha.setDuration(1500);
+//        // x缩放
+//        ObjectAnimator oaScaleX = ObjectAnimator.ofFloat(animButton2, "scaleX", 1f, 0.5f);
+//        oaScaleX.setDuration(1500);
+//        // y缩放
+//        ObjectAnimator oaScaleY = ObjectAnimator.ofFloat(animButton2, "scaleY", 1f, 0.5f);
+//        oaScaleY.setDuration(1500);
+
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(oaTranslate, oaRotation, oaAlpha);
+        set.start();
+    }
+
+    private void demo1() {
+        if (flag) {
+            flag = false;
+            animButton.animate().
+                    // x方向
+                            translationXBy(-(UtilScreen.getScreenWidthPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100))).
+                    setInterpolator(new DecelerateInterpolator()).
+                    // y方向
+                            translationYBy(UtilScreen.getScreenHeightPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100)).
+                    setInterpolator(new AccelerateInterpolator(1.0f)).
+                    // 旋转
+                            rotationBy(-1080).setDuration(2000).start();
+
+        } else {
+            flag = true;
+            animButton.animate().
+                    // x方向
+                            translationX(UtilScreen.getScreenWidthPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100)).
+                    setInterpolator(new AccelerateInterpolator(1.0f)).
+                    // y方向
+                            translationY(-(UtilScreen.getScreenHeightPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100))).
+                    setInterpolator(new DecelerateInterpolator()).
+                    // 旋转
+                            rotation(1080).setDuration(2000).start();
+        }
+    }
+
+    //    //分300步进行移动动画
+//    final int count = 300;
+//
+//    /**
+//     * 要start 动画的那张图片的ImageView
+//     *
+//     * @param imageView
+//     */
+//    private void startAnimation(final ImageView imageView) {
+//
+//        Keyframe[] keyframes = new Keyframe[count];
+//        final float keyStep = 1f / (float) count;
+//        float key = keyStep;
+//        for (int i = 0; i < count; ++i) {
+//            keyframes[i] = Keyframe.ofFloat(key, i + 1);
+//            key += keyStep;
+//        }
+//
+//        PropertyValuesHolder pvhX = PropertyValuesHolder.ofKeyframe("translationX", keyframes);
+//        key = keyStep;
+//        for (int i = 0; i < count; ++i) {
+//            keyframes[i] = Keyframe.ofFloat(key, -getY(i + 1));
+//            key += keyStep;
+//        }
+//
+//        PropertyValuesHolder pvhY = PropertyValuesHolder.ofKeyframe("translationY", keyframes);
+//        ObjectAnimator yxBouncer = ObjectAnimator.ofPropertyValuesHolder(imageView, pvhY, pvhX).setDuration(1500);
+//        yxBouncer.setInterpolator(new BounceInterpolator());
+//        yxBouncer.start();
+//    }
+//
+//    final float a = -1f / 75f;
+//
+//    /**
+//     * 这里是根据三个坐标点{（0,0），（300,0），（150,300）}计算出来的抛物线方程
+//     *
+//     * @param x
+//     * @return
+//     */
+//    private float getY(float x) {
+//        return a * x * x + 4 * x;
+//    }
 }
 
 /**
@@ -146,8 +287,8 @@ public class PropertyAnimActivity extends BaseActivity {
  * 　　以下两段代码实现同样的效果：
  * <p/>
  * PropertyValuesHolder pvhX = PropertyValuesHolder.ofFloat("x", 50f);
- * PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("y", 100f);
  * ObjectAnimator.ofPropertyValuesHolder(myView, pvhX, pvyY).start();
+ * PropertyValuesHolder pvhY = PropertyValuesHolder.ofFloat("y", 100f);
  * <p/>
  * ObjectAnimator.ofFloat(animButton, RotationY, 360).setRepeatMode(ValueAnimator.INFINITE);
  * ObjectAnimator.ofFloat(mButton, translationX, 200)
@@ -247,6 +388,39 @@ public class PropertyAnimActivity extends BaseActivity {
  * <p/>
  * ViewPropertyAnimator
  * myView.animate().x(50f).y(100f);
+ * <p/>
+ * <p/>
+ * // x坐标位移
+ * ObjectAnimator p1 = ObjectAnimator  .ofFloat(imageView,"translationX",0,endLocation[0] - startLocation[0]);
+ * p1.setDuration(1000);
+ * p1.setInterpolator(new AccelerateInterpolator(0.5f));
+ * // y坐标位移
+ * ObjectAnimator p2 = ObjectAnimator .ofFloat(imageView,"translationY",0,endLocation[1] - startLocation[1]);
+ * p2.setDuration(1000);
+ * p2.setInterpolator(new AccelerateInterpolator(0.25f));
+ * // 旋转
+ * ObjectAnimator p3 = ObjectAnimator  .ofFloat(imageView,"rotation",0f,-360f);
+ * p3.setDuration(1000);
+ * // 透明度
+ * ObjectAnimator p4 = ObjectAnimator  .ofFloat(imageView,"alpha",0.8f,0.2f);
+ * p4.setDuration(1000);
+ * // x缩放
+ * ObjectAnimator p5 = ObjectAnimator  .ofFloat(imageView,"scaleX",1f,0.5f);
+ * p5.setDuration(1000);
+ * // y缩放
+ * ObjectAnimator p6 = ObjectAnimator  .ofFloat(imageView,"scaleY",1f,0.5f);
+ * p6.setDuration(1000);
+ * <p/>
+ * AnimatorSet animatorSet = new AnimatorSet();
+ * animatorSet.playTogether(p1,p2,p3,p4,p5,p6);
+ * animatorSet.start();
+ * animatorSet.addListener(new Animator.AnimatorListener() {
+ * @Override public void onAnimationStart(Animator animation) {}
+ * @Override public void onAnimationEnd(Animator animation) {imageView.setVisibility(View.GONE);}
+ * @Override public void onAnimationCancel(Animator animation) {}
+ * @Override public void onAnimationRepeat(Animator animation) {}
+ * });
+ * }
  */
 
 

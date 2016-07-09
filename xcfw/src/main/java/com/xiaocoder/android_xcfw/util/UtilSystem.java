@@ -1,6 +1,7 @@
 package com.xiaocoder.android_xcfw.util;
 
 import android.app.ActivityManager;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -396,10 +398,74 @@ public class UtilSystem {
     }
 
     public static Intent getCallPhoneIntent(String uriStri) {
-        Uri uri = Uri.parse(uriStri);
+        Uri uri = Uri.parse("tel:" + uriStri);
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(uri);
         return intent;
+    }
+
+    /**
+     * 跳到发短信
+     *
+     * @param context 上下文
+     * @param phone   电话
+     * @param content 短信内容
+     */
+    public static void toSendSMS(Context context, String phone, String content) {
+        try {
+            Uri uri = Uri.parse("smsto:" + phone);
+            Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+            intent.putExtra("sms_body", content);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(context, "您没有短信功能，此功能不能正常进行！", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 跳到外部电话
+     *
+     * @param context 上下文
+     * @param phone   电话
+     */
+    public static void toPhone(Context context, String phone) {
+        if (!UtilString.isBlank(phone)) {
+            try {
+                Uri uri = Uri.parse("tel:" + phone);
+                Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(context, "您没有拨打电话功能，此功能不能正常进行！", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 跳到外部浏览器
+     *
+     * @param context 上下文
+     * @param url     地址
+     */
+    public static void toWeb(Context context, String url) {
+        if (!UtilString.isBlank(url)) {
+            try {
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(context, "您没有浏览器，此功能不能正常进行，请安装浏览器后在试！", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 }

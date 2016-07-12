@@ -112,21 +112,14 @@ public abstract class BaseActivity extends XCActivity {
     /**
      * activity进入动画
      */
-    public void activityStartAnimation() {
-        overridePendingTransition(R.anim.baseactivity_slide_right_in, R.anim.baseactivity_slide_remain);
-    }
-
-    /**
-     * activity的退出动画
-     */
-    public void activityEndAnimation() {
-        overridePendingTransition(0, R.anim.baseactivity_slide_right_out);
+    public void activityAnimation() {
+        overridePendingTransition(R.anim.baseactivity_slide_right_in, R.anim.baseactivity_slide_right_out);
     }
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
-        activityStartAnimation();
+        activityAnimation();
     }
 
     @Override
@@ -162,7 +155,7 @@ public abstract class BaseActivity extends XCActivity {
     @Override
     public void finish() {
         super.finish();
-        activityEndAnimation();
+        activityAnimation();
         XCLog.i(this + "---finish");
     }
 }

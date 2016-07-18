@@ -39,6 +39,14 @@ public class UtilActivity {
 
     }
 
+    public static void startActivity(Activity activity, Intent intent) {
+        activity.startActivity(intent);
+    }
+
+    public static void startActivity(Activity activity, Class<? extends XCActivity> activity_class, String[] command_keys, Object[] command_values) {
+        startActivity(activity, activity_class, -1, null, command_keys, command_values);
+    }
+
     /**
      * @param activity_class
      * @param requestCode    如果等于null，则startActivity   否则startActivityForResult

@@ -54,19 +54,52 @@ public class SpCodeGenerator {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String result = generate();
+                String result = parse();
                 area.setText("");
                 area.setText(result);
             }
         });
     }
 
-    private static String generate() {
+    private static String parse() {
+
+        String keys = area_title.getText().toString().trim();
+
+        StringBuilder sb = new StringBuilder("");
+
+        String[] split = keys.split("&");
+
+//        for (String key : split) {
+//            sb.append(start(key, types));
+//        }
+
+        sb.append("----------------------------------------以下是String类型的sp------------------------------------" + LINE);
+        for (String key : split) {
+            sb.append(start(key, new String[]{STRING}));
+        }
+
+        sb.append("----------------------------------------以下是Boolean类型的sp-----------------------------------" + LINE);
+        for (String key : split) {
+            sb.append(start(key, new String[]{BOOLEAN}));
+        }
+
+        sb.append("-----------------------------------------以下是int类型的sp--------------------------------------" + LINE);
+        for (String key : split) {
+            sb.append(start(key, new String[]{INT}));
+        }
+
+        sb.append("-----------------------------------------以下是long类型的sp-------------------------------------" + LINE);
+        for (String key : split) {
+            sb.append(start(key, new String[]{LONG}));
+        }
 
 
-        String key = area_title.getText().toString().trim();
+        sb.append("-----------------------------------------以下是float类型的sp-------------------------------------" + LINE);
+        for (String key : split) {
+            sb.append(start(key, new String[]{FLOAT}));
+        }
 
-        return start(key);
+        return sb.toString();
 
     }
 
@@ -88,15 +121,23 @@ public class SpCodeGenerator {
     public static final String[] types = new String[]{INT, STRING, BOOLEAN, LONG, FLOAT};
 
     private static String start(String key) {
+        return start(key, types);
+    }
+
+    private static String start(String key, String[] types) {
         if (key != null && key.length() > 0) {
 
-            return generate(key);
+            return generate(key, types);
 
         }
         return "";
     }
 
     private static String generate(String key) {
+        return generate(key, types);
+    }
+
+    private static String generate(String key, String[] types) {
 
         StringBuilder sb = new StringBuilder();
         String newKey = setFirstLetterBig(key);
@@ -134,7 +175,7 @@ public class SpCodeGenerator {
     private static void generateGet(String key, StringBuilder sb, String newKey, String type) {
         sb.append(PUBLIC_STATIC);
         if (STRING.equals(type)) {
-            sb.append(setFirstLetterBig(type)+" ");
+            sb.append(setFirstLetterBig(type) + " ");
         } else {
             sb.append(type + " ");
         }

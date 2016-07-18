@@ -153,3 +153,13 @@ public class UtilScreen {
  * 如果导航栏是开着的 screenHeight 为 1776px（包含了状态栏的高度，状态栏的高度为75px），导航栏的高度为144px
  * 如果导航栏是关着的 screenHeight 为 1920px（包含了状态栏的高度，状态栏的高度为75px）
  */
+
+/**
+ * View 的生命周期为
+ [改变可见性] --> 构造View --> onFinishInflate --> onAttachedToWindow --> onMeasure -->  onSizeChanged --> onLayout --> onDraw --> onWindowsFocusChanges-->onDetackedFromWindow(onDetackedFromWindow在activity的onDestroy之后)
+
+ 总的可以归结三点：
+ (1)  在Activity onCreate方法中初始化了View 的时候, 调用了View 的onFinishInflate
+ (2)  在执行完 Activity的 onResume 方法之后，才真正开始了View的绘制工作：onMeasure -->  onSizeChanged --> onLayout --> onDraw-->onWindowsFocusChanges
+ (3) onMeasure,onSizeChanged,onLayout,onDraw可能由于setVisible或onresume调用多次，而onAttachedToWindow与onDetachedFromWindow在创建与销毁view的过程中只会调用一次
+ */

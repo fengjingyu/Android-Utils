@@ -21,7 +21,7 @@ public class SampleDbActivity extends BaseActivity {
      */
     public void db() {
 
-        SampleDb instance = SampleDb.getInstance(XCAppHelper.getAppContext());
+        SampleDb instance = SampleDb.getInstance(getApplicationContext());
 
         instance.queryCount();
 

@@ -7,6 +7,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -74,11 +76,28 @@ public class UiCodeGenerator {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String result = parse(area_title.getText().toString().trim());
-                area.setText("");
-                area.setText(result);
+                parse();
             }
         });
+
+        area_title.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    parse();
+                }
+            }
+        });
+    }
+
+    private static void parse() {
+
+        String result = parse(area_title.getText().toString().trim());
+        area.setText("");
+        area.setText(result);
+        area.updateUI();
+
     }
 
     public static String parse(String path) {

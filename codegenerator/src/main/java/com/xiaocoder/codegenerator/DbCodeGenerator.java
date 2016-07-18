@@ -110,6 +110,8 @@ public class DbCodeGenerator {
                 area.setText("");
 
                 area.setText(result);
+
+                area.updateUI();
             }
         });
     }

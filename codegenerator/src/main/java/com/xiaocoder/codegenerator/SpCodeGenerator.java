@@ -57,6 +57,7 @@ public class SpCodeGenerator {
                 String result = parse();
                 area.setText("");
                 area.setText(result);
+                area.updateUI();
             }
         });
     }

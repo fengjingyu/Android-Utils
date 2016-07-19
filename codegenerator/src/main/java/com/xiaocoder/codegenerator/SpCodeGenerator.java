@@ -3,6 +3,8 @@ package com.xiaocoder.codegenerator;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashSet;
 
 import javax.swing.JButton;
@@ -40,7 +42,7 @@ public class SpCodeGenerator {
         button = new JButton("开始");
         area = new JTextArea(30, 100);
         scrollPane = new JScrollPane(area);
-        area_title = new JTextField("请输入sp的key值", 100);
+        area_title = new JTextField("userName&userId&token&gender&age&city", 100);
 
         frame.setBounds(200, 100, 1000, 600);
         frame.add(scrollPane, BorderLayout.CENTER);
@@ -54,12 +56,26 @@ public class SpCodeGenerator {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String result = parse();
-                area.setText("");
-                area.setText(result);
-                area.updateUI();
+                launch();
             }
         });
+
+        area_title.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    launch();
+                }
+            }
+        });
+    }
+
+    private static void launch() {
+        String result = parse();
+        area.setText("");
+        area.setText(result);
+        area.updateUI();
     }
 
     private static String parse() {

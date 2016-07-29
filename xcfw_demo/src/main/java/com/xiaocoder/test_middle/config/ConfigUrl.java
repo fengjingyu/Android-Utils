@@ -1,8 +1,5 @@
 package com.xiaocoder.test_middle.config;
 
-
-import com.xiaocoder.android_xcfw.util.UtilString;
-
 /**
  * @author xiaocoder
  * @email fengjingyu@foxmail.com
@@ -20,37 +17,86 @@ public class ConfigUrl {
     }
 
     /**
-     * 域名配置
+     * 通用域名
      */
-    public static String ONLINE_HOST = "online.123.cn";
-    public static String ONLINE_PORT = "";
-    public static String ONLINE_ADDR = ONLINE_HOST + (UtilString.isBlank(ONLINE_PORT) ? "" : ":") + ONLINE_PORT;
+    public static String HOST = "";
+    /**
+     * 聊天域名
+     */
+    public static String CHAT = "";
+    /**
+     * 通知域名
+     */
+    public static String PUSH = "";
+    /**
+     * html域名
+     */
+    public static String HTML = "";
 
-    public static String TEST_HOST = "test.123.cn";
-    public static String TEST_PORT = "";
-    public static String TEST_ADDR = TEST_HOST + (UtilString.isBlank(TEST_PORT) ? "" : ":") + TEST_PORT;
+    static {
+        initConfig();
+    }
 
-    public static String DEV_HOST = "dev.123.cn";
-    public static String DEV_PORT = "";
-    public static String DEV_ADDR = DEV_HOST + (UtilString.isBlank(DEV_PORT) ? "" : ":") + DEV_PORT;
-
-    public static String getUrl(String key) {
-
+    /**
+     * 初始化环境
+     */
+    public synchronized static void initConfig() {
         if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.ONLINE) {
-
-            return ONLINE_ADDR + key;
-
+            HOST = "http://post";
+            CHAT = "http://chat";
+            PUSH = "http://push";
+            HTML = "http://html";
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.TEST) {
-
-            return TEST_ADDR + key;
-
+            HOST = "http://post";
+            CHAT = "http://chat";
+            PUSH = "http://push";
+            HTML = "http://html";
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.DEV) {
-
-            return DEV_ADDR + key;
-
-        } else {
-            throw new RuntimeException("没有找到匹配的url");
+            HOST = "http://post";
+            CHAT = "http://chat";
+            PUSH = "http://push";
+            HTML = "http://html";
         }
+    }
+
+    /**
+     * 通用接口
+     *
+     * @param key 地址
+     * @return
+     */
+    public static String getUrlHost(String key) {
+        return HOST + key;
+    }
+
+    /**
+     * 聊天接口
+     *
+     * @param key 地址
+     * @return
+     */
+    public static String getUrlChat(String key) {
+        return CHAT + key;
+    }
+
+    /**
+     * 通知接口
+     *
+     * @param key 地址
+     * @return
+     */
+    public static String getUrlPush(String key) {
+        return PUSH + key;
+    }
+
+    /**
+     * html接口
+     *
+     * @param key 地址
+     * @return
+     */
+    public static String getUrlHtml(String key) {
+        return HTML + key;
     }
 
 }

@@ -78,6 +78,10 @@ public class XCDownloadRunnable implements Runnable {
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
                 in = conn.getInputStream();
                 long totalSize = conn.getContentLength();
+                if (totalSize < 0) {
+                    XCLog.e(this + "conn.getContentLength()<0");
+                    return;
+                }
                 XCLog.i(tag, "----开始下载了");
                 XCIO.toFileByInputStream(in, file, totalSize, downloadListener, false);
                 if (downloadListener != null) {

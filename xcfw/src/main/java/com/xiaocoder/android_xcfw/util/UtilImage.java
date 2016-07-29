@@ -188,7 +188,7 @@ public class UtilImage {
      * Bitmap to Drawable
      */
     public static Drawable bitmapToDrawable(Bitmap b) {
-        return b == null ? null : new BitmapDrawable(b);
+        return b == null ? null : new BitmapDrawable(null, b);
     }
 
     /**

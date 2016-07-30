@@ -1,13 +1,14 @@
 package com.example.app.sample.model;
 
 
-import com.xiaocoder.android_xcfw.function.annotation.Delete;
-import com.xiaocoder.android_xcfw.function.annotation.Deletes;
-import com.xiaocoder.android_xcfw.function.annotation.Ignore;
-import com.xiaocoder.android_xcfw.function.annotation.Query;
-import com.xiaocoder.android_xcfw.function.annotation.Querys;
-import com.xiaocoder.android_xcfw.function.annotation.Update;
-import com.xiaocoder.android_xcfw.function.annotation.Updates;
+
+import com.xiaocoder.utils.function.annotation.Delete;
+import com.xiaocoder.utils.function.annotation.Deletes;
+import com.xiaocoder.utils.function.annotation.Ignore;
+import com.xiaocoder.utils.function.annotation.Query;
+import com.xiaocoder.utils.function.annotation.Querys;
+import com.xiaocoder.utils.function.annotation.Update;
+import com.xiaocoder.utils.function.annotation.Updates;
 
 import java.io.Serializable;
 

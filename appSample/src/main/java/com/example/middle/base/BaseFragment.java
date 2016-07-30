@@ -1,6 +1,7 @@
 package com.example.middle.base;
 
-import com.xiaocoder.android_xcfw.application.XCFragment;
+
+import com.xiaocoder.utils.application.XCFragment;
 
 /**
  * @author xiaocoder

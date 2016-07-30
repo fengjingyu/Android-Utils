@@ -1,10 +1,11 @@
 package com.example.middle;
 
 
-import com.xiaocoder.android_xcfw.http.IHttp.XCIHttpClient;
-import com.xiaocoder.android_xcfw.http.IHttp.XCIRespHandler;
-import com.xiaocoder.android_xcfw.http.XCReqInfo;
-import com.xiaocoder.android_xcfw.http.XCReqType;
+
+import com.xiaocoder.utils.http.IHttp.XCIHttpClient;
+import com.xiaocoder.utils.http.IHttp.XCIRespHandler;
+import com.xiaocoder.utils.http.XCReqInfo;
+import com.xiaocoder.utils.http.XCReqType;
 
 import java.util.Map;
 

@@ -3,11 +3,11 @@ package com.example.middle.http.json;
 import android.app.Activity;
 
 import com.example.middle.http.BaseRespHandler;
-import com.xiaocoder.android_xcfw.application.XCConstant;
-import com.xiaocoder.android_xcfw.http.XCReqInfo;
-import com.xiaocoder.android_xcfw.http.XCRespInfo;
-import com.xiaocoder.android_xcfw.io.XCLog;
-import com.xiaocoder.android_xcfw.json.XCJsonParse;
+import com.xiaocoder.utils.application.XCConstant;
+import com.xiaocoder.utils.http.XCReqInfo;
+import com.xiaocoder.utils.http.XCRespInfo;
+import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.json.XCJsonParse;
 
 /**
  * @author xiaocoder

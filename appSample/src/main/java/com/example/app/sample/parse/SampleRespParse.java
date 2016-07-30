@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import com.example.app.sample.model.SampleHttpModel;
 import com.example.middle.http.BaseRespHandler;
-import com.xiaocoder.android_xcfw.http.XCReqInfo;
-import com.xiaocoder.android_xcfw.http.XCRespInfo;
+import com.xiaocoder.utils.http.XCReqInfo;
+import com.xiaocoder.utils.http.XCRespInfo;
 
 /**
  * @author xiaocoder on 2016/6/27 16:54

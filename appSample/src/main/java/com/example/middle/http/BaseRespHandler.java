@@ -6,16 +6,16 @@ import android.content.DialogInterface;
 import android.view.KeyEvent;
 
 import com.example.app.MainActivity;
-import com.xiaocoder.android_xcfw.application.XCConstant;
-import com.xiaocoder.android_xcfw.function.helper.XCAppHelper;
-import com.xiaocoder.android_xcfw.http.XCDialogManager;
-import com.xiaocoder.android_xcfw.http.XCReqInfo;
-import com.xiaocoder.android_xcfw.http.XCRespHandler;
-import com.xiaocoder.android_xcfw.http.XCRespInfo;
-import com.xiaocoder.android_xcfw.io.XCLog;
-import com.xiaocoder.android_xcfw.util.UtilDate;
-import com.xiaocoder.android_xcfw.util.UtilString;
-import com.xiaocoder.android_xcfw.util.UtilSystem;
+import com.xiaocoder.utils.application.XCConstant;
+import com.xiaocoder.utils.function.helper.XCAppHelper;
+import com.xiaocoder.utils.http.XCDialogManager;
+import com.xiaocoder.utils.http.XCReqInfo;
+import com.xiaocoder.utils.http.XCRespHandler;
+import com.xiaocoder.utils.http.XCRespInfo;
+import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.util.UtilDate;
+import com.xiaocoder.utils.util.UtilString;
+import com.xiaocoder.utils.util.UtilSystem;
 
 import java.util.Arrays;
 import java.util.Date;

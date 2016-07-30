@@ -9,10 +9,10 @@ import com.example.app.tab.OneFragment;
 import com.example.app.tab.FourFragment;
 import com.example.app.tab.ThreeFragment;
 import com.example.middle.base.BaseActivity;
-import com.xiaocoder.android_xcfw.exception.XCCrashHandler;
-import com.xiaocoder.android_xcfw.exception.XCExceptionModelDb;
-import com.xiaocoder.android_xcfw.function.helper.XCActivityHelper;
-import com.xiaocoder.android_xcfw.io.XCLog;
+import com.xiaocoder.utils.exception.XCCrashHandler;
+import com.xiaocoder.utils.exception.XCExceptionModelDb;
+import com.xiaocoder.utils.function.helper.XCActivityHelper;
+import com.xiaocoder.utils.io.XCLog;
 
 /**
  * @author xiaocoder on 2016/6/27

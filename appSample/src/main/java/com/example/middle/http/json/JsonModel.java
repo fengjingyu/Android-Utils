@@ -1,7 +1,7 @@
 package com.example.middle.http.json;
 
 import com.example.middle.http.IHttpRespInfo;
-import com.xiaocoder.android_xcfw.json.XCJsonBean;
+import com.xiaocoder.utils.json.XCJsonBean;
 
 /**
  * @author xiaocoder

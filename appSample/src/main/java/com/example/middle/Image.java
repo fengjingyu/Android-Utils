@@ -2,7 +2,8 @@ package com.example.middle;
 
 import android.widget.ImageView;
 
-import com.xiaocoder.android_xcfw.imageloader.XCIImageLoader;
+import com.xiaocoder.utils.imageloader.XCIImageLoader;
+
 
 /**
  * @author xiaocoder

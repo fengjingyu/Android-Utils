@@ -14,7 +14,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.xiaocoder.android_xcfw.io.XCIOAndroid;
+import com.xiaocoder.utils.io.XCIOAndroid;
 
 /**
  * @author xiaocoder

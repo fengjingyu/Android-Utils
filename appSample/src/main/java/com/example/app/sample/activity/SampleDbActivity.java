@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.example.app.sample.db.SampleDb;
 import com.example.app.sample.model.SampleDbModel;
 import com.example.middle.base.BaseActivity;
-import com.xiaocoder.android_xcfw.function.helper.XCAppHelper;
 
 import java.util.ArrayList;
 

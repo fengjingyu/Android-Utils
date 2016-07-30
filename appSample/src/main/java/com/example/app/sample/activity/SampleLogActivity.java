@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.example.middle.Sp;
 import com.example.middle.base.BaseActivity;
-import com.xiaocoder.android_xcfw.io.XCLog;
+import com.xiaocoder.utils.io.XCLog;
 
 public class SampleLogActivity extends BaseActivity {
 

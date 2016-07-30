@@ -9,18 +9,18 @@ import com.example.middle.config.ConfigImages;
 import com.example.middle.config.ConfigLog;
 import com.example.middle.config.ConfigUrl;
 import com.squareup.leakcanary.LeakCanary;
-import com.xiaocoder.android_xcfw.application.XCConstant;
-import com.xiaocoder.android_xcfw.exception.XCCrashHandler;
-import com.xiaocoder.android_xcfw.exception.XCExceptionModel;
-import com.xiaocoder.android_xcfw.exception.XCExceptionModelDb;
-import com.xiaocoder.android_xcfw.exception.XCIException2Server;
-import com.xiaocoder.android_xcfw.function.helper.XCAppHelper;
-import com.xiaocoder.android_xcfw.function.thread.XCExecutor;
-import com.xiaocoder.android_xcfw.http.asynchttp.XCAsyncClient;
-import com.xiaocoder.android_xcfw.imageloader.XCAsynLoader;
-import com.xiaocoder.android_xcfw.io.XCIOAndroid;
-import com.xiaocoder.android_xcfw.io.XCLog;
-import com.xiaocoder.android_xcfw.io.XCSP;
+import com.xiaocoder.utils.application.XCConstant;
+import com.xiaocoder.utils.exception.XCCrashHandler;
+import com.xiaocoder.utils.exception.XCExceptionModel;
+import com.xiaocoder.utils.exception.XCExceptionModelDb;
+import com.xiaocoder.utils.exception.XCIException2Server;
+import com.xiaocoder.utils.function.helper.XCAppHelper;
+import com.xiaocoder.utils.function.thread.XCExecutor;
+import com.xiaocoder.utils.http.asynchttp.XCAsyncClient;
+import com.xiaocoder.utils.imageloader.XCAsynLoader;
+import com.xiaocoder.utils.io.XCIOAndroid;
+import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.XCSP;
 
 /**
  * @author xiaocoder

@@ -8,9 +8,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import com.example.app.R;
-import com.xiaocoder.android_xcfw.application.XCActivity;
-import com.xiaocoder.android_xcfw.io.XCLog;
-import com.xiaocoder.android_xcfw.util.UtilBroadcast;
+import com.xiaocoder.utils.application.XCActivity;
+import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.util.UtilBroadcast;
 
 /**
  * @author xiaocoder

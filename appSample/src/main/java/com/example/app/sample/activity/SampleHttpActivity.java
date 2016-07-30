@@ -9,9 +9,9 @@ import com.example.middle.base.BaseActivity;
 import com.example.middle.http.gson.GsonRespHandler;
 import com.example.middle.http.json.JsonModel;
 import com.example.middle.http.json.JsonRespHandler;
-import com.xiaocoder.android_xcfw.http.XCReqInfo;
-import com.xiaocoder.android_xcfw.http.XCRespInfo;
-import com.xiaocoder.android_xcfw.io.XCLog;
+import com.xiaocoder.utils.http.XCReqInfo;
+import com.xiaocoder.utils.http.XCRespInfo;
+import com.xiaocoder.utils.io.XCLog;
 
 import java.io.File;
 import java.util.HashMap;

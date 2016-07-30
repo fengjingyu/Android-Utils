@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xiaocoder.test">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <application
+        android:name="com.xiaocoder.test_middle.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.xiaocoder.test.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.xiaocoder.utils.exception.XLShowExceptionsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.xiaocoder.test.TimerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.ClearCacheActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.ActivityDestroyGC"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.ExceptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.CamareActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.stack.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.stack.SearchActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.xiaocoder.test.stack.StackActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.xiaocoder.test.BaseAdapterActivity" />
+        <activity android:name="com.xiaocoder.test.recyclerview.RecycleViewActivity" />
+        <activity android:name="com.xiaocoder.test.recyclerview.WaterFallActivity" />
+        <activity android:name="com.xiaocoder.test.PropertyAnimActivity" />
+        <activity android:name="com.xiaocoder.test.LeakCanaryActivity" />
+        <activity android:name="com.xiaocoder.test.HandlerActivity" />
+    </application>
+
+</manifest>

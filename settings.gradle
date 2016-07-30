@@ -1,1 +1,1 @@
-include ':appSample', ':xcfw_demo', ':xcfw'
+include ':appSample', ':utilsTest', ':utils'

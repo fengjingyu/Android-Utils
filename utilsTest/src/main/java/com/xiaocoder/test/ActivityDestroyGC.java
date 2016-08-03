@@ -74,4 +74,10 @@ public class ActivityDestroyGC extends BaseActivity {
         super.onDestroy();
         XCLog.i(this + "--onDestroy()");
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        XCLog.i(this + "--onWindowFocusChanged");
+    }
 }

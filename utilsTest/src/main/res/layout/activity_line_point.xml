@@ -14,6 +14,10 @@
         style="@style/xc_h_line_point"
         android:layerType="software" />
 
+    <com.xiaocoder.test.view.MyTextView
+        android:layout_width="20dp"
+        android:layout_height="20dp" />
+
     <ImageView
         android:id="@+id/id_gc_imageview"
         android:layout_width="100dp"

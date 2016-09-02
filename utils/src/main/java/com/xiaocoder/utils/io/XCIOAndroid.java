@@ -241,18 +241,19 @@ public class XCIOAndroid {
     }
 
     /**
-     * 在android环境下的内部存储中的Cache里创建文件夹
+     * 在android环境下的内部存储中的里创建文件夹
      *
-     * @param dirName 如果传入的为 null或""或"   ", 则返回的file为context.getCacheDir()目录 如果传入的为
-     *                "aa/bb" 或"aa" 则在context.getCacheDir()目录下创建aa/bb或aa文件夹
+     * @param dirName 如果传入的为 null或""或"   ", 则返回的file为context.getFilesDir()目录 如果传入的为
+     *                "aa/bb" 或"aa" 则在context.getFilesDir()目录下创建aa/bb或aa文件夹
      * @return
      */
     public static File createDirInside(Context context, String dirName) {
         File dir = null;
         if (dirName == null || dirName.trim().length() == 0) {
-            return context.getCacheDir();// 内部存储下的/data/data/<package name>/cache
+            // return context.getCacheDir();// 内部存储下的/data/data/<package name>/cache
+            return context.getFilesDir();
         }
-        String dirPath = context.getCacheDir() + XCIO.FILE_SEPARATOR + dirName;
+        String dirPath = context.getFilesDir() + XCIO.FILE_SEPARATOR + dirName;
         dir = new File(dirPath);
         if (!dir.exists()) {
             dir.mkdirs();

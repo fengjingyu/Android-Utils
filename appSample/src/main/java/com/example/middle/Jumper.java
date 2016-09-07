@@ -85,18 +85,15 @@ public class Jumper {
         }
     }
 
-    public static void toActivity(Context context, Class<? extends Activity> clazz) {
-        Intent intent = new Intent(context, clazz);
-
+    public static void toActivity(Context context, Intent intent) {
         if (!(context instanceof Activity)) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-
         context.startActivity(intent);
     }
 
     public static void toMainActivity(Activity activityContext) {
-        activityContext.startActivity(new Intent(activityContext, MainActivity.class));
+        toActivity(activityContext, new Intent(activityContext, MainActivity.class));
     }
 
 }

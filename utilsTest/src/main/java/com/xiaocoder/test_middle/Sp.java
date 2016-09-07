@@ -120,7 +120,7 @@ public class Sp {
         //TODO 注销的代码 。。
 
         XCActivityHelper.finishAllActivity();
-        Jumper.toActivity(context, clazz);
+        //TODO 添加跳转代码
     }
 
 

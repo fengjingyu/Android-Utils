@@ -86,22 +86,19 @@ public class Jumper {
         }
     }
 
-    public static void toActivity(Context context, Class<? extends Activity> clazz) {
-        Intent intent = new Intent(context, clazz);
-
+    public static void toActivity(Context context, Intent intent) {
         if (!(context instanceof Activity)) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-
         context.startActivity(intent);
     }
 
     public static void toSearchActivity(Activity activityContext) {
-        activityContext.startActivity(new Intent(activityContext, SearchActivity.class));
+        toActivity(activityContext, new Intent(activityContext, SearchActivity.class));
     }
 
     public static void toSearchActivity2(Activity activityContext) {
-        activityContext.startActivity(new Intent(activityContext, SearchActivity2.class));
+        toActivity(activityContext, new Intent(activityContext, SearchActivity2.class));
     }
 
 }

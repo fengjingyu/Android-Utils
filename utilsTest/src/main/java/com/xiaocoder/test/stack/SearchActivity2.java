@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.xiaocoder.test.R;
+import com.xiaocoder.test_middle.Jumper;
+import com.xiaocoder.test_middle.base.BaseActivity;
 import com.xiaocoder.utils.function.searchdb.XCSearchRecordModel;
 import com.xiaocoder.utils.function.searchdb.XCSearchRecordModelDb;
 import com.xiaocoder.utils.io.XCLog;
-import com.xiaocoder.utils.util.UtilActivity;
-import com.xiaocoder.test.R;
-import com.xiaocoder.test_middle.base.BaseActivity;
 
 /**
  * @author xiaocoder
@@ -69,7 +69,7 @@ public class SearchActivity2 extends BaseActivity {
                         @Override
                         public void onRecordItemClickListener(XCSearchRecordModel model, String key_word, int position) {
                             XCLog.shortToast(key_word);
-                            UtilActivity.startActivity(SearchActivity2.this, SearchActivity2.class);
+                            Jumper.toSearchActivity2(SearchActivity2.this);
                         }
                     });
                     addFragment(R.id.xc_id_model_content, record_fragment);
@@ -85,7 +85,7 @@ public class SearchActivity2 extends BaseActivity {
         activity_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UtilActivity.startActivity(SearchActivity2.this, StackActivity.class);
+                Jumper.toSearchActivity(SearchActivity2.this);
             }
         });
 
@@ -94,7 +94,7 @@ public class SearchActivity2 extends BaseActivity {
             @Override
             public void searchKeyDown(String key_word) {
                 XCLog.shortToast(key_word);
-                UtilActivity.startActivity(SearchActivity2.this, SearchActivity2.class);
+                Jumper.toSearchActivity2(SearchActivity2.this);
             }
         });
     }

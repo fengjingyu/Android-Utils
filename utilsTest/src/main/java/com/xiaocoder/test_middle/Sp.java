@@ -1,8 +1,9 @@
 package com.xiaocoder.test_middle;
 
+import android.app.Activity;
 import android.content.Context;
 
-import com.xiaocoder.utils.application.XCActivity;
+import com.xiaocoder.utils.function.helper.XCActivityHelper;
 import com.xiaocoder.utils.io.XCSP;
 
 
@@ -109,7 +110,7 @@ public class Sp {
 
     }
 
-    public static void loginOut(Class<? extends XCActivity> classes, Context context) {
+    public static void loginOut(Class<Activity> clazz, Context context) {
         setLogin(false);
         setUserId("");
         setUserToken("");
@@ -118,6 +119,8 @@ public class Sp {
         setUserPhoneNum("");
         //TODO 注销的代码 。。
 
+        XCActivityHelper.finishAllActivity();
+        Jumper.toActivity(context, clazz);
     }
 
 

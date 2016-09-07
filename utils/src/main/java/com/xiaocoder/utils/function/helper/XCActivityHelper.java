@@ -123,7 +123,7 @@ public class XCActivityHelper {
      * <p/>
      * 如果该activity不存在，则一个也不删除
      */
-    public static Activity toActivity(Class<? extends Activity> activity_class) {
+    public static Activity toActivity(Class<Activity> activity_class) {
 
         if (isActivityExist(activity_class)) {
             // activity存在

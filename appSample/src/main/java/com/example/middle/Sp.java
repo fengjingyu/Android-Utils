@@ -110,7 +110,7 @@ public class Sp {
 
     }
 
-    public static void loginOut(Class<Activity> clazz, Context context) {
+    public static void loginOut(Class<? extends Activity> clazz, Context context) {
         setLogin(false);
         setUserId("");
         setUserToken("");

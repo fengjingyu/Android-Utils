@@ -1,9 +1,12 @@
 package com.xiaocoder.utils.function.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -23,7 +26,9 @@ import com.xiaocoder.utils.util.UtilOom;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -74,24 +79,7 @@ public class XCCameraPhotoFragment extends XCFragment implements View.OnClickLis
     }
 
     public void getTakePhoto() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-            temp_photo_file = new File(Environment.getExternalStorageDirectory(), UUID.randomUUID().toString());
-            if (!temp_photo_file.exists()) {
-                try {
-                    temp_photo_file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    XCLog.shortToast("创建文件失败");
-                    return;
-                }
-            }
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(temp_photo_file));
-            cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
-        } else {
-            XCLog.shortToast("请插入sd卡");
-        }
+        checkPermission();
     }
 
     public void resizeImage(Uri uri) {
@@ -279,5 +267,72 @@ public class XCCameraPhotoFragment extends XCFragment implements View.OnClickLis
 
     public void listeners() {
         xc_id_photo_camera_imageview.setOnClickListener(this);
+    }
+
+    public void checkPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 检查是否有权限
+            int hasCAMERAPermission = getActivity().checkSelfPermission(Manifest.permission.CAMERA);
+
+            if (hasCAMERAPermission != PackageManager.PERMISSION_GRANTED) {
+                List<String> permissions = new ArrayList<String>();
+                permissions.add(Manifest.permission.CAMERA);
+                requestPermissions(permissions.toArray(new String[permissions.size()]), REQUEST_CODE_SOME_FEATURES_PERMISSIONS);
+            } else {
+                // 有权限
+                todo();
+            }
+        } else {
+            //小于6.0
+            todo();
+        }
+    }
+
+    public void todo() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+            temp_photo_file = new File(Environment.getExternalStorageDirectory(), UUID.randomUUID().toString());
+            if (!temp_photo_file.exists()) {
+                try {
+                    temp_photo_file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    XCLog.shortToast("创建文件失败");
+                    return;
+                }
+            }
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(temp_photo_file));
+            cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+        } else {
+            XCLog.shortToast("请插入sd卡");
+        }
+    }
+
+    public static final int REQUEST_CODE_SOME_FEATURES_PERMISSIONS = 1;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_SOME_FEATURES_PERMISSIONS: {
+                // 遍历请求权限的集合
+                for (int i = 0; i < permissions.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        // 用户允许
+                        XCLog.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
+                        todo();
+                    } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                        // 用户拒绝
+                        XCLog.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
+                        XCLog.shortToast("请到设置界面打开摄像头权限");
+                    }
+                }
+            }
+            break;
+            default: {
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
     }
 }

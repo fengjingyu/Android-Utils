@@ -1,11 +1,13 @@
 package com.xiaocoder.utils.function.fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,7 +32,9 @@ import com.xiaocoder.utils.util.UtilOom;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author xiaocoder
@@ -79,11 +83,7 @@ public class XCLocalPhotoFragment extends XCFragment implements View.OnClickList
     }
 
     public void getLocalPhoto() {
-        Intent intentFromLocal = new Intent();
-        intentFromLocal.setType("image/*"); // 设置文件类型
-        intentFromLocal.setAction(Intent.ACTION_GET_CONTENT);
-        intentFromLocal.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intentFromLocal, LOCAL_IMAGE_REQUEST_CODE);
+        checkPermission();
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -406,5 +406,60 @@ public class XCLocalPhotoFragment extends XCFragment implements View.OnClickList
      */
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+    public void checkPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 检查是否有权限
+            int hasWRITE_EXTERNAL_STORAGEPermission = getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if (hasWRITE_EXTERNAL_STORAGEPermission != PackageManager.PERMISSION_GRANTED) {
+                List<String> permissions = new ArrayList<String>();
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                // 请求获取权限
+                requestPermissions(permissions.toArray(new String[permissions.size()]), REQUEST_CODE_SOME_FEATURES_PERMISSIONS);
+            } else {
+                // 有权限
+                todo();
+            }
+        } else {
+            //小于6.0
+            todo();
+        }
+    }
+
+    public static final int REQUEST_CODE_SOME_FEATURES_PERMISSIONS = 1;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_SOME_FEATURES_PERMISSIONS: {
+                // 遍历请求权限的集合
+                for (int i = 0; i < permissions.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                        // 用户允许
+                        XCLog.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
+                        todo();
+                    } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                        // 用户拒绝
+                        XCLog.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
+                        XCLog.shortToast("请到设置界面打开相册权限");
+                    }
+                }
+            }
+            break;
+            default: {
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        }
+    }
+
+    private void todo() {
+        Intent intentFromLocal = new Intent();
+        intentFromLocal.setType("image/*"); // 设置文件类型
+        intentFromLocal.setAction(Intent.ACTION_GET_CONTENT);
+        intentFromLocal.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intentFromLocal, LOCAL_IMAGE_REQUEST_CODE);
     }
 }

@@ -48,6 +48,12 @@ public class TestActivity extends BaseActivity {
         testJsonFormat();
         testLinkedBlockQueue();
         testSubList();
+        testRuntime();
+    }
+
+    private void testRuntime() {
+        XCLog.i("Runtime.getRuntime().availableProcessors()--" + Runtime.getRuntime().availableProcessors());
+        XCLog.i("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory());
     }
 
     private void testSp() {

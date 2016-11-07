@@ -19,7 +19,7 @@ public class XCExecutor {
     private XCExecutor() {
     }
 
-    public static void initXCExecutor(int fixNum) {
+    public static void initXCExecutor() {
 
         if (threadpool_single == null) {
             synchronized (XCExecutor.class) {
@@ -37,12 +37,10 @@ public class XCExecutor {
             }
         }
 
-        if (fixNum > 0) {
-            if (threadpool_fix == null) {
-                synchronized (XCExecutor.class) {
-                    if (threadpool_fix == null) {
-                        threadpool_fix = Executors.newFixedThreadPool(fixNum);
-                    }
+        if (threadpool_fix == null) {
+            synchronized (XCExecutor.class) {
+                if (threadpool_fix == null) {
+                    threadpool_fix = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
                 }
             }
         }

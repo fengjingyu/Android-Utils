@@ -86,7 +86,7 @@ public class App extends Application {
     }
 
     private void initThreadPool() {
-        XCExecutor.initXCExecutor(ConfigGeneral.FIX_THREAD_NUM);
+        XCExecutor.initXCExecutor();
     }
 
     private void createDir() {

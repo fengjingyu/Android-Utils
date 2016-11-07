@@ -7,6 +7,5 @@ package com.xiaocoder.test_middle.config;
  */
 public class ConfigGeneral {
 
-    public static int FIX_THREAD_NUM = 60;
 
 }

@@ -6,7 +6,6 @@ import com.example.app.sample.model.SampleHttpModel;
 import com.example.app.sample.parse.SampleRespParse;
 import com.example.middle.Http;
 import com.example.middle.base.BaseActivity;
-import com.example.middle.http.gson.GsonRespHandler;
 import com.example.middle.http.json.JsonModel;
 import com.example.middle.http.json.JsonRespHandler;
 import com.xiaocoder.utils.http.XCReqInfo;
@@ -68,18 +67,18 @@ public class SampleHttpActivity extends BaseActivity {
      */
     public void requestGson() {
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("param1", "value1");
-        map.put("param2", new File("path"));
-
-        // 请求成功，解析成功，业务状态码成功
-        Http.post("url", map, new GsonRespHandler<SampleHttpModel>(this, SampleHttpModel.class) {
-            @Override
-            public void onSuccessAll(XCReqInfo reqInfo, XCRespInfo respInfo, SampleHttpModel resultBean) {
-                super.onSuccessAll(reqInfo, respInfo, resultBean);
-                XCLog.shortToast(resultBean.getMsg());
-            }
-        });
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("param1", "value1");
+//        map.put("param2", new File("path"));
+//
+//        // 请求成功，解析成功，业务状态码成功
+//        Http.post("url", map, new GsonRespHandler<SampleHttpModel>(this, SampleHttpModel.class) {
+//            @Override
+//            public void onSuccessAll(XCReqInfo reqInfo, XCRespInfo respInfo, SampleHttpModel resultBean) {
+//                super.onSuccessAll(reqInfo, respInfo, resultBean);
+//                XCLog.shortToast(resultBean.getMsg());
+//            }
+//        });
     }
 
     /**

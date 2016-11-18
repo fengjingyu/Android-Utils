@@ -6,7 +6,6 @@ import com.xiaocoder.utils.application.XCConstant;
 import com.xiaocoder.utils.http.XCReqInfo;
 import com.xiaocoder.utils.http.XCRespInfo;
 import com.xiaocoder.utils.io.XCLog;
-import com.xiaocoder.utils.json.SXGsonParse;
 import com.xiaocoder.test_middle.http.BaseRespHandler;
 
 /**

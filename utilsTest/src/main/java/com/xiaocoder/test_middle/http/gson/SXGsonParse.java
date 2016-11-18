@@ -1,4 +1,4 @@
-package com.xiaocoder.utils.json;
+package com.xiaocoder.test_middle.http.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

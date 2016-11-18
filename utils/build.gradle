@@ -31,7 +31,6 @@ dependencies {
     // 5.0之后，httpclient包从android删除了，1.4.9的asynchttp引入以下httpclient
     compile 'cz.msebera.android:httpclient:4.3.6'
     compile files('libs/universal-image-loader-1.9.0-with-sources.jar')
-    compile files('libs/gson-2.3.1.jar')
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.6.0'

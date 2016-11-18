@@ -51,14 +51,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
-
     compile(name: 'utils-release', ext: 'aar')
-
     // asynhttp在6.0时，对httpclient的依赖,如果用okhttp这个可以不用
     compile 'cz.msebera.android:httpclient:4.3.6'
-
-    // 内存泄露的依赖
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

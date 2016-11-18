@@ -4,11 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 import com.example.middle.config.ConfigFile;
-import com.example.middle.config.ConfigGeneral;
 import com.example.middle.config.ConfigImages;
 import com.example.middle.config.ConfigLog;
 import com.example.middle.config.ConfigUrl;
-import com.squareup.leakcanary.LeakCanary;
 import com.xiaocoder.utils.application.XCConstant;
 import com.xiaocoder.utils.exception.XCCrashHandler;
 import com.xiaocoder.utils.exception.XCExceptionModel;
@@ -35,8 +33,6 @@ public class App extends Application {
 
         initAppHelper();
 
-        initLeakCanary();
-
         createDir();
 
         initLog();
@@ -59,12 +55,6 @@ public class App extends Application {
         XCLog.i(XCConstant.TAG_SYSTEM_OUT, ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString() + "-----域名环境");
 
         XCLog.i(XCConstant.TAG_SYSTEM_OUT, ConfigLog.DEBUG_CONTROL.toString() + "-----日志环境");
-    }
-
-    private void initLeakCanary() {
-        if (!(ConfigLog.DEBUG_CONTROL == ConfigLog.DebugControl.CLOSE)) {
-            LeakCanary.install(this);
-        }
     }
 
     private void initAppHelper() {

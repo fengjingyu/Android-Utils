@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 
@@ -20,17 +19,6 @@ import java.util.List;
  * @description
  */
 public class XCJsonParse {
-
-    /**
-     * 该tag可以查看json返回的字段的数据类型
-     */
-    public static final String TAG_JSON_TYPE = "JsonType";
-    /**
-     * 列出json返回的字段，并以假bean的形式打印到控制台，复制粘贴后可创建一个假bean类，假bean类里有字符串常量和get方法set方法
-     * <p/>
-     * 注：假bean类不在用了， 现在用studio的gsonformat插件，自动生成一个真model
-     */
-    public static final String TAG_JSON_BEAN = "JsonBean";
 
     /**
      * { } 解析json对象
@@ -83,7 +71,6 @@ public class XCJsonParse {
             e.printStackTrace();
             return null;
         }
-
     }
 
     /**
@@ -145,21 +132,6 @@ public class XCJsonParse {
                         }
                     }
                 } else {
-                    if (XCLog.isOutput) {
-                        if (o instanceof Boolean) {
-                            XCLog.i(TAG_JSON_TYPE, key.toString() + "---->" + o.toString() + "----is boolean");
-                        } else if (o instanceof Integer) {
-                            XCLog.i(TAG_JSON_TYPE, key.toString() + "---->" + o.toString() + "----is Integer");
-                        } else if (o instanceof String) {
-                            XCLog.i(TAG_JSON_TYPE, key.toString() + "---->" + o.toString() + "----is String");
-                        } else if (o instanceof Long) {
-                            XCLog.i(TAG_JSON_TYPE, key.toString() + "---->" + o.toString() + "----is Long");
-                        } else if (o instanceof Double) {
-                            XCLog.i(TAG_JSON_TYPE, key.toString() + "---->" + o.toString() + "----is Double");
-                        } else {
-                            XCLog.i(TAG_JSON_TYPE, key.toString() + "---->" + o.toString() + "----is Else Type");
-                        }
-                    }
                     result.add(key, o);
                 }
             }
@@ -169,94 +141,6 @@ public class XCJsonParse {
             return null;
         }
     }
-
-    /**
-     * 创建假bean类 , 这里只是打印接口字段的常量出来了而已,然后复制粘贴字段
-     */
-    public static void json2Bean(String json) {
-
-        if (XCLog.isOutput && json != null) {
-            LinkedHashSet<String> set = new LinkedHashSet<String>();
-            json = json.replace("\"", "");
-            json = json.replace(" ", "");
-            json = json.replace("{", "{,");
-            json = json.replace("[", "[,");
-            String[] items = json.split(",");
-            StringBuilder builder = new StringBuilder("");
-
-            builder.append("public class  文件名  extends MBean {");
-
-            LinkedHashSet<String> sub = new LinkedHashSet<String>();
-
-            for (String item : items) {
-
-                //可能中文的语句之间有，
-                if (!item.contains(":")) {
-                    continue;
-                }
-
-                String[] keyvalues = item.split(":");
-
-                if (UtilString.isBlank(keyvalues[0]) || set.contains(keyvalues[0])) {
-                    // key为空  或者  已经加入了集合,则返回
-                    continue;
-                } else {
-                    // 未加入集合
-                    if (keyvalues[1] != null && (keyvalues[1].contains("[") || keyvalues[1].contains("{"))) {
-                        // 表示该字段是 如  list：{}  ， list：[]  set 和 get方法不需要该字段，先记录这些字段
-                        sub.add(keyvalues[0]);
-                    }
-                    set.add(keyvalues[0]);
-                    builder.append("public String " + keyvalues[0].trim() + "=" + "\"" + keyvalues[0].trim() + "\"" + ";");
-                }
-            }
-
-            // 把get 与 set 不需要的key删除
-            for (String sub_key : sub) {
-                set.remove(sub_key);
-            }
-
-            for (String key : set) {
-
-                builder.append("public String get")
-                        .append(UtilString.setFirstLetterBig(key))
-                        .append("() { return getString(" + key + ");")
-                        .append("}");
-
-                builder.append("public void set")
-                        .append(UtilString.setFirstLetterBig(key))
-                        .append("( Object value) { add(" + key + " , value);")
-                        .append("}");
-
-            }
-
-            builder.append("}");
-
-            XCLog.i(TAG_JSON_BEAN, builder.toString());
-        }
-    }
-
-    public static void getJsonFiled(byte[] bytes) {
-
-        try {
-            String json = new String(bytes, "utf-8");
-            json = json.replace("\"", "");
-            String[] items = json.split(",");
-
-            StringBuilder sb = new StringBuilder();
-
-            for (String item : items) {
-                String[] keyvalues = item.split(":");
-                sb.append("bean." + keyvalues[0].trim() + "= jsonObj.getString(\"" + keyvalues[0].trim() + "\");");
-            }
-
-            XCLog.i(TAG_JSON_BEAN, sb.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     public static final String TAB = "\t\t";
     public static final String RETURN = "\n";

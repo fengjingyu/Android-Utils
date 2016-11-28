@@ -350,7 +350,7 @@ public class UtilSystem {
      *
      * @return true为前台
      */
-    public static boolean isAppToForeground(Context context) {
+    public static boolean isAppOnForeground(Context context) {
 
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 

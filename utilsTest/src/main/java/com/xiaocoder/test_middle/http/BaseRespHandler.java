@@ -5,8 +5,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
+import com.xiaocoder.test.MainActivity;
+import com.xiaocoder.test_middle.App;
 import com.xiaocoder.utils.application.XCConstant;
-import com.xiaocoder.utils.function.helper.XCAppHelper;
 import com.xiaocoder.utils.http.XCDialogManager;
 import com.xiaocoder.utils.http.XCReqInfo;
 import com.xiaocoder.utils.http.XCRespHandler;
@@ -15,7 +16,6 @@ import com.xiaocoder.utils.io.XCLog;
 import com.xiaocoder.utils.util.UtilDate;
 import com.xiaocoder.utils.util.UtilString;
 import com.xiaocoder.utils.util.UtilSystem;
-import com.xiaocoder.test.MainActivity;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -148,8 +148,8 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
     public void setHttpHeaders(XCReqInfo reqInfo) {
         //TODO 设置请求头
         Map<String, List<String>> map = new HashMap<>();
-        map.put("_v", Arrays.asList(UtilSystem.getVersionCode(XCAppHelper.getAppContext()) + ""));
-        map.put("_m", Arrays.asList(UtilSystem.getMacAddress(XCAppHelper.getAppContext())));
+        map.put("_v", Arrays.asList(UtilSystem.getVersionCode(App.getAppContext()) + ""));
+        map.put("_m", Arrays.asList(UtilSystem.getMacAddress(App.getAppContext())));
         map.put("_p", Arrays.asList("1"));
         reqInfo.setHeadersMap(map);
     }

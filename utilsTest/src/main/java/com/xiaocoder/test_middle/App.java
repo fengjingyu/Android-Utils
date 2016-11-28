@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.xiaocoder.test_middle.config.ConfigFile;
-import com.xiaocoder.test_middle.config.ConfigGeneral;
 import com.xiaocoder.test_middle.config.ConfigImages;
 import com.xiaocoder.test_middle.config.ConfigLog;
 import com.xiaocoder.test_middle.config.ConfigUrl;
@@ -14,13 +13,13 @@ import com.xiaocoder.utils.exception.XCCrashHandler;
 import com.xiaocoder.utils.exception.XCExceptionModel;
 import com.xiaocoder.utils.exception.XCExceptionModelDb;
 import com.xiaocoder.utils.exception.XCIException2Server;
-import com.xiaocoder.utils.function.helper.XCAppHelper;
-import com.xiaocoder.utils.function.thread.XCExecutor;
 import com.xiaocoder.utils.http.asynchttp.XCAsyncClient;
 import com.xiaocoder.utils.imageloader.XCAsynLoader;
 import com.xiaocoder.utils.io.XCIOAndroid;
 import com.xiaocoder.utils.io.XCLog;
 import com.xiaocoder.utils.io.XCSP;
+import com.xiaocoder.utils.util.UtilScreen;
+import com.xiaocoder.utils.util.UtilSystem;
 
 /**
  * @author xiaocoder
@@ -28,12 +27,16 @@ import com.xiaocoder.utils.io.XCSP;
  * @description 初始化的顺序不要去改动
  */
 public class App extends Application {
+    private static Application instance;
+
+    private static Context appContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        initAppHelper();
+        instance = this;
+        appContext = this;
 
         initLeakCanary();
 
@@ -43,8 +46,6 @@ public class App extends Application {
 
         initSp();
 
-        initThreadPool();
-
         initImageLoader();
 
         initHttp();
@@ -53,6 +54,14 @@ public class App extends Application {
 
         printEnvironment();
 
+    }
+
+    public static Context getAppContext() {
+        return appContext;
+    }
+
+    public static Application getApplication() {
+        return instance;
     }
 
     private void printEnvironment() {
@@ -76,10 +85,6 @@ public class App extends Application {
         }
     }
 
-    private void initAppHelper() {
-        XCAppHelper.init(this);
-    }
-
     /**
      * sp保存文件名 与 模式
      */
@@ -92,10 +97,6 @@ public class App extends Application {
         XCLog.initXCLog(getApplicationContext(),
                 ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG,
                 ConfigFile.APP_ROOT, ConfigFile.LOG_FILE, XCConstant.ENCODING_UTF8);
-    }
-
-    private void initThreadPool() {
-        XCExecutor.initXCExecutor();
     }
 
     private void createDir() {
@@ -135,5 +136,20 @@ public class App extends Application {
                 }
             }
         });
+    }
+
+    /**
+     * 设备启动时，输出设备与app的基本信息
+     */
+    public String simpleDeviceInfo() {
+        return (UtilSystem.getDeviceId(getAppContext()) + "--deviceId , "
+                + UtilSystem.getVersionCode(getAppContext()) + "--versionCode , "
+                + UtilSystem.getVersionName(getAppContext()) + "--versionName , "
+                + UtilScreen.getScreenHeightPx(getAppContext()) + "--screenHeightPx , "
+                + UtilScreen.getScreenWidthPx(getAppContext()) + "--screenWidthPx , "
+                + UtilScreen.getDensity(getAppContext()) + "--density , "
+                + UtilScreen.getScreenHeightDP(getAppContext()) + "--screenHeightDP , "
+                + UtilScreen.getScreenWidthPx(getAppContext()) + "--screenWidthDP),"
+                + UtilScreen.getStatusBarHeight(getAppContext()) + "--statusBarHeightPx");
     }
 }

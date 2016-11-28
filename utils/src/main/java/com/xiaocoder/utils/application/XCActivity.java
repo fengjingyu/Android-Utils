@@ -61,12 +61,8 @@ public abstract class XCActivity extends FragmentActivity {
         XCActivityHelper.delActivityFromStack(this);
     }
 
-    /**
-     * 该方法不删除 ，防止fragment被保存
-     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-
     }
 
     @Override
@@ -121,12 +117,6 @@ public abstract class XCActivity extends FragmentActivity {
         getSupportFragmentManager().executePendingTransactions();
     }
 
-    public void hideFragment(Fragment fragment) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.hide(fragment);
-        ft.commitAllowingStateLoss();
-    }
-
     @SuppressWarnings("unchecked")
     public <T extends Fragment> T getFragmentByTag(String tag) {
         return (T) getSupportFragmentManager().findFragmentByTag(tag);
@@ -160,32 +150,22 @@ public abstract class XCActivity extends FragmentActivity {
         return fragment;
     }
 
-    /**
-     * title等别的fragment不隐藏
-     */
-    public void hideBodyFragment() {
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-
-        if (fragments != null) {
-            for (Fragment fragment : fragments) {
-                if (((XCFragment) fragment).isBodyFragment()) {
-                    hideFragment(fragment);
-                }
-            }
-        }
+    public void hideFragment(Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.hide(fragment);
+        ft.commitAllowingStateLoss();
     }
 
-    /**
-     * 隐藏所有fragment
-     */
-    public void hideAllFragment() {
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-
+    public void hideFragment(List<Fragment> fragments) {
         if (fragments != null) {
             for (Fragment fragment : fragments) {
                 hideFragment(fragment);
             }
         }
+    }
+
+    public void hideAllFragment() {
+        hideFragment(getSupportFragmentManager().getFragments());
     }
 
     /**

@@ -12,13 +12,13 @@ import com.xiaocoder.utils.exception.XCCrashHandler;
 import com.xiaocoder.utils.exception.XCExceptionModel;
 import com.xiaocoder.utils.exception.XCExceptionModelDb;
 import com.xiaocoder.utils.exception.XCIException2Server;
-import com.xiaocoder.utils.function.helper.XCAppHelper;
-import com.xiaocoder.utils.function.thread.XCExecutor;
 import com.xiaocoder.utils.http.asynchttp.XCAsyncClient;
 import com.xiaocoder.utils.imageloader.XCAsynLoader;
 import com.xiaocoder.utils.io.XCIOAndroid;
 import com.xiaocoder.utils.io.XCLog;
 import com.xiaocoder.utils.io.XCSP;
+import com.xiaocoder.utils.util.UtilScreen;
+import com.xiaocoder.utils.util.UtilSystem;
 
 /**
  * @author xiaocoder
@@ -27,19 +27,22 @@ import com.xiaocoder.utils.io.XCSP;
  */
 public class App extends Application {
 
+    private static Application instance;
+
+    private static Context appContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        initAppHelper();
+        instance = this;
+        appContext = this;
 
         createDir();
 
         initLog();
 
         initSp();
-
-        initThreadPool();
 
         initImageLoader();
 
@@ -49,16 +52,22 @@ public class App extends Application {
 
         printEnvironment();
 
+        simpleDeviceInfo();
+
+    }
+
+    public static Context getAppContext() {
+        return appContext;
+    }
+
+    public static Application getApplication() {
+        return instance;
     }
 
     private void printEnvironment() {
         XCLog.i(XCConstant.TAG_SYSTEM_OUT, ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString() + "-----域名环境");
 
         XCLog.i(XCConstant.TAG_SYSTEM_OUT, ConfigLog.DEBUG_CONTROL.toString() + "-----日志环境");
-    }
-
-    private void initAppHelper() {
-        XCAppHelper.init(this);
     }
 
     /**
@@ -73,10 +82,6 @@ public class App extends Application {
         XCLog.initXCLog(getApplicationContext(),
                 ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG,
                 ConfigFile.APP_ROOT, ConfigFile.LOG_FILE, XCConstant.ENCODING_UTF8);
-    }
-
-    private void initThreadPool() {
-        XCExecutor.initXCExecutor();
     }
 
     private void createDir() {
@@ -116,5 +121,20 @@ public class App extends Application {
                 }
             }
         });
+    }
+
+    /**
+     * 设备启动时，输出设备与app的基本信息
+     */
+    public String simpleDeviceInfo() {
+        return (UtilSystem.getDeviceId(getAppContext()) + "--deviceId , "
+                + UtilSystem.getVersionCode(getAppContext()) + "--versionCode , "
+                + UtilSystem.getVersionName(getAppContext()) + "--versionName , "
+                + UtilScreen.getScreenHeightPx(getAppContext()) + "--screenHeightPx , "
+                + UtilScreen.getScreenWidthPx(getAppContext()) + "--screenWidthPx , "
+                + UtilScreen.getDensity(getAppContext()) + "--density , "
+                + UtilScreen.getScreenHeightDP(getAppContext()) + "--screenHeightDP , "
+                + UtilScreen.getScreenWidthPx(getAppContext()) + "--screenWidthDP),"
+                + UtilScreen.getStatusBarHeight(getAppContext()) + "--statusBarHeightPx");
     }
 }

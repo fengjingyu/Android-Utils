@@ -43,7 +43,6 @@ public class XCActivityHelper {
      * 获取顶层Activity（activity不删除）
      */
     public static Activity getCurrentActivity() {
-
         return stack.lastElement();
     }
 
@@ -101,21 +100,20 @@ public class XCActivityHelper {
      * 结束当前Activity
      */
     public static void finishCurrentActivity() {
-
         finishActivity(getCurrentActivity());
     }
 
-    /**
-     * 关闭所有的activity
-     */
     public static void finishAllActivity() {
-        for (Activity activity : stack) {
-            // finishActivity(activity);//并发修改异常
-            if (activity != null) {
-                activity.finish();
+        if (stack != null && !stack.isEmpty()) {
+            Stack<Activity> currentStack = new Stack<>();
+            currentStack.addAll(stack);
+            for (Activity activity : currentStack) {
+                if (activity != null) {
+                    activity.finish();
+                }
             }
+            stack.clear();
         }
-        stack.clear();
     }
 
     /**

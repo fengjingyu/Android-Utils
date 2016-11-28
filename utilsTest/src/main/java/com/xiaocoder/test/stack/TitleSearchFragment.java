@@ -123,7 +123,9 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
                 }
                 canclelistener.clicked(keyword);
             } else {
-                finishActivity();
+                if (getActivity() != null && !getActivity().isFinishing()) {
+                    getActivity().finish();
+                }
             }
         } else if (id == R.id.xc_id_fragment_search_edittext) {
             if (clicklistener != null) {
@@ -269,10 +271,5 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
                 return false;
             }
         });
-    }
-
-    @Override
-    public boolean isBodyFragment() {
-        return false;
     }
 }

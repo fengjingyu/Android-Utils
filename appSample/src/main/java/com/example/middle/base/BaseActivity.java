@@ -18,6 +18,14 @@ import com.xiaocoder.utils.util.UtilBroadcast;
  * @description
  */
 public abstract class BaseActivity extends XCActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        XCLog.i(this + "---onCreate");
+        initReceiver();
+    }
+
     /**
      * 是否有网络的回调，可能统一处理应用对网络转换的逻辑
      */
@@ -32,36 +40,19 @@ public abstract class BaseActivity extends XCActivity {
             boolean hasConnectivity = info != null && info.isConnected();
 
             if (hasConnectivity) {
-                if (mNetListener != null) {
-                    XCLog.dShortToast("有网");
-                    mNetListener.onNetNormal();
-                }
+                XCLog.dShortToast("有网");
+                onNetNormal();
             } else {
-                if (mNetListener != null) {
-                    XCLog.dShortToast("无网");
-                    mNetListener.onNetLoss();
-                }
+                XCLog.dShortToast("无网");
+                onNetLoss();
             }
         }
     };
 
-    interface OnNetChangeListener {
-        void onNetLoss();
-
-        void onNetNormal();
+    protected void onNetNormal() {
     }
 
-    private OnNetChangeListener mNetListener;
-
-    public void setOnNetChangeListener(OnNetChangeListener listener) {
-        mNetListener = listener;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        XCLog.i(this + "---onCreate");
-        initReceiver();
+    protected void onNetLoss() {
     }
 
     private void initReceiver() {
@@ -77,19 +68,6 @@ public abstract class BaseActivity extends XCActivity {
         unbindReceiver();
         super.onDestroy();
         XCLog.i(this + "---onDestroy");
-    }
-
-    /**
-     * activity进入动画
-     */
-    public void activityAnimation() {
-        overridePendingTransition(R.anim.baseactivity_slide_right_in, R.anim.baseactivity_slide_right_out);
-    }
-
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode, Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
-        activityAnimation();
     }
 
     @Override
@@ -125,7 +103,6 @@ public abstract class BaseActivity extends XCActivity {
     @Override
     public void finish() {
         super.finish();
-        activityAnimation();
         XCLog.i(this + "---finish");
     }
 }

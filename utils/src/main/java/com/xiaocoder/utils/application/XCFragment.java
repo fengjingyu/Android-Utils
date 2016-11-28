@@ -74,21 +74,6 @@ public abstract class XCFragment extends Fragment {
         return (T) getChildFragmentManager().findFragmentByTag(tag);
     }
 
-    /**
-     * 页面滑动切换的时候，用得到
-     * <p/>
-     * @return
-     */
-    public boolean isBodyFragment() {
-        return true;
-    }
-
-    public void finishActivity() {
-        if (getActivity() != null && !getActivity().isFinishing()) {
-            getActivity().finish();
-        }
-    }
-
     public Intent getIntent() {
         if (getActivity() != null) {
             return getActivity().getIntent();
@@ -120,7 +105,7 @@ public abstract class XCFragment extends Fragment {
 }
 /**
  * 会等父fragment的onActivityCreated完成后才会调用子fragment的onCreate()方法
- *
+ * <p/>
  * MyFragment onAttach() 粘贴到activity上
  * <p/>
  * MyFragment onCreate() fragment创建

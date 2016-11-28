@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 /**
  * HomeWatcher
  * Home键监听封装
+ *
  * @author songxin on 2016/4/27.
  * @version 2.3.0
  */
@@ -17,15 +18,15 @@ public class HomeWatcher {
     private OnHomePressedListener mListener;
     private InnerRecevier mRecevier;
 
-    // 回调接口
     public interface OnHomePressedListener {
-        public void onHomePressed();
+        void onHomePressed();
 
-        public void onHomeLongPressed();
+        void onHomeLongPressed();
     }
 
     /**
      * 构造方法
+     *
      * @param context
      */
     public HomeWatcher(Context context) {
@@ -89,7 +90,7 @@ public class HomeWatcher {
                         }
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

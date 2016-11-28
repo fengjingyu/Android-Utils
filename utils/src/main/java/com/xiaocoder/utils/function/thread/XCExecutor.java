@@ -10,52 +10,32 @@ import java.util.concurrent.Executors;
  */
 public class XCExecutor {
 
-    private static ExecutorService threadpool_single;
-    private static ExecutorService threadpool_cache;
-    private static ExecutorService threadpool_fix;
-
-    private static XCExecutor executor = new XCExecutor();
-
     private XCExecutor() {
     }
 
-    public static void initXCExecutor() {
+    private static class SinglePool {
+        private static final ExecutorService instance = Executors.newSingleThreadExecutor();
+    }
 
-        if (threadpool_single == null) {
-            synchronized (XCExecutor.class) {
-                if (threadpool_single == null) {
-                    threadpool_single = Executors.newSingleThreadExecutor();
-                }
-            }
-        }
+    private static class CachePool {
+        private static final ExecutorService instance = Executors.newCachedThreadPool();
+    }
 
-        if (threadpool_cache == null) {
-            synchronized (XCExecutor.class) {
-                if (threadpool_cache == null) {
-                    threadpool_cache = Executors.newCachedThreadPool();
-                }
-            }
-        }
+    private static class FixPool {
+        private static final ExecutorService instance = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
-        if (threadpool_fix == null) {
-            synchronized (XCExecutor.class) {
-                if (threadpool_fix == null) {
-                    threadpool_fix = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
-                }
-            }
-        }
     }
 
     public static ExecutorService getSingle() {
-        return threadpool_single;
+        return SinglePool.instance;
     }
 
     public static ExecutorService getCache() {
-        return threadpool_cache;
+        return CachePool.instance;
     }
 
     public static ExecutorService getFix() {
-        return threadpool_fix;
+        return FixPool.instance;
     }
 
 

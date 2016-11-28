@@ -5,7 +5,6 @@ import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -33,6 +32,17 @@ import java.util.UUID;
  * @description
  */
 public class UtilSystem {
+
+    private String getCurProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return "";
+    }
 
     public static int getPid() {
 
@@ -104,35 +114,6 @@ public class UtilSystem {
             }
         }
         return localList.get(0).topActivity;
-    }
-
-    /**
-     * 判断app是否在后台，该方法在广播中可以判断
-     */
-    public static boolean isApplicationToBackground(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            ComponentName topActivity = tasks.get(0).topActivity;
-            if (!topActivity.getPackageName().equals(context.getPackageName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * app是否启动
-     */
-    public static boolean isAppRunning(Context context, String pack_name) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(100);
-        for (ActivityManager.RunningTaskInfo info : list) {
-            if (info.topActivity.getPackageName().equals(pack_name) && info.baseActivity.getPackageName().equals(pack_name)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -221,34 +202,31 @@ public class UtilSystem {
     }
 
     /**
-     * 检查某个应用是否安装
+     * 微信包名
      */
-    public static boolean checkAPP(Context context, String packageName) {
-        if (packageName == null || "".equals(packageName))
-            return false;
-        try {
-            ApplicationInfo info = context.getPackageManager()
-                    .getApplicationInfo(packageName,
-                            PackageManager.GET_UNINSTALLED_PACKAGES);
-            return true;
-        } catch (NameNotFoundException e) {
-            return false;
-        }
-    }
-
+    public static final String WEIXIN_PACKAGE_NAME = "com.tencent.mm";
     /**
-     * 检测某类应用是否安装
+     * QQ包名
      */
-    public static boolean checkApp2(Context context, String packageContent) {
-        PackageManager pageManage = context.getPackageManager();
-        List<PackageInfo> packages = pageManage.getInstalledPackages(0);
-        String pagName = "";
-        for (int i = 0; i < packages.size(); i++) {
-            PackageInfo packageInfo = packages.get(i);
-            pagName = packageInfo.packageName;
-            //判断是否为QQ包名
-            if (pagName.contains(packageContent)) {
-                return true;
+    public static final String MOBILEQQ_PACKAGE_NAME = "com.tencent.mobileqq";
+    /**
+     * 判断微信是否安装
+     *
+     * @param context
+     * @param appPackageName 应用包名
+     * @return true 安装;  false 没安装
+     */
+    public static boolean checkAppInstall(Context context, String appPackageName) {
+        if (null != context && !UtilString.isBlank(appPackageName)) {
+            final PackageManager packageManager = context.getPackageManager();
+            List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
+            if (pinfo != null) {
+                for (int i = 0; i < pinfo.size(); i++) {
+                    String pn = pinfo.get(i).packageName;
+                    if (pn.equals(appPackageName)) {
+                        return true;
+                    }
+                }
             }
         }
         return false;
@@ -262,10 +240,8 @@ public class UtilSystem {
      */
     public static String getDeviceId(Context context) {
         // 没有设备id，则生成保存
-        TelephonyManager tm = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        String deviceId = tm.getDeviceId(); // 这里的deviceId为IMEI
-        // 防止刷机和山寨机 http://www.lexun.cn/thread-22891880-1-1.html
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String deviceId = tm.getDeviceId();
         if (deviceId != null) {
             char[] chs = deviceId.toCharArray();
             int size = chs.length;
@@ -354,7 +330,7 @@ public class UtilSystem {
      * @param con 上下文
      * @return String 运营商信息
      */
-    public static String getCarrier(Context con) {
+    public static String getOperatorName(Context con) {
         TelephonyManager telManager = (TelephonyManager) con.getSystemService(Context.TELEPHONY_SERVICE);
         String imsi = telManager.getSubscriberId();
         if (imsi != null && !"".equals(imsi)) {

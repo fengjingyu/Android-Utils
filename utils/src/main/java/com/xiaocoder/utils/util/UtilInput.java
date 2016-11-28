@@ -35,7 +35,7 @@ public class UtilInput {
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 // imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
             }
-        }, 500);
+        }, 300);
     }
 
     public static void hiddenInputMethod(Context context) {

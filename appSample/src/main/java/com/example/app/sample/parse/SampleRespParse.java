@@ -4,11 +4,10 @@ import android.app.Activity;
 
 import com.example.app.sample.model.SampleHttpModel;
 import com.example.middle.http.BaseRespHandler;
-import com.xiaocoder.utils.http.XCReqInfo;
-import com.xiaocoder.utils.http.XCRespInfo;
+import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespInfo;
 
 /**
- * @author xiaocoder on 2016/6/27 16:54
  * @email fengjingyu@foxmail.com
  * @description 解析类
  */
@@ -22,7 +21,7 @@ public class SampleRespParse extends BaseRespHandler<SampleHttpModel> {
     }
 
     @Override
-    public SampleHttpModel onParse2Model(XCReqInfo xcReqInfo, XCRespInfo xcRespInfo) {
+    public SampleHttpModel onParse2Model(ReqInfo xcReqInfo, RespInfo xcRespInfo) {
 
         String respString = xcRespInfo.getDataString();
         // 解析respString，这里省略

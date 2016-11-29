@@ -14,10 +14,9 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.xiaocoder.utils.io.XCIOAndroid;
+import com.xiaocoder.utils.util.UtilIoAndr;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */
@@ -82,7 +81,7 @@ public class ConfigImages {
                         .discCacheFileCount(500)
                         // 缓存的文件数量
 
-                        .discCache(new UnlimitedDiscCache(XCIOAndroid.createDirInAndroid(context, ConfigFile.CACHE_DIR)))
+                        .discCache(new UnlimitedDiscCache(UtilIoAndr.createDirInAndroid(context, ConfigFile.CACHE_DIR)))
                         // 自定义缓存路径
 
                         .defaultDisplayImageOptions(DisplayImageOptions.createSimple())

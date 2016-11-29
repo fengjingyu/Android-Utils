@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.example.middle.Sp;
 import com.example.middle.base.BaseActivity;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.LogHelper;
 
 public class SampleLogActivity extends BaseActivity {
 
@@ -18,23 +18,23 @@ public class SampleLogActivity extends BaseActivity {
      * 日志 提示
      */
     public void log() {
-        XCLog.i(1);
-        XCLog.i(null);
-        XCLog.i(new Object());
-        XCLog.i("demo");
-        XCLog.i(false);
+        LogHelper.i(1);
+        LogHelper.i(null);
+        LogHelper.i(new Object());
+        LogHelper.i("demo");
+        LogHelper.i(false);
 
-        XCLog.shortToast(1);
-        XCLog.shortToast(null);
-        XCLog.shortToast(new Object());
-        XCLog.shortToast("demo");
-        XCLog.shortToast(false);
+        LogHelper.shortToast(1);
+        LogHelper.shortToast(null);
+        LogHelper.shortToast(new Object());
+        LogHelper.shortToast("demo");
+        LogHelper.shortToast(false);
 
-        XCLog.dLongToast(1);
-        XCLog.dLongToast(null);
-        XCLog.dLongToast(new Object());
-        XCLog.dLongToast("demo");
-        XCLog.dLongToast(false);
+        LogHelper.dLongToast(1);
+        LogHelper.dLongToast(null);
+        LogHelper.dLongToast(new Object());
+        LogHelper.dLongToast("demo");
+        LogHelper.dLongToast(false);
     }
 
     /**

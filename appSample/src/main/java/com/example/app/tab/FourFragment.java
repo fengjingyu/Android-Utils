@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.app.R;
 import com.example.middle.base.BaseFragment;
+import com.xiaocoder.utils.application.BFragment;
 
-public class FourFragment extends BaseFragment {
+public class FourFragment extends BFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

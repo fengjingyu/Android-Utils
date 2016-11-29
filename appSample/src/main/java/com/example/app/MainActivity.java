@@ -9,17 +9,17 @@ import com.example.app.tab.OneFragment;
 import com.example.app.tab.FourFragment;
 import com.example.app.tab.ThreeFragment;
 import com.example.middle.base.BaseActivity;
-import com.xiaocoder.utils.exception.XCCrashHandler;
-import com.xiaocoder.utils.exception.XCExceptionModelDb;
-import com.xiaocoder.utils.function.helper.XCActivityHelper;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.application.BActivity;
+import com.xiaocoder.utils.exception.CrashHandler;
+import com.xiaocoder.utils.exception.ExceptionDb;
+import com.xiaocoder.utils.function.helper.ActivityManager;
+import com.xiaocoder.utils.io.LogHelper;
 
 /**
- * @author xiaocoder on 2016/6/27
  * @email fengjingyu@foxmail.com
  * @description
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BActivity {
 
     public static final int CLICK_QUICK_GAP = 1000;
     /**
@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                hideBodyFragment();
+                hideAllFragment();
 
                 switch (checkedId) {
                     case R.id.id_main_tab_item1:
@@ -82,10 +82,10 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         long this_quit_time = System.currentTimeMillis();
         if (this_quit_time - back_quit_time <= CLICK_QUICK_GAP) {
-            XCActivityHelper.appExit();
+            ActivityManager.appExit();
         } else {
             back_quit_time = this_quit_time;
-            XCLog.shortToast("快速再按一次退出");
+            LogHelper.shortToast("快速再按一次退出");
         }
     }
 
@@ -93,11 +93,11 @@ public class MainActivity extends BaseActivity {
      * 进入首页时或闪屏页，把未上传的异常信息上传到服务器
      */
     protected void uploadException() {
-        XCExceptionModelDb exceptionModelDb = XCCrashHandler.getInstance().getExceptionModelDb();
+        ExceptionDb exceptionModelDb = CrashHandler.getInstance().getExceptionModelDb();
 
         if (exceptionModelDb != null) {
-            XCLog.itemp(exceptionModelDb.queryCount());
-            XCLog.itemp(exceptionModelDb.queryUploadFail(XCExceptionModelDb.SORT_DESC));
+            LogHelper.itemp(exceptionModelDb.queryCount());
+            LogHelper.itemp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
         }
     }
 }

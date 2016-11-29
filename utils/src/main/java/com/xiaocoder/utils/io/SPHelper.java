@@ -38,7 +38,7 @@ public class SPHelper {
      * @param fileName 不要加 ".xml"的后缀名
      * @param mode     Context.Mode 下有四种模式常量
      */
-    public static void initXCSP(Context context, String fileName, int mode) {
+    public static void initSP(Context context, String fileName, int mode) {
         SPHelper.sharedPreferences = context.getSharedPreferences(fileName, mode);
     }
 

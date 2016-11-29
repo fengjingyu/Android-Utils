@@ -3,7 +3,6 @@ package com.example.app.sample.model;
 import com.example.middle.http.IHttpRespInfo;
 
 /**
- * @author xiaocoder on 2016/6/27 16:54
  * @email fengjingyu@foxmail.com
  * @description 模拟http返回解析的model
  */

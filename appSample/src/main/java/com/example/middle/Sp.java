@@ -3,12 +3,11 @@ package com.example.middle;
 import android.app.Activity;
 import android.content.Context;
 
-import com.xiaocoder.utils.function.helper.XCActivityHelper;
-import com.xiaocoder.utils.io.XCSP;
+import com.xiaocoder.utils.function.helper.ActivityManager;
+import com.xiaocoder.utils.io.SPHelper;
 
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 以下代码可以通过 SpCodeGenerator_V1.0.jar 生成
  */
@@ -24,36 +23,36 @@ public class Sp {
 
     public static boolean isFirstInstallApp() {
 
-        return XCSP.spGet(IS_INSTALL, true);
+        return SPHelper.spGet(IS_INSTALL, true);
 
     }
 
     public static String getUserId() {
 
-        return XCSP.spGet(USER_ID, "");
+        return SPHelper.spGet(USER_ID, "");
 
     }
 
     public static String getUserToken() {
 
-        return XCSP.spGet(USER_TOKEN, "");
+        return SPHelper.spGet(USER_TOKEN, "");
 
     }
 
     public static String getUserName() {
 
-        return XCSP.spGet(USER_NAME, "");
+        return SPHelper.spGet(USER_NAME, "");
 
     }
 
     public static String getUserHead() {
 
-        return XCSP.spGet(USER_HEAD, "");
+        return SPHelper.spGet(USER_HEAD, "");
     }
 
     public static String getUserPhoneNum() {
 
-        return XCSP.spGet(USER_PHONE_NUM, "");
+        return SPHelper.spGet(USER_PHONE_NUM, "");
     }
 
     /**
@@ -61,37 +60,37 @@ public class Sp {
      */
     public static boolean isLogin() {
 
-        return XCSP.spGet(IS_LOGIN, false);
+        return SPHelper.spGet(IS_LOGIN, false);
 
     }
 
     public static void setUserId(String userId) {
 
-        XCSP.spPut(USER_ID, userId);
+        SPHelper.spPut(USER_ID, userId);
 
     }
 
     public static void setUserToken(String userToken) {
 
-        XCSP.spPut(USER_TOKEN, userToken);
+        SPHelper.spPut(USER_TOKEN, userToken);
 
     }
 
     public static void setUserName(String userName) {
 
-        XCSP.spPut(USER_NAME, userName);
+        SPHelper.spPut(USER_NAME, userName);
 
     }
 
     public static void setUserHeader(String userHeader) {
 
-        XCSP.spPut(USER_HEAD, userHeader);
+        SPHelper.spPut(USER_HEAD, userHeader);
 
     }
 
     public static void setUserPhoneNum(String userPhoneNum) {
 
-        XCSP.spPut(USER_PHONE_NUM, userPhoneNum);
+        SPHelper.spPut(USER_PHONE_NUM, userPhoneNum);
 
     }
 
@@ -100,13 +99,13 @@ public class Sp {
      */
     public static void setLogin(boolean isLogin) {
 
-        XCSP.spPut(IS_LOGIN, isLogin);
+        SPHelper.spPut(IS_LOGIN, isLogin);
 
     }
 
     public static void setFirstInstallApp(boolean value) {
 
-        XCSP.spPut(IS_INSTALL, value);
+        SPHelper.spPut(IS_INSTALL, value);
 
     }
 
@@ -119,7 +118,7 @@ public class Sp {
         setUserPhoneNum("");
         //TODO 注销的代码 。。
 
-        XCActivityHelper.finishAllActivity();
+        ActivityManager.finishAllActivity();
         //TODO 添加跳转代码
     }
 

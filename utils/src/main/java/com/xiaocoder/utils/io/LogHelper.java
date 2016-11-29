@@ -86,8 +86,8 @@ public class LogHelper {
      * @param log_file_name 日志文件面
      * @param encoding      编码
      */
-    public static void initXCLog(Context context, boolean is_dtoast, boolean is_output, boolean is_printlog,
-                                 String dir_name, String log_file_name, String encoding) {
+    public static void initLog(Context context, boolean is_dtoast, boolean is_output, boolean is_printlog,
+                               String dir_name, String log_file_name, String encoding) {
 
         LogHelper.context = context;
         LogHelper.dirDame = UtilString.isAvaliable(dir_name) ? dir_name : "logDir_" + System.currentTimeMillis();

@@ -8,7 +8,6 @@ import android.widget.Button;
 import com.example.app.R;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 以下ui switch 设置监听的代码 注释 成员变量字段 --> UiCodeGenerator_V1.0.jar 生成的
  */

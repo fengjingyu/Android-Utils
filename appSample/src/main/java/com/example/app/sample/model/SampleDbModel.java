@@ -13,7 +13,6 @@ import com.xiaocoder.utils.function.annotation.Updates;
 import java.io.Serializable;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 该model可以通过（DbCodeGenerator_V0.1.jar）生成数据库代码
  */

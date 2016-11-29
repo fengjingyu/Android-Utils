@@ -1,14 +1,13 @@
 package com.example.middle.http.json;
 
 import com.example.middle.http.IHttpRespInfo;
-import com.xiaocoder.utils.json.XCJsonBean;
+import com.xiaocoder.utils.json.JsonBean;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */
-public class JsonModel extends XCJsonBean implements IHttpRespInfo {
+public class JsonModel extends JsonBean implements IHttpRespInfo {
 
     @Override
     public String getCode() {

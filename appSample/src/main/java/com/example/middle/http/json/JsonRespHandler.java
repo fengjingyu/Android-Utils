@@ -3,14 +3,13 @@ package com.example.middle.http.json;
 import android.app.Activity;
 
 import com.example.middle.http.BaseRespHandler;
-import com.xiaocoder.utils.application.XCConstant;
-import com.xiaocoder.utils.http.XCReqInfo;
-import com.xiaocoder.utils.http.XCRespInfo;
-import com.xiaocoder.utils.io.XCLog;
-import com.xiaocoder.utils.json.XCJsonParse;
+import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespInfo;
+import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.json.JsonParse;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description JsonModel jsonparse解析实现的handler
  */
@@ -32,10 +31,10 @@ public class JsonRespHandler extends BaseRespHandler<JsonModel> {
      * @return
      */
     @Override
-    public JsonModel onParse2Model(XCReqInfo xcReqInfo, XCRespInfo xcRespInfo) {
+    public JsonModel onParse2Model(ReqInfo xcReqInfo, RespInfo xcRespInfo) {
 
-        XCLog.i(XCConstant.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
-        return XCJsonParse.getJsonParseData(xcRespInfo.getDataString(), JsonModel.class);
+        return JsonParse.getJsonParseData(xcRespInfo.getDataString(), JsonModel.class);
     }
 }

@@ -89,12 +89,12 @@ public class App extends Application {
      * sp保存文件名 与 模式
      */
     private void initSp() {
-        SPHelper.initXCSP(getApplicationContext(), ConfigFile.SP_FILE, Context.MODE_APPEND);// Context.MODE_MULTI_PROCESS
+        SPHelper.initSP(getApplicationContext(), ConfigFile.SP_FILE, Context.MODE_APPEND);// Context.MODE_MULTI_PROCESS
     }
 
     private void initLog() {
 
-        LogHelper.initXCLog(getApplicationContext(),
+        LogHelper.initLog(getApplicationContext(),
                 ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG,
                 ConfigFile.APP_ROOT, ConfigFile.LOG_FILE, Constants.ENCODING_UTF8);
     }

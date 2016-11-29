@@ -2,24 +2,23 @@ package com.example.middle;
 
 import android.widget.ImageView;
 
-import com.xiaocoder.utils.imageloader.XCIImageLoader;
+import com.xiaocoder.utils.imageloader.IImageLoader;
 
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */
 public class Image {
 
-    private static XCIImageLoader imageLoader;
+    private static IImageLoader imageLoader;
 
 
-    public static XCIImageLoader getImageLoader() {
+    public static IImageLoader getImageLoader() {
         return imageLoader;
     }
 
-    public static void initImager(XCIImageLoader imageLoader) {
+    public static void initImager(IImageLoader imageLoader) {
         Image.imageLoader = imageLoader;
     }
 

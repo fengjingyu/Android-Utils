@@ -8,9 +8,9 @@ import com.example.middle.Http;
 import com.example.middle.base.BaseActivity;
 import com.example.middle.http.json.JsonModel;
 import com.example.middle.http.json.JsonRespHandler;
-import com.xiaocoder.utils.http.XCReqInfo;
-import com.xiaocoder.utils.http.XCRespInfo;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespInfo;
+import com.xiaocoder.utils.io.LogHelper;
 
 import java.io.File;
 import java.util.HashMap;
@@ -38,10 +38,10 @@ public class SampleHttpActivity extends BaseActivity {
         // 请求成功，解析成功，业务状态码成功
         Http.post("url", map, new SampleRespParse() {
             @Override
-            public void onSuccessAll(XCReqInfo reqInfo, XCRespInfo respInfo, SampleHttpModel resultBean) {
+            public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, SampleHttpModel resultBean) {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
-                XCLog.shortToast(resultBean.getMsg());
-                XCLog.longToast(resultBean.getName());
+                LogHelper.shortToast(resultBean.getMsg());
+                LogHelper.longToast(resultBean.getName());
             }
         });
 
@@ -49,15 +49,15 @@ public class SampleHttpActivity extends BaseActivity {
         Http.post("url", map, new SampleRespParse(this) {
             // 请求成功，解析失败
             @Override
-            public void onSuccessButParseWrong(XCReqInfo reqInfo, XCRespInfo respInfo) {
+            public void onSuccessButParseWrong(ReqInfo reqInfo, RespInfo respInfo) {
                 super.onSuccessButParseWrong(reqInfo, respInfo);
             }
 
             // 请求成功，解析成功，业务状态码失败
             @Override
-            public void onSuccessButCodeWrong(XCReqInfo reqInfo, XCRespInfo respInfo, SampleHttpModel resultBean) {
+            public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, SampleHttpModel resultBean) {
                 super.onSuccessButCodeWrong(reqInfo, respInfo, resultBean);
-                XCLog.dShortToast(resultBean.getCode());
+                LogHelper.dShortToast(resultBean.getCode());
             }
         });
     }
@@ -74,9 +74,9 @@ public class SampleHttpActivity extends BaseActivity {
 //        // 请求成功，解析成功，业务状态码成功
 //        Http.post("url", map, new GsonRespHandler<SampleHttpModel>(this, SampleHttpModel.class) {
 //            @Override
-//            public void onSuccessAll(XCReqInfo reqInfo, XCRespInfo respInfo, SampleHttpModel resultBean) {
+//            public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, SampleHttpModel resultBean) {
 //                super.onSuccessAll(reqInfo, respInfo, resultBean);
-//                XCLog.shortToast(resultBean.getMsg());
+//                LogHelper.shortToast(resultBean.getMsg());
 //            }
 //        });
     }
@@ -96,16 +96,16 @@ public class SampleHttpActivity extends BaseActivity {
         // 请求成功，解析成功，业务状态码成功
         Http.post("url", map, new JsonRespHandler() {
             @Override
-            public void onSuccessAll(XCReqInfo reqInfo, XCRespInfo respInfo, JsonModel resultBean) {
+            public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
-                XCLog.shortToast(resultBean.getMsg());
+                LogHelper.shortToast(resultBean.getMsg());
             }
         });
 
         // 请求失败
         Http.get("url", map, new JsonRespHandler() {
             @Override
-            public void onFailure(XCReqInfo reqInfo, XCRespInfo respInfo) {
+            public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
                 super.onFailure(reqInfo, respInfo);
             }
         });

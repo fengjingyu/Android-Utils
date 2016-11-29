@@ -3,7 +3,7 @@ package com.xiaocoder.utils.util;
 import android.support.annotation.Nullable;
 
 import com.xiaocoder.utils.function.runnable.DownloadRunnable;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

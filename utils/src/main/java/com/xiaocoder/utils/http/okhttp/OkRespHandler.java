@@ -1,10 +1,10 @@
 package com.xiaocoder.utils.http.okhttp;
 
-import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.function.Constants;
 import com.xiaocoder.utils.http.HttpCtrl;
 import com.xiaocoder.utils.http.RespInfo;
 import com.xiaocoder.utils.http.RespType;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.io.IOException;
 import java.util.List;

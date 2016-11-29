@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilString;
 
 import java.io.StringReader;

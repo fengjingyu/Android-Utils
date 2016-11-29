@@ -1,4 +1,4 @@
-package com.xiaocoder.utils.application;
+package com.xiaocoder.utils.function;
 
 /**
  * @email fengjingyu@foxmail.com

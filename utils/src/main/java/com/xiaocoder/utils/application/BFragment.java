@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.xiaocoder.utils.function.searchdb;
+package com.xiaocoder.test.search;
 
 import android.content.ContentValues;
 import android.content.Context;

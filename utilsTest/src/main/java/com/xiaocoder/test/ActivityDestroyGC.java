@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import com.xiaocoder.utils.function.photo.LocalPhotoFragment;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.test_middle.base.BaseActivity;
 
 /**

@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.function.Constants;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;

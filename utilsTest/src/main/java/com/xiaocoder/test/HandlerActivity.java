@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.xiaocoder.test_middle.base.BaseActivity;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 public class HandlerActivity extends BaseActivity {
     private Button button1;

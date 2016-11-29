@@ -5,8 +5,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.Constants;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.test_middle.base.BaseActivity;
 
 import java.util.Timer;

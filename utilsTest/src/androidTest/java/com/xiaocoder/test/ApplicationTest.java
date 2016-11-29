@@ -3,7 +3,7 @@ package com.xiaocoder.test;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilScreen;
 
 /**

@@ -2,10 +2,10 @@ package com.xiaocoder.test_middle.http.gson;
 
 import android.app.Activity;
 
-import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.function.Constants;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespInfo;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.test_middle.http.BaseRespHandler;
 
 /**

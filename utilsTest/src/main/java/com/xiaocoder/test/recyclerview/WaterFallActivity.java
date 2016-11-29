@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.xiaocoder.test.R;
 import com.xiaocoder.test_middle.base.BaseActivity;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;

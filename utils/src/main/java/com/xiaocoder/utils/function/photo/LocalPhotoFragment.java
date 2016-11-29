@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import com.xiaocoder.utils.R;
 import com.xiaocoder.utils.application.BFragment;
 import com.xiaocoder.utils.function.helper.ExecutorManager;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilDate;
 import com.xiaocoder.utils.util.UtilOom;
 

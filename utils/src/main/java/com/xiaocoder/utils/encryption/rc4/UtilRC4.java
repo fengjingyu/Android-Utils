@@ -3,7 +3,7 @@ package com.xiaocoder.utils.encryption.rc4;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.security.Key;
 

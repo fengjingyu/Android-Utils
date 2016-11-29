@@ -1,4 +1,4 @@
-package com.xiaocoder.utils.function.searchdb;
+package com.xiaocoder.test.search;
 
 import java.io.Serializable;
 

@@ -8,7 +8,7 @@ import android.net.Uri;
 
 import com.xiaocoder.test.stack.SearchActivity;
 import com.xiaocoder.test.stack.SearchActivity2;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 /**
  * @author xiaocoder on 2016/9/7 14:43

@@ -5,8 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
-import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.Constants;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.util.HashMap;
 import java.util.Map;

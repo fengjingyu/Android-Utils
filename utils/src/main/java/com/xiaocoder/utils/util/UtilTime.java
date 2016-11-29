@@ -1,6 +1,6 @@
 package com.xiaocoder.utils.util;
 
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

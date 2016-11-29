@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.Constants;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

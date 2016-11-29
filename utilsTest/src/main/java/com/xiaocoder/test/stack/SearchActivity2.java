@@ -7,9 +7,9 @@ import android.widget.Button;
 import com.xiaocoder.test.R;
 import com.xiaocoder.test_middle.Jumper;
 import com.xiaocoder.test_middle.base.BaseActivity;
-import com.xiaocoder.utils.function.searchdb.SearchRecordBean;
-import com.xiaocoder.utils.function.searchdb.SearchRecordDb;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.test.search.SearchRecordBean;
+import com.xiaocoder.test.search.SearchRecordDb;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 /**
  * @author xiaocoder

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.xiaocoder.utils.function.adapter.BAdapter;
 import com.xiaocoder.utils.function.helper.ExecutorManager;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilContacts;
 import com.xiaocoder.utils.util.UtilView;
 import com.xiaocoder.test_middle.Image;

@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.xiaocoder.utils.function.helper.ActivityManager;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilInput;
 
 import java.lang.reflect.Constructor;

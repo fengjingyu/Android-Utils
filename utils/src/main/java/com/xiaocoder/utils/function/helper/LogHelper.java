@@ -1,11 +1,11 @@
-package com.xiaocoder.utils.io;
+package com.xiaocoder.utils.function.helper;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.function.Constants;
 import com.xiaocoder.utils.json.JsonParse;
 import com.xiaocoder.utils.util.UtilIoAndr;
 import com.xiaocoder.utils.util.UtilString;

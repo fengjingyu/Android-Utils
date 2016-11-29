@@ -2,8 +2,6 @@ package com.xiaocoder.utils.function.helper;
 
 import android.app.Activity;
 
-import com.xiaocoder.utils.io.LogHelper;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

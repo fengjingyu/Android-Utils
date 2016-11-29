@@ -3,8 +3,8 @@ package com.xiaocoder.utils.http;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.Constants;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilIo;
 import com.xiaocoder.utils.util.UtilCollections;
 

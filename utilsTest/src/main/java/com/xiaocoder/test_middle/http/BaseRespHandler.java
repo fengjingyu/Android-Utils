@@ -7,12 +7,12 @@ import android.view.KeyEvent;
 
 import com.xiaocoder.test.MainActivity;
 import com.xiaocoder.test_middle.App;
-import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.function.Constants;
 import com.xiaocoder.utils.http.DialogManager;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.http.RespInfo;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilDate;
 import com.xiaocoder.utils.util.UtilString;
 import com.xiaocoder.utils.util.UtilSystem;

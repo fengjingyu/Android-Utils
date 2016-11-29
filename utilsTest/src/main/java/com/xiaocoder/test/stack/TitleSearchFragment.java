@@ -15,9 +15,9 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.xiaocoder.test.R;
 import com.xiaocoder.utils.application.BFragment;
-import com.xiaocoder.utils.function.searchdb.SearchRecordBean;
-import com.xiaocoder.utils.function.searchdb.SearchRecordDb;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.test.search.SearchRecordBean;
+import com.xiaocoder.test.search.SearchRecordDb;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilString;
 import com.xiaocoder.utils.util.UtilView;
 

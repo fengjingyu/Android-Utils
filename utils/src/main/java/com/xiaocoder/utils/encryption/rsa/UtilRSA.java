@@ -2,7 +2,7 @@ package com.xiaocoder.utils.encryption.rsa;
 
 import android.text.TextUtils;
 
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;

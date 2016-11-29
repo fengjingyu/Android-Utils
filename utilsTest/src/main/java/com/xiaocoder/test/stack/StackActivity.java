@@ -125,7 +125,7 @@ public class StackActivity extends BaseActivity {
             public void onClick(View v) {
                 // 以下两种方式的周期是一样的
                 ActivityHelper.finishCurrentActivity();
-                startActivity(new Intent(getXCActivity(), SearchActivity.class));
+                startActivity(new Intent(getActivity(), SearchActivity.class));
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---finish
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---onPause
 //                com.xiaocoder.android_test.stack.SearchActivity@25c4d4fb---onCreate
@@ -135,7 +135,7 @@ public class StackActivity extends BaseActivity {
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---onDestroy
 
 
-//                startActivity(new Intent(getXCActivity(),SearchActivity.class));
+//                startActivity(new Intent(getActivity(),SearchActivity.class));
 //                ActivityHelper.finishCurrentActivity();
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---finish
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---onPause

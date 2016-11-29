@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 从摄像头获取图片
  */

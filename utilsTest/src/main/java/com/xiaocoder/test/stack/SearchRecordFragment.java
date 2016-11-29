@@ -223,7 +223,7 @@ public class SearchRecordFragment extends BFragment implements View.OnClickListe
     }
 
     public void initDao() {
-        dao = new SearchRecordDb(getXCActivity(), mTableName);
+        dao = new SearchRecordDb(getActivity(), mTableName);
     }
 
     public void listeners() {

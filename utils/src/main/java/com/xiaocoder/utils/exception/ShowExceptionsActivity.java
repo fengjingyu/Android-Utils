@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.xiaocoder.utils.R;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 使用时记得在清单文件中注册 ShowExceptionsActivity
  */

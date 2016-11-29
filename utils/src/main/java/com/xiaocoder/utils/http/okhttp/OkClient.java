@@ -22,7 +22,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

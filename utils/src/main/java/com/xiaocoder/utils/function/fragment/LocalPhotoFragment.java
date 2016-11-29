@@ -37,7 +37,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 打开本地相册
  */

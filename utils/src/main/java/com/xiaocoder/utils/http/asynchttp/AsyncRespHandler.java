@@ -17,7 +17,6 @@ import cz.msebera.android.httpclient.Header;
 
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 用的是android-async-http库实现的(1.4.9不在用系统的httpClient库了)
  * 该库的回调是在主线程中的，这里开启了一个子线程

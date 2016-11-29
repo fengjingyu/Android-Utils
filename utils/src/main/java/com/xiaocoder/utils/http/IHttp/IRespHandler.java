@@ -4,7 +4,6 @@ import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespInfo;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

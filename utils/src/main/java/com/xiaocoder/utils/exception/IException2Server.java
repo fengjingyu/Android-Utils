@@ -1,7 +1,6 @@
 package com.xiaocoder.utils.exception;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

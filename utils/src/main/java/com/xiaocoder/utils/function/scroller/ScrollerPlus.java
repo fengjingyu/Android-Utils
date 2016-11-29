@@ -6,7 +6,6 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

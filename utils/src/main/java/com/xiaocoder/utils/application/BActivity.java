@@ -1,5 +1,6 @@
 package com.xiaocoder.utils.application;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */
@@ -24,22 +24,11 @@ public abstract class BActivity extends FragmentActivity {
 
     @SuppressWarnings("unchecked")
     public <T extends View> T getViewById(int id) {
-
         return (T) findViewById(id);
     }
 
-    /**
-     * 别的应用或页面调用时传进来的
-     */
-    protected Uri interceptUri() {
-        Intent intent = getIntent();
-        if (intent != null) {
-            Uri uri = intent.getData();
-            if (uri != null) {
-                return uri;
-            }
-        }
-        return null;
+    public Activity getActivity() {
+        return this;
     }
 
     @Override
@@ -50,15 +39,7 @@ public abstract class BActivity extends FragmentActivity {
             LogHelper.e(this, "回收后重新创建");
         }
 
-        addActivity2Stack();
-    }
-
-    private void addActivity2Stack() {
         ActivityHelper.addActivityToStack(this);
-    }
-
-    private void removeActivityFromStack() {
-        ActivityHelper.delActivityFromStack(this);
     }
 
     @Override
@@ -68,7 +49,7 @@ public abstract class BActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        removeActivityFromStack();
+        ActivityHelper.delActivityFromStack(this);
     }
 
     @Override
@@ -184,9 +165,4 @@ public abstract class BActivity extends FragmentActivity {
             }
         }
     }
-
-    public BActivity getXCActivity() {
-        return this;
-    }
-
 }

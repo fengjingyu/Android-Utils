@@ -36,22 +36,11 @@ import java.util.regex.Pattern;
  */
 public class UtilString {
 
-    /**
-     * 泡泡数量设置
-     */
-    public static void setBubbleCount(TextView textView, String count) {
-        if (textView != null) {
-            int count_int = toInt(count);
-            if (count_int == 0) {
-                textView.setVisibility(View.INVISIBLE);
-            } else if (count_int > 0 && count_int <= 99) {
-                textView.setVisibility(View.VISIBLE);
-                textView.setText(count);
-            } else {
-                textView.setVisibility(View.VISIBLE);
-                textView.setText("...");
-            }
+    public static String notNull(String str) {
+        if (isBlank(str)) {
+            return "";
         }
+        return str.trim();
     }
 
     /**
@@ -94,6 +83,24 @@ public class UtilString {
             }
         }
         return count;
+    }
+
+    /**
+     * 泡泡数量设置
+     */
+    public static void setBubbleCount(TextView textView, String count) {
+        if (textView != null) {
+            int count_int = toInt(count);
+            if (count_int == 0) {
+                textView.setVisibility(View.INVISIBLE);
+            } else if (count_int > 0 && count_int <= 99) {
+                textView.setVisibility(View.VISIBLE);
+                textView.setText(count);
+            } else {
+                textView.setVisibility(View.VISIBLE);
+                textView.setText("...");
+            }
+        }
     }
 
     /**

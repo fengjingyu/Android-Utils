@@ -6,7 +6,6 @@ import com.xiaocoder.utils.util.UtilIo;
 import java.io.Serializable;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 1 提供了序列化id 2 浅克隆的方法 3 深克隆的方法
  */

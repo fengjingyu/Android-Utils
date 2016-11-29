@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

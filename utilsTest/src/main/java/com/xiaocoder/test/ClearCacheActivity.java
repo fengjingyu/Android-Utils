@@ -8,7 +8,7 @@ import android.widget.Button;
 import com.xiaocoder.test_middle.base.BaseActivity;
 import com.xiaocoder.test_middle.config.ConfigFile;
 import com.xiaocoder.utils.function.helper.CleanCacheHelper;
-import com.xiaocoder.utils.util.UtilIoAndroid;
+import com.xiaocoder.utils.util.UtilIoAndr;
 
 import java.io.File;
 
@@ -35,7 +35,7 @@ public class ClearCacheActivity extends BaseActivity implements View.OnClickList
     public void initWidgets() {
         clear = getViewById(R.id.clear);
         // 如果没有该dir会创建再返回，有则返回该dir
-        dir = UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
+        dir = UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
 
         ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("测试");

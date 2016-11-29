@@ -21,7 +21,6 @@ public abstract class BAdapterExpand<E, T> extends BaseExpandableListAdapter {
     public List<E> listParaent;
     public Context context;
 
-
     public BAdapterExpand(Context context, List<List<T>> listChild, List<E> listParaent) {
         this.listChild = listChild;
         this.listParaent = listParaent;

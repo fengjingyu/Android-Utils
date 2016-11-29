@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.xiaocoder.utils.io.LogHelper;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 测试用的 , 直接创建一个listview , 然后 listview.setAdapter(new XCAdapterText(context,null);
  */

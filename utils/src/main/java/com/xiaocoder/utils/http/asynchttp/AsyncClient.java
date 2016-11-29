@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author xiaocoder 2014-10-17 下午1:52:54
  * @email fengjingyu@foxmail.com
  * @description 用的是android-async-http库实现的
  */

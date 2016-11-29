@@ -5,7 +5,6 @@ import com.xiaocoder.utils.http.IHttp.IRespHandler;
 import com.xiaocoder.utils.io.LogHelper;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 回调接口的一个抽象类（适配接口）
  */

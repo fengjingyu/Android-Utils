@@ -74,7 +74,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = UtilIoAndroid.getInputStreamFromUri(context, uri);
+        input = UtilIoAndr.getInputStreamFromUri(context, uri);
 
         if (input == null) {
             return null;
@@ -90,7 +90,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = UtilIoAndroid.getInputStreamFromUri(context, uri);
+        input = UtilIoAndr.getInputStreamFromUri(context, uri);
 
         if (input == null) {
             return null;
@@ -105,7 +105,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = UtilIoAndroid.getInputStreamFromRaw(context, drawable_id);
+        input = UtilIoAndr.getInputStreamFromRaw(context, drawable_id);
 
         if (input == null) {
             return null;
@@ -121,7 +121,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = UtilIoAndroid.getInputStreamFromRaw(context, drawable_id);
+        input = UtilIoAndr.getInputStreamFromRaw(context, drawable_id);
 
         if (input == null) {
             return null;

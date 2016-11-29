@@ -2,6 +2,7 @@ package com.xiaocoder.utils.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.provider.MediaStore;
@@ -10,12 +11,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * @author xiaocoder on 2015-3-2
  * @email fengjingyu@foxmail.com
  * @description 查询手机中的多媒体资源 （音频 视频 图片）
  */
 public class UtilMedia {
-
 
     /**
      * 结束播放
@@ -65,16 +64,51 @@ public class UtilMedia {
         }
     }
 
-    public static ArrayList<XCAudioModel> getAudioList(Context context) {
+    /**
+     * 开始播放
+     *
+     * @param fileId R.raw.filename
+     */
+    public static MediaPlayer openVoice(MediaPlayer mediaPlayer,final Context context, final int fileId) {
+        try {
+            AssetFileDescriptor file = context.getResources().openRawResourceFd(fileId);
+
+
+            // 置为初始状态
+            mediaPlayer.reset();
+            // 设置文件路径
+            mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
+
+            file.close();
+
+            // 设置缓冲完成监听(当缓冲完成的时候,调用该监听器)
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    if (mediaPlayer != null) {
+                        mediaPlayer.start();
+                    }
+                }
+            });
+
+            mediaPlayer.prepareAsync();
+            return mediaPlayer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ArrayList<AudioBean> getAudioList(Context context) {
         ContentResolver resolver = context.getContentResolver();
         Cursor cursor = resolver.query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null,
                 null);
-        ArrayList<XCAudioModel> list = new ArrayList<XCAudioModel>();
-        XCAudioModel bean = null;
+        ArrayList<AudioBean> list = new ArrayList<AudioBean>();
+        AudioBean bean = null;
         int index = 1;
         while (cursor.moveToNext()) {
-            bean = new XCAudioModel();
+            bean = new AudioBean();
             bean.index = index;
             bean._ID = cursor.getInt(cursor
                     .getColumnIndex(MediaStore.Audio.Media._ID));
@@ -95,17 +129,17 @@ public class UtilMedia {
     }
 
 
-    public static ArrayList<XCImageModel> getImageList(Context context) {
+    public static ArrayList<ImageBean> getImageList(Context context) {
         ContentResolver resolver = context.getContentResolver();
 
         Cursor cursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
-        ArrayList<XCImageModel> list = new ArrayList<XCImageModel>();
+        ArrayList<ImageBean> list = new ArrayList<ImageBean>();
 
-        XCImageModel bean = null;
+        ImageBean bean = null;
         int index = 1;
         Cursor thumbCursor;
         while (cursor.moveToNext()) {
-            bean = new XCImageModel();
+            bean = new ImageBean();
             bean.index = index;
             bean._ID = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
             bean.url = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
@@ -129,17 +163,17 @@ public class UtilMedia {
         return list;
     }
 
-    public static ArrayList<XCVideoModel> getVideoList(Context context) {
+    public static ArrayList<VideoBean> getVideoList(Context context) {
         ContentResolver resolver = context.getContentResolver();
         Cursor cursor = resolver.query(
                 MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null,
                 null);
-        ArrayList<XCVideoModel> list = new ArrayList<XCVideoModel>();
-        XCVideoModel bean = null;
+        ArrayList<VideoBean> list = new ArrayList<VideoBean>();
+        VideoBean bean = null;
         int index = 1;
         Cursor cursorThubnail;
         while (cursor.moveToNext()) {
-            bean = new XCVideoModel();
+            bean = new VideoBean();
             bean.index = index;
             bean._ID = cursor.getInt(cursor
                     .getColumnIndex(MediaStore.Video.Media._ID));
@@ -169,7 +203,7 @@ public class UtilMedia {
         return list;
     }
 
-    public static class XCAudioModel implements Serializable {
+    public static class AudioBean implements Serializable {
 
         private static final long serialVersionUID = 8288878050393530019L;
 
@@ -190,7 +224,7 @@ public class UtilMedia {
         }
     }
 
-    public static class XCImageModel implements Serializable {
+    public static class ImageBean implements Serializable {
         private static final long serialVersionUID = -6847612368978583756L;
 
         public String displayname;
@@ -214,7 +248,7 @@ public class UtilMedia {
 
     }
 
-    public static class XCVideoModel implements Serializable {
+    public static class VideoBean implements Serializable {
 
         private static final long serialVersionUID = 1410038234462714175L;
 

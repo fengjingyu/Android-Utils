@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 管理activity
  */

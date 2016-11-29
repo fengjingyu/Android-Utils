@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 数字格式化工具类
  */

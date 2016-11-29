@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import com.xiaocoder.utils.io.LogHelper;
 
 import java.util.List;
+
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */
@@ -28,15 +28,7 @@ public abstract class BFragment extends Fragment {
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mContainer = (ViewGroup) inflater.inflate(layout_id, null);
         mContainer.setLayoutParams(lp);
-        // 如果没有以上的会变成包裹高度
         return mContainer;
-    }
-
-    public BActivity getXCActivity() {
-        if (getActivity() != null && getActivity() instanceof BActivity) {
-            return (BActivity) getActivity();
-        }
-        return null;
     }
 
     public void addChildFragment(int layout_id, Fragment fragment, String tag, boolean isToBackStack) {

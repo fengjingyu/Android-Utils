@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 该bean里内置了try catch，并会返回正确的类型，仅 int String  long  double
  */

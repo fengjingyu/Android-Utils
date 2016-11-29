@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 不会回收的viewpager
  */

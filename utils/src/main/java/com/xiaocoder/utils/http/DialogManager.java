@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 管理需要显示加载dialog的http请求
  * 当有多个并发请求都需要显示dialog时，只显示一个，且多个请求都返回后，才关闭dialog

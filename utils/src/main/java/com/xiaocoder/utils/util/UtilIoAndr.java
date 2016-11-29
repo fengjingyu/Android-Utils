@@ -11,13 +11,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description android.permission.MOUNT_UNMOUNT_FILESYSTEMS
  * <p/>
  * android.permission.WRITE_EXTERNAL_STORAGE
  */
-public class UtilIoAndroid {
+public class UtilIoAndr {
 
     public static boolean isSDcardExist() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);

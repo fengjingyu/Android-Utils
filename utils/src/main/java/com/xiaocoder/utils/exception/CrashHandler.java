@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.xiaocoder.utils.application.Constants;
 import com.xiaocoder.utils.function.helper.ActivityHelper;
 import com.xiaocoder.utils.util.UtilIo;
-import com.xiaocoder.utils.util.UtilIoAndroid;
+import com.xiaocoder.utils.util.UtilIoAndr;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilDate;
 
@@ -30,7 +30,6 @@ import java.util.UUID;
 
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */
@@ -236,7 +235,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 
-                FileOutputStream fos = new FileOutputStream(UtilIoAndroid.createFileInSDCard(mCrashDir, fileName));
+                FileOutputStream fos = new FileOutputStream(UtilIoAndr.createFileInSDCard(mCrashDir, fileName));
                 fos.write(("crash=" + fileName + UtilIo.LINE_SEPARATOR + sb.toString()).getBytes());
                 fos.close();
 

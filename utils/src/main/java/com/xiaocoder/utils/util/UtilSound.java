@@ -5,7 +5,6 @@ import android.content.Context;
 import android.media.AudioManager;
 
 /**
- * @author xiaocoder on 2015/8/3
  * @email fengjingyu@foxmail.com
  * @description
  */

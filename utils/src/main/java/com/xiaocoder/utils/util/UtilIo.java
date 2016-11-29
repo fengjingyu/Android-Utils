@@ -31,7 +31,6 @@ import java.util.Properties;
 import java.util.Vector;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

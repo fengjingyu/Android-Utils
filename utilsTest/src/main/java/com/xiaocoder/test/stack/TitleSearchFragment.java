@@ -236,7 +236,7 @@ public class TitleSearchFragment extends BFragment implements View.OnClickListen
     }
 
     public void initDao() {
-        dao = new SearchRecordDb(getXCActivity(), mTableName);
+        dao = new SearchRecordDb(getActivity(), mTableName);
     }
 
     public void listeners() {

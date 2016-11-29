@@ -39,15 +39,15 @@ public class ContactsActivity extends BaseActivity {
         initWidgets();
     }
 
-    class ContactsAdapter extends BAdapter<UtilContacts.XCContactModel> {
+    class ContactsAdapter extends BAdapter<UtilContacts.ContactBean> {
 
-        public ContactsAdapter(Context context, List<UtilContacts.XCContactModel> list) {
+        public ContactsAdapter(Context context, List<UtilContacts.ContactBean> list) {
             super(context, list);
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            UtilContacts.XCContactModel bean = list.get(position);
+            UtilContacts.ContactBean bean = list.get(position);
 
             ContactViewHolder holder = null;
 
@@ -91,7 +91,7 @@ public class ContactsActivity extends BaseActivity {
             @Override
             public void run() {
                 // 获取联系人
-                final List<UtilContacts.XCContactModel> list = UtilContacts.getContacts(ContactsActivity.this);
+                final List<UtilContacts.ContactBean> list = UtilContacts.getContacts(ContactsActivity.this);
 
                 handler.post(new Runnable() {
                     @Override

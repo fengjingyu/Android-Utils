@@ -28,7 +28,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

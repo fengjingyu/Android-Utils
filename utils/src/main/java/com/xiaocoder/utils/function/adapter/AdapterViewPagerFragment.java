@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 不会回收的viewpagerfragment
  */

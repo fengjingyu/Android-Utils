@@ -5,7 +5,6 @@ import android.app.Service;
 import android.os.Vibrator;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

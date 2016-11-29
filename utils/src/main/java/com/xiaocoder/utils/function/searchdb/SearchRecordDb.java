@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 搜索记录的数据库
  */

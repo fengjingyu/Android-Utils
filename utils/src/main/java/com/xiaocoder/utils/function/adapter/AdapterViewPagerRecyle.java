@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 会回收的viewpager
  */

@@ -17,7 +17,7 @@ import com.xiaocoder.utils.http.asynchttp.AsyncClient;
 import com.xiaocoder.utils.imageloader.AsynLoader;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.io.SPHelper;
-import com.xiaocoder.utils.util.UtilIoAndroid;
+import com.xiaocoder.utils.util.UtilIoAndr;
 import com.xiaocoder.utils.util.UtilScreen;
 import com.xiaocoder.utils.util.UtilSystem;
 
@@ -101,15 +101,15 @@ public class App extends Application {
 
     private void createDir() {
         // 应用存储日志 缓存等信息的顶层文件夹
-        UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
+        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
         // 图片视频等缓存的文件夹
-        UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.MOIVE_DIR);
-        UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.VIDEO_DIR);
-        UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.PHOTO_DIR);
+        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.MOIVE_DIR);
+        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.VIDEO_DIR);
+        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.PHOTO_DIR);
         // crash文件夹
-        UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.CRASH_DIR);
+        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CRASH_DIR);
         // cache文件夹
-        UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.CACHE_DIR);
+        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CACHE_DIR);
     }
 
     private void initHttp() {

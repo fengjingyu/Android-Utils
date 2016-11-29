@@ -6,7 +6,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 第三方 universal-image-loader-1.9.0-with-sources.jar
  */

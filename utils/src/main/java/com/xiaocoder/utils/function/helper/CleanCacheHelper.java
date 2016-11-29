@@ -7,7 +7,6 @@ import android.os.Looper;
 import java.io.File;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 删除缓存 ，是在子线程运行的（文件或文件夹）
  */

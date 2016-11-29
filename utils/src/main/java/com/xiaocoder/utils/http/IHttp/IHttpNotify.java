@@ -4,7 +4,6 @@ import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespInfo;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 对http请求发出之前和http回调结束的监听
  */

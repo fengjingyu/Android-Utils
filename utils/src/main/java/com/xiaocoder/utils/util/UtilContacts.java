@@ -11,16 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author xiaocoder  on 2015/7/28.
  * @email fengjingyu@foxmail.com
  * @description 获取通讯录
  */
 public class UtilContacts {
 
 
-    public static List<XCContactModel> getContacts(Context context) {
+    public static List<ContactBean> getContacts(Context context) {
         // 创建一个保存联系人的集合
-        List<XCContactModel> contact_list = new ArrayList<XCContactModel>();
+        List<ContactBean> contact_list = new ArrayList<ContactBean>();
         ContentResolver resolver = context.getContentResolver();
         // raw_contact 表的uri
         Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");
@@ -34,7 +33,7 @@ public class UtilContacts {
                 Cursor dataCursor = resolver.query(dataUri, new String[]{
                                 "data1", "mimetype"}, "raw_contact_id=?", //
                         new String[]{id}, null);
-                XCContactModel contact_model = new XCContactModel();
+                ContactBean contact_model = new ContactBean();
                 while (dataCursor.moveToNext()) {
                     String data = dataCursor.getString(dataCursor
                             .getColumnIndex("data1"));
@@ -58,7 +57,7 @@ public class UtilContacts {
         return contact_list;
     }
 
-    public static class XCContactModel implements Serializable {
+    public static class ContactBean implements Serializable {
         private static final long serialVersionUID = -4958724953107486903L;
 
         public String name;

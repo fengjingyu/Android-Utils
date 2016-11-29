@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.xiaocoder.utils.io.LogHelper;
 
 /**
- * @author xiaocoder on 2015-3-2
  * @email fengjingyu@foxmail.com
  * @description 输入法的弹出 与 关闭
  */

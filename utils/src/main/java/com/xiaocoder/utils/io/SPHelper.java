@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 使用前初始化initSP方法
  */

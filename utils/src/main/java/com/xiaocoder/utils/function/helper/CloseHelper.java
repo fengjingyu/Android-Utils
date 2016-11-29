@@ -3,7 +3,6 @@ package com.xiaocoder.utils.function.helper;
 import java.io.Closeable;
 
 /**
- * @author xiaocoder on 2016/11/7 19:25
  * @email fengjingyu@foxmail.com
  * @description
  */

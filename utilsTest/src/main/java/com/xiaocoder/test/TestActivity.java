@@ -10,7 +10,7 @@ import com.xiaocoder.utils.encryption.rsa.UtilBase64;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.io.SPHelper;
 import com.xiaocoder.utils.util.UtilIo;
-import com.xiaocoder.utils.util.UtilIoAndroid;
+import com.xiaocoder.utils.util.UtilIoAndr;
 import com.xiaocoder.utils.json.JsonBean;
 import com.xiaocoder.utils.json.JsonParse;
 import com.xiaocoder.utils.util.UtilString;
@@ -96,9 +96,9 @@ public class TestActivity extends BaseActivity {
         LogHelper.e(this, "1234567890");
         LogHelper.tempPrint("android--" + System.currentTimeMillis());
 
-        LogHelper.i(UtilIo.getAllFilesByDirQueue(UtilIoAndroid.createDirInSDCard(ConfigFile.APP_ROOT), new ArrayList<File>()));
+        LogHelper.i(UtilIo.getAllFilesByDirQueue(UtilIoAndr.createDirInSDCard(ConfigFile.APP_ROOT), new ArrayList<File>()));
 
-        UtilIo.toFileByBytes(UtilIoAndroid.createFileInAndroid(this, ConfigFile.APP_ROOT, "lalala.txt"), "写入的内容--1234567890987654321abc".getBytes(), true);
+        UtilIo.toFileByBytes(UtilIoAndr.createFileInAndroid(this, ConfigFile.APP_ROOT, "lalala.txt"), "写入的内容--1234567890987654321abc".getBytes(), true);
     }
 
     private void testUUID() {

@@ -14,7 +14,6 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
- * @author xiaocoder on 2015-3-1
  * @email fengjingyu@foxmail.com
  * @description
  */

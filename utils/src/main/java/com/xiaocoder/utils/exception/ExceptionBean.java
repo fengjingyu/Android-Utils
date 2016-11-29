@@ -3,7 +3,6 @@ package com.xiaocoder.utils.exception;
 import java.io.Serializable;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

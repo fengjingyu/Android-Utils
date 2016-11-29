@@ -1,7 +1,6 @@
 package com.xiaocoder.utils.http;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description http的响应结果
  */

@@ -11,7 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 下载的runnable
  */

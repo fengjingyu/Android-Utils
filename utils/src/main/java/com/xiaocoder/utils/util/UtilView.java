@@ -14,7 +14,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

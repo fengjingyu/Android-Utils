@@ -4,7 +4,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @author xiaocoder 2014-10-17 下午1:52:54
  * @email fengjingyu@foxmail.com
  * @description 线程池
  */

@@ -5,7 +5,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

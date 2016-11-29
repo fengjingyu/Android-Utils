@@ -27,7 +27,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

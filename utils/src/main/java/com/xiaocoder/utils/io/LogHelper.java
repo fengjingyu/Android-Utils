@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.xiaocoder.utils.application.Constants;
 import com.xiaocoder.utils.json.JsonParse;
-import com.xiaocoder.utils.util.UtilIoAndroid;
+import com.xiaocoder.utils.util.UtilIoAndr;
 import com.xiaocoder.utils.util.UtilString;
 
 import java.io.File;
@@ -17,7 +17,6 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 1 可以控制频率的吐司
  * 2 输出log到控制台
@@ -263,7 +262,7 @@ public class LogHelper {
             return;
         }
 
-        if (TextUtils.isEmpty(content) || !UtilIoAndroid.isSDcardExist()) {
+        if (TextUtils.isEmpty(content) || !UtilIoAndr.isSDcardExist()) {
             return;
         }
 
@@ -273,7 +272,7 @@ public class LogHelper {
             if (file == null || !file.exists()) {
 
                 // sd中，在app_root文件夹下创建log文件
-                file = UtilIoAndroid.createFileInSDCard(dirDame, logFileName);
+                file = UtilIoAndr.createFileInSDCard(dirDame, logFileName);
 
             }
 
@@ -322,7 +321,7 @@ public class LogHelper {
             FileOutputStream fos = null;
             try {
                 // 在app_root目录下创建temp_print文件，如果没有sd卡，则写到内部存储中
-                fos = new FileOutputStream(UtilIoAndroid.createFileInAndroid(context, dirDame, tempFileName));
+                fos = new FileOutputStream(UtilIoAndr.createFileInAndroid(context, dirDame, tempFileName));
                 fos.write(str.getBytes());
                 fos.flush();
             } catch (Exception e) {

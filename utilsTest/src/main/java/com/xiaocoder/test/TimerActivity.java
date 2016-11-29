@@ -5,8 +5,8 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.xiaocoder.utils.application.XCConstant;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.test_middle.base.BaseActivity;
 
 import java.util.Timer;
@@ -41,12 +41,12 @@ public class TimerActivity extends BaseActivity {
         CountDownTimer timer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                XCLog.i(count++);
+                LogHelper.i(count++);
             }
 
             @Override
             public void onFinish() {
-                XCLog.i(XCConstant.TAG_TEST, count + "--onEnd");
+                LogHelper.i(Constants.TAG_TEST, count + "--onEnd");
             }
         };
 
@@ -70,7 +70,7 @@ public class TimerActivity extends BaseActivity {
                     @Override
                     public void run() {
                         index = index + 1;
-                        XCLog.shortToast(index);
+                        LogHelper.shortToast(index);
                     }
                 });
 
@@ -94,14 +94,14 @@ public class TimerActivity extends BaseActivity {
         scheduled.schedule(new Runnable() {
             @Override
             public void run() {
-                XCLog.i("5秒后执行一次");
+                LogHelper.i("5秒后执行一次");
             }
         }, 5, TimeUnit.SECONDS);
 
         scheduled.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
-                XCLog.i("2秒后开始执行，每隔6秒执行一次");
+                LogHelper.i("2秒后开始执行，每隔6秒执行一次");
             }
         }, 2, 6, TimeUnit.SECONDS);
     }

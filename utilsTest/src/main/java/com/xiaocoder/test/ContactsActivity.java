@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.xiaocoder.utils.function.adapter.XCBaseAdapter;
-import com.xiaocoder.utils.function.thread.XCExecutor;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.function.adapter.BAdapter;
+import com.xiaocoder.utils.function.helper.ExecutorHelper;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilContacts;
 import com.xiaocoder.utils.util.UtilView;
 import com.xiaocoder.test_middle.Image;
@@ -39,7 +39,7 @@ public class ContactsActivity extends BaseActivity {
         initWidgets();
     }
 
-    class ContactsAdapter extends XCBaseAdapter<UtilContacts.XCContactModel> {
+    class ContactsAdapter extends BAdapter<UtilContacts.XCContactModel> {
 
         public ContactsAdapter(Context context, List<UtilContacts.XCContactModel> list) {
             super(context, list);
@@ -87,7 +87,7 @@ public class ContactsActivity extends BaseActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-        XCExecutor.getCache().execute(new Runnable() {
+        ExecutorHelper.getCache().execute(new Runnable() {
             @Override
             public void run() {
                 // 获取联系人
@@ -96,7 +96,7 @@ public class ContactsActivity extends BaseActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        XCLog.i(list);
+                        LogHelper.i(list);
 
                         // 创建adapter
                         ContactsAdapter adpater = new ContactsAdapter(ContactsActivity.this, list);

@@ -13,11 +13,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xiaocoder.test.R;
-import com.xiaocoder.utils.application.XCFragment;
-import com.xiaocoder.utils.function.adapter.XCBaseAdapter;
-import com.xiaocoder.utils.function.searchdb.XCSearchRecordModel;
-import com.xiaocoder.utils.function.searchdb.XCSearchRecordModelDb;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.application.BFragment;
+import com.xiaocoder.utils.function.adapter.BAdapter;
+import com.xiaocoder.utils.function.searchdb.SearchRecordBean;
+import com.xiaocoder.utils.function.searchdb.SearchRecordDb;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilView;
 
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.List;
  * @description
  */
 @Deprecated
-public class SearchRecordFragment extends XCFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class SearchRecordFragment extends BFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     ListView xc_id_fragment_search_record_listview;
     Button xc_id_fragment_search_record_clear_button;
@@ -36,7 +36,7 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
     // 记录界面不显示状态
     KeyBoardLayout xc_id_fragment_search_record_keyboard_layout;
 
-    XCSearchRecordModelDb dao;
+    SearchRecordDb dao;
     SearchRecordAdapter adapter;
     TextView xc_id_fragment_search_record_close;
 
@@ -61,7 +61,7 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
     OnRecordItemClickListener onRecordItemClickListener;
 
     public interface OnRecordItemClickListener {
-        void onRecordItemClickListener(XCSearchRecordModel model, String key_word, int position);
+        void onRecordItemClickListener(SearchRecordBean model, String key_word, int position);
     }
 
     public void setOnRecordItemClickListener(OnRecordItemClickListener onRecordItemClickListener) {
@@ -95,13 +95,13 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
             if ("清空所有历史记录".equals(xc_id_fragment_search_record_clear_button.getText())) {
                 dao.deleteAll();
                 // 查询数据库记录
-                List<XCSearchRecordModel> searchRecordBeans = dao.queryAllByDESC();
-                if (searchRecordBeans != null && searchRecordBeans.size() > 0) {
+                List<SearchRecordBean> searchRecordBeanBeen = dao.queryAllByDESC();
+                if (searchRecordBeanBeen != null && searchRecordBeanBeen.size() > 0) {
                     xc_id_fragment_search_record_clear_button.setText("清空所有历史记录");
                 } else {
                     xc_id_fragment_search_record_clear_button.setText("暂无历史记录");
                 }
-                adapter.update(searchRecordBeans);
+                adapter.update(searchRecordBeanBeen);
                 adapter.notifyDataSetChanged();
             }
         } else if (id == R.id.xc_id_fragment_search_record_close) {
@@ -113,7 +113,7 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        XCSearchRecordModel bean = (XCSearchRecordModel) parent.getItemAtPosition(position);
+        SearchRecordBean bean = (SearchRecordBean) parent.getItemAtPosition(position);
         if (onRecordItemClickListener != null) {
             onRecordItemClickListener.onRecordItemClickListener(bean, bean.getKey_word(), position);
         }
@@ -133,24 +133,24 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
 
     public void update() {
         // 查询数据库记录 , 恢复查询历史记录
-        List<XCSearchRecordModel> searchRecordBeans = dao.queryAllByDESC();
+        List<SearchRecordBean> searchRecordBeanBeen = dao.queryAllByDESC();
 
-        if (searchRecordBeans != null && searchRecordBeans.size() > 0) {
+        if (searchRecordBeanBeen != null && searchRecordBeanBeen.size() > 0) {
             xc_id_fragment_search_record_clear_button.setText("清空所有历史记录");
         } else {
             xc_id_fragment_search_record_clear_button.setText("暂无历史记录");
         }
 
-        adapter.update(searchRecordBeans);
+        adapter.update(searchRecordBeanBeen);
         adapter.notifyDataSetChanged();
         xc_id_fragment_search_record_listview.setSelection(0);
     }
 
-    class SearchRecordAdapter extends XCBaseAdapter<XCSearchRecordModel> implements View.OnClickListener {
+    class SearchRecordAdapter extends BAdapter<SearchRecordBean> implements View.OnClickListener {
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            XCSearchRecordModel bean = list.get(position);
+            SearchRecordBean bean = list.get(position);
 
             SearchRecoderViewHolder holder = null;
 
@@ -174,7 +174,7 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
 
         }
 
-        public SearchRecordAdapter(Context context, List<XCSearchRecordModel> list) {
+        public SearchRecordAdapter(Context context, List<SearchRecordBean> list) {
             super(context, list);
         }
 
@@ -187,7 +187,7 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
         @Override
         public void onClick(View view) {
             Integer position = (Integer) view.getTag();
-            XCLog.dShortToast(position + "");
+            LogHelper.dShortToast(position + "");
             dao.deleteByTime(list.get(position).getTime());
             SearchRecordFragment.this.update();
         }
@@ -223,7 +223,7 @@ public class SearchRecordFragment extends XCFragment implements View.OnClickList
     }
 
     public void initDao() {
-        dao = new XCSearchRecordModelDb(getXCActivity(), mTableName);
+        dao = new SearchRecordDb(getXCActivity(), mTableName);
     }
 
     public void listeners() {

@@ -7,9 +7,9 @@ import android.widget.Button;
 import com.xiaocoder.test.R;
 import com.xiaocoder.test_middle.Jumper;
 import com.xiaocoder.test_middle.base.BaseActivity;
-import com.xiaocoder.utils.function.searchdb.XCSearchRecordModel;
-import com.xiaocoder.utils.function.searchdb.XCSearchRecordModelDb;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.function.searchdb.SearchRecordBean;
+import com.xiaocoder.utils.function.searchdb.SearchRecordDb;
+import com.xiaocoder.utils.io.LogHelper;
 
 /**
  * @author xiaocoder
@@ -35,7 +35,7 @@ public class SearchActivity2 extends BaseActivity {
 
     public void initWidgets() {
         title_fragment = new TitleSearchFragment();
-        title_fragment.setDbParams(XCSearchRecordModelDb.TABLE_2);
+        title_fragment.setDbParams(SearchRecordDb.TABLE_2);
         addFragment(R.id.xc_id_model_titlebar, title_fragment);
 
         activity_button = getViewById(R.id.activity_button);
@@ -51,7 +51,7 @@ public class SearchActivity2 extends BaseActivity {
                 // 为空则创建并设置监听 , record_fragment里面的监听器可以监听键盘的显示到隐藏的状态
                 if (record_fragment == null) {
                     record_fragment = new SearchRecordFragment();
-                    record_fragment.setDbParams(XCSearchRecordModelDb.TABLE_2);
+                    record_fragment.setDbParams(SearchRecordDb.TABLE_2);
 
                     // 点击键盘中的隐藏键盘按钮
                     record_fragment.setOnKeyBoardStatusListener(new SearchRecordFragment.OnKeyBoardStatusListener() {
@@ -61,14 +61,14 @@ public class SearchActivity2 extends BaseActivity {
                             if (!is_key_board_show) {
                                 hideFragment(record_fragment);
                             }
-                            XCLog.shortToast("change");
+                            LogHelper.shortToast("change");
                         }
                     });
 
                     record_fragment.setOnRecordItemClickListener(new SearchRecordFragment.OnRecordItemClickListener() {
                         @Override
-                        public void onRecordItemClickListener(XCSearchRecordModel model, String key_word, int position) {
-                            XCLog.shortToast(key_word);
+                        public void onRecordItemClickListener(SearchRecordBean model, String key_word, int position) {
+                            LogHelper.shortToast(key_word);
                             Jumper.toSearchActivity2(SearchActivity2.this);
                         }
                     });
@@ -93,7 +93,7 @@ public class SearchActivity2 extends BaseActivity {
         title_fragment.setOnPressSearchlistener(new TitleSearchFragment.OnKeyBoardSearchListener() {
             @Override
             public void searchKeyDown(String key_word) {
-                XCLog.shortToast(key_word);
+                LogHelper.shortToast(key_word);
                 Jumper.toSearchActivity2(SearchActivity2.this);
             }
         });
@@ -103,18 +103,18 @@ public class SearchActivity2 extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        XCLog.i(this, "onDestroy");
+        LogHelper.i(this, "onDestroy");
     }
 
     @Override
     public void finish() {
         super.finish();
-        XCLog.i(this, "finish");
+        LogHelper.i(this, "finish");
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        XCLog.i(this, "onBackPressed");
+        LogHelper.i(this, "onBackPressed");
     }
 }

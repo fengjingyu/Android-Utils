@@ -3,7 +3,7 @@ package com.xiaocoder.test;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilScreen;
 
 /**
@@ -17,7 +17,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testUtil() {
         int statusBarHeight = UtilScreen.getStatusBarHeight(getContext());
-        XCLog.i(statusBarHeight);
+        LogHelper.i(statusBarHeight);
     }
 
 }

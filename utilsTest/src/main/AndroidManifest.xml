@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xiaocoder.utils.exception.XLShowExceptionsActivity"
+            android:name="com.xiaocoder.utils.exception.ShowExceptionsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity

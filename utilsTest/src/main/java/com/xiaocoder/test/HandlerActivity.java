@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.xiaocoder.test_middle.base.BaseActivity;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.LogHelper;
 
 public class HandlerActivity extends BaseActivity {
     private Button button1;
@@ -88,7 +88,7 @@ public class HandlerActivity extends BaseActivity {
                 mHandler = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
-                        XCLog.i(this);
+                        LogHelper.i(this);
                         // id_content.setText("button3 update");// 会crash，ui只能在主线程里更新，这个mHandler不是主线程的
                     }
                 };

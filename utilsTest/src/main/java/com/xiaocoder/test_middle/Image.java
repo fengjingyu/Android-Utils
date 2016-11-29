@@ -2,7 +2,7 @@ package com.xiaocoder.test_middle;
 
 import android.widget.ImageView;
 
-import com.xiaocoder.utils.imageloader.XCIImageLoader;
+import com.xiaocoder.utils.imageloader.IImageLoader;
 
 /**
  * @author xiaocoder
@@ -11,14 +11,14 @@ import com.xiaocoder.utils.imageloader.XCIImageLoader;
  */
 public class Image {
 
-    private static XCIImageLoader imageLoader;
+    private static IImageLoader imageLoader;
 
 
-    public static XCIImageLoader getImageLoader() {
+    public static IImageLoader getImageLoader() {
         return imageLoader;
     }
 
-    public static void initImager(XCIImageLoader imageLoader) {
+    public static void initImager(IImageLoader imageLoader) {
         Image.imageLoader = imageLoader;
     }
 

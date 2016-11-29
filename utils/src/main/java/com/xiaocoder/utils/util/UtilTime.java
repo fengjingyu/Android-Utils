@@ -1,6 +1,6 @@
 package com.xiaocoder.utils.util;
 
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.LogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,8 +53,8 @@ public class UtilTime {
         try {
             String str_timePoint = timePoint;
             String str_timeQuantum = timeQuantum;
-            XCLog.i("当前时间点：" + timePoint);
-            XCLog.i("当前时间段：" + timeQuantum);
+            LogHelper.i("当前时间点：" + timePoint);
+            LogHelper.i("当前时间段：" + timeQuantum);
 
             String[] ss = str_timeQuantum.split("-");
             int length = ss.length;

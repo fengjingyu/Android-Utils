@@ -1,13 +1,13 @@
 package com.xiaocoder.test;
 
-import com.xiaocoder.utils.application.XCModel;
+import com.xiaocoder.utils.application.Bean;
 
 /**
  * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */
-public class TestModel extends XCModel {
+public class TestModel extends Bean {
 
     private String msg;
 

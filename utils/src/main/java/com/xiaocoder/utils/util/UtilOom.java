@@ -6,8 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.xiaocoder.utils.io.XCIOAndroid;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -76,7 +74,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = XCIOAndroid.getInputStreamFromUri(context, uri);
+        input = UtilIoAndroid.getInputStreamFromUri(context, uri);
 
         if (input == null) {
             return null;
@@ -92,7 +90,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = XCIOAndroid.getInputStreamFromUri(context, uri);
+        input = UtilIoAndroid.getInputStreamFromUri(context, uri);
 
         if (input == null) {
             return null;
@@ -107,7 +105,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = XCIOAndroid.getInputStreamFromRaw(context, drawable_id);
+        input = UtilIoAndroid.getInputStreamFromRaw(context, drawable_id);
 
         if (input == null) {
             return null;
@@ -123,7 +121,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = XCIOAndroid.getInputStreamFromRaw(context, drawable_id);
+        input = UtilIoAndroid.getInputStreamFromRaw(context, drawable_id);
 
         if (input == null) {
             return null;

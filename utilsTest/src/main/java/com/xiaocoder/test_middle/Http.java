@@ -1,10 +1,10 @@
 package com.xiaocoder.test_middle;
 
 
-import com.xiaocoder.utils.http.IHttp.XCIHttpClient;
-import com.xiaocoder.utils.http.IHttp.XCIRespHandler;
-import com.xiaocoder.utils.http.XCReqInfo;
-import com.xiaocoder.utils.http.XCReqType;
+import com.xiaocoder.utils.http.IHttp.IHttpClient;
+import com.xiaocoder.utils.http.IHttp.IRespHandler;
+import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.ReqType;
 
 import java.util.Map;
 
@@ -15,46 +15,46 @@ import java.util.Map;
  */
 public class Http {
 
-    private static XCIHttpClient httpClient;
+    private static IHttpClient httpClient;
 
-    public static XCIHttpClient getHttpClient() {
+    public static IHttpClient getHttpClient() {
         return httpClient;
     }
 
-    public static void initHttp(XCIHttpClient client) {
+    public static void initHttp(IHttpClient client) {
         httpClient = client;
     }
 
-    public static XCReqInfo http(XCReqInfo reqInfo, XCIRespHandler respHandler) {
+    public static ReqInfo http(ReqInfo reqInfo, IRespHandler respHandler) {
         httpClient.http(reqInfo, respHandler);
         return reqInfo;
     }
 
-    public static XCReqInfo get(String url, Map<String, Object> originParamsMap, boolean isSecretParam,
-                                boolean isShowDialog, XCIRespHandler respHandler) {
+    public static ReqInfo get(String url, Map<String, Object> originParamsMap, boolean isSecretParam,
+                              boolean isShowDialog, IRespHandler respHandler) {
 
-        return common(url, XCReqType.GET, originParamsMap, isSecretParam, isShowDialog, respHandler);
+        return common(url, ReqType.GET, originParamsMap, isSecretParam, isShowDialog, respHandler);
     }
 
-    public static XCReqInfo get(String url, Map<String, Object> originParamsMap, XCIRespHandler respHandler) {
-        return common(url, XCReqType.GET, originParamsMap, true, true, respHandler);
+    public static ReqInfo get(String url, Map<String, Object> originParamsMap, IRespHandler respHandler) {
+        return common(url, ReqType.GET, originParamsMap, true, true, respHandler);
     }
 
-    public static XCReqInfo post(String url, Map<String, Object> originParamsMap, boolean isSecretParam,
-                                 boolean isShowDialog, XCIRespHandler respHandler) {
+    public static ReqInfo post(String url, Map<String, Object> originParamsMap, boolean isSecretParam,
+                               boolean isShowDialog, IRespHandler respHandler) {
 
-        return common(url, XCReqType.POST, originParamsMap, isSecretParam, isShowDialog, respHandler);
+        return common(url, ReqType.POST, originParamsMap, isSecretParam, isShowDialog, respHandler);
     }
 
-    public static XCReqInfo post(String url, Map<String, Object> originParamsMap, XCIRespHandler respHandler) {
-        return common(url, XCReqType.POST, originParamsMap, true, true, respHandler);
+    public static ReqInfo post(String url, Map<String, Object> originParamsMap, IRespHandler respHandler) {
+        return common(url, ReqType.POST, originParamsMap, true, true, respHandler);
     }
 
     /**
      * 封装请求model
      */
-    private static XCReqInfo common(String url, XCReqType type, Map<String, Object> originParamsMap, boolean isSecretParam, boolean isShowDialog, XCIRespHandler respHandler) {
-        XCReqInfo reqInfo = new XCReqInfo();
+    private static ReqInfo common(String url, ReqType type, Map<String, Object> originParamsMap, boolean isSecretParam, boolean isShowDialog, IRespHandler respHandler) {
+        ReqInfo reqInfo = new ReqInfo();
 
         reqInfo.setReqType(type);
         reqInfo.setUrl(url);

@@ -10,8 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.xiaocoder.test.R;
-import com.xiaocoder.utils.application.XCActivity;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.application.BActivity;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilBroadcast;
 
 /**
@@ -19,12 +19,12 @@ import com.xiaocoder.utils.util.UtilBroadcast;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public abstract class BaseActivity extends XCActivity {
+public abstract class BaseActivity extends BActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        XCLog.i(this + "---onCreate");
+        LogHelper.i(this + "---onCreate");
         initReceiver();
     }
 
@@ -42,10 +42,10 @@ public abstract class BaseActivity extends XCActivity {
             boolean hasConnectivity = info != null && info.isConnected();
 
             if (hasConnectivity) {
-                XCLog.dShortToast("有网");
+                LogHelper.dShortToast("有网");
                 onNetNormal();
             } else {
-                XCLog.dShortToast("无网");
+                LogHelper.dShortToast("无网");
                 onNetLoss();
             }
         }
@@ -95,42 +95,42 @@ public abstract class BaseActivity extends XCActivity {
     protected void onDestroy() {
         unbindReceiver();
         super.onDestroy();
-        XCLog.i(this + "---onDestroy");
+        LogHelper.i(this + "---onDestroy");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        XCLog.i(this + "---onStart");
+        LogHelper.i(this + "---onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        XCLog.i(this + "---onResume");
+        LogHelper.i(this + "---onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        XCLog.i(this + "---onPause");
+        LogHelper.i(this + "---onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        XCLog.i(this + "---onStop");
+        LogHelper.i(this + "---onStop");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        XCLog.i(this + "---onRestart");
+        LogHelper.i(this + "---onRestart");
     }
 
     @Override
     public void finish() {
         super.finish();
-        XCLog.i(this + "---finish");
+        LogHelper.i(this + "---finish");
     }
 }

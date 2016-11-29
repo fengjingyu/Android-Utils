@@ -14,10 +14,10 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.xiaocoder.test.R;
-import com.xiaocoder.utils.application.XCFragment;
-import com.xiaocoder.utils.function.searchdb.XCSearchRecordModel;
-import com.xiaocoder.utils.function.searchdb.XCSearchRecordModelDb;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.application.BFragment;
+import com.xiaocoder.utils.function.searchdb.SearchRecordBean;
+import com.xiaocoder.utils.function.searchdb.SearchRecordDb;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilString;
 import com.xiaocoder.utils.util.UtilView;
 
@@ -29,11 +29,11 @@ import java.util.List;
  * @description
  */
 @Deprecated
-public class TitleSearchFragment extends XCFragment implements View.OnClickListener {
+public class TitleSearchFragment extends BFragment implements View.OnClickListener {
 
     EditText xc_id_fragment_search_edittext;
     TextView xc_id_fragment_search_cancle;
-    XCSearchRecordModelDb dao;
+    SearchRecordDb dao;
 
     boolean isClickeble = true;
     boolean isCancleButtonVisiable;
@@ -114,7 +114,7 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
             if (canclelistener != null) {
                 String keyword = xc_id_fragment_search_edittext.getText().toString().trim();
                 if ("".equals(keyword)) {
-                    XCLog.shortToast("关键字不能为空");
+                    LogHelper.shortToast("关键字不能为空");
                     return;
                 }
 
@@ -160,9 +160,9 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
         int count = dao.queryCount();
 
         if (count > mRecoderNumMax) {
-            List<XCSearchRecordModel> xcSearchRecordModels = dao.queryAllByDESC();
+            List<SearchRecordBean> xcSearchRecordBeanModels = dao.queryAllByDESC();
             for (int i = mRecoderNumMax; i < count; i++) {
-                XCSearchRecordModel model = xcSearchRecordModels.get(i);
+                SearchRecordBean model = xcSearchRecordBeanModels.get(i);
                 if (model != null) {
                     dao.deleteByTime(model.getTime());
                 }
@@ -172,9 +172,9 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
 
     private void checkRecoderExistAndSave(String keyword) {
 
-        List<XCSearchRecordModel> xcSearchRecordModels1 = dao.queryAllByDESC();
+        List<SearchRecordBean> xcSearchRecordBeanModels1 = dao.queryAllByDESC();
         boolean is_exist = false;
-        for (XCSearchRecordModel model : xcSearchRecordModels1) {
+        for (SearchRecordBean model : xcSearchRecordBeanModels1) {
             if (keyword.equals(model.getKey_word())) {
                 is_exist = true;
                 break;
@@ -183,7 +183,7 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
 
         // 记录存入数据库
         if (!is_exist) {
-            dao.insert(new XCSearchRecordModel(keyword, System.currentTimeMillis() + ""));
+            dao.insert(new SearchRecordBean(keyword, System.currentTimeMillis() + ""));
         }
     }
 
@@ -236,7 +236,7 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
     }
 
     public void initDao() {
-        dao = new XCSearchRecordModelDb(getXCActivity(), mTableName);
+        dao = new SearchRecordDb(getXCActivity(), mTableName);
     }
 
     public void listeners() {
@@ -251,7 +251,7 @@ public class TitleSearchFragment extends XCFragment implements View.OnClickListe
 
                     String keyword = xc_id_fragment_search_edittext.getText().toString().trim();
                     if ("".equals(keyword)) {
-                        XCLog.shortToast("关键字不能为空");
+                        LogHelper.shortToast("关键字不能为空");
                         return false;
                     }
                     if (getActivity().getCurrentFocus() != null) {

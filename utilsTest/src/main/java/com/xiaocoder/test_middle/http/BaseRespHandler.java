@@ -7,12 +7,12 @@ import android.view.KeyEvent;
 
 import com.xiaocoder.test.MainActivity;
 import com.xiaocoder.test_middle.App;
-import com.xiaocoder.utils.application.XCConstant;
-import com.xiaocoder.utils.http.XCDialogManager;
-import com.xiaocoder.utils.http.XCReqInfo;
-import com.xiaocoder.utils.http.XCRespHandler;
-import com.xiaocoder.utils.http.XCRespInfo;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.http.DialogManager;
+import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespHandler;
+import com.xiaocoder.utils.http.RespInfo;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilDate;
 import com.xiaocoder.utils.util.UtilString;
 import com.xiaocoder.utils.util.UtilSystem;
@@ -28,7 +28,7 @@ import java.util.Map;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
+public abstract class BaseRespHandler<T> extends RespHandler<T> {
 
     private Activity activityContext;
 
@@ -41,7 +41,7 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
     }
 
     @Override
-    public void onReadySendRequest(XCReqInfo reqInfo) {
+    public void onReadySendRequest(ReqInfo reqInfo) {
         super.onReadySendRequest(reqInfo);
 
         setHttpHeaders(reqInfo);
@@ -58,9 +58,9 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
      * <p/>
      * 如果显示dialog，则isShowDialog为true 且 activityContext非空
      */
-    private void showDialog(XCReqInfo reqInfo) {
+    private void showDialog(ReqInfo reqInfo) {
         if (activityContext != null && reqInfo.isShowDialog()) {
-            XCDialogManager dialogManager = XCDialogManager.getInstance(activityContext);
+            DialogManager dialogManager = DialogManager.getInstance(activityContext);
 
             if (dialogManager.isDialogNull()) {
                 // TODO 更新dialog
@@ -81,9 +81,9 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
      * 解析是否成功的规则，根据项目的json而定
      */
     @Override
-    public boolean onMatchAppStatusCode(XCReqInfo reqInfo, XCRespInfo respInfo, T resultBean) {
+    public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
 
-        XCLog.i(XCConstant.TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
         //TODO 解析规则
         if (resultBean instanceof IHttpRespInfo) {
 
@@ -95,31 +95,31 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
             }
 
         } else {
-            XCLog.e("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
+            LogHelper.e("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
             throw new RuntimeException("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
         }
 
     }
 
     public void statusCodeWrongLogic(T resultBean) {
-        XCLog.shortToast(((IHttpRespInfo) resultBean).getMsg());
+        LogHelper.shortToast(((IHttpRespInfo) resultBean).getMsg());
     }
 
     @Override
-    public void onFailure(XCReqInfo reqInfo, XCRespInfo respInfo) {
+    public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
         super.onFailure(reqInfo, respInfo);
-        XCLog.shortToast("网络有误");
+        LogHelper.shortToast("网络有误");
     }
 
     @Override
-    public void onEnd(XCReqInfo reqInfo, XCRespInfo respInfo) {
+    public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
         super.onEnd(reqInfo, respInfo);
         closeDialog(reqInfo.isShowDialog());
     }
 
     private void closeDialog(boolean isShowDialog) {
         if (activityContext != null && isShowDialog) {
-            XCDialogManager.getInstance(activityContext).close(String.valueOf(hashCode()));
+            DialogManager.getInstance(activityContext).close(String.valueOf(hashCode()));
         }
     }
 
@@ -145,7 +145,7 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
     /**
      * 配置项目的请求头
      */
-    public void setHttpHeaders(XCReqInfo reqInfo) {
+    public void setHttpHeaders(ReqInfo reqInfo) {
         //TODO 设置请求头
         Map<String, List<String>> map = new HashMap<>();
         map.put("_v", Arrays.asList(UtilSystem.getVersionCode(App.getAppContext()) + ""));
@@ -157,7 +157,7 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
     /**
      * 配置项目的加密规则
      */
-    public void setHttpSecretParams(XCReqInfo reqInfo) {
+    public void setHttpSecretParams(ReqInfo reqInfo) {
         //TODO 设置加密
         if (reqInfo.isSecretParam()) {
             reqInfo.getFinalRequestParamsMap().put("testKey0", "java");
@@ -169,11 +169,11 @@ public abstract class BaseRespHandler<T> extends XCRespHandler<T> {
     /**
      * 设置请求对象的生成时间
      */
-    public void setSendTime(XCReqInfo reqInfo) {
+    public void setSendTime(ReqInfo reqInfo) {
 
         long time = System.currentTimeMillis();
 
-        reqInfo.setSendTime(time + XCConstant.COMMA_EN + UtilDate.format(new Date(time)));
+        reqInfo.setSendTime(time + Constants.COMMA_EN + UtilDate.format(new Date(time)));
     }
 
 }

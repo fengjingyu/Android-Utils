@@ -2,11 +2,11 @@ package com.xiaocoder.test_middle.http.json;
 
 import android.app.Activity;
 
-import com.xiaocoder.utils.application.XCConstant;
-import com.xiaocoder.utils.http.XCReqInfo;
-import com.xiaocoder.utils.http.XCRespInfo;
-import com.xiaocoder.utils.io.XCLog;
-import com.xiaocoder.utils.json.XCJsonParse;
+import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespInfo;
+import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.json.JsonParse;
 import com.xiaocoder.test_middle.http.BaseRespHandler;
 
 /**
@@ -25,10 +25,10 @@ public class JsonRespHandler extends BaseRespHandler<JsonModel> {
     }
 
     @Override
-    public JsonModel onParse2Model(XCReqInfo xcReqInfo, XCRespInfo xcRespInfo) {
+    public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 
-        XCLog.i(XCConstant.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
-        return XCJsonParse.getJsonParseData(xcRespInfo.getDataString(), JsonModel.class);
+        return JsonParse.getJsonParseData(respInfo.getDataString(), JsonModel.class);
     }
 }

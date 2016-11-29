@@ -8,7 +8,7 @@ import android.net.Uri;
 
 import com.xiaocoder.test.stack.SearchActivity;
 import com.xiaocoder.test.stack.SearchActivity2;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.LogHelper;
 
 /**
  * @author xiaocoder on 2016/9/7 14:43
@@ -42,7 +42,7 @@ public class Jumper {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            XCLog.shortToast("您没有短信功能，此功能不能正常进行！");
+            LogHelper.shortToast("您没有短信功能，此功能不能正常进行！");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,7 +61,7 @@ public class Jumper {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            XCLog.shortToast("您没有拨打电话功能，此功能不能正常进行！");
+            LogHelper.shortToast("您没有拨打电话功能，此功能不能正常进行！");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class Jumper {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            XCLog.shortToast("您没有浏览器，此功能不能正常进行，请安装浏览器后在试！");
+            LogHelper.shortToast("您没有浏览器，此功能不能正常进行，请安装浏览器后在试！");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,10 +2,10 @@ package com.xiaocoder.test_middle.http.gson;
 
 import android.app.Activity;
 
-import com.xiaocoder.utils.application.XCConstant;
-import com.xiaocoder.utils.http.XCReqInfo;
-import com.xiaocoder.utils.http.XCRespInfo;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespInfo;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.test_middle.http.BaseRespHandler;
 
 /**
@@ -27,10 +27,10 @@ public class GsonRespHandler<T> extends BaseRespHandler<T> {
     }
 
     @Override
-    public T onParse2Model(XCReqInfo xcReqInfo, XCRespInfo xcRespInfo) {
+    public T onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 
-        XCLog.i(XCConstant.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
-        return SXGsonParse.fromJson(xcRespInfo.getDataString(), clazz);
+        return SXGsonParse.fromJson(respInfo.getDataString(), clazz);
     }
 }

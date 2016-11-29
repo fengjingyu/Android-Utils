@@ -4,9 +4,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.xiaocoder.utils.function.fragment.XCCameraPhotoFragment;
-import com.xiaocoder.utils.function.fragment.XCLocalPhotoFragment;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.function.fragment.CameraPhotoFragment;
+import com.xiaocoder.utils.function.fragment.LocalPhotoFragment;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.test_middle.base.BaseActivity;
 
 import java.io.File;
@@ -17,8 +17,8 @@ import java.io.File;
  * @description
  */
 public class CamareActivity extends BaseActivity {
-    XCCameraPhotoFragment camera_fragment;
-    XCLocalPhotoFragment local_fragment;
+    CameraPhotoFragment camera_fragment;
+    LocalPhotoFragment local_fragment;
     ImageView id_imageview;
 
     @Override
@@ -30,8 +30,8 @@ public class CamareActivity extends BaseActivity {
     }
 
     public void initWidgets() {
-        camera_fragment = new XCCameraPhotoFragment();
-        local_fragment = new XCLocalPhotoFragment();
+        camera_fragment = new CameraPhotoFragment();
+        local_fragment = new LocalPhotoFragment();
 
         // camera_fragment.setIsAllowResizeImage(true);
         camera_fragment.setImage(R.drawable.ic_launcher);
@@ -46,24 +46,24 @@ public class CamareActivity extends BaseActivity {
     }
 
     public void setListeners() {
-        camera_fragment.setOnCaremaSelectedFileListener(new XCCameraPhotoFragment.OnCaremaSelectedFileListener() {
+        camera_fragment.setOnCaremaSelectedFileListener(new CameraPhotoFragment.OnCaremaSelectedFileListener() {
 
             @Override
             public void onCaremaSelectedFile(File file) {
-                XCLog.i(Uri.fromFile(file));
-                XCLog.i(file.getAbsolutePath());
-                XCLog.i(file.toURI());
+                LogHelper.i(Uri.fromFile(file));
+                LogHelper.i(file.getAbsolutePath());
+                LogHelper.i(file.toURI());
                 id_imageview.setImageURI(Uri.fromFile(file));
             }
         });
 
-        local_fragment.setOnLocalSelectedFileListener(new XCLocalPhotoFragment.OnLocalSelectedFileListener() {
+        local_fragment.setOnLocalSelectedFileListener(new LocalPhotoFragment.OnLocalSelectedFileListener() {
 
             @Override
             public void onLocalSelectedFile(File file) {
-                XCLog.i(Uri.fromFile(file));
-                XCLog.i(file.getAbsolutePath());
-                XCLog.i(file.toURI());
+                LogHelper.i(Uri.fromFile(file));
+                LogHelper.i(file.getAbsolutePath());
+                LogHelper.i(file.toURI());
                 id_imageview.setImageURI(Uri.fromFile(file));
             }
         });

@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.xiaocoder.test.R;
 import com.xiaocoder.test_middle.base.BaseActivity;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.LogHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +40,13 @@ public class WaterFallActivity extends BaseActivity {
             @Override
             public void onClickAction(View view) {
                 int position = (int) view.getTag();
-                XCLog.shortToast("onClickAction--" + position + "--" + adapter.getList().get(position));
+                LogHelper.shortToast("onClickAction--" + position + "--" + adapter.getList().get(position));
             }
 
             @Override
             public void onLongClickAction(View view) {
                 int position = (int) view.getTag();
-                XCLog.shortToast("onLongClickAction--" + position + "--" + adapter.getList().get(position));
+                LogHelper.shortToast("onLongClickAction--" + position + "--" + adapter.getList().get(position));
             }
         });
     }

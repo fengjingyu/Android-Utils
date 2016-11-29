@@ -7,8 +7,8 @@ import android.widget.Button;
 
 import com.xiaocoder.test_middle.base.BaseActivity;
 import com.xiaocoder.test_middle.config.ConfigFile;
-import com.xiaocoder.utils.function.helper.XCCleanCacheHelper;
-import com.xiaocoder.utils.io.XCIOAndroid;
+import com.xiaocoder.utils.function.helper.CleanCacheHelper;
+import com.xiaocoder.utils.util.UtilIoAndroid;
 
 import java.io.File;
 
@@ -20,7 +20,7 @@ import java.io.File;
 public class ClearCacheActivity extends BaseActivity implements View.OnClickListener {
 
     private Button clear;
-    private XCCleanCacheHelper helper;
+    private CleanCacheHelper helper;
     private File dir;
 
     @Override
@@ -35,13 +35,13 @@ public class ClearCacheActivity extends BaseActivity implements View.OnClickList
     public void initWidgets() {
         clear = getViewById(R.id.clear);
         // 如果没有该dir会创建再返回，有则返回该dir
-        dir = XCIOAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
+        dir = UtilIoAndroid.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
 
         ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("测试");
         dialog.setMessage("缓存清理中");
 
-        helper = new XCCleanCacheHelper(dialog, false);
+        helper = new CleanCacheHelper(dialog, false);
     }
 
     public void setListeners() {

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import com.xiaocoder.utils.function.fragment.XCLocalPhotoFragment;
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.function.fragment.LocalPhotoFragment;
+import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.test_middle.base.BaseActivity;
 
 /**
@@ -16,7 +16,7 @@ import com.xiaocoder.test_middle.base.BaseActivity;
 public class ActivityDestroyGC extends BaseActivity {
     private int i = 10;
     private ImageView id_gc_imageview;
-    private XCLocalPhotoFragment localPhotoFragment;
+    private LocalPhotoFragment localPhotoFragment;
     private Handler handler = new Handler();
 
     @Override
@@ -26,7 +26,7 @@ public class ActivityDestroyGC extends BaseActivity {
 
         initWidgets();
 
-        localPhotoFragment = new XCLocalPhotoFragment();
+        localPhotoFragment = new LocalPhotoFragment();
         addFragment(R.id.id_gc_fragment, localPhotoFragment);
     }
 
@@ -44,23 +44,23 @@ public class ActivityDestroyGC extends BaseActivity {
                     e.printStackTrace();
                 }
 
-                XCLog.i(id_gc_imageview);
-                XCLog.i(i);
+                LogHelper.i(id_gc_imageview);
+                LogHelper.i(i);
 
                 System.gc();
                 System.gc();
 
-                XCLog.i(localPhotoFragment.toString());
-                XCLog.i(localPhotoFragment.getActivity());
+                LogHelper.i(localPhotoFragment.toString());
+                LogHelper.i(localPhotoFragment.getActivity());
 
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        XCLog.i("handler --" + id_gc_imageview); // 不为空
-                        XCLog.i("handler --" + i);// 不为空
+                        LogHelper.i("handler --" + id_gc_imageview); // 不为空
+                        LogHelper.i("handler --" + i);// 不为空
 
-                        XCLog.i("handler --" + localPhotoFragment.toString()); // 不为空
-                        XCLog.i("handler --" + localPhotoFragment.getActivity()); // 空
+                        LogHelper.i("handler --" + localPhotoFragment.toString()); // 不为空
+                        LogHelper.i("handler --" + localPhotoFragment.getActivity()); // 空
                     }
                 }, 10000);
 
@@ -72,12 +72,12 @@ public class ActivityDestroyGC extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        XCLog.i(this + "--onDestroy()");
+        LogHelper.i(this + "--onDestroy()");
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        XCLog.i(this + "--onWindowFocusChanged");
+        LogHelper.i(this + "--onWindowFocusChanged");
     }
 }

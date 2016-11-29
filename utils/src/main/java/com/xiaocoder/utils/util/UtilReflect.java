@@ -1,6 +1,6 @@
 package com.xiaocoder.utils.util;
 
-import com.xiaocoder.utils.io.XCLog;
+import com.xiaocoder.utils.io.LogHelper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -71,7 +71,7 @@ public class UtilReflect {
             Field[] fields = cls.getDeclaredFields();
             return fields;
         } catch (Exception ex) {
-            XCLog.e(target + "getFields---", ex);
+            LogHelper.e(target + "getFields---", ex);
             return null;
         }
     }
@@ -90,7 +90,7 @@ public class UtilReflect {
             return result;
 
         } catch (Exception ex) {
-            XCLog.e(target + "getPropertyNames---", ex);
+            LogHelper.e(target + "getPropertyNames---", ex);
             return null;
         }
     }
@@ -114,7 +114,7 @@ public class UtilReflect {
             return values;
 
         } catch (Exception ex) {
-            XCLog.e(target + "getValues---", ex);
+            LogHelper.e(target + "getValues---", ex);
             return null;
         }
     }
@@ -128,7 +128,7 @@ public class UtilReflect {
             return obj;
 
         } catch (Exception ex) {
-            XCLog.e(target + "getValueByName---", ex);
+            LogHelper.e(target + "getValueByName---", ex);
             return null;
         }
     }

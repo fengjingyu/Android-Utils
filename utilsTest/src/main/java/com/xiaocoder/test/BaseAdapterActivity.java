@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xiaocoder.test_middle.base.BaseActivity;
-import com.xiaocoder.utils.function.adapter.XCBaseAdapter;
+import com.xiaocoder.utils.function.adapter.BAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class BaseAdapterActivity extends BaseActivity {
         return list;
     }
 
-    class DemoAdapter extends XCBaseAdapter<String> {
+    class DemoAdapter extends BAdapter<String> {
 
         public DemoAdapter(Context context, List<String> list) {
             super(context, list);

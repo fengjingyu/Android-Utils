@@ -19,8 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.xiaocoder.utils.application.XCConstant;
-import com.xiaocoder.utils.io.XCIO;
+import com.xiaocoder.utils.application.Constants;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -254,7 +253,7 @@ public class UtilString {
         ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor(color));
         hightlight.setSpan(span, str.indexOf("：") + 1, (str).length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         textview.append(hightlight);
-        textview.append(XCIO.LINE_SEPARATOR);
+        textview.append(UtilIo.LINE_SEPARATOR);
     }
 
     /**
@@ -267,7 +266,7 @@ public class UtilString {
         AbsoluteSizeSpan size_span = new AbsoluteSizeSpan(size);
         sizespan.setSpan(size_span, 0, (str).length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         textview.append(sizespan);
-        textview.append(XCIO.LINE_SEPARATOR);
+        textview.append(UtilIo.LINE_SEPARATOR);
     }
 
     /**
@@ -365,7 +364,7 @@ public class UtilString {
 
     public static final String encodeURL(String str) {
         try {
-            return URLEncoder.encode(str, XCConstant.ENCODING_UTF8);
+            return URLEncoder.encode(str, Constants.ENCODING_UTF8);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -373,7 +372,7 @@ public class UtilString {
 
     public static final String decodeURL(String str) {
         try {
-            return URLDecoder.decode(str, XCConstant.ENCODING_UTF8);
+            return URLDecoder.decode(str, Constants.ENCODING_UTF8);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -659,7 +658,7 @@ public class UtilString {
 //            if (str.indexOf("：") > 0) {
 //                setLightAppendString(str, textview, "#184DA3");
 //            } else {
-//                textview.append(str + XCIO.LINE_SEPARATOR);
+//                textview.append(str + UtilIo.LINE_SEPARATOR);
 //            }
 //        }
 //    }

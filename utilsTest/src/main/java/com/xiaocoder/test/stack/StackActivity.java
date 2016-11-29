@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.xiaocoder.utils.function.helper.XCActivityHelper;
-import com.xiaocoder.utils.io.XCIO;
+import com.xiaocoder.utils.function.helper.ActivityHelper;
+import com.xiaocoder.utils.util.UtilIo;
 import com.xiaocoder.test.MainActivity;
 import com.xiaocoder.test.R;
 import com.xiaocoder.test_middle.base.BaseActivity;
@@ -56,52 +56,52 @@ public class StackActivity extends BaseActivity {
 
     private void desc() {
         stack_desc.setText("");
-        stack_desc.append(XCActivityHelper.getStack().size() + "-----栈的大小---" + XCIO.LINE_SEPARATOR);
-        for (Activity item : XCActivityHelper.getStack()) {
-            stack_desc.append(item.getClass() + "----" + XCIO.LINE_SEPARATOR);
+        stack_desc.append(ActivityHelper.getStack().size() + "-----栈的大小---" + UtilIo.LINE_SEPARATOR);
+        for (Activity item : ActivityHelper.getStack()) {
+            stack_desc.append(item.getClass() + "----" + UtilIo.LINE_SEPARATOR);
         }
-        stack_desc.append("MainActivity是否存在--" + XCActivityHelper.isActivityExist(MainActivity.class) + XCIO.LINE_SEPARATOR);
-        stack_desc.append("SearchActivity是否存在--" + XCActivityHelper.isActivityExist(SearchActivity.class) + XCIO.LINE_SEPARATOR);
-        stack_desc.append("SearchActivity2是否存在--" + XCActivityHelper.isActivityExist(SearchActivity2.class) + XCIO.LINE_SEPARATOR);
-        stack_desc.append("StackActivity是否存在--" + XCActivityHelper.isActivityExist(StackActivity.class) + XCIO.LINE_SEPARATOR);
-        stack_desc.append("当前页面--" + XCActivityHelper.getCurrentActivity() + XCIO.LINE_SEPARATOR);
-        stack_desc.append("SearchActivity是否存在--" + XCActivityHelper.getActivity(SearchActivity.class) + XCIO.LINE_SEPARATOR);
-        stack_desc.append("SearchActivity2是否存在--" + XCActivityHelper.getActivity(SearchActivity2.class) + XCIO.LINE_SEPARATOR);
+        stack_desc.append("MainActivity是否存在--" + ActivityHelper.isActivityExist(MainActivity.class) + UtilIo.LINE_SEPARATOR);
+        stack_desc.append("SearchActivity是否存在--" + ActivityHelper.isActivityExist(SearchActivity.class) + UtilIo.LINE_SEPARATOR);
+        stack_desc.append("SearchActivity2是否存在--" + ActivityHelper.isActivityExist(SearchActivity2.class) + UtilIo.LINE_SEPARATOR);
+        stack_desc.append("StackActivity是否存在--" + ActivityHelper.isActivityExist(StackActivity.class) + UtilIo.LINE_SEPARATOR);
+        stack_desc.append("当前页面--" + ActivityHelper.getCurrentActivity() + UtilIo.LINE_SEPARATOR);
+        stack_desc.append("SearchActivity是否存在--" + ActivityHelper.getActivity(SearchActivity.class) + UtilIo.LINE_SEPARATOR);
+        stack_desc.append("SearchActivity2是否存在--" + ActivityHelper.getActivity(SearchActivity2.class) + UtilIo.LINE_SEPARATOR);
     }
 
     public void setListeners() {
         to_main_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XCActivityHelper.toActivity(MainActivity.class);
+                ActivityHelper.toActivity(MainActivity.class);
             }
         });
 
         to_search_activity1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XCActivityHelper.toActivity(SearchActivity.class);
+                ActivityHelper.toActivity(SearchActivity.class);
             }
         });
 
         to_search_activity2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XCActivityHelper.toActivity(SearchActivity2.class);
+                ActivityHelper.toActivity(SearchActivity2.class);
             }
         });
 
         finish_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XCActivityHelper.finishActivity(SearchActivity.class);
+                ActivityHelper.finishActivity(SearchActivity.class);
                 desc();
             }
         });
         finish_activity2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XCActivityHelper.finishActivity(SearchActivity2.class);
+                ActivityHelper.finishActivity(SearchActivity2.class);
                 desc();
             }
         });
@@ -109,14 +109,14 @@ public class StackActivity extends BaseActivity {
         finish_all_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XCActivityHelper.finishAllActivity();
+                ActivityHelper.finishAllActivity();
             }
         });
 
         finish_current_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                XCActivityHelper.finishCurrentActivity();
+                ActivityHelper.finishCurrentActivity();
             }
         });
 
@@ -124,7 +124,7 @@ public class StackActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 // 以下两种方式的周期是一样的
-                XCActivityHelper.finishCurrentActivity();
+                ActivityHelper.finishCurrentActivity();
                 startActivity(new Intent(getXCActivity(), SearchActivity.class));
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---finish
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---onPause
@@ -136,7 +136,7 @@ public class StackActivity extends BaseActivity {
 
 
 //                startActivity(new Intent(getXCActivity(),SearchActivity.class));
-//                XCActivityHelper.finishCurrentActivity();
+//                ActivityHelper.finishCurrentActivity();
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---finish
 //                com.xiaocoder.android_test.stack.StackActivity@2de63894---onPause
 //                com.xiaocoder.android_test.stack.SearchActivity@25c4d4fb---onCreate

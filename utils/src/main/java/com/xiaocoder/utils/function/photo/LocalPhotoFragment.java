@@ -1,4 +1,4 @@
-package com.xiaocoder.utils.function.fragment;
+package com.xiaocoder.utils.function.photo;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -24,7 +24,7 @@ import android.widget.ImageView;
 
 import com.xiaocoder.utils.R;
 import com.xiaocoder.utils.application.BFragment;
-import com.xiaocoder.utils.function.helper.ExecutorHelper;
+import com.xiaocoder.utils.function.helper.ExecutorManager;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilDate;
 import com.xiaocoder.utils.util.UtilOom;
@@ -119,7 +119,7 @@ public class LocalPhotoFragment extends BFragment implements View.OnClickListene
                                 LogHelper.shortToast("系统获取图片失败");
                                 return;
                             }
-                            ExecutorHelper.getCache().execute(new Runnable() {
+                            ExecutorManager.getCache().execute(new Runnable() {
                                 Bitmap bitmap;
 
                                 @Override

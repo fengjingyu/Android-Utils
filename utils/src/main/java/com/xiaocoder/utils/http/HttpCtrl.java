@@ -17,7 +17,7 @@ import java.util.Map;
  * @email fengjingyu@foxmail.com
  * @description 处理http发送前后的方法回调
  */
-public class HttpHandlerCtrl {
+public class HttpCtrl {
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -33,7 +33,7 @@ public class HttpHandlerCtrl {
         return reqInfo;
     }
 
-    public HttpHandlerCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
+    public HttpCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
         this.reqInfo = reqInfo;
         this.respHandler = respHandler;
     }

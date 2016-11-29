@@ -1,7 +1,7 @@
 package com.xiaocoder.utils.http.okhttp;
 
 import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.http.HttpHandlerCtrl;
+import com.xiaocoder.utils.http.HttpCtrl;
 import com.xiaocoder.utils.http.RespInfo;
 import com.xiaocoder.utils.http.RespType;
 import com.xiaocoder.utils.io.LogHelper;
@@ -21,33 +21,33 @@ import okhttp3.Response;
  */
 public class OkRespHandler implements Callback {
 
-    private HttpHandlerCtrl httpHandlerCtrl;
+    private HttpCtrl httpCtrl;
 
-    public OkRespHandler(HttpHandlerCtrl httpHandlerCtrl) {
-        this.httpHandlerCtrl = httpHandlerCtrl;
+    public OkRespHandler(HttpCtrl httpCtrl) {
+        this.httpCtrl = httpCtrl;
     }
 
     @Override
     public void onFailure(Call call, IOException e) {
 
-        if (httpHandlerCtrl.getRespHandler() != null) {
+        if (httpCtrl.getRespHandler() != null) {
 
             RespInfo respInfo = new RespInfo();
 
             respInfo.setRespType(RespType.FAILURE);
             respInfo.setThrowable(e);
 
-            httpHandlerCtrl.handlerSuccess(respInfo);
+            httpCtrl.handlerSuccess(respInfo);
 
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onFailure--未传入handler--" + httpHandlerCtrl.getReqInfo());
+            LogHelper.i(Constants.TAG_HTTP, "onFailure--未传入handler--" + httpCtrl.getReqInfo());
         }
 
     }
 
     @Override
     public void onResponse(Call call, final Response response) throws IOException {
-        if (httpHandlerCtrl.getRespHandler() != null) {
+        if (httpCtrl.getRespHandler() != null) {
 
             RespInfo respInfo = new RespInfo();
             respInfo.setHttpCode(response.code());
@@ -61,9 +61,9 @@ public class OkRespHandler implements Callback {
             respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
             respInfo.setThrowable(null);
 
-            httpHandlerCtrl.handlerSuccess(respInfo);
+            httpCtrl.handlerSuccess(respInfo);
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onSuccess--未传入handler--" + httpHandlerCtrl.getReqInfo());
+            LogHelper.i(Constants.TAG_HTTP, "onSuccess--未传入handler--" + httpCtrl.getReqInfo());
         }
 
     }

@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xiaocoder.utils.function.adapter.BAdapter;
-import com.xiaocoder.utils.function.helper.ExecutorHelper;
+import com.xiaocoder.utils.function.helper.ExecutorManager;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilContacts;
 import com.xiaocoder.utils.util.UtilView;
@@ -87,7 +87,7 @@ public class ContactsActivity extends BaseActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-        ExecutorHelper.getCache().execute(new Runnable() {
+        ExecutorManager.getCache().execute(new Runnable() {
             @Override
             public void run() {
                 // 获取联系人

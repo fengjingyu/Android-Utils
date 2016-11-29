@@ -5,7 +5,8 @@ import com.xiaocoder.utils.http.RespInfo;
 
 /**
  * @email fengjingyu@foxmail.com
- * @description 对http请求发出之前和http回调结束的监听
+ * @description 对http请求发出之前和http回调结束之后的监听
+ * 可以拦截请求是否发送 与 控制串行的的请求
  */
 public interface IHttpNotify {
 

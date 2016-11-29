@@ -3,7 +3,7 @@ package com.xiaocoder.test_middle;
 import android.app.Activity;
 import android.content.Context;
 
-import com.xiaocoder.utils.function.helper.ActivityHelper;
+import com.xiaocoder.utils.function.helper.ActivityManager;
 import com.xiaocoder.utils.io.SPHelper;
 
 
@@ -119,7 +119,7 @@ public class Sp {
         setUserPhoneNum("");
         //TODO 注销的代码 。。
 
-        ActivityHelper.finishAllActivity();
+        ActivityManager.finishAllActivity();
         //TODO 添加跳转代码
     }
 

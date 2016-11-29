@@ -7,9 +7,9 @@ import java.util.concurrent.Executors;
  * @email fengjingyu@foxmail.com
  * @description 线程池
  */
-public class ExecutorHelper {
+public class ExecutorManager {
 
-    private ExecutorHelper() {
+    private ExecutorManager() {
     }
 
     private static class SinglePool {

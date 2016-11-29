@@ -33,17 +33,17 @@ public class CleanCacheHelper {
         void onFinish();
     }
 
-    RemoveDirListener mRemoveDirListener;
+    private RemoveDirListener mRemoveDirListener;
 
     public void setRemoveDirListener(RemoveDirListener removeDirListener) {
         this.mRemoveDirListener = removeDirListener;
     }
 
-    boolean isGoOnDeleting;
+    private boolean isGoOnDeleting;
 
-    boolean isDeleteRootDir;
+    private boolean isDeleteRootDir;
 
-    Dialog mDeletingDialog;
+    private Dialog mDeletingDialog;
 
     public CleanCacheHelper(Dialog deletingDialog, boolean deleteRootDir) {
 

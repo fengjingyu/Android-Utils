@@ -224,7 +224,7 @@ public class ReqInfo extends Bean {
                 sb.append(entry.getKey() + EQUAL + entry.getValue() + AND);
             }
 
-            return UtilString.getBeforeLastSimbolString(sb.toString(), AND);
+            return UtilString.subStringBeforeLastSimbol(sb.toString(), AND);
 
         } else {
             // 无参数

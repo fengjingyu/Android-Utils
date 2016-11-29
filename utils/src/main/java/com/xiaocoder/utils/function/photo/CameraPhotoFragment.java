@@ -1,4 +1,4 @@
-package com.xiaocoder.utils.function.fragment;
+package com.xiaocoder.utils.function.photo;
 
 import android.Manifest;
 import android.app.Activity;
@@ -18,7 +18,7 @@ import android.widget.ImageView;
 
 import com.xiaocoder.utils.R;
 import com.xiaocoder.utils.application.BFragment;
-import com.xiaocoder.utils.function.helper.ExecutorHelper;
+import com.xiaocoder.utils.function.helper.ExecutorManager;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilDate;
 import com.xiaocoder.utils.util.UtilOom;
@@ -107,7 +107,7 @@ public class CameraPhotoFragment extends BFragment implements View.OnClickListen
                                 resizeImage(uri);
                             } else {
 
-                                ExecutorHelper.getCache().execute(new Runnable() {
+                                ExecutorManager.getCache().execute(new Runnable() {
                                     Bitmap bitmap;
 
                                     @Override

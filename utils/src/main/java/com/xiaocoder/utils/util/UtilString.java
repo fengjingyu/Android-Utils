@@ -40,7 +40,7 @@ public class UtilString {
         if (isBlank(str)) {
             return "";
         }
-        return str.trim();
+        return str;
     }
 
     /**
@@ -52,7 +52,7 @@ public class UtilString {
      * @param symbol
      * @return
      */
-    public static String justDeleteLastSymbol(String origin, String symbol) {
+    public static String deleteLastSymbol(String origin, String symbol) {
         if (origin.contains(symbol)) {
             origin = origin.trim();
             // 最后一个该字符的位置
@@ -110,7 +110,7 @@ public class UtilString {
      * @param symbol
      * @return
      */
-    public static String getAfterFirstSimbolString(String origin, String symbol) {
+    public static String subStringAfterFirstSimbol(String origin, String symbol) {
         int index = origin.indexOf(symbol);
         if (index >= 0) {
             if (index + symbol.length() == origin.length()) {
@@ -129,7 +129,7 @@ public class UtilString {
      * @param symbol
      * @return
      */
-    public static String getAfterLastSimbolString(String origin, String symbol) {
+    public static String subStringAfterLastSimbol(String origin, String symbol) {
         int index = origin.lastIndexOf(symbol);
         if (index >= 0) {
             if (index + symbol.length() == origin.length()) {
@@ -148,7 +148,7 @@ public class UtilString {
      * @param symbol
      * @return
      */
-    public static String getBeforeFirstSimbolString(String origin, String symbol) {
+    public static String subStringBeforeFirstSimbol(String origin, String symbol) {
         int index = origin.indexOf(symbol);
         if (index > 0) {
             return origin.substring(0, index).trim();
@@ -165,7 +165,7 @@ public class UtilString {
      * @param symbol
      * @return
      */
-    public static String getBeforeLastSimbolString(String origin, String symbol) {
+    public static String subStringBeforeLastSimbol(String origin, String symbol) {
         int position = origin.lastIndexOf(symbol);
         if (position > 0) {
             return origin.substring(0, position).trim();
@@ -190,7 +190,7 @@ public class UtilString {
     /**
      * 获取一个url的最后的文件名， 不带文件后缀名
      */
-    public static String getHttplastnameWithoutDotAndLine(String http_url) {
+    public static String getHttpFileName(String http_url) {
         int last_dot_position = http_url.lastIndexOf(".");
 
         if (last_dot_position > 0) {

@@ -11,7 +11,7 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.function.helper.ActivityHelper;
+import com.xiaocoder.utils.function.helper.ActivityManager;
 import com.xiaocoder.utils.util.UtilIo;
 import com.xiaocoder.utils.util.UtilIoAndr;
 import com.xiaocoder.utils.io.LogHelper;
@@ -167,7 +167,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
 
         if (mContext != null) {
-            ActivityHelper.appExit();
+            ActivityManager.appExit();
         }
 
     }

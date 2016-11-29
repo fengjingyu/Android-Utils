@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 
 import com.xiaocoder.utils.function.runnable.DownloadRunnable;
 import com.xiaocoder.utils.io.LogHelper;
-import com.xiaocoder.utils.util.UtilString;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -45,8 +44,8 @@ public class UtilIo {
      */
     public static File createFileByPath(String file) {
         try {
-            String fileName = UtilString.getAfterLastSimbolString(file, "/");
-            String dirPath = UtilString.getBeforeLastSimbolString(file, "/");
+            String fileName = UtilString.subStringAfterLastSimbol(file, "/");
+            String dirPath = UtilString.subStringBeforeLastSimbol(file, "/");
             return createFile(dirPath, fileName);
         } catch (Exception e) {
             e.printStackTrace();

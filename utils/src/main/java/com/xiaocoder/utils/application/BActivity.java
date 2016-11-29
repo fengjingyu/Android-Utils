@@ -2,14 +2,13 @@ package com.xiaocoder.utils.application;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.xiaocoder.utils.function.helper.ActivityHelper;
+import com.xiaocoder.utils.function.helper.ActivityManager;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilInput;
 
@@ -39,7 +38,7 @@ public abstract class BActivity extends FragmentActivity {
             LogHelper.e(this, "回收后重新创建");
         }
 
-        ActivityHelper.addActivityToStack(this);
+        ActivityManager.addActivityToStack(this);
     }
 
     @Override
@@ -49,7 +48,7 @@ public abstract class BActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityHelper.delActivityFromStack(this);
+        ActivityManager.delActivityFromStack(this);
     }
 
     @Override

@@ -2,8 +2,8 @@ package com.xiaocoder.utils.http.asynchttp;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.function.helper.ExecutorHelper;
-import com.xiaocoder.utils.http.HttpHandlerCtrl;
+import com.xiaocoder.utils.function.helper.ExecutorManager;
+import com.xiaocoder.utils.http.HttpCtrl;
 import com.xiaocoder.utils.http.RespInfo;
 import com.xiaocoder.utils.http.RespType;
 import com.xiaocoder.utils.io.LogHelper;
@@ -23,18 +23,18 @@ import cz.msebera.android.httpclient.Header;
  */
 public class AsyncRespHandler extends AsyncHttpResponseHandler {
 
-    private HttpHandlerCtrl httpHandlerCtrl;
+    private HttpCtrl httpCtrl;
 
-    public AsyncRespHandler(HttpHandlerCtrl httpHandlerCtrl) {
-        this.httpHandlerCtrl = httpHandlerCtrl;
+    public AsyncRespHandler(HttpCtrl httpCtrl) {
+        this.httpCtrl = httpCtrl;
     }
 
     @Override
     public void onSuccess(final int httpCode, final Header[] headers, final byte[] bytes) {
 
-        if (httpHandlerCtrl.getRespHandler() != null) {
+        if (httpCtrl.getRespHandler() != null) {
 
-            ExecutorHelper.getFix().execute(new Runnable() {
+            ExecutorManager.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
                     RespInfo respInfo = new RespInfo();
@@ -46,12 +46,12 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
                     respInfo.setDataBytes(bytes);
                     respInfo.setDataString(bytes);
 
-                    httpHandlerCtrl.handlerSuccess(respInfo);
+                    httpCtrl.handlerSuccess(respInfo);
                 }
             });
 
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onSuccess--未传入handler--" + httpHandlerCtrl.getReqInfo());
+            LogHelper.i(Constants.TAG_HTTP, "onSuccess--未传入handler--" + httpCtrl.getReqInfo());
         }
 
     }
@@ -59,9 +59,9 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
     @Override
     public void onFailure(final int httpCode, final Header[] headers, final byte[] bytes, final Throwable throwable) {
 
-        if (httpHandlerCtrl.getRespHandler() != null) {
+        if (httpCtrl.getRespHandler() != null) {
 
-            ExecutorHelper.getFix().execute(new Runnable() {
+            ExecutorManager.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
                     RespInfo respInfo = new RespInfo();
@@ -73,12 +73,12 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
                     respInfo.setRespType(RespType.FAILURE);
                     respInfo.setThrowable(throwable);
 
-                    httpHandlerCtrl.handlerFail(respInfo);
+                    httpCtrl.handlerFail(respInfo);
                 }
             });
 
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onFailure--未传入handler--" + httpHandlerCtrl.getReqInfo());
+            LogHelper.i(Constants.TAG_HTTP, "onFailure--未传入handler--" + httpCtrl.getReqInfo());
         }
     }
 
@@ -86,9 +86,9 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
     public void onProgress(long bytesWritten, long totalSize) {
         super.onProgress(bytesWritten, totalSize);
 
-        if (httpHandlerCtrl.getRespHandler() != null) {
+        if (httpCtrl.getRespHandler() != null) {
 
-            httpHandlerCtrl.handlerProgress(bytesWritten, totalSize, bytesWritten / (totalSize * 1.0D));
+            httpCtrl.handlerProgress(bytesWritten, totalSize, bytesWritten / (totalSize * 1.0D));
 
         }
 

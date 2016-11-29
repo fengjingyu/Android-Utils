@@ -6,7 +6,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
 import com.xiaocoder.utils.http.IHttp.IRespHandler;
-import com.xiaocoder.utils.http.HttpHandlerCtrl;
+import com.xiaocoder.utils.http.HttpCtrl;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.util.UtilCollections;
 
@@ -50,9 +50,9 @@ public class AsyncClient implements IHttpClient {
     @Override
     public void http(ReqInfo reqInfo, IRespHandler respHandler) {
 
-        HttpHandlerCtrl httpHandlerCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
+        HttpCtrl httpCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
 
-        if (httpHandlerCtrl.isIntercepte()) {
+        if (httpCtrl.isIntercepte()) {
             return;
         }
 
@@ -60,11 +60,11 @@ public class AsyncClient implements IHttpClient {
 
         if (reqInfo.isGet()) {
 
-            httpClient.get(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(httpHandlerCtrl));
+            httpClient.get(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(httpCtrl));
 
         } else if (reqInfo.isPost()) {
 
-            httpClient.post(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(httpHandlerCtrl));
+            httpClient.post(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(httpCtrl));
 
         } else {
             throw new RuntimeException("AsyncClient---请求类型不匹配");
@@ -72,8 +72,8 @@ public class AsyncClient implements IHttpClient {
     }
 
     @NonNull
-    public HttpHandlerCtrl getHttpHandlerCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
-        return new HttpHandlerCtrl(reqInfo, respHandler);
+    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
+        return new HttpCtrl(reqInfo, respHandler);
     }
 
     private void addRequestHeaders(Map<String, List<String>> headers) {

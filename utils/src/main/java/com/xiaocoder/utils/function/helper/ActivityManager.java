@@ -13,7 +13,7 @@ import java.util.Stack;
  * @email fengjingyu@foxmail.com
  * @description 管理activity
  */
-public class ActivityHelper {
+public class ActivityManager {
 
     private static Stack<Activity> stack = new Stack<Activity>();
 
@@ -21,7 +21,7 @@ public class ActivityHelper {
         return stack;
     }
 
-    private ActivityHelper() {
+    private ActivityManager() {
     }
 
     /**

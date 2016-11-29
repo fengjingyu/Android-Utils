@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
 import com.xiaocoder.utils.http.IHttp.IRespHandler;
 import com.xiaocoder.utils.http.FileWrapper;
-import com.xiaocoder.utils.http.HttpHandlerCtrl;
+import com.xiaocoder.utils.http.HttpCtrl;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.util.UtilCollections;
 import com.xiaocoder.utils.util.UtilString;
@@ -32,20 +32,20 @@ public class OkClient implements IHttpClient {
     @Override
     public void http(ReqInfo reqInfo, IRespHandler respHandler) {
 
-        HttpHandlerCtrl httpHandlerCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
+        HttpCtrl httpCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
 
-        if (httpHandlerCtrl.isIntercepte()) {
+        if (httpCtrl.isIntercepte()) {
             return;
         }
 
         Request request = createRequest(reqInfo);
 
-        httpClient.newCall(request).enqueue(new OkRespHandler(httpHandlerCtrl));
+        httpClient.newCall(request).enqueue(new OkRespHandler(httpCtrl));
     }
 
     @NonNull
-    public HttpHandlerCtrl getHttpHandlerCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
-        return new HttpHandlerCtrl(reqInfo, respHandler);
+    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
+        return new HttpCtrl(reqInfo, respHandler);
     }
 
     private Request createRequest(ReqInfo reqInfo) {

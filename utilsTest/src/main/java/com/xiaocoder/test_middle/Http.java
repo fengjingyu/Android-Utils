@@ -2,9 +2,9 @@ package com.xiaocoder.test_middle;
 
 
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.IHttp.IRespHandler;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.ReqType;
+import com.xiaocoder.utils.http.RespHandler;
 
 import java.util.Map;
 
@@ -25,35 +25,35 @@ public class Http {
         httpClient = client;
     }
 
-    public static ReqInfo http(ReqInfo reqInfo, IRespHandler respHandler) {
+    public static ReqInfo http(ReqInfo reqInfo, RespHandler respHandler) {
         httpClient.http(reqInfo, respHandler);
         return reqInfo;
     }
 
     public static ReqInfo get(String url, Map<String, Object> originParamsMap, boolean isSecretParam,
-                              boolean isShowDialog, IRespHandler respHandler) {
+                              boolean isShowDialog, RespHandler respHandler) {
 
         return common(url, ReqType.GET, originParamsMap, isSecretParam, isShowDialog, respHandler);
     }
 
-    public static ReqInfo get(String url, Map<String, Object> originParamsMap, IRespHandler respHandler) {
+    public static ReqInfo get(String url, Map<String, Object> originParamsMap, RespHandler respHandler) {
         return common(url, ReqType.GET, originParamsMap, true, true, respHandler);
     }
 
     public static ReqInfo post(String url, Map<String, Object> originParamsMap, boolean isSecretParam,
-                               boolean isShowDialog, IRespHandler respHandler) {
+                               boolean isShowDialog, RespHandler respHandler) {
 
         return common(url, ReqType.POST, originParamsMap, isSecretParam, isShowDialog, respHandler);
     }
 
-    public static ReqInfo post(String url, Map<String, Object> originParamsMap, IRespHandler respHandler) {
+    public static ReqInfo post(String url, Map<String, Object> originParamsMap, RespHandler respHandler) {
         return common(url, ReqType.POST, originParamsMap, true, true, respHandler);
     }
 
     /**
      * 封装请求model
      */
-    private static ReqInfo common(String url, ReqType type, Map<String, Object> originParamsMap, boolean isSecretParam, boolean isShowDialog, IRespHandler respHandler) {
+    private static ReqInfo common(String url, ReqType type, Map<String, Object> originParamsMap, boolean isSecretParam, boolean isShowDialog, RespHandler respHandler) {
         ReqInfo reqInfo = new ReqInfo();
 
         reqInfo.setReqType(type);

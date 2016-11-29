@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.IHttp.IRespHandler;
 import com.xiaocoder.utils.http.HttpCtrl;
 import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class AsyncClient implements IHttpClient {
     }
 
     @Override
-    public void http(ReqInfo reqInfo, IRespHandler respHandler) {
+    public void http(ReqInfo reqInfo, RespHandler respHandler) {
 
         HttpCtrl httpCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
 
@@ -72,7 +72,7 @@ public class AsyncClient implements IHttpClient {
     }
 
     @NonNull
-    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
+    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, RespHandler respHandler) {
         return new HttpCtrl(reqInfo, respHandler);
     }
 

@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.xiaocoder.utils.application.Constants;
-import com.xiaocoder.utils.http.IHttp.IRespHandler;
 import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilIo;
 import com.xiaocoder.utils.util.UtilCollections;
@@ -21,11 +20,11 @@ public class HttpCtrl {
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
-    private IRespHandler respHandler;
+    private RespHandler respHandler;
 
     private ReqInfo reqInfo;
 
-    public IRespHandler getRespHandler() {
+    public RespHandler getRespHandler() {
         return respHandler;
     }
 
@@ -33,7 +32,7 @@ public class HttpCtrl {
         return reqInfo;
     }
 
-    public HttpCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
+    public HttpCtrl(ReqInfo reqInfo, RespHandler respHandler) {
         this.reqInfo = reqInfo;
         this.respHandler = respHandler;
     }

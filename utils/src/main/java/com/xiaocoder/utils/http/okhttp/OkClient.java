@@ -3,10 +3,10 @@ package com.xiaocoder.utils.http.okhttp;
 import android.support.annotation.NonNull;
 
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.IHttp.IRespHandler;
 import com.xiaocoder.utils.http.FileWrapper;
 import com.xiaocoder.utils.http.HttpCtrl;
 import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;
 import com.xiaocoder.utils.util.UtilString;
 
@@ -30,7 +30,7 @@ public class OkClient implements IHttpClient {
     private OkHttpClient httpClient = new OkHttpClient();
 
     @Override
-    public void http(ReqInfo reqInfo, IRespHandler respHandler) {
+    public void http(ReqInfo reqInfo, RespHandler respHandler) {
 
         HttpCtrl httpCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
 
@@ -44,7 +44,7 @@ public class OkClient implements IHttpClient {
     }
 
     @NonNull
-    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, IRespHandler respHandler) {
+    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, RespHandler respHandler) {
         return new HttpCtrl(reqInfo, respHandler);
     }
 

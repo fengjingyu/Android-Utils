@@ -1,6 +1,7 @@
 package com.xiaocoder.utils.http.IHttp;
 
 import com.xiaocoder.utils.http.ReqInfo;
+import com.xiaocoder.utils.http.RespHandler;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -8,6 +9,6 @@ import com.xiaocoder.utils.http.ReqInfo;
  */
 public interface IHttpClient {
 
-    void http(ReqInfo reqInfo, IRespHandler resphandler);
+    void http(ReqInfo reqInfo, RespHandler resphandler);
 
 }

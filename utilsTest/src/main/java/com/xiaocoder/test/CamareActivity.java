@@ -12,7 +12,6 @@ import com.xiaocoder.test_middle.base.BaseActivity;
 import java.io.File;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

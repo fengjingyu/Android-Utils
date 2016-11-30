@@ -3,7 +3,6 @@ package com.xiaocoder.test;
 import com.xiaocoder.utils.application.Bean;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

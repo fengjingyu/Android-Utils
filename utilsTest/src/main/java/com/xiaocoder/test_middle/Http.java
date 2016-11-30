@@ -10,7 +10,6 @@ import com.xiaocoder.utils.http.IHttp.RespHandler;
 import java.util.Map;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

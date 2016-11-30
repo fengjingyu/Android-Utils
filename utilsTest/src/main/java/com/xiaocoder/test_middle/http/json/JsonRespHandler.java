@@ -10,7 +10,6 @@ import com.xiaocoder.utils.json.JsonParse;
 import com.xiaocoder.test_middle.http.BaseRespHandler;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description JsonModel jsonparse解析实现的handler
  */

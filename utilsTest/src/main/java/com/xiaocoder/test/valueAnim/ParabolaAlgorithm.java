@@ -1,7 +1,6 @@
 package com.xiaocoder.test.valueAnim;
 
 /**
- * @author xiaocoder on 2016/7/9 13:40
  * @email fengjingyu@foxmail.com
  * @description y = ax2 + bx + c , a为负数，开口向下
  */

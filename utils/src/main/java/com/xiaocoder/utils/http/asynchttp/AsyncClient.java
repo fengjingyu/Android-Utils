@@ -53,6 +53,10 @@ public class AsyncClient implements HttpClient {
             return;
         }
 
+        if (respHandler != null) {
+            respHandler.onReadySendRequest(reqInfo);
+        }
+
         // 添加请求头信息
         addRequestHeaders(reqInfo.getHeadersMap());
 

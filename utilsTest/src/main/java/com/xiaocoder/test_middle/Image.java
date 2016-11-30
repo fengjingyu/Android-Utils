@@ -5,7 +5,6 @@ import android.widget.ImageView;
 import com.xiaocoder.utils.imageloader.IImageLoader;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

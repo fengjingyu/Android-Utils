@@ -27,7 +27,6 @@ import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

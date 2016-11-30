@@ -22,7 +22,6 @@ import com.xiaocoder.utils.util.UtilScreen;
 import com.xiaocoder.utils.util.UtilSystem;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 初始化的顺序不要去改动
  */

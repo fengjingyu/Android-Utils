@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.xiaocoder.utils.function.helper.LogHelper;
 
 /**
- * @author xiaocoder on 2016/8/3 13:23
  * @email fengjingyu@foxmail.com
  * @description
  */

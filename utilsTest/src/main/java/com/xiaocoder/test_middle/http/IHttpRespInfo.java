@@ -1,7 +1,6 @@
 package com.xiaocoder.test_middle.http;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

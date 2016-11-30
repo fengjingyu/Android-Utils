@@ -23,7 +23,6 @@ import com.xiaocoder.test_middle.base.BaseActivity;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

@@ -13,7 +13,6 @@ import com.xiaocoder.utils.util.UtilIoAndr;
 import java.io.File;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

@@ -12,7 +12,6 @@ import com.xiaocoder.test.search.SearchRecordDb;
 import com.xiaocoder.utils.function.helper.LogHelper;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description 多个界面都有搜索时，每张表记录的信息类别是不一样的
  */

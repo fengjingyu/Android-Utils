@@ -17,7 +17,6 @@ import com.xiaocoder.utils.util.UtilIoAndr;
 import com.xiaocoder.test.R;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

@@ -15,7 +15,6 @@ import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilBroadcast;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

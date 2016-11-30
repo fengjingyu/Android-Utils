@@ -11,7 +11,6 @@ import com.xiaocoder.test.stack.SearchActivity;
 import com.xiaocoder.test_middle.base.BaseActivity;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

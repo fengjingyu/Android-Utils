@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import com.xiaocoder.utils.application.BActivity;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.util.UtilBroadcast;
 
 /**

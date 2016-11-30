@@ -9,7 +9,6 @@ import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.test_middle.http.BaseRespHandler;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description gson解析的实现类
  */

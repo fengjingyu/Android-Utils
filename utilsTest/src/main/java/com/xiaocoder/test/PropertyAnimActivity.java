@@ -14,7 +14,6 @@ import com.xiaocoder.utils.util.UtilScreen;
 import com.xiaocoder.test_middle.base.BaseActivity;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

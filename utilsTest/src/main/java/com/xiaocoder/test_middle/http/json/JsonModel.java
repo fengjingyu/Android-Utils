@@ -4,7 +4,6 @@ import com.xiaocoder.utils.json.JsonBean;
 import com.xiaocoder.test_middle.http.IHttpRespInfo;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

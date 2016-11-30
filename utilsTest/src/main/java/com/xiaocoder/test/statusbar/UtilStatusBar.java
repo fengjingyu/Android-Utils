@@ -16,11 +16,6 @@ import com.xiaocoder.utils.util.UtilSystem;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-/**
- * @author xiaocoder on 2016/1/8.
- * @modifier xiaocoder 2016/1/8 16:29.
- * @description
- */
 public class UtilStatusBar {
 
     public static final String XIAOMI = "xiaomi";

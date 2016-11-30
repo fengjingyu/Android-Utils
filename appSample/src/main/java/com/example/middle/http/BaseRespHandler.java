@@ -7,12 +7,12 @@ import android.view.KeyEvent;
 
 import com.example.app.MainActivity;
 import com.example.middle.App;
-import com.xiaocoder.utils.application.Constants;
+import com.xiaocoder.utils.function.Constants;
+import com.xiaocoder.utils.function.helper.LogHelper;
 import com.xiaocoder.utils.http.DialogManager;
+import com.xiaocoder.utils.http.IHttp.RespHandler;
 import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.http.RespInfo;
-import com.xiaocoder.utils.io.LogHelper;
 import com.xiaocoder.utils.util.UtilDate;
 import com.xiaocoder.utils.util.UtilString;
 import com.xiaocoder.utils.util.UtilSystem;
@@ -27,7 +27,7 @@ import java.util.Map;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public abstract class BaseRespHandler<T> extends RespHandler<T> {
+public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     private Activity activityContext;
 
@@ -41,7 +41,7 @@ public abstract class BaseRespHandler<T> extends RespHandler<T> {
 
     @Override
     public void onReadySendRequest(ReqInfo reqInfo) {
-        super.onReadySendRequest(reqInfo);
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
 
         setHttpHeaders(reqInfo);
         setSendTime(reqInfo);
@@ -51,10 +51,6 @@ public abstract class BaseRespHandler<T> extends RespHandler<T> {
     }
 
     /**
-     * 可以根据不同的页面显示不同的加载dialog（判断activityContext实例）
-     * <p/>
-     * 也可以根据不同的接口url加载不同的dialog（reqModel里有url）
-     * <p/>
      * 如果显示dialog，则isShowDialog为true 且 activityContext非空
      */
     private void showDialog(ReqInfo reqInfo) {
@@ -70,11 +66,9 @@ public abstract class BaseRespHandler<T> extends RespHandler<T> {
         }
     }
 
-
     /**
      * 后台成功的返回码
      **/
-    //TODO 修改接口返回码
     public static final String REQ_SUCCESS = "1";
 
     /**
@@ -82,8 +76,8 @@ public abstract class BaseRespHandler<T> extends RespHandler<T> {
      */
     @Override
     public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-
         LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
+
         //TODO 解析规则
         if (resultBean instanceof IHttpRespInfo) {
 
@@ -106,14 +100,30 @@ public abstract class BaseRespHandler<T> extends RespHandler<T> {
     }
 
     @Override
+    public void onSuccessButParseWrong(ReqInfo reqInfo, RespInfo respInfo) {
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessButParseWrong()");
+    }
+
+    @Override
+    public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessButCodeWrong()");
+    }
+
+    @Override
+    public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessAll()");
+    }
+
+    @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
-        super.onFailure(reqInfo, respInfo);
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onFailure()");
+
         LogHelper.shortToast("网络有误");
     }
 
     @Override
     public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
-        super.onEnd(reqInfo, respInfo);
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onEnd()");
         closeDialog(reqInfo.isShowDialog());
     }
 
@@ -174,6 +184,11 @@ public abstract class BaseRespHandler<T> extends RespHandler<T> {
         long time = System.currentTimeMillis();
 
         reqInfo.setSendTime(time + Constants.COMMA_EN + UtilDate.format(new Date(time)));
+    }
+
+    @Override
+    public void onProgressing(ReqInfo reqInfo, long bytesWritten, long totalSize, double percent) {
+        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onProgressing()");
     }
 
 }

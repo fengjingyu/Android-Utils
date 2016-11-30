@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.widget.RadioGroup;
 
 import com.example.app.tab.FiveFragment;
-import com.example.app.tab.TwoFragment;
-import com.example.app.tab.OneFragment;
 import com.example.app.tab.FourFragment;
+import com.example.app.tab.OneFragment;
 import com.example.app.tab.ThreeFragment;
-import com.example.middle.base.BaseActivity;
+import com.example.app.tab.TwoFragment;
 import com.xiaocoder.utils.application.BActivity;
 import com.xiaocoder.utils.exception.CrashHandler;
 import com.xiaocoder.utils.exception.ExceptionDb;
 import com.xiaocoder.utils.function.helper.ActivityManager;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 /**
  * @email fengjingyu@foxmail.com

@@ -24,7 +24,6 @@ import com.xiaocoder.utils.util.UtilView;
 import java.util.List;
 
 /**
- * @author xiaocoder
  * @email fengjingyu@foxmail.com
  * @description
  */

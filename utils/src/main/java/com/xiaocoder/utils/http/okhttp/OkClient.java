@@ -34,6 +34,11 @@ public class OkClient implements HttpClient {
         if (interceptor != null && interceptor.interceptReqSend(reqInfo)) {
             return;
         }
+
+        if (respHandler != null) {
+            respHandler.onReadySendRequest(reqInfo);
+        }
+
         // 创建请求
         Request request = createRequest(reqInfo);
 

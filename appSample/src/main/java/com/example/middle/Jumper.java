@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.example.app.MainActivity;
-import com.xiaocoder.utils.io.LogHelper;
+import com.xiaocoder.utils.function.helper.LogHelper;
 
 /**
  * @email fengjingyu@foxmail.com

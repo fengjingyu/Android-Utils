@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class DialogManager {
     /**
-     * 每一个activity对应一个currentManager
+     * 每一个activity对应一个DialogManager
      */
     protected static DialogManager currentManager;
     /**

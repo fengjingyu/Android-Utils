@@ -2,7 +2,7 @@ package com.xiaocoder.utils.http.okhttp;
 
 import com.xiaocoder.utils.http.FileWrapper;
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.IHttp.Interceptor;
+import com.xiaocoder.utils.http.Interceptor;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;

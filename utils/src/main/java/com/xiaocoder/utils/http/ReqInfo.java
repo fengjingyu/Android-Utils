@@ -1,7 +1,6 @@
 package com.xiaocoder.utils.http;
 
 import com.xiaocoder.utils.application.Bean;
-import com.xiaocoder.utils.http.IHttp.Interceptor;
 import com.xiaocoder.utils.util.UtilCollections;
 import com.xiaocoder.utils.util.UtilString;
 

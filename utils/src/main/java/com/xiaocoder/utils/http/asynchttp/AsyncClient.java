@@ -3,7 +3,7 @@ package com.xiaocoder.utils.http.asynchttp;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.IHttp.Interceptor;
+import com.xiaocoder.utils.http.Interceptor;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;

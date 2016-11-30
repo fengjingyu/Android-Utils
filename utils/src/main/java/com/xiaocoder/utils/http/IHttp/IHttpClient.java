@@ -1,5 +1,6 @@
 package com.xiaocoder.utils.http.IHttp;
 
+import com.xiaocoder.utils.http.Interceptor;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespHandler;
 

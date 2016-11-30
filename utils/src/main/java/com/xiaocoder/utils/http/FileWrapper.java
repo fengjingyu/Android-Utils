@@ -3,6 +3,7 @@ package com.xiaocoder.utils.http;
 import java.io.File;
 
 import okhttp3.MediaType;
+
 /**
  * @email fengjingyu@foxmail.com
  * @description 未写完，暂不可用
@@ -19,7 +20,7 @@ public class FileWrapper {
         if (isExist()) {
             return file.getName();
         } else {
-            return "file not exist";
+            return "file not exist" + System.currentTimeMillis();
         }
     }
 

@@ -9,6 +9,6 @@ import com.xiaocoder.utils.http.RespHandler;
  */
 public interface IHttpClient {
 
-    void http(ReqInfo reqInfo, RespHandler resphandler);
+    void http(ReqInfo reqInfo, RespHandler resphandler, Interceptor interceptor);
 
 }

@@ -1,7 +1,7 @@
 package com.xiaocoder.utils.http;
 
 import com.xiaocoder.utils.application.Bean;
-import com.xiaocoder.utils.http.IHttp.IHttpNotify;
+import com.xiaocoder.utils.http.IHttp.Interceptor;
 import com.xiaocoder.utils.util.UtilCollections;
 import com.xiaocoder.utils.util.UtilString;
 
@@ -54,10 +54,6 @@ public class ReqInfo extends Bean {
      * postString的内容
      */
     private String postString = "";
-    /**
-     * http的请求开始与结束的监听
-     */
-    private IHttpNotify httpNotify;
 
     public String getSendTime() {
         if (sendTime == null || sendTime.trim().length() == 0) {
@@ -152,14 +148,6 @@ public class ReqInfo extends Bean {
 
     public void setShowDialog(boolean showDialog) {
         isShowDialog = showDialog;
-    }
-
-    public IHttpNotify getHttpNotify() {
-        return httpNotify;
-    }
-
-    public void setHttpNotify(IHttpNotify httpNotify) {
-        this.httpNotify = httpNotify;
     }
 
     public static final String HINT_AFTER_SECRET = "发给服务器的参数-->";

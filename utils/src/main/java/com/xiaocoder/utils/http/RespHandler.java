@@ -22,7 +22,7 @@ public abstract class RespHandler<T> {
      * 如果解析失败：一定得返回null
      * 最好放在子线程
      */
-    protected abstract T onParse2Model(ReqInfo reqInfo, RespInfo respInfo);
+    public abstract T onParse2Model(ReqInfo reqInfo, RespInfo respInfo);
 
     /**
      * 对返回状态码的一个判断，每个项目的认定操作成功的状态码或结构可能不同，在这里统一判断

@@ -1,11 +1,9 @@
 package com.xiaocoder.utils.http.asynchttp;
 
-import android.support.annotation.NonNull;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.HttpCtrl;
+import com.xiaocoder.utils.http.IHttp.Interceptor;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;
@@ -48,32 +46,27 @@ public class AsyncClient implements IHttpClient {
     }
 
     @Override
-    public void http(ReqInfo reqInfo, RespHandler respHandler) {
+    public void http(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
 
-        HttpCtrl httpCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
-
-        if (httpCtrl.isIntercepte()) {
+        // 是否拦截请求
+        if (reqInfo == null || (interceptor != null && interceptor.isInterceptRequest(reqInfo))) {
             return;
         }
 
+        // 添加请求头信息
         addRequestHeaders(reqInfo.getHeadersMap());
 
         if (reqInfo.isGet()) {
 
-            httpClient.get(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(httpCtrl));
+            httpClient.get(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(reqInfo, respHandler, interceptor));
 
         } else if (reqInfo.isPost()) {
 
-            httpClient.post(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(httpCtrl));
+            httpClient.post(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(reqInfo, respHandler, interceptor));
 
         } else {
             throw new RuntimeException("AsyncClient---请求类型不匹配");
         }
-    }
-
-    @NonNull
-    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, RespHandler respHandler) {
-        return new HttpCtrl(reqInfo, respHandler);
     }
 
     private void addRequestHeaders(Map<String, List<String>> headers) {
@@ -99,9 +92,5 @@ public class AsyncClient implements IHttpClient {
             }
         }
         return params;
-    }
-
-    public AsyncHttpClient getHttpClient() {
-        return httpClient;
     }
 }

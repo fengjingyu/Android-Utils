@@ -1,10 +1,8 @@
 package com.xiaocoder.utils.http.okhttp;
 
-import android.support.annotation.NonNull;
-
-import com.xiaocoder.utils.http.IHttp.IHttpClient;
 import com.xiaocoder.utils.http.FileWrapper;
-import com.xiaocoder.utils.http.HttpCtrl;
+import com.xiaocoder.utils.http.IHttp.IHttpClient;
+import com.xiaocoder.utils.http.IHttp.Interceptor;
 import com.xiaocoder.utils.http.ReqInfo;
 import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;
@@ -30,30 +28,19 @@ public class OkClient implements IHttpClient {
     private OkHttpClient httpClient = new OkHttpClient();
 
     @Override
-    public void http(ReqInfo reqInfo, RespHandler respHandler) {
+    public void http(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
 
-        HttpCtrl httpCtrl = getHttpHandlerCtrl(reqInfo, respHandler);
-
-        if (httpCtrl.isIntercepte()) {
+        // 是否拦截请求
+        if (reqInfo == null || (interceptor != null && interceptor.isInterceptRequest(reqInfo))) {
             return;
         }
-
+        // 创建请求
         Request request = createRequest(reqInfo);
 
-        httpClient.newCall(request).enqueue(new OkRespHandler(httpCtrl));
-    }
-
-    @NonNull
-    public HttpCtrl getHttpHandlerCtrl(ReqInfo reqInfo, RespHandler respHandler) {
-        return new HttpCtrl(reqInfo, respHandler);
+        httpClient.newCall(request).enqueue(new OkRespHandler(reqInfo, respHandler, interceptor));
     }
 
     private Request createRequest(ReqInfo reqInfo) {
-
-        if (reqInfo == null) {
-            return null;
-        }
-
         Request.Builder requestBuilder = new Request.Builder();
         // 构建请求方式、参数、url
         buildeTypeParamsUrl(reqInfo, requestBuilder);
@@ -94,6 +81,15 @@ public class OkClient implements IHttpClient {
                 return true;
             }
 
+        }
+        return false;
+    }
+
+    public boolean isPostString(ReqInfo reqInfo, Request.Builder requestBuilder) {
+        if (UtilString.isAvaliable(reqInfo.getPostStringContentType()) && UtilString.isAvaliable(reqInfo.getPostString())) {
+            // requestBuilder.post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json));
+            requestBuilder.post(RequestBody.create(MediaType.parse(reqInfo.getPostStringContentType()), reqInfo.getPostString()));
+            return true;
         }
         return false;
     }
@@ -193,21 +189,5 @@ public class OkClient implements IHttpClient {
             }
         }
         return builder;
-    }
-
-    public OkHttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    public boolean isPostString(ReqInfo reqInfo, Request.Builder requestBuilder) {
-        if (UtilString.isAvaliable(reqInfo.getPostStringContentType()) && UtilString.isAvaliable(reqInfo.getPostString())) {
-
-            // requestBuilder.post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json));
-            requestBuilder.post(RequestBody.create(MediaType.parse(reqInfo.getPostStringContentType()), reqInfo.getPostString()));
-
-            return true;
-        }
-
-        return false;
     }
 }

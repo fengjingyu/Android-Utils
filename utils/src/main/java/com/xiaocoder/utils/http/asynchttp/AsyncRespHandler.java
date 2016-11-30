@@ -7,9 +7,9 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.xiaocoder.utils.function.Constants;
 import com.xiaocoder.utils.function.helper.ExecutorManager;
 import com.xiaocoder.utils.function.helper.LogHelper;
-import com.xiaocoder.utils.http.Interceptor;
+import com.xiaocoder.utils.http.IHttp.Interceptor;
+import com.xiaocoder.utils.http.IHttp.RespHandler;
 import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.RespHandler;
 import com.xiaocoder.utils.http.RespInfo;
 import com.xiaocoder.utils.http.RespType;
 import com.xiaocoder.utils.util.UtilCollections;
@@ -28,15 +28,17 @@ import cz.msebera.android.httpclient.Header;
  * @description 用的是android-async-http库实现的(1.4.9不在用系统的httpClient库了)
  * 该库的回调是在主线程中的，这里开启了一个子线程
  */
-public class AsyncRespHandler extends AsyncHttpResponseHandler {
+public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     private ReqInfo reqInfo;
-    private RespHandler respHandler;
+    private RespHandler<T> respHandler;
     private Interceptor interceptor;
 
-    public AsyncRespHandler(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
+    public static final String LINE = "---";
+
+    public AsyncRespHandler(ReqInfo reqInfo, RespHandler<T> respHandler, Interceptor interceptor) {
         this.reqInfo = reqInfo;
         this.respHandler = respHandler;
         this.interceptor = interceptor;
@@ -46,7 +48,7 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
     public void onSuccess(final int httpCode, final Header[] headers, final byte[] bytes) {
 
         if (respHandler != null) {
-
+            // 子线程中解析
             ExecutorManager.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -59,16 +61,22 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
                     respInfo.setDataBytes(bytes);
                     respInfo.setDataString(bytes);
 
-                    LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----onSuccess()");
-                    LogHelper.i(Constants.TAG_HTTP, "onSuccess----->status code " + respInfo.getHttpCode());
+                    LogHelper.i(Constants.TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
+                    // 打印头信息
                     printHeaderInfo(respInfo.getRespHeaders());
-
-                    handlerSuccess(respInfo);
+                    // 是否拦截或修改原始的resp
+                    if (interceptRespCome(respInfo)) {
+                        return;
+                    }
+                    // 解析数据
+                    final T resultBean = parse(respInfo);
+                    // 回调到uithread
+                    handleSuccessOnUiThread(resultBean, respInfo);
                 }
             });
 
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onSuccess--respHandler为null--" + reqInfo);
+            LogHelper.i(Constants.TAG_HTTP, "onSuccess--->respHandler为null" + LINE + reqInfo);
         }
 
     }
@@ -77,7 +85,7 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
     public void onFailure(final int httpCode, final Header[] headers, final byte[] bytes, final Throwable throwable) {
 
         if (respHandler != null) {
-
+            // 在子线程中执行
             ExecutorManager.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -90,17 +98,20 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
                     respInfo.setRespType(RespType.FAILURE);
                     respInfo.setThrowable(throwable);
 
-                    LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----onFailure()");
-                    LogHelper.i(Constants.TAG_HTTP, "onFailure----->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
+                    LogHelper.i(Constants.TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + LINE + respInfo.getThrowable());
                     respInfo.getThrowable().printStackTrace();
                     printHeaderInfo(respInfo.getRespHeaders());
 
-                    handlerFail(respInfo);
+                    // 是否拦截resp
+                    if (interceptRespCome(respInfo)) {
+                        return;
+                    }
+                    // 回调到uithread
+                    handleFailOnUiThread(respInfo);
                 }
             });
-
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onFailure--respHandler为null--" + reqInfo);
+            LogHelper.i(Constants.TAG_HTTP, "onFailure--->respHandler为null" + LINE + reqInfo);
         }
     }
 
@@ -109,7 +120,7 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
         super.onProgress(bytesWritten, totalSize);
 
         if (respHandler != null) {
-            handlerProgress(bytesWritten, totalSize, bytesWritten / (totalSize * 1.0D));
+            handleProgress(bytesWritten, totalSize, bytesWritten / (totalSize * 1.0D));
         }
     }
 
@@ -126,8 +137,7 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
         return headersMap;
     }
 
-    protected void handlerFail(final RespInfo respInfo) {
-
+    protected void handleFailOnUiThread(final RespInfo respInfo) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -135,38 +145,35 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
                     respHandler.onFailure(reqInfo, respInfo);
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    LogHelper.e(reqInfo.getUrl() + "---failure（） 异常了", e1);
-                    LogHelper.dLongToast(true, reqInfo.getUrl() + "---failure（） 异常了，框架里trycatch了,赶紧查看log。e的日志");
+                    LogHelper.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
+                    LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "failure（） 异常了，框架里trycatch了,赶紧查看log。e的日志");
                 } finally {
                     try {
-                        handlerEnd(respInfo);
+                        end(respInfo);
                     } catch (Exception e1) {
                         e1.printStackTrace();
-                        LogHelper.e(reqInfo.getUrl() + "---failure---handlerEnd（） 异常了", e1);
-                        LogHelper.dLongToast(true, reqInfo.getUrl() + "---failure---handlerEnd（） 异常，框架里trycatch了,赶紧查看log日志");
+                        LogHelper.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
+                        LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "failure--->end（） 异常，框架里trycatch了,赶紧查看log日志");
                     }
                 }
             }
         });
     }
 
-    protected void handlerSuccess(final RespInfo respInfo) {
-
-        final Object resultBean = parse(respInfo);
-
+    protected void handleSuccessOnUiThread(final T resultBean, final RespInfo respInfo) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
                     if (resultBean != null) {
-
-                        // http请求成功，解析成功，接下来判断状态码
+                        // http请求成功，解析成功
+                        // 接下来判断项目状态码
                         if (respHandler.onMatchAppStatusCode(reqInfo, respInfo, resultBean)) {
-                            respInfo.setRespType(RespType.SUCCESS_ALL);
                             // 项目的该接口的状态码正确
+                            respInfo.setRespType(RespType.SUCCESS_ALL);
                             respHandler.onSuccessAll(reqInfo, respInfo, resultBean);
                         } else {
-                            // http请求成功，解析成功，项目的该接口的状态码有误
+                            // 项目的该接口的状态码有误
                             respInfo.setRespType(RespType.SUCCESS_BUT_CODE_WRONG);
                             respHandler.onSuccessButCodeWrong(reqInfo, respInfo, resultBean);
                         }
@@ -178,15 +185,15 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LogHelper.e(reqInfo.getUrl() + "---success（） 异常了", e);
-                    LogHelper.dLongToast(true, reqInfo.getUrl() + "---success（） 异常了，框架里trycatch了,赶紧查看log的日志");
+                    LogHelper.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
+                    LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "success（） 异常了，框架里trycatch了,赶紧查看log的日志");
                 } finally {
                     try {
-                        handlerEnd(respInfo);
+                        end(respInfo);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        LogHelper.e(reqInfo.getUrl() + "---success---handlerEnd（） 异常了", e);
-                        LogHelper.dLongToast(true, reqInfo.getUrl() + "---success---handlerEnd（） 异常了，框架里trycatch了,赶紧查看log.e的日志");
+                        LogHelper.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
+                        LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "success--->end（） 异常了，框架里trycatch了,赶紧查看log.e的日志");
                     }
                 }
             }
@@ -200,62 +207,67 @@ public class AsyncRespHandler extends AsyncHttpResponseHandler {
                 List<String> values = header.getValue();
 
                 if (UtilCollections.isListAvaliable(values)) {
-                    LogHelper.i(Constants.TAG_HTTP, "headers----->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
+                    LogHelper.i(Constants.TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
         }
     }
 
-    protected void handlerEnd(RespInfo respInfo) {
+    protected void end(RespInfo respInfo) {
         if (respHandler != null) {
             respHandler.onEnd(reqInfo, respInfo);
         }
 
         if (interceptor != null) {
-            interceptor.onRespDone(reqInfo, respInfo);
+            interceptor.interceptRespDone(reqInfo, respInfo);
         }
     }
 
-    protected Object parse(final RespInfo respInfo) {
+    protected T parse(final RespInfo respInfo) {
         try {
-            LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parse()");
 
-            LogHelper.i(Constants.TAG_HTTP, UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
+            LogHelper.i(Constants.TAG_HTTP, this + LINE + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
 
             LogHelper.logFormatContent(Constants.TAG_HTTP, "", respInfo.getDataString());
 
-            // 这是抽象方法，子类实现解析方式,如果解析失败一定得返回null
-            Object resultBean = respHandler.onParse2Model(reqInfo, respInfo);
+            // 如果解析失败一定得返回null或者crash
+            T resultBean = respHandler.onParse2Model(reqInfo, respInfo);
 
             if (resultBean == null) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        LogHelper.dLongToast(true, "数据解析失败，详情请查看本地日志--" + respInfo.getDataString());
+                        LogHelper.e("解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString());
+                        LogHelper.dLongToast(true, "数据解析失败，详情请查看本地日志" + respInfo.getDataString());
                     }
                 });
-                LogHelper.e("解析数据失败---" + this.toString() + "---" + reqInfo + "---" + respInfo.getDataString());
             }
 
             return resultBean;
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    LogHelper.dLongToast(true, "数据解析异常，详情请查看本地日志--" + respInfo.getDataString());
+                    LogHelper.e("解析数据异常" + LINE + this + LINE + e + LINE + reqInfo + LINE + respInfo.getDataString());
+                    LogHelper.dLongToast(true, "数据解析异常，详情请查看本地日志" + LINE + respInfo.getDataString());
                 }
             });
-
-            LogHelper.e("解析数据异常---" + this.toString() + "---" + e.toString() + "---" + reqInfo + "---" + respInfo.getDataString());
             return null;
         }
     }
 
-    public void handlerProgress(long bytesWritten, long totalSize, double percent) {
+    public void handleProgress(long bytesWritten, long totalSize, double percent) {
         if (respHandler != null) {
             respHandler.onProgressing(reqInfo, bytesWritten, totalSize, percent);
         }
+    }
+
+    private boolean interceptRespCome(RespInfo respInfo) {
+        if (interceptor != null && interceptor.interceptRespCome(reqInfo, respInfo)) {
+            return true;
+        }
+        return false;
     }
 }

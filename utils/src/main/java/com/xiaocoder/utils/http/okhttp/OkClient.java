@@ -1,10 +1,10 @@
 package com.xiaocoder.utils.http.okhttp;
 
 import com.xiaocoder.utils.http.FileWrapper;
-import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.Interceptor;
+import com.xiaocoder.utils.http.IHttp.HttpClient;
+import com.xiaocoder.utils.http.IHttp.Interceptor;
 import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.RespHandler;
+import com.xiaocoder.utils.http.IHttp.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;
 import com.xiaocoder.utils.util.UtilString;
 
@@ -23,7 +23,7 @@ import okhttp3.RequestBody;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public class OkClient implements IHttpClient {
+public class OkClient implements HttpClient {
 
     private OkHttpClient httpClient = new OkHttpClient();
 
@@ -31,7 +31,7 @@ public class OkClient implements IHttpClient {
     public void http(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
 
         // 是否拦截请求
-        if (reqInfo == null || (interceptor != null && interceptor.isInterceptRequest(reqInfo))) {
+        if (interceptor != null && interceptor.interceptReqSend(reqInfo)) {
             return;
         }
         // 创建请求

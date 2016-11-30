@@ -2,10 +2,10 @@ package com.xiaocoder.utils.http.asynchttp;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
-import com.xiaocoder.utils.http.IHttp.IHttpClient;
-import com.xiaocoder.utils.http.Interceptor;
+import com.xiaocoder.utils.http.IHttp.HttpClient;
+import com.xiaocoder.utils.http.IHttp.Interceptor;
 import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.RespHandler;
+import com.xiaocoder.utils.http.IHttp.RespHandler;
 import com.xiaocoder.utils.util.UtilCollections;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.Map;
  * 2  Adding HTTP Basic Auth credentials 见github文档
  * http://loopj.com/android-async-http/
  */
-public class AsyncClient implements IHttpClient {
+public class AsyncClient implements HttpClient {
     /**
      * 网络超时,毫秒
      */
@@ -49,7 +49,7 @@ public class AsyncClient implements IHttpClient {
     public void http(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
 
         // 是否拦截请求
-        if (reqInfo == null || (interceptor != null && interceptor.isInterceptRequest(reqInfo))) {
+        if (interceptor != null && interceptor.interceptReqSend(reqInfo)) {
             return;
         }
 

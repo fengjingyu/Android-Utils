@@ -2,8 +2,8 @@ package com.jingyu.utils.util;
 
 import android.support.annotation.Nullable;
 
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.runnable.DownloadRunnable;
-import com.jingyu.utils.function.helper.LogHelper;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -334,7 +334,7 @@ public class UtilIo {
         // 将原始路径和目标路径转为File
         File fromFile = new File(fromPath);
         if (!fromFile.exists()) {
-            LogHelper.e("copyDirAndFile()---" + fromFile + "文件不存在，无法复制");
+            Logger.e("copyDirAndFile()---" + fromFile + "文件不存在，无法复制");
             return false;
         }
 
@@ -382,7 +382,7 @@ public class UtilIo {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            LogHelper.e("复制" + srcPath + "到" + destPath + "失败", e);
+            Logger.e("复制" + srcPath + "到" + destPath + "失败", e);
             return false;
         } finally {
             try {
@@ -519,7 +519,7 @@ public class UtilIo {
             Object o = in.readObject();
             return o;
         } catch (Exception e) {
-            LogHelper.e("deserialization()--失败---" + filePath, e);
+            Logger.e("deserialization()--失败---" + filePath, e);
             return null;
         } finally {
             if (in != null) {
@@ -542,7 +542,7 @@ public class UtilIo {
             out.writeObject(obj);
             return true;
         } catch (IOException e) {
-            LogHelper.e("serialization()---失败----" + filePath, e);
+            Logger.e("serialization()---失败----" + filePath, e);
             return false;
         } finally {
             if (out != null) {

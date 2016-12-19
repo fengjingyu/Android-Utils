@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.jingyu.test.R;
 import com.jingyu.test_middle.base.BaseActivity;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +39,13 @@ public class WaterFallActivity extends BaseActivity {
             @Override
             public void onClickAction(View view) {
                 int position = (int) view.getTag();
-                LogHelper.shortToast("onClickAction--" + position + "--" + adapter.getList().get(position));
+                Logger.shortToast("onClickAction--" + position + "--" + adapter.getList().get(position));
             }
 
             @Override
             public void onLongClickAction(View view) {
                 int position = (int) view.getTag();
-                LogHelper.shortToast("onLongClickAction--" + position + "--" + adapter.getList().get(position));
+                Logger.shortToast("onLongClickAction--" + position + "--" + adapter.getList().get(position));
             }
         });
     }

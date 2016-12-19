@@ -15,7 +15,7 @@ import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.helper.ActivityManager;
 import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -150,7 +150,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      */
     public void toLogcat(String hint) {
 
-        LogHelper.e(hint);
+        Logger.e(hint);
 
     }
 
@@ -188,7 +188,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
         } catch (NameNotFoundException e) {
             e.printStackTrace();
-            LogHelper.e("an error occured when collect package info--", e);
+            Logger.e("an error occured when collect package info--", e);
         }
 
         Field[] fields = Build.class.getDeclaredFields();
@@ -196,10 +196,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
             try {
                 field.setAccessible(true);
                 mInfos.put(field.getName(), field.get(null).toString());
-                LogHelper.i(field.getName() + " : " + field.get(null));
+                Logger.i(field.getName() + " : " + field.get(null));
             } catch (Exception e) {
                 e.printStackTrace();
-                LogHelper.e("an error occured when collect crash info--", e);
+                Logger.e("an error occured when collect crash info--", e);
             }
         }
     }
@@ -244,7 +244,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             return "crash=" + fileName + UtilIo.LINE_SEPARATOR + sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            LogHelper.e("an error occured while writing file--", e);
+            Logger.e("an error occured while writing file--", e);
         }
 
         return sb.toString();

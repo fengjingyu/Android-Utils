@@ -3,7 +3,7 @@ package com.jingyu.test_middle.http.json;
 import android.app.Activity;
 
 import com.jingyu.test_middle.http.BaseRespHandler;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
@@ -26,7 +26,7 @@ public class JsonRespHandler extends BaseRespHandler<JsonModel> {
     @Override
     public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
         return JsonParse.getJsonParseData(respInfo.getDataString(), JsonModel.class);
     }

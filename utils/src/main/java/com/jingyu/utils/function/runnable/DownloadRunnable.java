@@ -1,7 +1,7 @@
 package com.jingyu.utils.function.runnable;
 
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilIo;
 
 import java.io.File;
@@ -70,7 +70,7 @@ public class DownloadRunnable implements Runnable {
     public void run() {
         InputStream in = null;
         try {
-            LogHelper.i(tag, "----进入下载的run方法");
+            Logger.i(tag, "----进入下载的run方法");
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
             conn.setRequestMethod(Constants.GET);
             conn.setConnectTimeout(10000);
@@ -78,13 +78,13 @@ public class DownloadRunnable implements Runnable {
                 in = conn.getInputStream();
                 long totalSize = conn.getContentLength();
                 if (totalSize < 0) {
-                    LogHelper.e(this + "conn.getContentLength()<0");
+                    Logger.e(this + "conn.getContentLength()<0");
                     return;
                 }
-                LogHelper.i(tag, "----开始下载了");
+                Logger.i(tag, "----开始下载了");
                 UtilIo.toFileByInputStream(in, file, totalSize, downloadListener, false);
                 if (downloadListener != null) {
-                    LogHelper.i(tag, "----下载完成----" + Thread.currentThread());
+                    Logger.i(tag, "----下载完成----" + Thread.currentThread());
                     downloadListener.downloadFinished(totalSize, file);
                 }
             } else {
@@ -97,7 +97,7 @@ public class DownloadRunnable implements Runnable {
             if (downloadListener != null) {
                 downloadListener.netFail(file);
             }
-            LogHelper.i(tag, "--下载excpetion---" + e.toString());
+            Logger.i(tag, "--下载excpetion---" + e.toString());
         } finally {
             if (in != null) {
                 try {

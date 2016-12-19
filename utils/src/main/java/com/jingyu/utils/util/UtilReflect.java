@@ -1,6 +1,6 @@
 package com.jingyu.utils.util;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -70,7 +70,7 @@ public class UtilReflect {
             Field[] fields = cls.getDeclaredFields();
             return fields;
         } catch (Exception ex) {
-            LogHelper.e(target + "getFields---", ex);
+            Logger.e(target + "getFields---", ex);
             return null;
         }
     }
@@ -89,7 +89,7 @@ public class UtilReflect {
             return result;
 
         } catch (Exception ex) {
-            LogHelper.e(target + "getPropertyNames---", ex);
+            Logger.e(target + "getPropertyNames---", ex);
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class UtilReflect {
             return values;
 
         } catch (Exception ex) {
-            LogHelper.e(target + "getValues---", ex);
+            Logger.e(target + "getValues---", ex);
             return null;
         }
     }
@@ -127,7 +127,7 @@ public class UtilReflect {
             return obj;
 
         } catch (Exception ex) {
-            LogHelper.e(target + "getValueByName---", ex);
+            Logger.e(target + "getValueByName---", ex);
             return null;
         }
     }

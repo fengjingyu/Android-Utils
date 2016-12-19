@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import com.jingyu.utils.R;
 import com.jingyu.utils.application.BFragment;
 import com.jingyu.utils.function.helper.ExecutorManager;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilOom;
 
@@ -129,10 +129,10 @@ public class CameraPhotoFragment extends BFragment implements View.OnClickListen
 
                             }
                         } else {
-                            LogHelper.shortToast("获取图片失败");
+                            Logger.shortToast("获取图片失败");
                         }
                     } else {
-                        LogHelper.shortToast("未找到存储卡，无法存储照片！");
+                        Logger.shortToast("未找到存储卡，无法存储照片！");
                     }
                     break;
 
@@ -163,7 +163,7 @@ public class CameraPhotoFragment extends BFragment implements View.OnClickListen
                     listener.onCaremaSelectedFile(file);
                 }
             } else {
-                LogHelper.shortToast("未检测到SD卡");
+                Logger.shortToast("未检测到SD卡");
                 if (listener != null) {
                     listener.onCaremaSelectedFile(null);
                 }
@@ -205,7 +205,7 @@ public class CameraPhotoFragment extends BFragment implements View.OnClickListen
                         listener.onCaremaSelectedFile(file);
                     }
                 } else {
-                    LogHelper.shortToast("未检测到SD卡");
+                    Logger.shortToast("未检测到SD卡");
                     if (listener != null) {
                         listener.onCaremaSelectedFile(null);
                     }
@@ -297,7 +297,7 @@ public class CameraPhotoFragment extends BFragment implements View.OnClickListen
                     temp_photo_file.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
-                    LogHelper.shortToast("创建文件失败");
+                    Logger.shortToast("创建文件失败");
                     return;
                 }
             }
@@ -305,7 +305,7 @@ public class CameraPhotoFragment extends BFragment implements View.OnClickListen
             cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
             startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
         } else {
-            LogHelper.shortToast("请插入sd卡");
+            Logger.shortToast("请插入sd卡");
         }
     }
 
@@ -319,12 +319,12 @@ public class CameraPhotoFragment extends BFragment implements View.OnClickListen
                 for (int i = 0; i < permissions.length; i++) {
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                         // 用户允许
-                        LogHelper.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
+                        Logger.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
                         todo();
                     } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
                         // 用户拒绝
-                        LogHelper.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
-                        LogHelper.shortToast("请到设置界面打开摄像头权限");
+                        Logger.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
+                        Logger.shortToast("请到设置界面打开摄像头权限");
                     }
                 }
             }

@@ -16,7 +16,7 @@ import com.jingyu.test_middle.Image;
 import com.jingyu.test_middle.base.BaseActivity;
 import com.jingyu.utils.function.adapter.BAdapter;
 import com.jingyu.utils.function.helper.ExecutorManager;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilContacts;
 import com.jingyu.utils.util.UtilView;
 
@@ -95,7 +95,7 @@ public class ContactsActivity extends BaseActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        LogHelper.i(list);
+                        Logger.i(list);
 
                         // 创建adapter
                         ContactsAdapter adpater = new ContactsAdapter(ContactsActivity.this, list);

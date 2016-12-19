@@ -3,7 +3,7 @@ package com.jingyu.test;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilScreen;
 
 /**
@@ -17,7 +17,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void testUtil() {
         int statusBarHeight = UtilScreen.getStatusBarHeight(getContext());
-        LogHelper.i(statusBarHeight);
+        Logger.i(statusBarHeight);
     }
 
 }

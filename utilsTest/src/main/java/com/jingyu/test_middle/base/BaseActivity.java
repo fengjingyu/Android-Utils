@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilBroadcast;
 import com.jingyu.test.R;
 import com.jingyu.utils.application.BActivity;
-import com.jingyu.utils.function.helper.LogHelper;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -23,7 +23,7 @@ public abstract class BaseActivity extends BActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogHelper.i(this + "---onCreate");
+        Logger.i(this + "---onCreate");
         initReceiver();
     }
 
@@ -41,10 +41,10 @@ public abstract class BaseActivity extends BActivity {
             boolean hasConnectivity = info != null && info.isConnected();
 
             if (hasConnectivity) {
-                LogHelper.dShortToast("有网");
+                Logger.dShortToast("有网");
                 onNetNormal();
             } else {
-                LogHelper.dShortToast("无网");
+                Logger.dShortToast("无网");
                 onNetLoss();
             }
         }
@@ -94,42 +94,42 @@ public abstract class BaseActivity extends BActivity {
     protected void onDestroy() {
         unbindReceiver();
         super.onDestroy();
-        LogHelper.i(this + "---onDestroy");
+        Logger.i(this + "---onDestroy");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        LogHelper.i(this + "---onStart");
+        Logger.i(this + "---onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        LogHelper.i(this + "---onResume");
+        Logger.i(this + "---onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogHelper.i(this + "---onPause");
+        Logger.i(this + "---onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogHelper.i(this + "---onStop");
+        Logger.i(this + "---onStop");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        LogHelper.i(this + "---onRestart");
+        Logger.i(this + "---onRestart");
     }
 
     @Override
     public void finish() {
         super.finish();
-        LogHelper.i(this + "---finish");
+        Logger.i(this + "---finish");
     }
 }

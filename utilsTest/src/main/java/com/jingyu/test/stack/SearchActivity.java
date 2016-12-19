@@ -6,7 +6,7 @@ import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
 import com.jingyu.test_middle.Jumper;
 import com.jingyu.test_middle.base.BaseActivity;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.test.R;
 
 
@@ -55,14 +55,14 @@ public class SearchActivity extends BaseActivity {
                             if (!is_key_board_show) {
                                 hideFragment(record_fragment);
                             }
-                            LogHelper.shortToast("change");
+                            Logger.shortToast("change");
                         }
                     });
 
                     record_fragment.setOnRecordItemClickListener(new SearchRecordFragment.OnRecordItemClickListener() {
                         @Override
                         public void onRecordItemClickListener(SearchRecordBean model, String key_word, int position) {
-                            LogHelper.shortToast(key_word);
+                            Logger.shortToast(key_word);
                             Jumper.toSearchActivity2(SearchActivity.this);
                         }
                     });
@@ -80,7 +80,7 @@ public class SearchActivity extends BaseActivity {
         title_fragment.setOnPressSearchlistener(new TitleSearchFragment.OnKeyBoardSearchListener() {
             @Override
             public void searchKeyDown(String key_word) {
-                LogHelper.shortToast(key_word);
+                Logger.shortToast(key_word);
                 Jumper.toSearchActivity2(SearchActivity.this);
             }
         });

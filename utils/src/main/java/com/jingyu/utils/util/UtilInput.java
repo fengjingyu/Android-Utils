@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -52,12 +52,12 @@ public class UtilInput {
         if (versionInt > 10) {
             ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             clipboardManager.setText(textView.getText().toString().trim());
-            LogHelper.shortToast("已经复制到粘贴板");
+            Logger.shortToast("已经复制到粘贴板");
 
         } else {
             android.text.ClipboardManager clipboardManager1 = (android.text.ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
             clipboardManager1.setText(textView.getText().toString().trim());
-            LogHelper.shortToast("已经复制到粘贴板");
+            Logger.shortToast("已经复制到粘贴板");
         }
     }
 

@@ -127,7 +127,7 @@ public class ActivityManager {
             while (true) {
 
                 if (stack.isEmpty()) {
-                    LogHelper.e("---toActivity()的stack为null");
+                    Logger.e("---toActivity()的stack为null");
                     return null;
                 }
 

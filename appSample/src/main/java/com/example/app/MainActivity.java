@@ -12,7 +12,7 @@ import com.jingyu.utils.application.BActivity;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.helper.ActivityManager;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -84,7 +84,7 @@ public class MainActivity extends BActivity {
             ActivityManager.appExit();
         } else {
             back_quit_time = this_quit_time;
-            LogHelper.shortToast("快速再按一次退出");
+            Logger.shortToast("快速再按一次退出");
         }
     }
 
@@ -95,8 +95,8 @@ public class MainActivity extends BActivity {
         ExceptionDb exceptionModelDb = CrashHandler.getInstance().getExceptionModelDb();
 
         if (exceptionModelDb != null) {
-            LogHelper.itemp(exceptionModelDb.queryCount());
-            LogHelper.itemp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
+            Logger.itemp(exceptionModelDb.queryCount());
+            Logger.itemp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
         }
     }
 }

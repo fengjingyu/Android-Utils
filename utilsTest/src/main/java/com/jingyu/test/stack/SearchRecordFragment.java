@@ -17,7 +17,7 @@ import com.jingyu.utils.application.BFragment;
 import com.jingyu.utils.function.adapter.BAdapter;
 import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilView;
 
 import java.util.List;
@@ -186,7 +186,7 @@ public class SearchRecordFragment extends BFragment implements View.OnClickListe
         @Override
         public void onClick(View view) {
             Integer position = (Integer) view.getTag();
-            LogHelper.dShortToast(position + "");
+            Logger.dShortToast(position + "");
             dao.deleteByTime(list.get(position).getTime());
             SearchRecordFragment.this.update();
         }

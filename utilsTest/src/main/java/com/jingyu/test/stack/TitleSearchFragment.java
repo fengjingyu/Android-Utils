@@ -17,7 +17,7 @@ import com.jingyu.test.R;
 import com.jingyu.utils.application.BFragment;
 import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilString;
 import com.jingyu.utils.util.UtilView;
 
@@ -113,7 +113,7 @@ public class TitleSearchFragment extends BFragment implements View.OnClickListen
             if (canclelistener != null) {
                 String keyword = xc_id_fragment_search_edittext.getText().toString().trim();
                 if ("".equals(keyword)) {
-                    LogHelper.shortToast("关键字不能为空");
+                    Logger.shortToast("关键字不能为空");
                     return;
                 }
 
@@ -250,7 +250,7 @@ public class TitleSearchFragment extends BFragment implements View.OnClickListen
 
                     String keyword = xc_id_fragment_search_edittext.getText().toString().trim();
                     if ("".equals(keyword)) {
-                        LogHelper.shortToast("关键字不能为空");
+                        Logger.shortToast("关键字不能为空");
                         return false;
                     }
                     if (getActivity().getCurrentFocus() != null) {

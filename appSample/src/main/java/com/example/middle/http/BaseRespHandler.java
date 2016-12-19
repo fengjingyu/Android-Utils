@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 import com.example.app.MainActivity;
 import com.example.middle.App;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.DialogManager;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
@@ -41,7 +41,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onReadySendRequest(ReqInfo reqInfo) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
 
         setHttpHeaders(reqInfo);
         setSendTime(reqInfo);
@@ -76,7 +76,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
      */
     @Override
     public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
 
         //TODO 解析规则
         if (resultBean instanceof IHttpRespInfo) {
@@ -89,41 +89,41 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
             }
 
         } else {
-            LogHelper.e("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
+            Logger.e("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
             throw new RuntimeException("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
         }
 
     }
 
     public void statusCodeWrongLogic(T resultBean) {
-        LogHelper.shortToast(((IHttpRespInfo) resultBean).getMsg());
+        Logger.shortToast(((IHttpRespInfo) resultBean).getMsg());
     }
 
     @Override
     public void onSuccessButParseWrong(ReqInfo reqInfo, RespInfo respInfo) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessButParseWrong()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessButParseWrong()");
     }
 
     @Override
     public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessButCodeWrong()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessButCodeWrong()");
     }
 
     @Override
     public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessAll()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onSuccessAll()");
     }
 
     @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onFailure()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onFailure()");
 
-        LogHelper.shortToast("网络有误");
+        Logger.shortToast("网络有误");
     }
 
     @Override
     public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onEnd()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onEnd()");
         closeDialog(reqInfo.isShowDialog());
     }
 
@@ -188,7 +188,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onProgressing(ReqInfo reqInfo, long bytesWritten, long totalSize, double percent) {
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onProgressing()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "--onProgressing()");
     }
 
 }

@@ -8,7 +8,7 @@ import com.example.middle.Http;
 import com.example.middle.base.BaseActivity;
 import com.example.middle.http.json.JsonModel;
 import com.example.middle.http.json.JsonRespHandler;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 
@@ -40,8 +40,8 @@ public class SampleHttpActivity extends BaseActivity {
             @Override
             public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, SampleHttpModel resultBean) {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
-                LogHelper.shortToast(resultBean.getMsg());
-                LogHelper.longToast(resultBean.getName());
+                Logger.shortToast(resultBean.getMsg());
+                Logger.longToast(resultBean.getName());
             }
         });
 
@@ -57,7 +57,7 @@ public class SampleHttpActivity extends BaseActivity {
             @Override
             public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, SampleHttpModel resultBean) {
                 super.onSuccessButCodeWrong(reqInfo, respInfo, resultBean);
-                LogHelper.dShortToast(resultBean.getCode());
+                Logger.dShortToast(resultBean.getCode());
             }
         });
     }
@@ -98,7 +98,7 @@ public class SampleHttpActivity extends BaseActivity {
             @Override
             public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
-                LogHelper.shortToast(resultBean.getMsg());
+                Logger.shortToast(resultBean.getMsg());
             }
         });
 

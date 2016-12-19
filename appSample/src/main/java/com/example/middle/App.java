@@ -12,7 +12,7 @@ import com.jingyu.utils.exception.ExceptionBean;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.exception.IException2Server;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.helper.SPHelper;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
 import com.jingyu.utils.imageloader.AsynLoader;
@@ -26,9 +26,9 @@ import com.jingyu.utils.util.UtilSystem;
  */
 public class App extends Application {
 
-    private static Application instance;
+    static Application instance;
 
-    private static Context appContext;
+    static Context appContext;
 
     @Override
     public void onCreate() {
@@ -64,9 +64,9 @@ public class App extends Application {
     }
 
     private void printEnvironment() {
-        LogHelper.i(Constants.TAG_SYSTEM_OUT, ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString() + "-----域名环境");
+        Logger.i(Constants.TAG_SYSTEM_OUT, ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString() + "-----域名环境");
 
-        LogHelper.i(Constants.TAG_SYSTEM_OUT, ConfigLog.DEBUG_CONTROL.toString() + "-----日志环境");
+        Logger.i(Constants.TAG_SYSTEM_OUT, ConfigLog.DEBUG_CONTROL.toString() + "-----日志环境");
     }
 
     /**
@@ -78,7 +78,7 @@ public class App extends Application {
 
     private void initLog() {
 
-        LogHelper.initLog(getApplicationContext(),
+        Logger.initLog(getApplicationContext(),
                 ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG,
                 ConfigFile.APP_ROOT, ConfigFile.LOG_FILE, Constants.ENCODING_UTF8);
     }

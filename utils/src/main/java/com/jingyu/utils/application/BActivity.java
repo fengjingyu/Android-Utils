@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.jingyu.utils.function.helper.ActivityManager;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilInput;
 
 import java.lang.reflect.Constructor;
@@ -35,7 +35,7 @@ public abstract class BActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            LogHelper.e(this, "回收后重新创建");
+            Logger.e(this, "回收后重新创建");
         }
 
         ActivityManager.addActivityToStack(this);
@@ -155,11 +155,11 @@ public abstract class BActivity extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LogHelper.i(this + "---onActivityResult");
+        Logger.i(this + "---onActivityResult");
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments != null) {
             for (Fragment fragment : fragments) {
-                LogHelper.i(this + "onActivityResult---" + fragment.toString());
+                Logger.i(this + "onActivityResult---" + fragment.toString());
                 fragment.onActivityResult(requestCode, resultCode, data);
             }
         }

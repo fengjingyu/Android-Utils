@@ -9,7 +9,7 @@ import com.jingyu.test.R;
 import com.jingyu.test_middle.base.BaseActivity;
 import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -60,14 +60,14 @@ public class SearchActivity2 extends BaseActivity {
                             if (!is_key_board_show) {
                                 hideFragment(record_fragment);
                             }
-                            LogHelper.shortToast("change");
+                            Logger.shortToast("change");
                         }
                     });
 
                     record_fragment.setOnRecordItemClickListener(new SearchRecordFragment.OnRecordItemClickListener() {
                         @Override
                         public void onRecordItemClickListener(SearchRecordBean model, String key_word, int position) {
-                            LogHelper.shortToast(key_word);
+                            Logger.shortToast(key_word);
                             Jumper.toSearchActivity2(SearchActivity2.this);
                         }
                     });
@@ -92,7 +92,7 @@ public class SearchActivity2 extends BaseActivity {
         title_fragment.setOnPressSearchlistener(new TitleSearchFragment.OnKeyBoardSearchListener() {
             @Override
             public void searchKeyDown(String key_word) {
-                LogHelper.shortToast(key_word);
+                Logger.shortToast(key_word);
                 Jumper.toSearchActivity2(SearchActivity2.this);
             }
         });
@@ -102,18 +102,18 @@ public class SearchActivity2 extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogHelper.i(this, "onDestroy");
+        Logger.i(this, "onDestroy");
     }
 
     @Override
     public void finish() {
         super.finish();
-        LogHelper.i(this, "finish");
+        Logger.i(this, "finish");
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LogHelper.i(this, "onBackPressed");
+        Logger.i(this, "onBackPressed");
     }
 }

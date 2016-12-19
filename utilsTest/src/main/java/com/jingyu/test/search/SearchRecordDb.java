@@ -157,7 +157,7 @@ public class SearchRecordDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         long id = db.insert(mOperatorTableName, _ID, values);
-        //LogHelper.i(Constants.TAG_DB, "插入的记录的id是: " + id);
+        //Logger.i(Constants.TAG_DB, "插入的记录的id是: " + id);
         db.close();
         return id;
     }
@@ -178,7 +178,7 @@ public class SearchRecordDb extends SQLiteOpenHelper {
     public int deleteByTime(String value) {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, TIME + "=?", new String[]{value + ""});
-        //LogHelper.i(Constants.TAG_DB, "delete-->" + rows + "行");
+        //Logger.i(Constants.TAG_DB, "delete-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -189,7 +189,7 @@ public class SearchRecordDb extends SQLiteOpenHelper {
     public int deleteByKeyword(String value) {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, KEY_WORD + "=?", new String[]{value + ""});
-        //LogHelper.i(Constants.TAG_DB, "delete-->" + rows + "行");
+        //Logger.i(Constants.TAG_DB, "delete-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -277,7 +277,7 @@ public class SearchRecordDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         int rows = db.update(mOperatorTableName, values, TIME + "=?", new String[]{value + ""});
-        //LogHelper.i(Constants.TAG_DB, "更新了" + rows + "行");
+        //Logger.i(Constants.TAG_DB, "更新了" + rows + "行");
         db.close();
         return rows;
     }

@@ -3,7 +3,7 @@ package com.jingyu.utils.http.okhttp;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilIo;
@@ -53,7 +53,7 @@ public class OkRespHandler<T> implements Callback {
             respInfo.setRespType(RespType.FAILURE);
             respInfo.setThrowable(e);
 
-            LogHelper.i(Constants.TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
+            Logger.i(Constants.TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
             respInfo.getThrowable().printStackTrace();
             printHeaderInfo(respInfo.getRespHeaders());
 
@@ -64,7 +64,7 @@ public class OkRespHandler<T> implements Callback {
             // 回调到uithread
             handleFailOnUiThread(respInfo);
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onFailure--->respHandler" + LINE + reqInfo);
+            Logger.i(Constants.TAG_HTTP, "onFailure--->respHandler" + LINE + reqInfo);
         }
 
     }
@@ -85,7 +85,7 @@ public class OkRespHandler<T> implements Callback {
             respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
             respInfo.setThrowable(null);
 
-            LogHelper.i(Constants.TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
+            Logger.i(Constants.TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
             // 打印头信息
             printHeaderInfo(respInfo.getRespHeaders());
             // 是否拦截或修改原始的resp
@@ -97,7 +97,7 @@ public class OkRespHandler<T> implements Callback {
             // 回调到uithread
             handleSuccessOnUiThread(resultBean, respInfo);
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onSuccess--->respHandler为空" + LINE + reqInfo);
+            Logger.i(Constants.TAG_HTTP, "onSuccess--->respHandler为空" + LINE + reqInfo);
         }
 
     }
@@ -115,15 +115,15 @@ public class OkRespHandler<T> implements Callback {
                     respHandler.onFailure(reqInfo, respInfo);
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    LogHelper.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
-                    LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "failure（） 异常了，框架里trycatch了,赶紧查看log。e的日志");
+                    Logger.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
+                    Logger.dLongToast(true, reqInfo.getUrl() + LINE + "failure（） 异常了，框架里trycatch了,赶紧查看log。e的日志");
                 } finally {
                     try {
                         end(respInfo);
                     } catch (Exception e1) {
                         e1.printStackTrace();
-                        LogHelper.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
-                        LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "failure--->end（） 异常，框架里trycatch了,赶紧查看log日志");
+                        Logger.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
+                        Logger.dLongToast(true, reqInfo.getUrl() + LINE + "failure--->end（） 异常，框架里trycatch了,赶紧查看log日志");
                     }
                 }
             }
@@ -155,15 +155,15 @@ public class OkRespHandler<T> implements Callback {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LogHelper.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
-                    LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "success（） 异常了，框架里trycatch了,赶紧查看log的日志");
+                    Logger.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
+                    Logger.dLongToast(true, reqInfo.getUrl() + LINE + "success（） 异常了，框架里trycatch了,赶紧查看log的日志");
                 } finally {
                     try {
                         end(respInfo);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        LogHelper.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
-                        LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "success--->end（） 异常了，框架里trycatch了,赶紧查看log.e的日志");
+                        Logger.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
+                        Logger.dLongToast(true, reqInfo.getUrl() + LINE + "success--->end（） 异常了，框架里trycatch了,赶紧查看log.e的日志");
                     }
                 }
             }
@@ -171,13 +171,13 @@ public class OkRespHandler<T> implements Callback {
     }
 
     protected void printHeaderInfo(Map<String, List<String>> headers) {
-        if (LogHelper.isOutput && headers != null) {
+        if (Logger.isOutput && headers != null) {
             for (Map.Entry<String, List<String>> header : headers.entrySet()) {
 
                 List<String> values = header.getValue();
 
                 if (UtilCollections.isListAvaliable(values)) {
-                    LogHelper.i(Constants.TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
+                    Logger.i(Constants.TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
         }
@@ -196,9 +196,9 @@ public class OkRespHandler<T> implements Callback {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            LogHelper.i(Constants.TAG_HTTP, this + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
+            Logger.i(Constants.TAG_HTTP, this + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
 
-            LogHelper.logFormatContent(Constants.TAG_HTTP, "", respInfo.getDataString());
+            Logger.logFormatContent(Constants.TAG_HTTP, "", respInfo.getDataString());
 
             // 如果解析失败一定得返回null或者crash
             T resultBean = respHandler.onParse2Model(reqInfo, respInfo);
@@ -207,8 +207,8 @@ public class OkRespHandler<T> implements Callback {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        LogHelper.e("解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString());
-                        LogHelper.dLongToast(true, "数据解析失败，详情请查看本地日志" + LINE + respInfo.getDataString());
+                        Logger.e("解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString());
+                        Logger.dLongToast(true, "数据解析失败，详情请查看本地日志" + LINE + respInfo.getDataString());
                     }
                 });
             }
@@ -220,8 +220,8 @@ public class OkRespHandler<T> implements Callback {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    LogHelper.e("解析数据异常" + LINE + this + LINE + e + LINE + reqInfo + LINE + respInfo.getDataString());
-                    LogHelper.dLongToast(true, "数据解析异常，详情请查看本地日志" + LINE + respInfo.getDataString());
+                    Logger.e("解析数据异常" + LINE + this + LINE + e + LINE + reqInfo + LINE + respInfo.getDataString());
+                    Logger.dLongToast(true, "数据解析异常，详情请查看本地日志" + LINE + respInfo.getDataString());
                 }
             });
             return null;

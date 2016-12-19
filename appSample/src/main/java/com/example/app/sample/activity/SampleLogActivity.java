@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.example.middle.Sp;
 import com.example.middle.base.BaseActivity;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 public class SampleLogActivity extends BaseActivity {
 
@@ -18,23 +18,23 @@ public class SampleLogActivity extends BaseActivity {
      * 日志 提示
      */
     public void log() {
-        LogHelper.i(1);
-        LogHelper.i(null);
-        LogHelper.i(new Object());
-        LogHelper.i("demo");
-        LogHelper.i(false);
+        Logger.i(1);
+        Logger.i(null);
+        Logger.i(new Object());
+        Logger.i("demo");
+        Logger.i(false);
 
-        LogHelper.shortToast(1);
-        LogHelper.shortToast(null);
-        LogHelper.shortToast(new Object());
-        LogHelper.shortToast("demo");
-        LogHelper.shortToast(false);
+        Logger.shortToast(1);
+        Logger.shortToast(null);
+        Logger.shortToast(new Object());
+        Logger.shortToast("demo");
+        Logger.shortToast(false);
 
-        LogHelper.dLongToast(1);
-        LogHelper.dLongToast(null);
-        LogHelper.dLongToast(new Object());
-        LogHelper.dLongToast("demo");
-        LogHelper.dLongToast(false);
+        Logger.dLongToast(1);
+        Logger.dLongToast(null);
+        Logger.dLongToast(new Object());
+        Logger.dLongToast("demo");
+        Logger.dLongToast(false);
     }
 
     /**

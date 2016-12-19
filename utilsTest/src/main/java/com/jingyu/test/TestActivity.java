@@ -8,7 +8,7 @@ import com.jingyu.test_middle.config.ConfigFile;
 import com.jingyu.utils.encryption.aes.AesEncryptAndDecrypt;
 import com.jingyu.utils.encryption.md5.UtilMd5;
 import com.jingyu.utils.encryption.rsa.UtilBase64;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.helper.SPHelper;
 import com.jingyu.utils.json.JsonBean;
 import com.jingyu.utils.util.UtilIo;
@@ -51,8 +51,8 @@ public class TestActivity extends BaseActivity {
     }
 
     private void testRuntime() {
-        LogHelper.i("Runtime.getRuntime().availableProcessors()--" + Runtime.getRuntime().availableProcessors());
-        LogHelper.i("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory());
+        Logger.i("Runtime.getRuntime().availableProcessors()--" + Runtime.getRuntime().availableProcessors());
+        Logger.i("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory());
     }
 
     private void testSp() {
@@ -63,45 +63,45 @@ public class TestActivity extends BaseActivity {
         SPHelper.spPut("5", " abc ");
 
         //String result = SPHelper.spGet("1", "abc") + SPHelper.spGet("2", 0) + SPHelper.spGet("3", 0.1f)+ SPHelper.spGet("4", true) + SPHelper.spGet("5", "abc") + SPHelper.spGet("6", null) + SPHelper.spGet("7", "    jkl");
-        //LogHelper.shortToast(result);
+        //Logger.shortToast(result);
 
         SPHelper.spPut("1", 0.1f);
 
         String result2 = SPHelper.spGet("5", "java") + SPHelper.spGet("1", 0.0f) + SPHelper.spGet("2", 0) + SPHelper.spGet("3", 0.1f)
                 + SPHelper.spGet("4", true) + SPHelper.spGet("6", null) + SPHelper.spGet("7", "    jkl");
-        LogHelper.shortToast(result2);
+        Logger.shortToast(result2);
     }
 
     private void testLog() {
         TestModel model = null;
         // 不会报错
-        LogHelper.i(model);
+        Logger.i(model);
 
-        LogHelper.i(1);
-        LogHelper.i(true);
-        LogHelper.i(false);
+        Logger.i(1);
+        Logger.i(true);
+        Logger.i(false);
         Object obj = null;
-        LogHelper.i(obj);
+        Logger.i(obj);
 
         try {
-            LogHelper.e("123");
-            LogHelper.e("345");
-            LogHelper.e("678");
+            Logger.e("123");
+            Logger.e("345");
+            Logger.e("678");
             int i = 1 / 0;
         } catch (Exception e) {
-            LogHelper.e(this, "--oncreate()--", e);
+            Logger.e(this, "--oncreate()--", e);
         }
-        // LogHelper.clearLog();
-        LogHelper.e(this, "1234567890");
-        LogHelper.tempPrint("android--" + System.currentTimeMillis());
+        // Logger.clearLog();
+        Logger.e(this, "1234567890");
+        Logger.tempPrint("android--" + System.currentTimeMillis());
 
-        LogHelper.i(UtilIo.getAllFilesByDirQueue(UtilIoAndr.createDirInSDCard(ConfigFile.APP_ROOT), new ArrayList<File>()));
+        Logger.i(UtilIo.getAllFilesByDirQueue(UtilIoAndr.createDirInSDCard(ConfigFile.APP_ROOT), new ArrayList<File>()));
 
         UtilIo.toFileByBytes(UtilIoAndr.createFileInAndroid(this, ConfigFile.APP_ROOT, "lalala.txt"), "写入的内容--1234567890987654321abc".getBytes(), true);
     }
 
     private void testUUID() {
-        LogHelper.i("UUID----" + UUID.randomUUID() + "----" + UUID.randomUUID().toString().length());
+        Logger.i("UUID----" + UUID.randomUUID() + "----" + UUID.randomUUID().toString().length());
     }
 
     private void testClone() {
@@ -113,9 +113,9 @@ public class TestActivity extends BaseActivity {
 
         TestModel deep = (TestModel) testModel.deepClone();
 
-        LogHelper.i("原始数据---" + testModel);
-        LogHelper.i("浅克隆---" + simple);
-        LogHelper.i("深克隆---" + deep);
+        Logger.i("原始数据---" + testModel);
+        Logger.i("浅克隆---" + simple);
+        Logger.i("深克隆---" + deep);
 
         TestModel simple2 = (TestModel) testModel.simpleClone();
         simple2.setMsg("123");
@@ -125,33 +125,33 @@ public class TestActivity extends BaseActivity {
         deep2.setMsg("123123");
         deep2.setCode(302);
 
-        LogHelper.i("原始数据---" + testModel);
-        LogHelper.i("浅克隆---" + simple2);
-        LogHelper.i("深克隆---" + deep2);
+        Logger.i("原始数据---" + testModel);
+        Logger.i("浅克隆---" + simple2);
+        Logger.i("深克隆---" + deep2);
     }
 
     private void testSecret() {
         String one = UtilMd5.MD5Encode("123456abc");
         String two = UtilMd5.MD5Encode2("123456abc");
-        LogHelper.i(one);
-        LogHelper.i(two);
-        LogHelper.i(UtilString.equals(one, two)); // true
+        Logger.i(one);
+        Logger.i(two);
+        Logger.i(UtilString.equals(one, two)); // true
 
         String des_close = DesEncryptAndDecrypt.encodeRequestStr("today is haha 123");
         String des_open = DesEncryptAndDecrypt.decodeResponseStr(des_close);
-        LogHelper.i(des_close);
-        LogHelper.i(des_open);
+        Logger.i(des_close);
+        Logger.i(des_open);
 
         String aes_close = AesEncryptAndDecrypt.encodeRequestStr("computer 123 macpro");
         String aes_open = AesEncryptAndDecrypt.decodeResponseStr(aes_close);
-        LogHelper.i(aes_close);
-        LogHelper.i(aes_open);
+        Logger.i(aes_close);
+        Logger.i(aes_open);
 
         try {
             String base64_e = UtilBase64.encode("123  HEHE".getBytes());
             String base64_d = new String(UtilBase64.decode(base64_e), "utf-8");
-            LogHelper.i(base64_e);
-            LogHelper.i(base64_d);
+            Logger.i(base64_e);
+            Logger.i(base64_d);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,8 +159,8 @@ public class TestActivity extends BaseActivity {
         try {
             String base64_e = new String(Base64.encode("123  HEHE".getBytes(), Base64.DEFAULT), "utf-8");
             String base64_d = new String(Base64.decode(base64_e.getBytes(), Base64.DEFAULT), "utf-8");
-            LogHelper.i(base64_e);
-            LogHelper.i(base64_d);
+            Logger.i(base64_e);
+            Logger.i(base64_d);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -175,22 +175,22 @@ public class TestActivity extends BaseActivity {
         queue.add("d");
 
 //        try {
-//            LogHelper.i(queue.take()); // a  //take 类似 poll remove
-//            LogHelper.i(queue.take()); // b
-//            LogHelper.i(queue.take()); // c
-//            LogHelper.i(queue.take()); // d
+//            Logger.i(queue.take()); // a  //take 类似 poll remove
+//            Logger.i(queue.take()); // b
+//            Logger.i(queue.take()); // c
+//            Logger.i(queue.take()); // d
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
 
-        LogHelper.i(queue.peek()); //a  // peek 类似 element
-        LogHelper.i(queue.peek()); //a
-        LogHelper.i(queue.peek()); //a
-        LogHelper.i(queue.peek()); //a
+        Logger.i(queue.peek()); //a  // peek 类似 element
+        Logger.i(queue.peek()); //a
+        Logger.i(queue.peek()); //a
+        Logger.i(queue.peek()); //a
         queue.remove("a");
-        LogHelper.i(queue.peek()); //b
-        LogHelper.i(queue.peek()); //b
-        LogHelper.i(queue.peek()); //b
+        Logger.i(queue.peek()); //b
+        Logger.i(queue.peek()); //b
+        Logger.i(queue.peek()); //b
     }
 
     private void testJsonFormat() {
@@ -208,28 +208,28 @@ public class TestActivity extends BaseActivity {
         List beans = bean.getListList("data", new ArrayList<ArrayList>());
 
         try {
-            LogHelper.i(beans.toString());
-            LogHelper.i(beans.get(0).toString());
+            Logger.i(beans.toString());
+            Logger.i(beans.get(0).toString());
             if (beans.get(0) instanceof List) {
-                LogHelper.i("List");
+                Logger.i("List");
             } else if (beans.get(0) instanceof String[]) {
-                LogHelper.i("string[]");
+                Logger.i("string[]");
             } else {
-                LogHelper.i(beans.get(0).getClass().toString());
+                Logger.i(beans.get(0).getClass().toString());
 
                 JSONArray array = (JSONArray) beans.get(0);
                 int count = array.length();
                 for (int i = 0; i < count; i++) {
-                    LogHelper.i((String) array.get(i));
+                    Logger.i((String) array.get(i));
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            LogHelper.e(this.toString() + "---exception");
+            Logger.e(this.toString() + "---exception");
         }
 
-        LogHelper.i(UtilSystem.getDeviceId(this) + "--------------deviceId");
+        Logger.i(UtilSystem.getDeviceId(this) + "--------------deviceId");
     }
 
     public void testSubList() {
@@ -246,12 +246,12 @@ public class TestActivity extends BaseActivity {
 
         List<TestModel> sub = list.subList(0, 2);
 
-        LogHelper.i("list", list.size());//4
-        LogHelper.i("list", sub.size());//2
-        LogHelper.i("list", list.get(0));//相同@1234567
-        LogHelper.i("list", sub.get(0));//相同@1234567
-        LogHelper.i("list", list.get(1));//相同@0123456
-        LogHelper.i("list", sub.get(1));//相同@0123456
+        Logger.i("list", list.size());//4
+        Logger.i("list", sub.size());//2
+        Logger.i("list", list.get(0));//相同@1234567
+        Logger.i("list", sub.get(0));//相同@1234567
+        Logger.i("list", list.get(1));//相同@0123456
+        Logger.i("list", sub.get(1));//相同@0123456
     }
 
 

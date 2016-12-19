@@ -1,6 +1,6 @@
 package com.jingyu.utils.util;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -52,8 +52,8 @@ public class UtilTime {
         try {
             String str_timePoint = timePoint;
             String str_timeQuantum = timeQuantum;
-            LogHelper.i("当前时间点：" + timePoint);
-            LogHelper.i("当前时间段：" + timeQuantum);
+            Logger.i("当前时间点：" + timePoint);
+            Logger.i("当前时间段：" + timeQuantum);
 
             String[] ss = str_timeQuantum.split("-");
             int length = ss.length;

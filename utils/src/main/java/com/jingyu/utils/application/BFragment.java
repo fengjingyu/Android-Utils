@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 import java.util.List;
 
@@ -89,7 +89,7 @@ public abstract class BFragment extends Fragment {
         List<Fragment> fragments = getChildFragmentManager().getFragments();
         if (fragments != null) {
             for (Fragment fragment : fragments) {
-                LogHelper.i(fragment.toString() + "----onActivityResult");
+                Logger.i(fragment.toString() + "----onActivityResult");
                 fragment.onActivityResult(requestCode, resultCode, data);
             }
         }

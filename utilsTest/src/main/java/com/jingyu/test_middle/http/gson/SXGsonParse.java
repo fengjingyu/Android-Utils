@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilString;
 
 import java.io.StringReader;
@@ -58,7 +58,7 @@ public class SXGsonParse {
             try {
                 return getGson().fromJson(json, objClass);
             } catch (JsonSyntaxException e) {
-                LogHelper.e("Parse json error: " + e.getMessage());
+                Logger.e("Parse json error: " + e.getMessage());
             }
         }
         return null;
@@ -74,7 +74,7 @@ public class SXGsonParse {
             try {
                 return getGson().fromJson(json, typeOfT);
             } catch (JsonSyntaxException e) {
-                LogHelper.e("Parse json error: " + e.getMessage());
+                Logger.e("Parse json error: " + e.getMessage());
             }
         }
         return null;

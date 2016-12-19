@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.Constants;
 
 import java.util.HashMap;
@@ -115,14 +115,14 @@ public class DialogManager {
     private void showHttpDialog() {
         if (mHttpDialog != null && !mHttpDialog.isShowing()) {
             mHttpDialog.show();
-            LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "---showHttpDialog()");
+            Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "---showHttpDialog()");
         }
     }
 
     private void closeHttpDialog() {
         if (mHttpDialog != null && mHttpDialog.isShowing()) {
             mHttpDialog.cancel();
-            LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "---closeHttpDialog()");
+            Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "---closeHttpDialog()");
         }
     }
 

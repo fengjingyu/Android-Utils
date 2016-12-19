@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import com.jingyu.test_middle.base.BaseActivity;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.photo.LocalPhotoFragment;
 
 /**
@@ -43,23 +43,23 @@ public class ActivityDestroyGC extends BaseActivity {
                     e.printStackTrace();
                 }
 
-                LogHelper.i(id_gc_imageview);
-                LogHelper.i(i);
+                Logger.i(id_gc_imageview);
+                Logger.i(i);
 
                 System.gc();
                 System.gc();
 
-                LogHelper.i(localPhotoFragment.toString());
-                LogHelper.i(localPhotoFragment.getActivity());
+                Logger.i(localPhotoFragment.toString());
+                Logger.i(localPhotoFragment.getActivity());
 
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        LogHelper.i("handler --" + id_gc_imageview); // 不为空
-                        LogHelper.i("handler --" + i);// 不为空
+                        Logger.i("handler --" + id_gc_imageview); // 不为空
+                        Logger.i("handler --" + i);// 不为空
 
-                        LogHelper.i("handler --" + localPhotoFragment.toString()); // 不为空
-                        LogHelper.i("handler --" + localPhotoFragment.getActivity()); // 空
+                        Logger.i("handler --" + localPhotoFragment.toString()); // 不为空
+                        Logger.i("handler --" + localPhotoFragment.getActivity()); // 空
                     }
                 }, 10000);
 
@@ -71,12 +71,12 @@ public class ActivityDestroyGC extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogHelper.i(this + "--onDestroy()");
+        Logger.i(this + "--onDestroy()");
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        LogHelper.i(this + "--onWindowFocusChanged");
+        Logger.i(this + "--onWindowFocusChanged");
     }
 }

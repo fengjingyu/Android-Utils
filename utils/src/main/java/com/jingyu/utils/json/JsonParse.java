@@ -1,6 +1,6 @@
 package com.jingyu.utils.json;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilString;
 
 import org.json.JSONArray;
@@ -213,7 +213,7 @@ public class JsonParse {
             return sb.toString();
 
         } catch (Exception e) {
-            LogHelper.e("格式化json异常----jsonformat---" + jsonString, e);
+            Logger.e("格式化json异常----jsonformat---" + jsonString, e);
             return jsonString;
         }
     }

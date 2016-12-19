@@ -2,7 +2,7 @@ package com.jingyu.utils.encryption.rsa;
 
 import android.text.TextUtils;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -35,7 +35,7 @@ public class UtilRSA {
                 // 传入编码数据并返回编码结果
                 byte[] result = cipher.doFinal(data.getBytes());
                 String resultStr = (new UtilBase64()).encode(result);
-                LogHelper.i("myy", resultStr);
+                Logger.i("myy", resultStr);
                 return resultStr;
 
         } catch (Exception e){

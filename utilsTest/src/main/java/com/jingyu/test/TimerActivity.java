@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.test_middle.base.BaseActivity;
 
 import java.util.Timer;
@@ -40,12 +40,12 @@ public class TimerActivity extends BaseActivity {
         CountDownTimer timer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                LogHelper.i(count++);
+                Logger.i(count++);
             }
 
             @Override
             public void onFinish() {
-                LogHelper.i(Constants.TAG_TEST, count + "--onEnd");
+                Logger.i(Constants.TAG_TEST, count + "--onEnd");
             }
         };
 
@@ -69,7 +69,7 @@ public class TimerActivity extends BaseActivity {
                     @Override
                     public void run() {
                         index = index + 1;
-                        LogHelper.shortToast(index);
+                        Logger.shortToast(index);
                     }
                 });
 
@@ -93,14 +93,14 @@ public class TimerActivity extends BaseActivity {
         scheduled.schedule(new Runnable() {
             @Override
             public void run() {
-                LogHelper.i("5秒后执行一次");
+                Logger.i("5秒后执行一次");
             }
         }, 5, TimeUnit.SECONDS);
 
         scheduled.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
-                LogHelper.i("2秒后开始执行，每隔6秒执行一次");
+                Logger.i("2秒后开始执行，每隔6秒执行一次");
             }
         }, 2, 6, TimeUnit.SECONDS);
     }

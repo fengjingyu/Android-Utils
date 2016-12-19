@@ -8,7 +8,6 @@ import com.jingyu.utils.imageloader.AsynLoader;
 import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
-import com.squareup.leakcanary.LeakCanary;
 import com.jingyu.test_middle.config.ConfigFile;
 import com.jingyu.test_middle.config.ConfigImages;
 import com.jingyu.test_middle.config.ConfigLog;
@@ -18,7 +17,7 @@ import com.jingyu.utils.exception.ExceptionBean;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.exception.IException2Server;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.helper.SPHelper;
 
 /**
@@ -37,7 +36,7 @@ public class App extends Application {
         instance = this;
         appContext = this;
 
-        initLeakCanary();
+        // initLeakCanary();
 
         createDir();
 
@@ -64,9 +63,9 @@ public class App extends Application {
     }
 
     private void printEnvironment() {
-        LogHelper.i(Constants.TAG_SYSTEM_OUT, ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString() + "-----域名环境");
+        Logger.i(Constants.TAG_SYSTEM_OUT, ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString() + "-----域名环境");
 
-        LogHelper.i(Constants.TAG_SYSTEM_OUT, ConfigLog.DEBUG_CONTROL.toString() + "-----日志环境");
+        Logger.i(Constants.TAG_SYSTEM_OUT, ConfigLog.DEBUG_CONTROL.toString() + "-----日志环境");
     }
 
     private void initLeakCanary() {
@@ -80,7 +79,7 @@ public class App extends Application {
 //                        .build());
 //            }
 
-            LeakCanary.install(this);
+            // LeakCanary.install(this);
         }
     }
 
@@ -93,7 +92,7 @@ public class App extends Application {
 
     private void initLog() {
 
-        LogHelper.initLog(getApplicationContext(),
+        Logger.initLog(getApplicationContext(),
                 ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG,
                 ConfigFile.APP_ROOT, ConfigFile.LOG_FILE, Constants.ENCODING_UTF8);
     }

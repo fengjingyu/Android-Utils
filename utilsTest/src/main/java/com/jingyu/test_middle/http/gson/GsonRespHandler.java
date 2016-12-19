@@ -3,7 +3,7 @@ package com.jingyu.test_middle.http.gson;
 import android.app.Activity;
 
 import com.jingyu.test_middle.http.BaseRespHandler;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
@@ -28,7 +28,7 @@ public class GsonRespHandler<T> extends BaseRespHandler<T> {
     @Override
     public T onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
         return SXGsonParse.fromJson(respInfo.getDataString(), clazz);
     }

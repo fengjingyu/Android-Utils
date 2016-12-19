@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -36,9 +36,9 @@ public class AdapterTest extends BAdapter<String> {
         }
         String bean = list.get(position);
         if (convertView == null) {
-            LogHelper.i("convertView==null?--true" + position);
+            Logger.i("convertView==null?--true" + position);
         } else {
-            LogHelper.i("convertView==null?--false" + position + convertView.toString());
+            Logger.i("convertView==null?--false" + position + convertView.toString());
         }
         if (convertView == null) {
             TextView textView = new TextView(context);

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.jingyu.test_middle.base.BaseActivity;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.photo.CameraPhotoFragment;
 import com.jingyu.utils.function.photo.LocalPhotoFragment;
 
@@ -49,9 +49,9 @@ public class CamareActivity extends BaseActivity {
 
             @Override
             public void onCaremaSelectedFile(File file) {
-                LogHelper.i(Uri.fromFile(file));
-                LogHelper.i(file.getAbsolutePath());
-                LogHelper.i(file.toURI());
+                Logger.i(Uri.fromFile(file));
+                Logger.i(file.getAbsolutePath());
+                Logger.i(file.toURI());
                 id_imageview.setImageURI(Uri.fromFile(file));
             }
         });
@@ -60,9 +60,9 @@ public class CamareActivity extends BaseActivity {
 
             @Override
             public void onLocalSelectedFile(File file) {
-                LogHelper.i(Uri.fromFile(file));
-                LogHelper.i(file.getAbsolutePath());
-                LogHelper.i(file.toURI());
+                Logger.i(Uri.fromFile(file));
+                Logger.i(file.getAbsolutePath());
+                Logger.i(file.toURI());
                 id_imageview.setImageURI(Uri.fromFile(file));
             }
         });

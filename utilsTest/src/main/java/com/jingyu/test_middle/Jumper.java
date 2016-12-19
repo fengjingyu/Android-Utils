@@ -8,7 +8,7 @@ import android.net.Uri;
 
 import com.jingyu.test.stack.SearchActivity;
 import com.jingyu.test.stack.SearchActivity2;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -41,7 +41,7 @@ public class Jumper {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            LogHelper.shortToast("您没有短信功能，此功能不能正常进行！");
+            Logger.shortToast("您没有短信功能，此功能不能正常进行！");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,7 +60,7 @@ public class Jumper {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            LogHelper.shortToast("您没有拨打电话功能，此功能不能正常进行！");
+            Logger.shortToast("您没有拨打电话功能，此功能不能正常进行！");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class Jumper {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            LogHelper.shortToast("您没有浏览器，此功能不能正常进行，请安装浏览器后在试！");
+            Logger.shortToast("您没有浏览器，此功能不能正常进行，请安装浏览器后在试！");
         } catch (Exception e) {
             e.printStackTrace();
         }

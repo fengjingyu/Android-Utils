@@ -25,7 +25,7 @@ import java.util.Date;
  * <p/>
  * 使用前初始化initLog方法
  */
-public class LogHelper {
+public class Logger {
     /**
      * 毫秒
      */
@@ -89,13 +89,13 @@ public class LogHelper {
     public static void initLog(Context context, boolean is_dtoast, boolean is_output, boolean is_printlog,
                                String dir_name, String log_file_name, String encoding) {
 
-        LogHelper.context = context;
-        LogHelper.dirDame = UtilString.isAvaliable(dir_name) ? dir_name : "logDir_" + System.currentTimeMillis();
-        LogHelper.logFileName = UtilString.isAvaliable(log_file_name) ? log_file_name : "log_file.txt";
-        LogHelper.encoding = UtilString.isAvaliable(encoding) ? encoding : "utf-8";
-        LogHelper.isDtoast = is_dtoast;
-        LogHelper.isOutput = is_output;
-        LogHelper.isPrintlog = is_printlog;
+        Logger.context = context;
+        Logger.dirDame = UtilString.isAvaliable(dir_name) ? dir_name : "logDir_" + System.currentTimeMillis();
+        Logger.logFileName = UtilString.isAvaliable(log_file_name) ? log_file_name : "log_file.txt";
+        Logger.encoding = UtilString.isAvaliable(encoding) ? encoding : "utf-8";
+        Logger.isDtoast = is_dtoast;
+        Logger.isOutput = is_output;
+        Logger.isPrintlog = is_printlog;
     }
 
     /**

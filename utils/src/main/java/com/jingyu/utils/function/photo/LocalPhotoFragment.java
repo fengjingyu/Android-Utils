@@ -23,10 +23,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jingyu.utils.function.helper.ExecutorManager;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.R;
 import com.jingyu.utils.application.BFragment;
-import com.jingyu.utils.function.helper.LogHelper;
 import com.jingyu.utils.util.UtilOom;
 
 import java.io.File;
@@ -116,7 +116,7 @@ public class LocalPhotoFragment extends BFragment implements View.OnClickListene
                         } else {
                             final Uri uri = data.getData();
                             if (uri == null) {
-                                LogHelper.shortToast("系统获取图片失败");
+                                Logger.shortToast("系统获取图片失败");
                                 return;
                             }
                             ExecutorManager.getCache().execute(new Runnable() {
@@ -168,7 +168,7 @@ public class LocalPhotoFragment extends BFragment implements View.OnClickListene
                     listener.onLocalSelectedFile(file);
                 }
             } else {
-                LogHelper.shortToast("未检测到SD卡");
+                Logger.shortToast("未检测到SD卡");
                 if (listener != null) {
                     listener.onLocalSelectedFile(null);
                 }
@@ -210,7 +210,7 @@ public class LocalPhotoFragment extends BFragment implements View.OnClickListene
                         listener.onLocalSelectedFile(file);
                     }
                 } else {
-                    LogHelper.shortToast("未检测到SD卡");
+                    Logger.shortToast("未检测到SD卡");
                     if (listener != null) {
                         listener.onLocalSelectedFile(null);
                     }
@@ -438,12 +438,12 @@ public class LocalPhotoFragment extends BFragment implements View.OnClickListene
                 for (int i = 0; i < permissions.length; i++) {
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                         // 用户允许
-                        LogHelper.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
+                        Logger.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
                         todo();
                     } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
                         // 用户拒绝
-                        LogHelper.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
-                        LogHelper.shortToast("请到设置界面打开相册权限");
+                        Logger.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
+                        Logger.shortToast("请到设置界面打开相册权限");
                     }
                 }
             }

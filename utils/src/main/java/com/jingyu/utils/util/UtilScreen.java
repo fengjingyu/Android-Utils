@@ -132,17 +132,17 @@ public class UtilScreen {
  * <p/>
  * //            int[] sizes = new int[2];
  * //            v.getLocationOnScreen(sizes);
- * //            LogHelper.i("button" ,"x()--"+sizes[0]);
- * //            LogHelper.i("button" ,"y()--"+sizes[1]);
- * //            LogHelper.i("button" ,"getX()--"+v.getX());
- * //            LogHelper.i("button" ,"getY()--"+v.getY());
- * //            LogHelper.i("button" ,"getLeft()--"+v.getLeft());
- * //            LogHelper.i("button" ,"getRight()--"+v.getRight());
- * //            LogHelper.i("button" ,"getTop()--"+v.getTop());
- * //            LogHelper.i("button" ,"getBottom()--"+v.getBottom());
- * //            LogHelper.i("button" ,"ev.getX()--"+ev.getX());
- * //            LogHelper.i("button" ,"ev.getY()--"+ev.getY());
- * //            LogHelper.i("button" ,"ev.getRawX()--"+ev.getRawX());
+ * //            Logger.i("button" ,"x()--"+sizes[0]);
+ * //            Logger.i("button" ,"y()--"+sizes[1]);
+ * //            Logger.i("button" ,"getX()--"+v.getX());
+ * //            Logger.i("button" ,"getY()--"+v.getY());
+ * //            Logger.i("button" ,"getLeft()--"+v.getLeft());
+ * //            Logger.i("button" ,"getRight()--"+v.getRight());
+ * //            Logger.i("button" ,"getTop()--"+v.getTop());
+ * //            Logger.i("button" ,"getBottom()--"+v.getBottom());
+ * //            Logger.i("button" ,"ev.getX()--"+ev.getX());
+ * //            Logger.i("button" ,"ev.getY()--"+ev.getY());
+ * //            Logger.i("button" ,"ev.getRawX()--"+ev.getRawX());
  */
 
 /**

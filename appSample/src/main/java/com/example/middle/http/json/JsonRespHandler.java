@@ -4,7 +4,7 @@ import android.app.Activity;
 
 import com.example.middle.http.BaseRespHandler;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.json.JsonParse;
@@ -33,7 +33,7 @@ public class JsonRespHandler extends BaseRespHandler<JsonModel> {
     @Override
     public JsonModel onParse2Model(ReqInfo xcReqInfo, RespInfo xcRespInfo) {
 
-        LogHelper.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
         return JsonParse.getJsonParseData(xcRespInfo.getDataString(), JsonModel.class);
     }

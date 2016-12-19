@@ -4,9 +4,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.jingyu.utils.function.helper.ExecutorManager;
+import com.jingyu.utils.function.helper.Logger;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.LogHelper;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
@@ -61,7 +61,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respInfo.setDataBytes(bytes);
                     respInfo.setDataString(bytes);
 
-                    LogHelper.i(Constants.TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
+                    Logger.i(Constants.TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
                     // 打印头信息
                     printHeaderInfo(respInfo.getRespHeaders());
                     // 是否拦截或修改原始的resp
@@ -76,7 +76,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
             });
 
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onSuccess--->respHandler为null" + LINE + reqInfo);
+            Logger.i(Constants.TAG_HTTP, "onSuccess--->respHandler为null" + LINE + reqInfo);
         }
 
     }
@@ -98,7 +98,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respInfo.setRespType(RespType.FAILURE);
                     respInfo.setThrowable(throwable);
 
-                    LogHelper.i(Constants.TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + LINE + respInfo.getThrowable());
+                    Logger.i(Constants.TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + LINE + respInfo.getThrowable());
                     respInfo.getThrowable().printStackTrace();
                     printHeaderInfo(respInfo.getRespHeaders());
 
@@ -111,7 +111,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                 }
             });
         } else {
-            LogHelper.i(Constants.TAG_HTTP, "onFailure--->respHandler为null" + LINE + reqInfo);
+            Logger.i(Constants.TAG_HTTP, "onFailure--->respHandler为null" + LINE + reqInfo);
         }
     }
 
@@ -145,15 +145,15 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respHandler.onFailure(reqInfo, respInfo);
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    LogHelper.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
-                    LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "failure（） 异常了，框架里trycatch了,赶紧查看log。e的日志");
+                    Logger.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
+                    Logger.dLongToast(true, reqInfo.getUrl() + LINE + "failure（） 异常了，框架里trycatch了,赶紧查看log。e的日志");
                 } finally {
                     try {
                         end(respInfo);
                     } catch (Exception e1) {
                         e1.printStackTrace();
-                        LogHelper.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
-                        LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "failure--->end（） 异常，框架里trycatch了,赶紧查看log日志");
+                        Logger.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
+                        Logger.dLongToast(true, reqInfo.getUrl() + LINE + "failure--->end（） 异常，框架里trycatch了,赶紧查看log日志");
                     }
                 }
             }
@@ -185,15 +185,15 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LogHelper.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
-                    LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "success（） 异常了，框架里trycatch了,赶紧查看log的日志");
+                    Logger.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
+                    Logger.dLongToast(true, reqInfo.getUrl() + LINE + "success（） 异常了，框架里trycatch了,赶紧查看log的日志");
                 } finally {
                     try {
                         end(respInfo);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        LogHelper.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
-                        LogHelper.dLongToast(true, reqInfo.getUrl() + LINE + "success--->end（） 异常了，框架里trycatch了,赶紧查看log.e的日志");
+                        Logger.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
+                        Logger.dLongToast(true, reqInfo.getUrl() + LINE + "success--->end（） 异常了，框架里trycatch了,赶紧查看log.e的日志");
                     }
                 }
             }
@@ -201,13 +201,13 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     }
 
     protected void printHeaderInfo(Map<String, List<String>> headers) {
-        if (LogHelper.isOutput && headers != null) {
+        if (Logger.isOutput && headers != null) {
             for (Map.Entry<String, List<String>> header : headers.entrySet()) {
 
                 List<String> values = header.getValue();
 
                 if (UtilCollections.isListAvaliable(values)) {
-                    LogHelper.i(Constants.TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
+                    Logger.i(Constants.TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
         }
@@ -226,9 +226,9 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            LogHelper.i(Constants.TAG_HTTP, this + LINE + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
+            Logger.i(Constants.TAG_HTTP, this + LINE + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
 
-            LogHelper.logFormatContent(Constants.TAG_HTTP, "", respInfo.getDataString());
+            Logger.logFormatContent(Constants.TAG_HTTP, "", respInfo.getDataString());
 
             // 如果解析失败一定得返回null或者crash
             T resultBean = respHandler.onParse2Model(reqInfo, respInfo);
@@ -237,8 +237,8 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        LogHelper.e("解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString());
-                        LogHelper.dLongToast(true, "数据解析失败，详情请查看本地日志" + respInfo.getDataString());
+                        Logger.e("解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString());
+                        Logger.dLongToast(true, "数据解析失败，详情请查看本地日志" + respInfo.getDataString());
                     }
                 });
             }
@@ -250,8 +250,8 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    LogHelper.e("解析数据异常" + LINE + this + LINE + e + LINE + reqInfo + LINE + respInfo.getDataString());
-                    LogHelper.dLongToast(true, "数据解析异常，详情请查看本地日志" + LINE + respInfo.getDataString());
+                    Logger.e("解析数据异常" + LINE + this + LINE + e + LINE + reqInfo + LINE + respInfo.getDataString());
+                    Logger.dLongToast(true, "数据解析异常，详情请查看本地日志" + LINE + respInfo.getDataString());
                 }
             });
             return null;

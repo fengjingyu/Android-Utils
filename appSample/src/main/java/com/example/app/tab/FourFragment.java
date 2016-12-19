@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.app.R;
-import com.example.middle.base.BaseFragment;
-import com.xiaocoder.utils.application.BFragment;
+import com.jingyu.utils.application.BFragment;
 
 public class FourFragment extends BFragment {
 

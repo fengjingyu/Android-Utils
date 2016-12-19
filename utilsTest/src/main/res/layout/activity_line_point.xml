@@ -11,10 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <View
-        style="@style/xc_h_line_point"
+        style="@style/LinePointH"
         android:layerType="software" />
 
-    <com.xiaocoder.test.view.MyTextView
+    <com.jingyu.test.view.MyTextView
         android:layout_width="20dp"
         android:layout_height="20dp" />
 

@@ -7,18 +7,18 @@ import com.example.middle.config.ConfigFile;
 import com.example.middle.config.ConfigImages;
 import com.example.middle.config.ConfigLog;
 import com.example.middle.config.ConfigUrl;
-import com.xiaocoder.utils.exception.CrashHandler;
-import com.xiaocoder.utils.exception.ExceptionBean;
-import com.xiaocoder.utils.exception.ExceptionDb;
-import com.xiaocoder.utils.exception.IException2Server;
-import com.xiaocoder.utils.function.Constants;
-import com.xiaocoder.utils.function.helper.LogHelper;
-import com.xiaocoder.utils.function.helper.SPHelper;
-import com.xiaocoder.utils.http.asynchttp.AsyncClient;
-import com.xiaocoder.utils.imageloader.AsynLoader;
-import com.xiaocoder.utils.util.UtilIoAndr;
-import com.xiaocoder.utils.util.UtilScreen;
-import com.xiaocoder.utils.util.UtilSystem;
+import com.jingyu.utils.exception.CrashHandler;
+import com.jingyu.utils.exception.ExceptionBean;
+import com.jingyu.utils.exception.ExceptionDb;
+import com.jingyu.utils.exception.IException2Server;
+import com.jingyu.utils.function.Constants;
+import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.SPHelper;
+import com.jingyu.utils.http.asynchttp.AsyncClient;
+import com.jingyu.utils.imageloader.AsynLoader;
+import com.jingyu.utils.util.UtilIoAndr;
+import com.jingyu.utils.util.UtilScreen;
+import com.jingyu.utils.util.UtilSystem;
 
 /**
  * @email fengjingyu@foxmail.com

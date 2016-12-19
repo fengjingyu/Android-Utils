@@ -8,11 +8,11 @@ import com.example.app.tab.FourFragment;
 import com.example.app.tab.OneFragment;
 import com.example.app.tab.ThreeFragment;
 import com.example.app.tab.TwoFragment;
-import com.xiaocoder.utils.application.BActivity;
-import com.xiaocoder.utils.exception.CrashHandler;
-import com.xiaocoder.utils.exception.ExceptionDb;
-import com.xiaocoder.utils.function.helper.ActivityManager;
-import com.xiaocoder.utils.function.helper.LogHelper;
+import com.jingyu.utils.application.BActivity;
+import com.jingyu.utils.exception.CrashHandler;
+import com.jingyu.utils.exception.ExceptionDb;
+import com.jingyu.utils.function.helper.ActivityManager;
+import com.jingyu.utils.function.helper.LogHelper;
 
 /**
  * @email fengjingyu@foxmail.com

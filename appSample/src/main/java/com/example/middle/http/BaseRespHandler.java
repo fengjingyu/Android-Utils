@@ -7,15 +7,15 @@ import android.view.KeyEvent;
 
 import com.example.app.MainActivity;
 import com.example.middle.App;
-import com.xiaocoder.utils.function.Constants;
-import com.xiaocoder.utils.function.helper.LogHelper;
-import com.xiaocoder.utils.http.DialogManager;
-import com.xiaocoder.utils.http.IHttp.RespHandler;
-import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.RespInfo;
-import com.xiaocoder.utils.util.UtilDate;
-import com.xiaocoder.utils.util.UtilString;
-import com.xiaocoder.utils.util.UtilSystem;
+import com.jingyu.utils.function.Constants;
+import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.http.DialogManager;
+import com.jingyu.utils.http.IHttp.RespHandler;
+import com.jingyu.utils.http.ReqInfo;
+import com.jingyu.utils.http.RespInfo;
+import com.jingyu.utils.util.UtilDate;
+import com.jingyu.utils.util.UtilString;
+import com.jingyu.utils.util.UtilSystem;
 
 import java.util.Arrays;
 import java.util.Date;

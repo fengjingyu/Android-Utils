@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.example.middle.Sp;
 import com.example.middle.base.BaseActivity;
-import com.xiaocoder.utils.function.helper.LogHelper;
+import com.jingyu.utils.function.helper.LogHelper;
 
 public class SampleLogActivity extends BaseActivity {
 

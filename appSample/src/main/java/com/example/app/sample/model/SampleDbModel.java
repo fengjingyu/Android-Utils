@@ -1,14 +1,13 @@
 package com.example.app.sample.model;
 
 
-
-import com.xiaocoder.utils.function.annotation.Delete;
-import com.xiaocoder.utils.function.annotation.Deletes;
-import com.xiaocoder.utils.function.annotation.Ignore;
-import com.xiaocoder.utils.function.annotation.Query;
-import com.xiaocoder.utils.function.annotation.Querys;
-import com.xiaocoder.utils.function.annotation.Update;
-import com.xiaocoder.utils.function.annotation.Updates;
+import com.jingyu.utils.function.annotation.Delete;
+import com.jingyu.utils.function.annotation.Deletes;
+import com.jingyu.utils.function.annotation.Ignore;
+import com.jingyu.utils.function.annotation.Query;
+import com.jingyu.utils.function.annotation.Querys;
+import com.jingyu.utils.function.annotation.Update;
+import com.jingyu.utils.function.annotation.Updates;
 
 import java.io.Serializable;
 

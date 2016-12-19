@@ -3,8 +3,8 @@ package com.example.middle;
 import android.app.Activity;
 import android.content.Context;
 
-import com.xiaocoder.utils.function.helper.ActivityManager;
-import com.xiaocoder.utils.function.helper.SPHelper;
+import com.jingyu.utils.function.helper.ActivityManager;
+import com.jingyu.utils.function.helper.SPHelper;
 
 
 /**

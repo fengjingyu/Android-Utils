@@ -1,11 +1,12 @@
 package com.example.middle;
 
 
-import com.xiaocoder.utils.http.IHttp.HttpClient;
-import com.xiaocoder.utils.http.IHttp.Interceptor;
-import com.xiaocoder.utils.http.IHttp.RespHandler;
-import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.ReqType;
+
+import com.jingyu.utils.http.IHttp.HttpClient;
+import com.jingyu.utils.http.IHttp.Interceptor;
+import com.jingyu.utils.http.IHttp.RespHandler;
+import com.jingyu.utils.http.ReqInfo;
+import com.jingyu.utils.http.ReqType;
 
 import java.util.Map;
 

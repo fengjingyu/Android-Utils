@@ -1,7 +1,7 @@
 package com.example.middle.base;
 
 
-import com.xiaocoder.utils.application.BFragment;
+import com.jingyu.utils.application.BFragment;
 
 /**
  * @email fengjingyu@foxmail.com

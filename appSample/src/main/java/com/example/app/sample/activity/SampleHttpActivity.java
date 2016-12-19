@@ -8,9 +8,9 @@ import com.example.middle.Http;
 import com.example.middle.base.BaseActivity;
 import com.example.middle.http.json.JsonModel;
 import com.example.middle.http.json.JsonRespHandler;
-import com.xiaocoder.utils.function.helper.LogHelper;
-import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.RespInfo;
+import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.http.ReqInfo;
+import com.jingyu.utils.http.RespInfo;
 
 import java.io.File;
 import java.util.HashMap;

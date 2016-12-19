@@ -1,6 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="XCTheme" parent="android:Theme.Holo.Light">
+    <style name="TransTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -11,7 +11,7 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
-    <style name="xc_dialog_activity" parent="@android:style/Theme.Dialog">
+    <style name="DialogAtivity" parent="@android:style/Theme.Dialog">
         <!-- 更换背景图片实现全透明 -->
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 屏幕背景不变暗 -->
@@ -19,7 +19,7 @@
     </style>
 
     <!-- 透明的dialog背景-->
-    <style name="xc_s_dialog" parent="@android:style/Theme.Dialog">
+    <style name="TransDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <!-- 无边界 ,否则会出现框框的线条 -->
         <item name="android:windowIsFloating">true</item>
@@ -31,16 +31,16 @@
     </style>
 
     <!-- 虚线 -->
-    <style name="xc_h_line_point">
+    <style name="LinePointH">
         <item name="android:layout_height">2dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@drawable/xc_dd_line_gray_e1e1e1_point</item>
+        <item name="android:background">@drawable/dd_line_gray_e1e1e1_point</item>
         <!-- <item name="android:layerType">software</item> -->
         <!-- line.setLayerType(View.LAYER_TYPE_SOFTWARE, null); 或者代码设置 -->
     </style>
 
     <!-- radiobutton -->
-    <style name="xc_main_bottom_tab_item">
+    <style name="main_bottom_tab_item">
         <item name="android:background">#f7f7f8</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -53,8 +53,8 @@
     </style>
 
     <style name="pop">
-        <item name="android:windowEnterAnimation">@anim/xc_anim_pop_enter</item>
-        <item name="android:windowExitAnimation">@anim/xc_anim_pop_exit</item>
+        <item name="android:windowEnterAnimation">@anim/anim_pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_exit</item>
     </style>
 
 </resources>

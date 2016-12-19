@@ -7,9 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
-import com.xiaocoder.utils.application.BActivity;
-import com.xiaocoder.utils.function.helper.LogHelper;
-import com.xiaocoder.utils.util.UtilBroadcast;
+import com.jingyu.utils.application.BActivity;
+import com.jingyu.utils.function.helper.LogHelper;
+import com.jingyu.utils.util.UtilBroadcast;
+
 
 /**
  * @email fengjingyu@foxmail.com

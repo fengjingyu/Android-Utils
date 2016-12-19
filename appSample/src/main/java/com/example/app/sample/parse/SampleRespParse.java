@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import com.example.app.sample.model.SampleHttpModel;
 import com.example.middle.http.BaseRespHandler;
-import com.xiaocoder.utils.http.ReqInfo;
-import com.xiaocoder.utils.http.RespInfo;
+import com.jingyu.utils.http.ReqInfo;
+import com.jingyu.utils.http.RespInfo;
 
 /**
  * @email fengjingyu@foxmail.com

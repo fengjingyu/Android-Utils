@@ -22,7 +22,7 @@
 
             <RadioButton
                 android:id="@+id/id_main_tab_item1"
-                style="@style/xc_main_bottom_tab_item"
+                style="@style/main_bottom_tab_item"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/c_white_ffffff"
@@ -32,7 +32,7 @@
 
             <RadioButton
                 android:id="@+id/id_main_tab_item2"
-                style="@style/xc_main_bottom_tab_item"
+                style="@style/main_bottom_tab_item"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/c_white_ffffff"
@@ -43,7 +43,7 @@
 
             <RadioButton
                 android:id="@+id/id_main_tab_item3"
-                style="@style/xc_main_bottom_tab_item"
+                style="@style/main_bottom_tab_item"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/c_white_ffffff"
@@ -52,7 +52,7 @@
 
             <RadioButton
                 android:id="@+id/id_main_tab_item4"
-                style="@style/xc_main_bottom_tab_item"
+                style="@style/main_bottom_tab_item"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/c_white_ffffff"
@@ -61,7 +61,7 @@
 
             <RadioButton
                 android:id="@+id/id_main_tab_item5"
-                style="@style/xc_main_bottom_tab_item"
+                style="@style/main_bottom_tab_item"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/c_white_ffffff"

@@ -2,7 +2,7 @@ package com.example.middle;
 
 import android.widget.ImageView;
 
-import com.xiaocoder.utils.imageloader.IImageLoader;
+import com.jingyu.utils.imageloader.IImageLoader;
 
 
 /**

@@ -1,7 +1,7 @@
 package com.example.middle.http.json;
 
 import com.example.middle.http.IHttpRespInfo;
-import com.xiaocoder.utils.json.JsonBean;
+import com.jingyu.utils.json.JsonBean;
 
 /**
  * @email fengjingyu@foxmail.com

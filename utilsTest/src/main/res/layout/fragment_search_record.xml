@@ -1,4 +1,4 @@
-<com.xiaocoder.test.stack.KeyBoardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jingyu.test.stack.KeyBoardLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/xc_id_fragment_search_record_keyboard_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -47,7 +47,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/xc_dd_line_gray_e1e1e1_bg_white_ffffff_5"
+        android:background="@drawable/dd_line_gray_e1e1e1_bg_white_ffffff_5"
         android:gravity="center"
         android:textSize="15sp" />
 
@@ -58,4 +58,4 @@
         android:layout_above="@+id/xc_id_fragment_search_record_clear_button"
         android:layout_below="@+id/xc_id_fragment_search_record_title" />
 
-</com.xiaocoder.test.stack.KeyBoardLayout>
+</com.jingyu.test.stack.KeyBoardLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xiaocoder.test">
+    package="com.jingyu.test">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -20,13 +20,13 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
-        android:name="com.xiaocoder.test_middle.App"
+        android:name="com.jingyu.test_middle.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.xiaocoder.test.MainActivity">
+        <activity android:name="com.jingyu.test.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,45 +34,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xiaocoder.utils.exception.ShowExceptionsActivity"
+            android:name="com.jingyu.utils.exception.ShowExceptionsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.xiaocoder.test.TimerActivity"
+            android:name="com.jingyu.test.TimerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.ClearCacheActivity"
+            android:name="com.jingyu.test.ClearCacheActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.ContactsActivity"
+            android:name="com.jingyu.test.ContactsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.ActivityDestroyGC"
+            android:name="com.jingyu.test.ActivityDestroyGC"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.ExceptionActivity"
+            android:name="com.jingyu.test.ExceptionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.TestActivity"
+            android:name="com.jingyu.test.TestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.CamareActivity"
+            android:name="com.jingyu.test.CamareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.stack.SearchActivity"
+            android:name="com.jingyu.test.stack.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.stack.SearchActivity2"
+            android:name="com.jingyu.test.stack.SearchActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiaocoder.test.stack.StackActivity"
+            android:name="com.jingyu.test.stack.StackActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.xiaocoder.test.BaseAdapterActivity" />
-        <activity android:name="com.xiaocoder.test.recyclerview.RecycleViewActivity" />
-        <activity android:name="com.xiaocoder.test.recyclerview.WaterFallActivity" />
-        <activity android:name="com.xiaocoder.test.PropertyAnimActivity" />
-        <activity android:name="com.xiaocoder.test.LeakCanaryActivity" />
-        <activity android:name="com.xiaocoder.test.HandlerActivity" />
+        <activity android:name="com.jingyu.test.BaseAdapterActivity" />
+        <activity android:name="com.jingyu.test.recyclerview.RecycleViewActivity" />
+        <activity android:name="com.jingyu.test.recyclerview.WaterFallActivity" />
+        <activity android:name="com.jingyu.test.PropertyAnimActivity" />
+        <activity android:name="com.jingyu.test.LeakCanaryActivity" />
+        <activity android:name="com.jingyu.test.HandlerActivity" />
     </application>
 
 </manifest>

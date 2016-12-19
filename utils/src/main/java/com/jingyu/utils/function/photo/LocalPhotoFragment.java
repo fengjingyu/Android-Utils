@@ -26,7 +26,7 @@ import com.jingyu.utils.function.helper.ExecutorManager;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.R;
-import com.jingyu.utils.application.BFragment;
+import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.util.UtilOom;
 
 import java.io.File;
@@ -40,7 +40,7 @@ import java.util.List;
  * @email fengjingyu@foxmail.com
  * @description 打开本地相册
  */
-public class LocalPhotoFragment extends BFragment implements View.OnClickListener {
+public class LocalPhotoFragment extends PlusFragment implements View.OnClickListener {
     private ImageView xc_id_photo_local_imageview;
     public static final int LOCAL_IMAGE_REQUEST_CODE = 2;// 打开当地相册的请求码
     public static final int RESIZE_REQUEST_CODE = 3;// 裁剪的请求码

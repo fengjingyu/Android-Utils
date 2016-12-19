@@ -1,5 +1,6 @@
 package com.example.app;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.RadioGroup;
 
@@ -8,7 +9,7 @@ import com.example.app.tab.FourFragment;
 import com.example.app.tab.OneFragment;
 import com.example.app.tab.ThreeFragment;
 import com.example.app.tab.TwoFragment;
-import com.jingyu.utils.application.BActivity;
+import com.example.middle.base.BaseActivity;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.helper.ActivityManager;
@@ -18,7 +19,7 @@ import com.jingyu.utils.function.helper.Logger;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public class MainActivity extends BActivity {
+public class MainActivity extends BaseActivity {
 
     public static final int CLICK_QUICK_GAP = 1000;
     /**

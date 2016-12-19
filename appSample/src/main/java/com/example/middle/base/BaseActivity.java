@@ -1,5 +1,6 @@
 package com.example.middle.base;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
-import com.jingyu.utils.application.BActivity;
+import com.jingyu.utils.application.PlusActivity;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilBroadcast;
 
@@ -16,7 +17,7 @@ import com.jingyu.utils.util.UtilBroadcast;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public abstract class BaseActivity extends BActivity {
+public abstract class BaseActivity extends PlusActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

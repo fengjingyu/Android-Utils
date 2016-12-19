@@ -1,6 +1,6 @@
 package com.jingyu.utils.http;
 
-import com.jingyu.utils.application.Bean;
+import com.jingyu.utils.application.PlusBean;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilString;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  * @email fengjingyu@foxmail.com
  * @description http请求的信息
  */
-public class ReqInfo extends Bean {
+public class ReqInfo extends PlusBean {
     /**
      * 原始的发送的时间  “时间戳”+“_”+格式化
      */

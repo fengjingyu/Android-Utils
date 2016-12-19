@@ -19,7 +19,7 @@ import java.util.List;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public abstract class BActivity extends FragmentActivity {
+public abstract class PlusActivity extends FragmentActivity {
 
     @SuppressWarnings("unchecked")
     public <T extends View> T getViewById(int id) {

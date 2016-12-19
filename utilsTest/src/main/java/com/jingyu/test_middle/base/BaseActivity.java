@@ -12,13 +12,13 @@ import android.support.v4.app.FragmentTransaction;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilBroadcast;
 import com.jingyu.test.R;
-import com.jingyu.utils.application.BActivity;
+import com.jingyu.utils.application.PlusActivity;
 
 /**
  * @email fengjingyu@foxmail.com
  * @description
  */
-public abstract class BaseActivity extends BActivity {
+public abstract class BaseActivity extends PlusActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

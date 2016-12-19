@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jingyu.test.R;
-import com.jingyu.utils.application.BFragment;
+import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.function.adapter.BAdapter;
 import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
@@ -27,7 +27,7 @@ import java.util.List;
  * @description
  */
 @Deprecated
-public class SearchRecordFragment extends BFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class SearchRecordFragment extends PlusFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     ListView xc_id_fragment_search_record_listview;
     Button xc_id_fragment_search_record_clear_button;

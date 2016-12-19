@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.jingyu.test.R;
-import com.jingyu.utils.application.BFragment;
+import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
 import com.jingyu.utils.function.helper.Logger;
@@ -28,7 +28,7 @@ import java.util.List;
  * @description
  */
 @Deprecated
-public class TitleSearchFragment extends BFragment implements View.OnClickListener {
+public class TitleSearchFragment extends PlusFragment implements View.OnClickListener {
 
     EditText xc_id_fragment_search_edittext;
     TextView xc_id_fragment_search_cancle;

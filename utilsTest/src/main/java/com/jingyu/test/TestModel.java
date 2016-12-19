@@ -1,12 +1,12 @@
 package com.jingyu.test;
 
-import com.jingyu.utils.application.Bean;
+import com.jingyu.utils.application.PlusBean;
 
 /**
  * @email fengjingyu@foxmail.com
  * @description
  */
-public class TestModel extends Bean {
+public class TestModel extends PlusBean {
 
     private String msg;
 

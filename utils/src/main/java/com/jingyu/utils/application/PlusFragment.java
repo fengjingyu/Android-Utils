@@ -15,7 +15,7 @@ import java.util.List;
  * @email fengjingyu@foxmail.com
  * @description
  */
-public abstract class BFragment extends Fragment {
+public abstract class PlusFragment extends Fragment {
 
     public ViewGroup mContainer;
 

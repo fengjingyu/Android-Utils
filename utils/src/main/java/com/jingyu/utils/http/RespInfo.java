@@ -1,7 +1,7 @@
 package com.jingyu.utils.http;
 
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.application.Bean;
+import com.jingyu.utils.application.PlusBean;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Map;
  * @email fengjingyu@foxmail.com
  * @description http返回的信息
  */
-public class RespInfo extends Bean {
+public class RespInfo extends PlusBean {
 
     /**
      * 返回的成功失败的类型，目前有5个类型

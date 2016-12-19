@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jingyu.utils.R;
-import com.jingyu.utils.application.BFragment;
+import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.function.helper.ExecutorManager;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilDate;
@@ -35,7 +35,7 @@ import java.util.UUID;
  * @email fengjingyu@foxmail.com
  * @description 从摄像头获取图片
  */
-public class CameraPhotoFragment extends BFragment implements View.OnClickListener {
+public class CameraPhotoFragment extends PlusFragment implements View.OnClickListener {
     private ImageView xc_id_photo_camera_imageview;
     public static final int CAMERA_REQUEST_CODE = 0;// 打开当地相册的请求码
     public static final int RESIZE_REQUEST_CODE = 1;// 裁剪的请求码

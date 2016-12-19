@@ -1,6 +1,6 @@
 package com.jingyu.utils.json;
 
-import com.jingyu.utils.application.Bean;
+import com.jingyu.utils.application.PlusBean;
 import com.jingyu.utils.util.UtilString;
 
 import org.json.JSONObject;
@@ -15,7 +15,7 @@ import java.util.List;
  * @email fengjingyu@foxmail.com
  * @description 该bean里内置了try catch，并会返回正确的类型，仅 int String  long  double
  */
-public class JsonBean extends Bean {
+public class JsonBean extends PlusBean {
 
     private HashMap<String, Object> paraMap = new HashMap<String, Object>();
 

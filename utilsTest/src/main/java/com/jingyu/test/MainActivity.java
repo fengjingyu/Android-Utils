@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.jingyu.test.recyclerview.WaterFallActivity;
-import com.jingyu.test_middle.base.BaseActivity;
 import com.jingyu.test.recyclerview.RecycleViewActivity;
+import com.jingyu.test.recyclerview.WaterFallActivity;
 import com.jingyu.test.stack.SearchActivity;
+import com.jingyu.test_middle.base.BaseActivity;
+import com.jingyu.utils.function.helper.Logger;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -139,5 +140,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (intent != null) {
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Logger.i(this, "---onNewIntent");
     }
 }

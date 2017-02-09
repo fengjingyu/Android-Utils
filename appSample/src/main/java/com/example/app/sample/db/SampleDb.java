@@ -17,8 +17,7 @@ import java.util.Map;
  * @email fengjingyu@foxmail.com
  * @description db
  * <p/>
- * 1 、该db的代码是根据SampleDbModel自动生成的 --> DbCodeGenerator_V0.1.jar
- * 2 、该db是线程安全的
+ * 该db的代码是根据SampleDbModel自动生成的 --> DbCodeGenerator_V0.1.jar
  */
 public class SampleDb extends SQLiteOpenHelper {
 

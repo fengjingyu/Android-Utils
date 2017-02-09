@@ -40,6 +40,9 @@ public class ActivityManager {
      * 获取顶层Activity（activity不删除）
      */
     public static Activity getCurrentActivity() {
+        if (stack.isEmpty()) {
+            return null;
+        }
         return stack.lastElement();
     }
 
@@ -74,7 +77,9 @@ public class ActivityManager {
     public static void finishActivity(Activity activity) {
         if (activity != null) {
             stack.remove(activity);
-            activity.finish();
+            if (!activity.isFinishing()) {
+                activity.finish();
+            }
         }
     }
 
@@ -88,7 +93,9 @@ public class ActivityManager {
             if (activity.getClass().equals(cls)) {
                 // finishActivity(activity);// 并发修改异常
                 it.remove();
-                activity.finish();
+                if (!activity.isFinishing()) {
+                    activity.finish();
+                }
             }
         }
     }
@@ -106,7 +113,9 @@ public class ActivityManager {
             currentStack.addAll(stack);
             for (Activity activity : currentStack) {
                 if (activity != null) {
-                    activity.finish();
+                    if (!activity.isFinishing()) {
+                        activity.finish();
+                    }
                 }
             }
             stack.clear();
@@ -159,7 +168,8 @@ public class ActivityManager {
      */
     public static void appExit() {
         finishAllActivity();
-        System.exit(0);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        //System.exit(0);
     }
 
 }

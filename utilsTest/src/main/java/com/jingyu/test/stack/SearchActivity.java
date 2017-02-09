@@ -1,13 +1,16 @@
 package com.jingyu.test.stack;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.jingyu.test.MainActivity;
+import com.jingyu.test.R;
 import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
 import com.jingyu.test_middle.Jumper;
 import com.jingyu.test_middle.base.BaseActivity;
 import com.jingyu.utils.function.helper.Logger;
-import com.jingyu.test.R;
 
 
 /**
@@ -33,6 +36,13 @@ public class SearchActivity extends BaseActivity {
         title_fragment = new TitleSearchFragment();
         title_fragment.setDbParams(SearchRecordDb.TABLE_1);
         addFragment(R.id.xc_id_model_titlebar, title_fragment);
+
+        getViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
     }
 
     public void setListeners() {

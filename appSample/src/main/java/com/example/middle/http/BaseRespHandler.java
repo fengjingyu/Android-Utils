@@ -158,8 +158,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
     public void setHttpHeaders(ReqInfo reqInfo) {
         //TODO 设置请求头
         Map<String, List<String>> map = new HashMap<>();
-        map.put("_v", Arrays.asList(UtilSystem.getVersionCode(App.getAppContext()) + ""));
-        map.put("_m", Arrays.asList(UtilSystem.getMacAddress(App.getAppContext())));
+        map.put("_v", Arrays.asList(UtilSystem.getVersionCode(App.getApplication()) + ""));
         map.put("_p", Arrays.asList("1"));
         reqInfo.setHeadersMap(map);
     }

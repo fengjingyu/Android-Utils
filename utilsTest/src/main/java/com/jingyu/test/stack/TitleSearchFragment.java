@@ -94,9 +94,9 @@ public class TitleSearchFragment extends PlusFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (item_layout_id == 0) {
-            return init(inflater, R.layout.fragment_bar_title_search_history);
+            return createView(inflater, R.layout.fragment_bar_title_search_history, container);
         } else {
-            return init(inflater, item_layout_id);
+            return createView(inflater, item_layout_id, container);
         }
     }
 

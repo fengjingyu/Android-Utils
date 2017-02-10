@@ -63,7 +63,7 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return init(inflater, R.layout.fragment_photo_local);
+        return createView(inflater, R.layout.fragment_photo_local, container);
     }
 
     @Override

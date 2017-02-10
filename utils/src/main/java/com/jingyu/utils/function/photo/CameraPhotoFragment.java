@@ -59,7 +59,7 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return init(inflater, R.layout.fragment_photo_camera);
+        return createView(inflater, R.layout.fragment_photo_camera, container);
     }
 
     @Override

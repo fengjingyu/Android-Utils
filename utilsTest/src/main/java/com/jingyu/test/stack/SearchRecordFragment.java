@@ -70,9 +70,9 @@ public class SearchRecordFragment extends PlusFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (item_layout_id != 0) {
-            return init(inflater, item_layout_id);
+            return createView(inflater, item_layout_id, container);
         } else {
-            return init(inflater, R.layout.fragment_search_record);
+            return createView(inflater, R.layout.fragment_search_record, container);
         }
     }
 

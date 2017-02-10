@@ -11,10 +11,34 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    /** aar */
+    repositories {
+        flatDir {
+            dirs 'aars'
+        }
+    }
+
+    /** 多渠道打包 */
+    productFlavors {
+        _qq {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_qq"]
+        }
+        _360 {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_360"]
         }
     }
 }
@@ -24,11 +48,17 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile project(':utils')
     compile files('libs/gson-2.3.1.jar')
 
-    // 内存泄露的依赖
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    /** asynhttp框架在android6.0时，对httpclient的依赖 */
+    compile 'cz.msebera.android:httpclient:4.3.6'
+
+    /** aar方式引入 */
+    // compile(name: 'utils-release', ext: 'aar')
+    compile project(':utils')
+
+    /** 内存泄露的依赖 */
+    // debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    // releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    // testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

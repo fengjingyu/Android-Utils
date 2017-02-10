@@ -22,11 +22,10 @@ import com.jingyu.utils.util.UtilSystem;
 
 /**
  * @email fengjingyu@foxmail.com
- * @description 初始化的顺序不要去改动
  */
 public class App extends Application {
 
-    public static Application instance;
+    static Application instance;
 
     @Override
     public void onCreate() {
@@ -91,7 +90,6 @@ public class App extends Application {
             @Override
             public void uploadException2Server(String info, Throwable ex, Thread thread,
                                                ExceptionBean model, ExceptionDb db) {
-                // 如果IS_INIT_CRASH_HANDLER（枚举值中可设置）为false，则dao为空
                 if (db != null) {
                     model.setUserId(Sp.getUserId());
                     db.updateByUniqueId(model, model.getUniqueId());

@@ -16,19 +16,19 @@ public class ConfigUrl {
     }
 
     /**
-     * 通用域名
+     * 通用
      */
     public static String HOST = "";
     /**
-     * 聊天域名
+     * IM
      */
     public static String CHAT = "";
     /**
-     * 通知域名
+     * 通知
      */
     public static String PUSH = "";
     /**
-     * html域名
+     * html
      */
     public static String HTML = "";
 
@@ -41,17 +41,17 @@ public class ConfigUrl {
      */
     public synchronized static void initConfig() {
         if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.ONLINE) {
-            HOST = "http://post";
+            HOST = "http://host";
             CHAT = "http://chat";
             PUSH = "http://push";
             HTML = "http://html";
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.TEST) {
-            HOST = "http://post";
+            HOST = "http://host";
             CHAT = "http://chat";
             PUSH = "http://push";
             HTML = "http://html";
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.DEV) {
-            HOST = "http://post";
+            HOST = "http://host";
             CHAT = "http://chat";
             PUSH = "http://push";
             HTML = "http://html";

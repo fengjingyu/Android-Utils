@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jingyu.test.MainActivity;
+import com.jingyu.test.CatalogueActivity;
 import com.jingyu.test_middle.base.BaseActivity;
 import com.jingyu.utils.function.helper.ActivityManager;
 import com.jingyu.utils.util.UtilIo;
@@ -59,7 +59,7 @@ public class StackActivity extends BaseActivity {
         for (Activity item : ActivityManager.getStack()) {
             stack_desc.append(item.getClass() + "----" + UtilIo.LINE_SEPARATOR);
         }
-        stack_desc.append("MainActivity是否存在--" + ActivityManager.isActivityExist(MainActivity.class) + UtilIo.LINE_SEPARATOR);
+        stack_desc.append("MainActivity是否存在--" + ActivityManager.isActivityExist(CatalogueActivity.class) + UtilIo.LINE_SEPARATOR);
         stack_desc.append("SearchActivity是否存在--" + ActivityManager.isActivityExist(SearchActivity.class) + UtilIo.LINE_SEPARATOR);
         stack_desc.append("SearchActivity2是否存在--" + ActivityManager.isActivityExist(SearchActivity2.class) + UtilIo.LINE_SEPARATOR);
         stack_desc.append("StackActivity是否存在--" + ActivityManager.isActivityExist(StackActivity.class) + UtilIo.LINE_SEPARATOR);
@@ -72,7 +72,7 @@ public class StackActivity extends BaseActivity {
         to_main_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityManager.toActivity(MainActivity.class);
+                ActivityManager.toActivity(CatalogueActivity.class);
             }
         });
 

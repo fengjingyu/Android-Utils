@@ -56,32 +56,6 @@ public abstract class BaseActivity extends PlusActivity {
     protected void onNetLoss() {
     }
 
-    @Override
-    public void addFragment(int layout_id, Fragment fragment, String tag, boolean isToBackStack) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // 增加了动画效果
-        ft.setCustomAnimations(R.anim.anim_alpha_in, R.anim.anim_alpha);
-        ft.add(layout_id, fragment, tag);
-        if (isToBackStack) {
-            ft.addToBackStack(tag);
-        }
-        ft.commitAllowingStateLoss();
-        getSupportFragmentManager().executePendingTransactions();
-    }
-
-    /**
-     * 之前必须有add
-     */
-    @Override
-    public void showFragment(Fragment fragment) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // 增加了动画效果
-        ft.setCustomAnimations(R.anim.anim_alpha_in, R.anim.anim_alpha);
-        ft.show(fragment);
-        ft.commitAllowingStateLoss();
-    }
-
-
     private void initReceiver() {
         UtilBroadcast.register(this, 1000, ConnectivityManager.CONNECTIVITY_ACTION, mNetReceiver);
     }
@@ -131,5 +105,27 @@ public abstract class BaseActivity extends PlusActivity {
     public void finish() {
         super.finish();
         Logger.i(this + "---finish");
+    }
+
+    @Override
+    public void addFragment(int layout_id, Fragment fragment, String tag, boolean isToBackStack) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // 增加了动画效果
+        ft.setCustomAnimations(R.anim.anim_alpha_in, R.anim.anim_alpha);
+        ft.add(layout_id, fragment, tag);
+        if (isToBackStack) {
+            ft.addToBackStack(tag);
+        }
+        ft.commitAllowingStateLoss();
+        getSupportFragmentManager().executePendingTransactions();
+    }
+
+    @Override
+    public void showFragment(Fragment fragment) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // 增加了动画效果
+        ft.setCustomAnimations(R.anim.anim_alpha_in, R.anim.anim_alpha);
+        ft.show(fragment);
+        ft.commitAllowingStateLoss();
     }
 }

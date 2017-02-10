@@ -20,9 +20,11 @@ public class JsonRespHandler extends BaseRespHandler<JsonModel> {
     }
 
     public JsonRespHandler() {
-
     }
 
+    /**
+     * 该方法是在子线程中的，解析失败返回null
+     */
     @Override
     public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 

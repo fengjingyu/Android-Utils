@@ -26,15 +26,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.jingyu.test.MainActivity"
-            android:launchMode="singleTask"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CatalogueActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name="com.jingyu.utils.exception.ShowExceptionsActivity"
             android:screenOrientation="portrait"
@@ -69,12 +72,17 @@
         <activity
             android:name="com.jingyu.test.stack.StackActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.jingyu.test.BaseAdapterActivity" />
-        <activity android:name="com.jingyu.test.recyclerview.RecycleViewActivity" />
-        <activity android:name="com.jingyu.test.recyclerview.WaterFallActivity" />
-        <activity android:name="com.jingyu.test.PropertyAnimActivity" />
-        <activity android:name="com.jingyu.test.LeakCanaryActivity" />
-        <activity android:name="com.jingyu.test.HandlerActivity" />
+        <activity android:name=".BaseAdapterActivity" />
+        <activity android:name=".recyclerview.RecycleViewActivity" />
+        <activity android:name=".recyclerview.WaterFallActivity" />
+        <activity android:name=".PropertyAnimActivity" />
+        <activity android:name=".LeakCanaryActivity" />
+        <activity android:name=".HandlerActivity" />
+
+
+        <meta-data
+            android:name="MULTI_CHANNEL"
+            android:value="${MULTI_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

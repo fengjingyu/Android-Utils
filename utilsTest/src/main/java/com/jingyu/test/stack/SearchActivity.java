@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jingyu.test.MainActivity;
+import com.jingyu.test.CatalogueActivity;
 import com.jingyu.test.R;
 import com.jingyu.test.search.SearchRecordBean;
 import com.jingyu.test.search.SearchRecordDb;
@@ -40,7 +40,7 @@ public class SearchActivity extends BaseActivity {
         getViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                startActivity(new Intent(getActivity(), CatalogueActivity.class));
             }
         });
     }

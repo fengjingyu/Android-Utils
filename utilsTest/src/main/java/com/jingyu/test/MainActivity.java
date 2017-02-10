@@ -1,49 +1,32 @@
 package com.jingyu.test;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.RadioGroup;
 
-import com.jingyu.test.recyclerview.RecycleViewActivity;
-import com.jingyu.test.recyclerview.WaterFallActivity;
-import com.jingyu.test.stack.SearchActivity;
+import com.jingyu.test.tab.FiveFragment;
+import com.jingyu.test.tab.FourFragment;
+import com.jingyu.test.tab.OneFragment;
+import com.jingyu.test.tab.ThreeFragment;
+import com.jingyu.test.tab.TwoFragment;
 import com.jingyu.test_middle.base.BaseActivity;
+import com.jingyu.utils.exception.CrashHandler;
+import com.jingyu.utils.exception.ExceptionDb;
+import com.jingyu.utils.function.helper.ActivityManager;
 import com.jingyu.utils.function.helper.Logger;
 
 /**
  * @email fengjingyu@foxmail.com
  * @description
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity {
 
-    private Button timer;
+    public static final int CLICK_QUICK_GAP = 1000;
+    /**
+     * 双击两次返回键退出应用
+     */
+    private long back_quit_time;
 
-    private Button clearcache;
-
-    private Button contacts;
-
-    private Button lineGc;
-
-    private Button exception;
-
-    private Button test;
-
-    private Button photo;
-
-    private Button seachRecoder;
-
-    private Button baseAdapter;
-
-    private Button recycleView;
-
-    private Button recycleView_waterfall;
-
-    private Button leakcanary;
-
-    private Button propertyAnim;
-
-    private Button handler;
+    private RadioGroup tab_group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,99 +35,68 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         initWidgets();
         setListeners();
+        setDatas();
+
+    }
+
+    private void setDatas() {
+        addFragment(R.id.id_main_content, new OneFragment());
     }
 
     public void initWidgets() {
-        timer = getViewById(R.id.id_timer);
-        clearcache = getViewById(R.id.id_clearcache);
-        contacts = getViewById(R.id.id_contacts);
-        lineGc = getViewById(R.id.id_lineGc);
-        exception = getViewById(R.id.id_exception);
-        test = getViewById(R.id.id_test);
-        photo = getViewById(R.id.id_photo);
-        seachRecoder = getViewById(R.id.id_seachRecoder);
-        baseAdapter = getViewById(R.id.id_baseAdapter);
-        recycleView = getViewById(R.id.id_recyclerView);
-        recycleView_waterfall = getViewById(R.id.id_recycleView_waterfall);
-        leakcanary = getViewById(R.id.id_leakcanary);
-        propertyAnim = getViewById(R.id.id_propertyAnim);
-        handler = getViewById(R.id.id_handler);
+        tab_group = getViewById(R.id.id_main_tab_group);
     }
 
     public void setListeners() {
-        timer.setOnClickListener(this);
-        clearcache.setOnClickListener(this);
-        contacts.setOnClickListener(this);
-        lineGc.setOnClickListener(this);
-        exception.setOnClickListener(this);
-        test.setOnClickListener(this);
-        photo.setOnClickListener(this);
-        seachRecoder.setOnClickListener(this);
-        baseAdapter.setOnClickListener(this);
-        recycleView.setOnClickListener(this);
-        recycleView_waterfall.setOnClickListener(this);
-        leakcanary.setOnClickListener(this);
-        propertyAnim.setOnClickListener(this);
-        handler.setOnClickListener(this);
+        tab_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                hideAllFragment();
+
+                switch (checkedId) {
+                    case R.id.id_main_tab_item1:
+                        showFragmentByClass(OneFragment.class, R.id.id_main_content);
+                        break;
+                    case R.id.id_main_tab_item2:
+                        showFragmentByClass(TwoFragment.class, R.id.id_main_content);
+                        break;
+                    case R.id.id_main_tab_item3:
+                        showFragmentByClass(ThreeFragment.class, R.id.id_main_content);
+                        break;
+                    case R.id.id_main_tab_item4:
+                        showFragmentByClass(FourFragment.class, R.id.id_main_content);
+                        break;
+                    case R.id.id_main_tab_item5:
+                        showFragmentByClass(FiveFragment.class, R.id.id_main_content);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
     @Override
-    public void onClick(View v) {
-        Intent intent = null;
-
-        switch (v.getId()) {
-            case R.id.id_timer:
-                intent = new Intent(this, TimerActivity.class);
-                break;
-            case R.id.id_clearcache:
-                intent = new Intent(this, ClearCacheActivity.class);
-                break;
-            case R.id.id_contacts:
-                intent = new Intent(this, ContactsActivity.class);
-                break;
-            case R.id.id_lineGc:
-                intent = new Intent(this, ActivityDestroyGC.class);
-                break;
-            case R.id.id_exception:
-                intent = new Intent(this, ExceptionActivity.class);
-                break;
-            case R.id.id_test:
-                intent = new Intent(this, TestActivity.class);
-                break;
-            case R.id.id_photo:
-                intent = new Intent(this, CamareActivity.class);
-                break;
-            case R.id.id_seachRecoder:
-                intent = new Intent(this, SearchActivity.class);
-                break;
-            case R.id.id_baseAdapter:
-                intent = new Intent(this, BaseAdapterActivity.class);
-                break;
-            case R.id.id_recyclerView:
-                intent = new Intent(this, RecycleViewActivity.class);
-                break;
-            case R.id.id_recycleView_waterfall:
-                intent = new Intent(this, WaterFallActivity.class);
-                break;
-            case R.id.id_leakcanary:
-                intent = new Intent(this, LeakCanaryActivity.class);
-                break;
-            case R.id.id_propertyAnim:
-                intent = new Intent(this, PropertyAnimActivity.class);
-                break;
-            case R.id.id_handler:
-                intent = new Intent(this, HandlerActivity.class);
-                break;
-        }
-
-        if (intent != null) {
-            startActivity(intent);
+    public void onBackPressed() {
+        long this_quit_time = System.currentTimeMillis();
+        if (this_quit_time - back_quit_time <= CLICK_QUICK_GAP) {
+            ActivityManager.appExit();
+        } else {
+            back_quit_time = this_quit_time;
+            Logger.shortToast("快速再按一次退出");
         }
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        Logger.i(this, "---onNewIntent");
+    /**
+     * 进入首页时或闪屏页，把未上传的异常信息上传到服务器
+     */
+    protected void uploadException() {
+        ExceptionDb exceptionModelDb = CrashHandler.getInstance().getExceptionModelDb();
+
+        if (exceptionModelDb != null) {
+            Logger.itemp(exceptionModelDb.queryCount());
+            Logger.itemp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
+        }
     }
 }

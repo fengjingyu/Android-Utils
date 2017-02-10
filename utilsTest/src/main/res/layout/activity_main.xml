@@ -1,109 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:background="@color/c_white_ffffff">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/id_main_bottombar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/c_white_ffffff">
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/id_main_tab_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_trans"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/id_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="几个定时器的例子" />
+            <RadioButton
+                android:id="@+id/id_main_tab_item1"
+                style="@style/main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:checked="true"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="one" />
 
-            <Button
-                android:id="@+id/id_clearcache"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="缓存清理的封装类" />
+            <RadioButton
+                android:id="@+id/id_main_tab_item2"
+                style="@style/main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="two" />
 
-            <Button
-                android:id="@+id/id_contacts"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="获取联系人" />
+            <!-- android:background="@drawable/ic" -->
 
-            <Button
-                android:id="@+id/id_lineGc"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="fragment与activity销毁时的回收问题" />
+            <RadioButton
+                android:id="@+id/id_main_tab_item3"
+                style="@style/main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="three" />
 
-            <Button
-                android:id="@+id/id_exception"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="crash异常的收集" />
+            <RadioButton
+                android:id="@+id/id_main_tab_item4"
+                style="@style/main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="four" />
 
-            <Button
-                android:id="@+id/id_test"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="sp存储、日志类、克隆、加密" />
+            <RadioButton
+                android:id="@+id/id_main_tab_item5"
+                style="@style/main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="five" />
 
-            <Button
-                android:id="@+id/id_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="封装了相册与摄像头获取图片的fragment" />
+        </RadioGroup>
 
-            <Button
-                android:id="@+id/id_seachRecoder"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="多页面的搜索记录存储与activity stack的管理" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:background="#d4d4d4" />
+    </RelativeLayout>
 
-            <Button
-                android:id="@+id/id_baseAdapter"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="baseAdapter" />
+    <!-- 内容 -->
+    <RelativeLayout
+        android:id="@+id/id_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/id_main_bottombar"
+        android:background="@color/c_white_ffffff">
 
-            <Button
-                android:id="@+id/id_recyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="recycleView" />
+    </RelativeLayout>
 
-            <Button
-                android:id="@+id/id_recycleView_waterfall"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="recycleView瀑布流" />
-
-            <Button
-                android:id="@+id/id_leakcanary"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="内存泄露检测" />
-
-            <Button
-                android:id="@+id/id_propertyAnim"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="属性动画" />
-
-            <Button
-                android:id="@+id/id_handler"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="handler详解" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</RelativeLayout>

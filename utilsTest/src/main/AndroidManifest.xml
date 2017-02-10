@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jingyu.test">
+    package="com.jingyu.utilstest">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
-        android:name="com.jingyu.test_middle.App"
+        android:name="com.jingyu.middle.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -43,34 +43,34 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name="com.jingyu.test.TimerActivity"
+            android:name=".TimerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.ClearCacheActivity"
+            android:name=".ClearCacheActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.ContactsActivity"
+            android:name=".ContactsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.ActivityDestroyGC"
+            android:name=".ActivityDestroyGC"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.ExceptionActivity"
+            android:name=".ExceptionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.TestActivity"
+            android:name=".TestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.CamareActivity"
+            android:name=".CamareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.stack.SearchActivity"
+            android:name=".stack.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.stack.SearchActivity2"
+            android:name=".stack.SearchActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jingyu.test.stack.StackActivity"
+            android:name=".stack.StackActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".BaseAdapterActivity" />
         <activity android:name=".recyclerview.RecycleViewActivity" />

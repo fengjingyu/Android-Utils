@@ -14,7 +14,7 @@
         style="@style/LinePointH"
         android:layerType="software" />
 
-    <com.jingyu.test.view.MyTextView
+    <com.jingyu.utilstest.view.MyTextView
         android:layout_width="20dp"
         android:layout_height="20dp" />
 

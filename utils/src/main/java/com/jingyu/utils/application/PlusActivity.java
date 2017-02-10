@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
-import com.jingyu.utils.function.helper.ActivityManager;
+import com.jingyu.utils.function.helper.ActivityCollector;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilInput;
 
@@ -38,7 +38,7 @@ public abstract class PlusActivity extends FragmentActivity {
             Logger.e(this, "回收后重新创建");
         }
 
-        ActivityManager.addActivityToStack(this);
+        ActivityCollector.addActivityToStack(this);
     }
 
     @Override
@@ -48,7 +48,7 @@ public abstract class PlusActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ActivityManager.delActivityFromStack(this);
+        ActivityCollector.delActivityFromStack(this);
     }
 
     @Override

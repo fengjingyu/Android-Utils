@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.ActivityManager;
+import com.jingyu.utils.function.helper.ActivityCollector;
 import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.helper.Logger;
 
@@ -167,7 +167,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
 
         if (mContext != null) {
-            ActivityManager.appExit();
+            ActivityCollector.appExit();
         }
 
     }

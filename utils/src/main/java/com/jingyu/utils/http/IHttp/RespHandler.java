@@ -4,8 +4,8 @@ import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description 回调接口的一个抽象类（适配接口）
+ * @author fengjingyu@foxmail.com
+ * @description http回调接口
  */
 public interface RespHandler<T> {
 
@@ -17,7 +17,8 @@ public interface RespHandler<T> {
     void onReadySendRequest(ReqInfo reqInfo);
 
     /**
-     * 如果解析失败：一定得返回null
+     * 如果解析失败：一定得返回null,回调onSuccessButParseWrong()
+     * 如果解析成功: 继续回调onMatchAppStatusCode()
      * 最好放在子线程
      */
     T onParse2Model(ReqInfo reqInfo, RespInfo respInfo);
@@ -26,6 +27,8 @@ public interface RespHandler<T> {
      * 对返回状态码的一个判断，每个项目的认定操作成功的状态码或结构可能不同，在这里统一判断
      * <p/>
      * 如果调用到这个方法，表示解析一定是成功的；如果解析失败，是不会调用这个方法的
+     * false:回调onSuccessButCodeWrong()
+     * true: 回调onSuccessAll()
      */
     boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, T resultBean);
 

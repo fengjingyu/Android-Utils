@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description 管理activity
  */
 public class ActivityCollector {

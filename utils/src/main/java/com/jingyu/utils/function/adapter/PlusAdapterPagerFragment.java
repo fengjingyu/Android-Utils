@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description 不会回收的viewpagerfragment
  */
-public class AdapterViewPagerFragment extends FragmentPagerAdapter {
+public class PlusAdapterPagerFragment extends FragmentPagerAdapter {
     private List<Fragment> fragments;
     private List<String> titles;
 
-    public AdapterViewPagerFragment(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    public PlusAdapterPagerFragment(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
         this.fragments = fragments;
         this.titles = titles;
@@ -39,7 +39,6 @@ public class AdapterViewPagerFragment extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-    // 这里空实现， 否则会回收
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
     }

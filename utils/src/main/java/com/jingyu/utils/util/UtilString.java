@@ -23,6 +23,7 @@ import com.jingyu.utils.function.Constants;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -30,17 +31,128 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author xiaocoder
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilString {
 
+    /**
+     * 比较两个字符串
+     */
+    public static boolean equals(String str1, String str2) {
+        if (str1 == null && str2 == null) {
+            throw new RuntimeException("UtilString.equalsString()--传入了两个null字符串");
+        } else if (str1 != null) {
+            return str1.equals(str2);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 只判断空 和 空格
+     */
+    public static boolean isBlank(String str) {
+        return (str == null || str.trim().length() == 0);
+    }
+
+    /**
+     * 只判断空 和 空格
+     */
+    public static boolean isAvaliable(String str) {
+        return !(str == null || str.trim().length() == 0);
+    }
+
+    /**
+     * 把null转为""
+     */
     public static String notNull(String str) {
         if (isBlank(str)) {
             return "";
         }
         return str;
+    }
+
+    public static int toInt(String str, int defValue) {
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    /**
+     * 默认0
+     */
+    public static int toInt(String obj) {
+        return toInt(obj, 0);
+    }
+
+    public static long toLong(String obj, long defValue) {
+        try {
+            return Long.parseLong(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    /**
+     * 默认0
+     */
+    public static long toLong(String obj) {
+        return toLong(obj, 0);
+    }
+
+    public static double toDouble(String obj, double defValue) {
+        try {
+            return Double.parseDouble(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    /**
+     * 默认0
+     */
+    public static double toDouble(String obj) {
+        return toDouble(obj, 0D);
+    }
+
+    public static boolean toBool(String b, boolean defValue) {
+        try {
+            return Boolean.parseBoolean(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    /**
+     * 默认false
+     */
+    public static boolean toBool(String b) {
+        return toBool(b, false);
+    }
+
+    public static boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 判断字符是否是数值或者中文
+     */
+    public boolean isDigitOrChinese(String str) {
+        String regex = "^[a-z0-9A-Z\u4e00-\u9fa5]+$";
+        return str.matches(regex);
     }
 
     /**
@@ -206,27 +318,6 @@ public class UtilString {
     }
 
     /**
-     * 比较两个字符串
-     */
-    public static boolean equals(String str1, String str2) {
-
-        if (str1 == null && str2 == null) {
-
-            throw new RuntimeException("UtilString.equalsString()--传入了两个null字符串");
-
-        } else if (str1 != null) {
-
-            return str1.equals(str2);
-
-        } else {
-
-            return false;
-
-        }
-
-    }
-
-    /**
      * 给String高亮显示 颜色的格式 #184DA3
      */
     public static void setLightString(String str, TextView textview, String color) {
@@ -333,7 +424,6 @@ public class UtilString {
         return fileSizeString;
     }
 
-
     /**
      * 获取两数相除的百分比
      */
@@ -385,7 +475,6 @@ public class UtilString {
         }
     }
 
-
     /**
      * 判断给定字符串是否包含空白符
      * 空白串是指含有空格、制表符、回车符、换行符组成的字符串
@@ -402,21 +491,6 @@ public class UtilString {
             }
         }
         return false;
-    }
-
-    /**
-     * 只判断空 和 空格
-     */
-    public static boolean isBlank(String str) {
-        return (str == null || str.trim().length() == 0);// trim()也可以去除制表符
-    }
-
-
-    /**
-     * 只判断空 和 空格
-     */
-    public static boolean isAvaliable(String str) {
-        return !(str == null || str.trim().length() == 0);// trim()也可以去除制表符
     }
 
     /**
@@ -460,7 +534,6 @@ public class UtilString {
         return emailer.matcher(email).matches();
     }
 
-
     /**
      * 是否是电话号码
      */
@@ -472,74 +545,6 @@ public class UtilString {
             // }
         }
         return false;
-    }
-
-    public static int toInt(String str, int defValue) {
-        try {
-            return Integer.parseInt(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return defValue;
-        }
-    }
-
-    public static int toInt(Object obj) {
-        if (obj == null) {
-            return 0;
-        } else if (obj.toString().trim().replace(" ", "").equals("")) {
-            return 0;
-        }
-        return toInt(obj.toString(), 0);
-    }
-
-    public static long toLong(String obj) {
-        return toLong(obj, 0);
-    }
-
-    public static long toLong(String obj, long defValue) {
-
-        try {
-            return Long.parseLong(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return defValue;
-        }
-    }
-
-    public static double toDouble(String obj, double defValue) {
-        try {
-            return Double.parseDouble(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return defValue;
-        }
-    }
-
-    public static double toDouble(String obj) {
-        return toDouble(obj, 0D);
-    }
-
-    public static boolean toBool(String b, boolean defValue) {
-        try {
-            return Boolean.parseBoolean(b);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return defValue;
-        }
-    }
-
-    public static boolean toBool(String b) {
-        return toBool(b, false);
-    }
-
-    public static boolean isNumber(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     public static String getMetaValue(Context context, String metaKey) {
@@ -598,7 +603,6 @@ public class UtilString {
 
     }
 
-
 //    public String discount(String price_orign, String price_sell, int keep_dot) {
 //
 //        double discount_num = Double.parseDouble(price_sell) / Double.parseDouble(price_orign);
@@ -620,7 +624,7 @@ public class UtilString {
 //    }
 
     /**
-     * 设置第一个字母为小写写
+     * 设置第一个字母为小写
      */
     public static String setFirstLetterSmall(String origin) {
 
@@ -669,7 +673,6 @@ public class UtilString {
 //            }
 //        }
 //    }
-
 
     /**
      * 加密手机号码
@@ -772,9 +775,6 @@ public class UtilString {
 
     /**
      * unicode 转 中文
-     *
-     * @param line
-     * @return
      */
     public static String parseUnicode(String line) {
         int len = line.length();
@@ -842,7 +842,6 @@ public class UtilString {
     }
 
     public static String get14IMEI(String imei) {
-
         if (!isBlank(imei)) {
             if (imei.length() >= 15) {
                 return imei.substring(0, 14);
@@ -853,7 +852,6 @@ public class UtilString {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -939,14 +937,6 @@ public class UtilString {
     }
 
     /**
-     * 判断字符是否是数值或者中文
-     */
-    public boolean isDigitOrChinese(String str) {
-        String regex = "^[a-z0-9A-Z\u4e00-\u9fa5]+$";
-        return str.matches(regex);
-    }
-
-    /**
      * 全角转换为半角
      */
     public static String toDBC(String input) {
@@ -977,6 +967,112 @@ public class UtilString {
                 c[i] = (char) (c[i] + 65248);
         }
         return new String(c);
+    }
+
+    /**
+     * 只保留整数部分，且不显示千分符。不四舍五入，以截断方式处理。
+     *
+     * @param doubleNumber 源数据
+     * @return String 被格式化后的数据，以字符串方式返回
+     */
+    public static String decimalFormatForIntNoCommas(double doubleNumber) {
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance();
+        df.applyPattern("##0");
+        doubleNumber = ((int) (doubleNumber * 100)) / 100.0;
+        String str_earning = df.format(doubleNumber);
+
+        return str_earning;
+    }
+
+    /**
+     * 只保留整数部分，且不显示千分符。不四舍五入，以截断方式处理。
+     *
+     * @param doubleNumber 源数据
+     * @return String 被格式化后的数据，以字符串方式返回
+     */
+    public static String decimalFormatForIntNoCommas(String doubleNumber) {
+        return decimalFormatForIntNoCommas(Double.valueOf(doubleNumber));
+    }
+
+    /**
+     * 只保留整数部分。不四舍五入，以截断方式处理。
+     *
+     * @param doubleNumber 源数据
+     * @return String 被格式化后的数据，以字符串方式返回
+     */
+    public static String decimalFormatForInt(double doubleNumber) {
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance();
+        df.applyPattern("#,##0");
+        doubleNumber = ((int) (doubleNumber * 100)) / 100.0;
+        String str_earning = df.format(doubleNumber);
+
+        return str_earning;
+    }
+
+    /**
+     * 只保留整数部分。不四舍五入，以截断方式处理。
+     *
+     * @param doubleNumber 源数据
+     * @return String 被格式化后的数据，以字符串方式返回
+     */
+    public static String decimalFormatForInt(String doubleNumber) {
+        return decimalFormatForInt(Double.valueOf(doubleNumber));
+    }
+
+
+    /**
+     * 保留小数点后两位，当小数部分不足两位时，进行补零。不四舍五入，以截断方式处理。
+     *
+     * @param doubleNumber 源数据
+     * @return String 被格式化后的数据，以字符串方式返回
+     */
+    public static String decimalFormat(double doubleNumber) {
+        return decimalFormat(String.valueOf(doubleNumber));
+    }
+
+    /**
+     * 保留小数点后两位，当小数部分不足两位时，进行补零。不四舍五入，以截断方式处理。
+     *
+     * @param stringNumber 源数据
+     * @return String 被格式化后的数据，以字符串方式返回
+     */
+    public static String decimalFormat(String stringNumber) {
+        double doubleNumber = 0.0d;
+
+        try {
+            doubleNumber = Double.valueOf(stringNumber);
+        } catch (Exception e) {
+            doubleNumber = 0.0d;
+        }
+
+        DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance();
+        df.applyPattern("#,##0.00");
+
+        BigDecimal bigDec_doubleNumber = new BigDecimal(Double.toString(doubleNumber));
+        BigDecimal bigDec_100d = new BigDecimal(Double.toString(100.0d));
+        BigDecimal result1 = bigDec_doubleNumber.multiply(bigDec_100d);
+
+        doubleNumber = result1.doubleValue() / 100.0d;
+        String str_earning = df.format(doubleNumber);
+
+        return str_earning;
+    }
+
+    /**
+     * 限制EditText输入的小数点位数
+     *
+     * @param count 限制到小数点后几位
+     * @param msg   要约束的字符串(若不满足约束,直接返回传入的字符串)
+     */
+    public static String LimitNumber(int count, String msg) {
+        String[] splits = msg.split("\\.");
+        if (2 == splits.length && count > 0 && count < splits.length) {
+            if (2 < splits[1].length()) {
+                String substring = splits[1].substring(0, count);
+                return (splits[0] + "." + substring);
+            }
+        }
+        return msg;
     }
 
 

@@ -11,13 +11,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 下载的runnable
  */
 public class DownloadRunnable implements Runnable {
 
     private String tag = Constants.TAG_TEMP;
+    //下载的地址
     private String url = "";
+    //保存的文件
     private File file;
 
     public interface DownloadListener {
@@ -54,13 +56,16 @@ public class DownloadRunnable implements Runnable {
 
     }
 
-    public DownloadListener downloadListener;
+    private DownloadListener downloadListener;
 
     public void setDownloadListener(DownloadListener listener) {
         this.downloadListener = listener;
     }
 
-
+    /**
+     * @param url  下载的地址
+     * @param file 存到哪个文件
+     */
     public DownloadRunnable(String url, File file) {
         this.url = url;
         this.file = file;

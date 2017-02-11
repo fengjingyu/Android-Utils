@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description http请求的信息
  */
 public class ReqInfo extends PlusBean {

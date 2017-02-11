@@ -12,8 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description 该bean里内置了try catch，并会返回正确的类型，仅 int String  long  double
+ * @author fengjingyu@foxmail.com
+ * @description
+ * int类型的字段可以getString获取String
+ * String类型的字段可以getInt获取int
  */
 public class JsonBean extends PlusBean {
 
@@ -177,7 +179,6 @@ public class JsonBean extends PlusBean {
             return;
         paraMap.put(name.toLowerCase(), value);
     }
-
 
     public void remove(String name) {
         paraMap.remove(name.toLowerCase());

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 管理需要显示加载dialog的http请求
  * 当有多个并发请求都需要显示dialog时，只显示一个，且多个请求都返回后，才关闭dialog
  */
@@ -24,8 +24,8 @@ public class DialogManager {
     /**
      * 记录需要加载dialog的网络请求
      * <p/>
-     * String 哪一个网络请求（该请求的hasdcode）
-     * Boolean 为null，false（还没发请求 或 请求完成了） ，true（未完成）
+     * String:哪一个网络请求tag
+     * Boolean:为null或false表示还没发请求 或 请求完成了 ，为true表示请求未完成
      */
     protected Map<String, Boolean> mHttpDialogRecoder;
 
@@ -180,6 +180,5 @@ public class DialogManager {
     public void clear() {
         currentManager = null;
     }
-
 
 }

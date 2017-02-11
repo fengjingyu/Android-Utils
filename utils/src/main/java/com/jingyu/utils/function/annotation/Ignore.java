@@ -7,8 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description 一个标记，model里的该字段不存入数据库，配合db工具使用的，只能用于model的字段之上
+ * @author  fengjingyu@foxmail.com
+ * @description
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.FIELD)

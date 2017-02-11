@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 不会回收的viewpager
  */
-public class AdapterViewPager extends PagerAdapter {
+public class PlusAdapterPager extends PagerAdapter {
     private List<? extends View> viewList;
     private List<String> titles;
     private Map<View, Boolean> map;
@@ -25,7 +25,7 @@ public class AdapterViewPager extends PagerAdapter {
         return "";
     }
 
-    public AdapterViewPager(List<? extends View> viewList, List<String> titles) {
+    public PlusAdapterPager(List<? extends View> viewList, List<String> titles) {
         super();
         this.viewList = viewList;
         this.titles = titles;
@@ -65,7 +65,5 @@ public class AdapterViewPager extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        // View view = viewList.get(position);
-        // container.removeView(view);
     }
 }

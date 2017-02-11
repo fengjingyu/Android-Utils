@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 获取通讯录
  */
 public class UtilContacts {
-
 
     public static List<ContactBean> getContacts(Context context) {
         // 创建一个保存联系人的集合
@@ -25,35 +24,30 @@ public class UtilContacts {
         Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");
         // data 表的uri
         Uri dataUri = Uri.parse("content://com.android.contacts/data");
-        Cursor cursor = resolver.query(uri, new String[]{"contact_id"},
-                null, null, null);
-        while (cursor.moveToNext()) {
-            String id = cursor.getString(0);
-            if (id != null) {
-                Cursor dataCursor = resolver.query(dataUri, new String[]{
-                                "data1", "mimetype"}, "raw_contact_id=?", //
-                        new String[]{id}, null);
-                ContactBean contact_model = new ContactBean();
-                while (dataCursor.moveToNext()) {
-                    String data = dataCursor.getString(dataCursor
-                            .getColumnIndex("data1"));
-                    String mimetype = dataCursor.getString(dataCursor
-                            .getColumnIndex("mimetype"));
-                    if ("vnd.android.cursor.item/name".equals(mimetype)) {
-                        contact_model.name = data;
-                    } else if ("vnd.android.cursor.item/phone_v2"
-                            .equals(mimetype)) {
-                        contact_model.phone_number = data;
-                    } else if ("vnd.android.cursor.item/email_v2"
-                            .equals(mimetype)) {
-                        contact_model.email = data;
+        Cursor cursor = resolver.query(uri, new String[]{"contact_id"}, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String id = cursor.getString(0);
+                if (id != null) {
+                    Cursor dataCursor = resolver.query(dataUri, new String[]{"data1", "mimetype"}, "raw_contact_id=?", new String[]{id}, null);
+                    ContactBean contact_model = new ContactBean();
+                    while (dataCursor.moveToNext()) {
+                        String data = dataCursor.getString(dataCursor.getColumnIndex("data1"));
+                        String mimetype = dataCursor.getString(dataCursor.getColumnIndex("mimetype"));
+                        if ("vnd.android.cursor.item/name".equals(mimetype)) {
+                            contact_model.name = data;
+                        } else if ("vnd.android.cursor.item/phone_v2".equals(mimetype)) {
+                            contact_model.phone_number = data;
+                        } else if ("vnd.android.cursor.item/email_v2".equals(mimetype)) {
+                            contact_model.email = data;
+                        }
                     }
+                    contact_list.add(contact_model);
+                    dataCursor.close();
                 }
-                contact_list.add(contact_model);
-                dataCursor.close();
             }
+            cursor.close();
         }
-        cursor.close();
         return contact_list;
     }
 

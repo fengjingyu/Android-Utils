@@ -1,5 +1,6 @@
 package com.jingyu.utils.exception;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -30,14 +31,14 @@ import java.util.UUID;
 
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description
  */
 public class CrashHandler implements UncaughtExceptionHandler {
 
     private static CrashHandler INSTANCE = new CrashHandler();
 
-    private Context mContext;
+    private Application application;
 
     /**
      * 异常信息
@@ -79,16 +80,16 @@ public class CrashHandler implements UncaughtExceptionHandler {
         return exceptionModelDb;
     }
 
-    public CrashHandler init(boolean isInit, Context context, String crashDir, boolean isShowExceptionActivity) {
+    public CrashHandler init(boolean isInit, Application app, String crashDir, boolean isShowExceptionActivity) {
 
         if (isInit) {
 
-            mContext = context;
+            application = app;
 
             mIsShowExceptionActivity = isShowExceptionActivity;
             mCrashDir = crashDir;
 
-            exceptionModelDb = ExceptionDb.getInstance(mContext);
+            exceptionModelDb = ExceptionDb.getInstance(application);
 
             Thread.setDefaultUncaughtExceptionHandler(this);
         }
@@ -104,7 +105,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     public synchronized void uncaughtException(Thread thread, Throwable ex) {
 
         // 收集设备参数信息
-        collectDeviceInfo(mContext);
+        collectDeviceInfo(application);
 
         // 设备参数信息 异常信息 写到crash目录的日志文件中
         String info = saveCrashInfo2File(ex);
@@ -158,7 +159,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     public void endException() {
 
-        showToast(mContext, "很抱歉，程序遭遇异常，即将退出！");
+        showToast(application, "很抱歉，程序遭遇异常，即将退出！");
 
         try {
             Thread.sleep(QUIT_FREEZE_TIME);
@@ -166,7 +167,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             e.printStackTrace();
         }
 
-        if (mContext != null) {
+        if (application != null) {
             ActivityCollector.appExit();
         }
 
@@ -257,10 +258,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
      */
     public void toShowExceptionActivity(String info) {
         if (mIsShowExceptionActivity) {
-            Intent intent = new Intent(mContext, ShowExceptionsActivity.class);
+            Intent intent = new Intent(application, ShowExceptionsActivity.class);
             intent.putExtra(EXCEPTION_INFO, info);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            mContext.startActivity(intent);
+            application.startActivity(intent);
         }
     }
 

@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilScreen {
@@ -23,7 +23,6 @@ public class UtilScreen {
 
     public static int getScreenHeightPx(Context context) {
         return getScreenSizeByMetric(context)[1];
-
     }
 
     public static int getScreenWidthPx(Context context) {
@@ -123,44 +122,6 @@ public class UtilScreen {
 }
 
 
-/**
- * getRowX：触摸点相对于屏幕的坐标
- * getX： 触摸点相对于按钮的坐标
- * getTop： 按钮左上角相对于父view（LinerLayout）的y坐标
- * getLeft： 按钮左上角相对于父view（LinerLayout）的x坐标
- * 可以想象 getRight()等同于下面的计算：getLeft()+getWidth()。
- * <p/>
- * //            int[] sizes = new int[2];
- * //            v.getLocationOnScreen(sizes);
- * //            Logger.i("button" ,"x()--"+sizes[0]);
- * //            Logger.i("button" ,"y()--"+sizes[1]);
- * //            Logger.i("button" ,"getX()--"+v.getX());
- * //            Logger.i("button" ,"getY()--"+v.getY());
- * //            Logger.i("button" ,"getLeft()--"+v.getLeft());
- * //            Logger.i("button" ,"getRight()--"+v.getRight());
- * //            Logger.i("button" ,"getTop()--"+v.getTop());
- * //            Logger.i("button" ,"getBottom()--"+v.getBottom());
- * //            Logger.i("button" ,"ev.getX()--"+ev.getX());
- * //            Logger.i("button" ,"ev.getY()--"+ev.getY());
- * //            Logger.i("button" ,"ev.getRawX()--"+ev.getRawX());
- */
 
-/**
- * 华为：荣耀6 density为3
- * getScreenHeightPx
- *
- * 如果导航栏是开着的 screenHeight 为 1776px（包含了状态栏的高度，状态栏的高度为75px），导航栏的高度为144px
- * 如果导航栏是关着的 screenHeight 为 1920px（包含了状态栏的高度，状态栏的高度为75px）
- */
 
-/**
- * View 的生命周期为
- [改变可见性] --> 构造View --> onFinishInflate --> (onResume之后)onAttachedToWindow --> onMeasure -->  onSizeChanged --> onLayout --> onDraw --> onWindowsFocusChanges-->onDetackedFromWindow(onDetackedFromWindow在activity的onDestroy之后)
 
- onPause-->onWindowfocusChange-->onStop
-
- 总的可以归结三点：
- (1)  在Activity onCreate方法中初始化了View 的时候, 调用了View 的onFinishInflate
- (2)  在执行完 Activity的 onResume 方法之后，才真正开始了View的绘制工作：onAttachedToWindow-->onMeasure --> onSizeChange-->onLayout --> onDraw-->onWindowsFocusChanges
- (3) onMeasure,onSizeChanged,onLayout,onDraw可能由于setVisible或onresume调用多次，而onAttachedToWindow与onDetachedFromWindow在创建与销毁view的过程中只会调用一次
- */

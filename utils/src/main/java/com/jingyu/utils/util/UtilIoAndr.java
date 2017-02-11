@@ -11,10 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description android.permission.MOUNT_UNMOUNT_FILESYSTEMS
- * <p/>
- * android.permission.WRITE_EXTERNAL_STORAGE
+ * @author fengjingyu@foxmail.com
  */
 public class UtilIoAndr {
 

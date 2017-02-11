@@ -3,7 +3,7 @@ package com.jingyu.utils.function.helper;
 import java.io.Closeable;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class CloseHelper {

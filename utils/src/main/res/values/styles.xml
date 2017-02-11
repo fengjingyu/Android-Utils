@@ -40,14 +40,12 @@
     </style>
 
     <!-- radiobutton -->
-    <style name="main_bottom_tab_item">
+    <style name="TabRadioButton">
         <item name="android:background">#f7f7f8</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:textColor">@color/c_black_000000</item>
-        <item name="android:textSize">12sp</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
     </style>

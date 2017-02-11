@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.jingyu.utilstest.R;
 import com.jingyu.utils.application.PlusFragment;
-import com.jingyu.utils.function.adapter.BAdapter;
+import com.jingyu.utils.function.adapter.PlusAdapter;
 import com.jingyu.utilstest.search.SearchRecordBean;
 import com.jingyu.utilstest.search.SearchRecordDb;
 import com.jingyu.utils.function.helper.Logger;
@@ -145,7 +145,7 @@ public class SearchRecordFragment extends PlusFragment implements View.OnClickLi
         xc_id_fragment_search_record_listview.setSelection(0);
     }
 
-    class SearchRecordAdapter extends BAdapter<SearchRecordBean> implements View.OnClickListener {
+    class SearchRecordAdapter extends PlusAdapter<SearchRecordBean> implements View.OnClickListener {
 
         public View getView(int position, View convertView, ViewGroup parent) {
 

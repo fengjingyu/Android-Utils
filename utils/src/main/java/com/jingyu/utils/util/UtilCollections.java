@@ -1,10 +1,13 @@
 package com.jingyu.utils.util;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilCollections {
@@ -32,7 +35,6 @@ public class UtilCollections {
 
         return true;
     }
-
 
     /**
      * 判断一个Map集合是否为空
@@ -62,6 +64,17 @@ public class UtilCollections {
         }
 
         return true;
+    }
+
+    public static List getList(Object... args) {
+        List list = new LinkedList();
+
+        if (args != null && args.length > 0) {
+            for (Object arg : args) {
+                list.add(arg);
+            }
+        }
+        return list;
     }
 
     public static Object getValueByName(Map map, String name) {

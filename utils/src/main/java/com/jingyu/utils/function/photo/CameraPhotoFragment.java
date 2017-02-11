@@ -32,18 +32,23 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 从摄像头获取图片
  */
 public class CameraPhotoFragment extends PlusFragment implements View.OnClickListener {
-    private ImageView xc_id_photo_camera_imageview;
-    public static final int CAMERA_REQUEST_CODE = 0;// 打开当地相册的请求码
-    public static final int RESIZE_REQUEST_CODE = 1;// 裁剪的请求码
+    // 打开当地相册的请求码
+    public static final int CAMERA_REQUEST_CODE = 0;
+    // 裁剪的请求码
+    public static final int RESIZE_REQUEST_CODE = 1;
 
-    public File temp_photo_file;
+    private File tempPhotoFile;
+    // 存储图片的文件夹
+    private String savePhotoDir = "";
+    // 是否允许裁剪图片，默认为不允许
+    private boolean isAllowResize;
 
-    public boolean is_allow_resize; // 是否允许裁剪图片，默认为不允许
-    public int image_id;
+    private int imageId;
+    private ImageView cameraImageView;
 
     private Handler handler = new Handler();
 
@@ -72,7 +77,7 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.xc_id_fragment_photo_camera_imageview) {
+        if (id == R.id.cameraImageView) {
             getTakePhoto();
         }
     }
@@ -101,9 +106,9 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
             switch (requestCode) {
                 case CAMERA_REQUEST_CODE:
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                        if (temp_photo_file != null && temp_photo_file.exists()) {
-                            final Uri uri = Uri.fromFile(temp_photo_file);
-                            if (is_allow_resize) {
+                        if (tempPhotoFile != null && tempPhotoFile.exists()) {
+                            final Uri uri = Uri.fromFile(tempPhotoFile);
+                            if (isAllowResize) {
                                 resizeImage(uri);
                             } else {
 
@@ -151,12 +156,12 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
         FileOutputStream fos = null;
         try {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                if (temp_photo_file != null && temp_photo_file.exists()) {
-                    temp_photo_file.delete();
+                if (tempPhotoFile != null && tempPhotoFile.exists()) {
+                    tempPhotoFile.delete();
                 }
                 File file = new File(createDir(), "photo" + getTime() + ".jpg");
                 fos = new FileOutputStream(file);
-//                bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
+                //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.close();
                 if (listener != null) {
@@ -193,12 +198,12 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
             FileOutputStream fos = null;
             try {
                 if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    if (temp_photo_file != null && temp_photo_file.exists()) {
-                        temp_photo_file.delete();
+                    if (tempPhotoFile != null && tempPhotoFile.exists()) {
+                        tempPhotoFile.delete();
                     }
                     File file = new File(createDir(), "photo" + getTime() + ".jpg");
                     fos = new FileOutputStream(file);
-//                    bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
+                    //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                     fos.close();
                     if (listener != null) {
@@ -228,14 +233,12 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
         }
     }
 
-    public String save_photo_dir = ""; // Constants.CHAT_PHOTO_FILE
-
-    public void setSave_photo_dir(String save_photo_dir) {
-        this.save_photo_dir = save_photo_dir;
+    public void setSavePhotoDir(String savePhotoDir) {
+        this.savePhotoDir = savePhotoDir;
     }
 
     public File createDir() {
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + save_photo_dir);
+        File dir = new File(Environment.getExternalStorageDirectory() + "/" + savePhotoDir);
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -246,26 +249,26 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
         return UtilDate.format(new Date(), UtilDate.FORMAT_FULL_S);
     }
 
-    public void setImage(int drawable_id) {
-        this.image_id = drawable_id;
-        if (xc_id_photo_camera_imageview != null) {
-            xc_id_photo_camera_imageview.setImageResource(drawable_id);
+    public void setImage(int drawableId) {
+        this.imageId = drawableId;
+        if (cameraImageView != null) {
+            cameraImageView.setImageResource(drawableId);
         }
     }
 
-    public void setIsAllowResizeImage(boolean is_allow_resize) {
-        this.is_allow_resize = is_allow_resize;
+    public void setIsAllowResizeImage(boolean isAllowResize) {
+        this.isAllowResize = isAllowResize;
     }
 
     public void initWidgets() {
-        xc_id_photo_camera_imageview = getViewById(R.id.xc_id_fragment_photo_camera_imageview);
-        if (image_id > 0) {
-            xc_id_photo_camera_imageview.setImageResource(image_id);
+        cameraImageView = getViewById(R.id.cameraImageView);
+        if (imageId > 0) {
+            cameraImageView.setImageResource(imageId);
         }
     }
 
     public void listeners() {
-        xc_id_photo_camera_imageview.setOnClickListener(this);
+        cameraImageView.setOnClickListener(this);
     }
 
     public void checkPermission() {
@@ -291,17 +294,17 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
     public void todo() {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-            temp_photo_file = new File(Environment.getExternalStorageDirectory(), UUID.randomUUID().toString());
-            if (!temp_photo_file.exists()) {
+            tempPhotoFile = new File(Environment.getExternalStorageDirectory(), UUID.randomUUID().toString());
+            if (!tempPhotoFile.exists()) {
                 try {
-                    temp_photo_file.createNewFile();
+                    tempPhotoFile.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                     Logger.shortToast("创建文件失败");
                     return;
                 }
             }
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(temp_photo_file));
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempPhotoFile));
             cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
             startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
         } else {

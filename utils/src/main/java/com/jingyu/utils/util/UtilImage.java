@@ -27,10 +27,8 @@ import android.provider.MediaStore.Video.Thumbnails;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
-/**
- * @email fengjingyu@foxmail.com
- * @description
- */
+
+
 public class UtilImage {
 
     /**
@@ -418,6 +416,5 @@ public class UtilImage {
         InputStream is = context.getResources().openRawResource(resId);
         return BitmapFactory.decodeStream(is, null, options);
     }
-
 
 }

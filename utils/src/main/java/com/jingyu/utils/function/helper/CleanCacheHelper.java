@@ -7,8 +7,8 @@ import android.os.Looper;
 import java.io.File;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description 删除缓存 ，是在子线程运行的（文件或文件夹）
+ * @author fengjingyu@foxmail.com
+ * @description 删除缓存是在子线程运行的（文件或文件夹）
  */
 public class CleanCacheHelper {
 
@@ -46,12 +46,10 @@ public class CleanCacheHelper {
     private Dialog mDeletingDialog;
 
     public CleanCacheHelper(Dialog deletingDialog, boolean deleteRootDir) {
-
         mDeletingDialog = deletingDialog;
         isDeleteRootDir = deleteRootDir;
         // 如果是实际中, 可能存在正在删除, 而页面此时退出的情况
         isGoOnDeleting = true;
-
     }
 
     private void removeDir(File dir) {

@@ -4,8 +4,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description 线程池
+ * @author fengjingyu@foxmail.com
+ * @description 获取单例的线程池
  */
 public class ExecutorManager {
 

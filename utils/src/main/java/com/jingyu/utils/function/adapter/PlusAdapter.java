@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description
  */
-public abstract class BAdapter<T> extends BaseAdapter {
+public abstract class PlusAdapter<T> extends BaseAdapter {
 
     public List<T> list;
     public Context context;
 
-    public BAdapter(Context context, List<T> list) {
+    public PlusAdapter(Context context, List<T> list) {
         this.list = list;
         this.context = context;
     }

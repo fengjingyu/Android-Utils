@@ -6,8 +6,8 @@ import android.util.Base64;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.config.ConfigFile;
 import com.jingyu.utils.encryption.aes.AesEncryptAndDecrypt;
-import com.jingyu.utils.encryption.md5.UtilMd5;
-import com.jingyu.utils.encryption.rsa.UtilBase64;
+import com.jingyu.utils.encryption.md5.Md5Helper;
+import com.jingyu.utils.encryption.rsa.Base64Helper;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.helper.SPHelper;
 import com.jingyu.utils.json.JsonBean;
@@ -131,8 +131,8 @@ public class TestActivity extends BaseActivity {
     }
 
     private void testSecret() {
-        String one = UtilMd5.MD5Encode("123456abc");
-        String two = UtilMd5.MD5Encode2("123456abc");
+        String one = Md5Helper.MD5Encode("123456abc");
+        String two = Md5Helper.MD5Encode2("123456abc");
         Logger.i(one);
         Logger.i(two);
         Logger.i(UtilString.equals(one, two)); // true
@@ -148,8 +148,8 @@ public class TestActivity extends BaseActivity {
         Logger.i(aes_open);
 
         try {
-            String base64_e = UtilBase64.encode("123  HEHE".getBytes());
-            String base64_d = new String(UtilBase64.decode(base64_e), "utf-8");
+            String base64_e = Base64Helper.encode("123  HEHE".getBytes());
+            String base64_d = new String(Base64Helper.decode(base64_e), "utf-8");
             Logger.i(base64_e);
             Logger.i(base64_d);
         } catch (Exception e) {

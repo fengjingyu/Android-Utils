@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author xiaocoder
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilOom {
@@ -37,7 +36,6 @@ public class UtilOom {
     public static File compressBitmapJPEG(File file, Bitmap bitmap, int quailty, int scale_width, int scale_height) {
         return compressBitmap(file, bitmap, quailty, scale_width, scale_height, Bitmap.CompressFormat.JPEG);
     }
-
 
     /**
      * 压缩 缩放 到指定文件中
@@ -64,7 +62,6 @@ public class UtilOom {
         // 如 width=700，height=700
         return Bitmap.createScaledBitmap(bitmap, width, height, true);
     }
-
 
     /**
      * 从uri获取到bitmap，适用于大图
@@ -100,7 +97,6 @@ public class UtilOom {
 
     }
 
-
     public static Bitmap getBitmapForLargeByRaw(Context context, int drawable_id, float pix, Bitmap.Config type) {
 
         InputStream input = null;
@@ -130,7 +126,6 @@ public class UtilOom {
         return reallyDecodeStream(type, input, ratio);
 
     }
-
 
     private static Bitmap reallyDecodeStream(Bitmap.Config type, InputStream input, double ratio) {
 
@@ -169,7 +164,6 @@ public class UtilOom {
             }
         }
     }
-
 
     /**
      * 返回的第一个是宽， 第二个是高 ， type为 Bitmap.Config

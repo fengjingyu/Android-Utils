@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.utils.function.adapter.BAdapter;
+import com.jingyu.utils.function.adapter.PlusAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class BaseAdapterActivity extends BaseActivity {
         return list;
     }
 
-    class DemoAdapter extends BAdapter<String> {
+    class DemoAdapter extends PlusAdapter<String> {
 
         public DemoAdapter(Context context, List<String> list) {
             super(context, list);

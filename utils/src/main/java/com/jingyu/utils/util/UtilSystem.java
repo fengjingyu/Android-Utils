@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilSystem {
@@ -132,9 +132,6 @@ public class UtilSystem {
 
     /**
      * 获取运营商信息
-     *
-     * @param con 上下文
-     * @return String 运营商信息
      */
     public static String getOperatorName(Context con) {
         TelephonyManager telManager = (TelephonyManager) con.getSystemService(Context.TELEPHONY_SERVICE);
@@ -309,6 +306,9 @@ public class UtilSystem {
         context.startActivity(intent);
     }
 
+    /**
+     * 图片存到系统相册
+     */
     public static void saveFileToSystem(Context context, File file) {
         try {
             MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), file.getName(), null);

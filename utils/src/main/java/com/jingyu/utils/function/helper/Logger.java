@@ -1,5 +1,6 @@
 package com.jingyu.utils.function.helper;
 
+import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,11 +18,11 @@ import java.text.DateFormat;
 import java.util.Date;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 1 可以控制频率的吐司
  * 2 输出log到控制台
  * 3 输出log到文件
- * 4 日志的清空，日志的大小控制
+ * 4 日志的清空
  * <p/>
  * 使用前初始化initLog方法
  */
@@ -29,70 +30,63 @@ public class Logger {
     /**
      * 毫秒
      */
-    public static final int TOAST_TIME_GAP = 2000;
+    private static final int TOAST_TIME_GAP = 2000;
     /**
      * 缓存文件达到70M就会清空
      */
-    public static final long LOG_FILE_LIMIT_SIZE = 73400320;
+    private static final long LOG_FILE_LIMIT_SIZE = 73400320;
+    /**
+     * 编码
+     */
+    public static final String encoding = "utf-8";
     /**
      * 记录上一次土司的时间
      */
-    public static long lastToastTime;
+    private static long lastToastTime;
     /**
      * log文件 = dirDame(目录) + logFileName（文件名）
      */
     public static File file;
-    /**
-     * 存储日志文件的文件夹 “aa/bb”
-     */
-    public static String dirDame;
-    /**
-     * 日志文件名，可以加文件类型后缀
-     * "123.txt"
-     */
-    public static String logFileName;
 
     /**
      * 以下值需要初始化
      */
-    public static Context context;
+    public static Application application;
+    /**
+     * 存储日志文件的文件夹 例如传“aa/bb”
+     */
+    private static String dirDame;
+    /**
+     * 日志文件名，例如传"123.txt"
+     */
+    private static String logFileName;
     /**
      * 调试土司是否显示
      */
-    public static boolean isDtoast = false;
+    private static boolean isDtoast = false;
     /**
      * i类型的日志是否打印到日志文件中
      */
-    public static boolean isPrintlog = false;
+    private static boolean isPrintlog = false;
     /**
      * 日志是否输出到控制台
      */
     public static boolean isOutput = true;
-    /**
-     * 有时候控制台可能打印json不全，比如json太长的时候，可以调用tempPrint方法，打印到本地查看
-     */
-    public static String tempFileName = "temp_file.txt";
-    /**
-     * 编码
-     */
-    public static String encoding;
 
     /**
-     * @param context       上下文
+     * @param application   上下文
      * @param is_dtoast     调试土司是否显示
      * @param is_output     是否输出到控制台
      * @param is_printlog   i日志是否打印到日志文件
      * @param dir_name      日志文件件
      * @param log_file_name 日志文件面
-     * @param encoding      编码
      */
-    public static void initLog(Context context, boolean is_dtoast, boolean is_output, boolean is_printlog,
-                               String dir_name, String log_file_name, String encoding) {
+    public static void initLog(Application application, boolean is_dtoast, boolean is_output, boolean is_printlog,
+                               String dir_name, String log_file_name) {
 
-        Logger.context = context;
+        Logger.application = application;
         Logger.dirDame = UtilString.isAvaliable(dir_name) ? dir_name : "logDir_" + System.currentTimeMillis();
         Logger.logFileName = UtilString.isAvaliable(log_file_name) ? log_file_name : "log_file.txt";
-        Logger.encoding = UtilString.isAvaliable(encoding) ? encoding : "utf-8";
         Logger.isDtoast = is_dtoast;
         Logger.isOutput = is_output;
         Logger.isPrintlog = is_printlog;
@@ -166,12 +160,12 @@ public class Logger {
      */
     private static void toast(boolean isShowImmediately, Object msg, int showtType) {
 
-        if (context == null) {
+        if (application == null) {
             return;
         }
 
         if (isShowImmediately || System.currentTimeMillis() - lastToastTime > TOAST_TIME_GAP) {
-            Toast.makeText(context, msg + "", showtType).show();
+            Toast.makeText(application, msg + "", showtType).show();
             lastToastTime = System.currentTimeMillis();
         }
 
@@ -179,8 +173,6 @@ public class Logger {
 
     /**
      * 以tag打印到控制台 和 文件
-     * <p/>
-     * 上线前is_output 与 is_printlog关闭
      */
     public static void i(Context context, Object msg) {
         if (isOutput) {
@@ -219,8 +211,7 @@ public class Logger {
     }
 
     /**
-     * e不管是否上线，都打印日志到本地，并输出到控制台
-     * 注：e的日志颜色不同
+     * e不管是否上线，都会打印日志到本地，并输出到控制台
      */
     public static void e(String hint) {
         Log.e(Constants.TAG_ALOG, hint);
@@ -258,7 +249,7 @@ public class Logger {
      */
     public static synchronized void writeLog2File(String content, boolean is_append) {
 
-        if (context == null) {
+        if (application == null) {
             return;
         }
 
@@ -270,10 +261,8 @@ public class Logger {
 
         try {
             if (file == null || !file.exists()) {
-
                 // sd中，在app_root文件夹下创建log文件
                 file = UtilIoAndr.createFileInSDCard(dirDame, logFileName);
-
             }
 
             // 日志满了的处理
@@ -313,7 +302,7 @@ public class Logger {
      */
     public synchronized static void tempPrint(String str) {
 
-        if (context == null) {
+        if (application == null) {
             return;
         }
 
@@ -321,7 +310,7 @@ public class Logger {
             FileOutputStream fos = null;
             try {
                 // 在app_root目录下创建temp_print文件，如果没有sd卡，则写到内部存储中
-                fos = new FileOutputStream(UtilIoAndr.createFileInAndroid(context, dirDame, tempFileName));
+                fos = new FileOutputStream(UtilIoAndr.createFileInAndroid(application, dirDame, "temp_file.txt"));
                 fos.write(str.getBytes());
                 fos.flush();
             } catch (Exception e) {
@@ -381,26 +370,6 @@ public class Logger {
      */
     public static void logFormatContent(String tag, String hint, String content) {
         logFormatContent(false, tag, hint, content);
-    }
-
-
-    /**
-     * 系统会返回一个数组，该数组的下标从本类(或方法)开始并逐步向上调用直至最终的类，
-     * 如下标为0是 StackTraceElementTest类
-     * 下标为1则为MainActivity(这个方法在MainActivity中被调用,如果再在本类中的方法又进行调用则进行+1)，下标为2则表示MainActivity的父类Activity
-     *
-     * @return 获取当前日志输出所在的信息的集合 集合内包含类名、方法名、行数
-     */
-    //TODO 未测试使用，待定
-    private String[] getLogCurrentMsg() {
-        String[] arr = new String[3];
-        int level = 3;
-        StackTraceElement[] stacks = new Throwable().getStackTrace();
-        StackTraceElement element = stacks[level];
-        arr[0] = element.getClassName();
-        arr[1] = element.getMethodName();
-        arr[2] = element.getLineNumber() + "";
-        return arr;
     }
 
 }

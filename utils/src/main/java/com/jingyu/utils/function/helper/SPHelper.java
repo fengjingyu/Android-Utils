@@ -8,12 +8,11 @@ import android.content.SharedPreferences;
 
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 使用前初始化initSP方法
  */
 
 /**
- * @author xiaocoder
  *         2015-2-28 上午11:30:18
  *         <p/>
  *         log("--" + TAG, (sp.getString("09876561", null) == null) + "");//true
@@ -86,7 +85,6 @@ public class SPHelper {
         return sharedPreferences.getInt(key, defaultValue);
     }
 
-
     public static long getLong(String key, long defaultValue) {
         return sharedPreferences.getLong(key, defaultValue);
     }
@@ -94,7 +92,6 @@ public class SPHelper {
     public static float getFloat(String key, float defaultValue) {
         return sharedPreferences.getFloat(key, defaultValue);
     }
-
 
     public static boolean getBoolean(String key, boolean defaultValue) {
         return sharedPreferences.getBoolean(key, defaultValue);
@@ -107,7 +104,6 @@ public class SPHelper {
     public static Set<String> getStringSet(String key, Set<String> defValues) {
         return sharedPreferences.getStringSet(key, defValues);
     }
-
 
     public static void spPut(String key, boolean value) {
         putBoolean(key, value);

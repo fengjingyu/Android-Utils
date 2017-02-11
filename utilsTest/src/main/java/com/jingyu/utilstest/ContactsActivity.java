@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.jingyu.middle.Image;
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.utils.function.adapter.BAdapter;
+import com.jingyu.utils.function.adapter.PlusAdapter;
 import com.jingyu.utils.function.helper.ExecutorManager;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilContacts;
@@ -38,7 +38,7 @@ public class ContactsActivity extends BaseActivity {
         initWidgets();
     }
 
-    class ContactsAdapter extends BAdapter<UtilContacts.ContactBean> {
+    class ContactsAdapter extends PlusAdapter<UtilContacts.ContactBean> {
 
         public ContactsAdapter(Context context, List<UtilContacts.ContactBean> list) {
             super(context, list);

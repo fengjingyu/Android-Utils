@@ -6,7 +6,7 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ScrollerPlus extends Scroller {

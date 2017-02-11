@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.photo.CameraPhotoFragment;
-import com.jingyu.utils.function.photo.LocalPhotoFragment;
+import com.jingyu.utils.function.photo.AblumPhotoFragment;
 
 import java.io.File;
 
@@ -17,7 +17,7 @@ import java.io.File;
  */
 public class CamareActivity extends BaseActivity {
     CameraPhotoFragment camera_fragment;
-    LocalPhotoFragment local_fragment;
+    AblumPhotoFragment local_fragment;
     ImageView id_imageview;
 
     @Override
@@ -30,7 +30,7 @@ public class CamareActivity extends BaseActivity {
 
     public void initWidgets() {
         camera_fragment = new CameraPhotoFragment();
-        local_fragment = new LocalPhotoFragment();
+        local_fragment = new AblumPhotoFragment();
 
         // camera_fragment.setIsAllowResizeImage(true);
         camera_fragment.setImage(R.drawable.ic_launcher);
@@ -56,7 +56,7 @@ public class CamareActivity extends BaseActivity {
             }
         });
 
-        local_fragment.setOnLocalSelectedFileListener(new LocalPhotoFragment.OnLocalSelectedFileListener() {
+        local_fragment.setOnLocalSelectedFileListener(new AblumPhotoFragment.OnLocalSelectedFileListener() {
 
             @Override
             public void onLocalSelectedFile(File file) {

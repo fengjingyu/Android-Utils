@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author xujinshan
  * @description
  */
 public class UtilTime {

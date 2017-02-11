@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilBroadcast {
@@ -30,7 +30,6 @@ public class UtilBroadcast {
     }
 
     public static void sendReceiver(Context context, String action, String[] command_keys, String[] command_values) {
-
         Intent intent = new Intent();
         intent.setAction(action);
         int size = command_keys.length;
@@ -38,6 +37,5 @@ public class UtilBroadcast {
             intent.putExtra(command_keys[i], command_values[i]);
         }
         context.sendBroadcast(intent);
-
     }
 }

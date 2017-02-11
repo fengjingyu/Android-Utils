@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- 需要用的时候直接用，而不必再去id文件里面写-->
+    <!-- 备用 -->
     <item name="id_one" type="id" />
     <item name="id_two" type="id" />
     <item name="id_three" type="id" />

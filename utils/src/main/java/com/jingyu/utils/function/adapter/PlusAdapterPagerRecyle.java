@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description 会回收的viewpager
  */
-public class AdapterViewPagerRecyle extends PagerAdapter {
+public class PlusAdapterPagerRecyle extends PagerAdapter {
     private List<? extends View> viewList;
     private List<String> titles;
 
-    public AdapterViewPagerRecyle(List<? extends View> viewList, List<String> titles) {
+    public PlusAdapterPagerRecyle(List<? extends View> viewList, List<String> titles) {
         super();
         this.viewList = viewList;
         this.titles = titles;

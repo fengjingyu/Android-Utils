@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.jingyu.utils.util;
 
 import android.app.Activity;
@@ -14,8 +11,7 @@ import android.widget.TextView;
 import com.jingyu.utils.function.helper.Logger;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description 输入法的弹出 与 关闭
+ * @author fengjingyu@foxmail.com
  */
 public class UtilInput {
 

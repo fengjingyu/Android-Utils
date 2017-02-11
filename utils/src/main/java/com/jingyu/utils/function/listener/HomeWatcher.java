@@ -6,11 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 /**
- * HomeWatcher
  * Home键监听封装
- *
- * @author songxin on 2016/4/27.
- * @version 2.3.0
  */
 public class HomeWatcher {
     private Context mContext;
@@ -24,21 +20,11 @@ public class HomeWatcher {
         void onHomeLongPressed();
     }
 
-    /**
-     * 构造方法
-     *
-     * @param context
-     */
     public HomeWatcher(Context context) {
         mContext = context;
         mFilter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
     }
 
-    /**
-     * 设置监听
-     *
-     * @param listener
-     */
     public void setOnHomePressedListener(OnHomePressedListener listener) {
         mListener = listener;
         mRecevier = new InnerRecevier();

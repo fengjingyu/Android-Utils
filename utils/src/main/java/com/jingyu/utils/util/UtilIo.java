@@ -30,7 +30,7 @@ import java.util.Properties;
 import java.util.Vector;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilIo {
@@ -58,7 +58,6 @@ public class UtilIo {
      * createFile("e:/learn/chinese","englis.txt")-->在e盘下建立一个learn/chinese的二级文件夹,并建立englis.txt的文件
      */
     public static File createFile(String dirPath, String fileName) {
-
         try {
             File destDir = new File(dirPath);
             if (!destDir.exists()) {
@@ -73,7 +72,6 @@ public class UtilIo {
             e.printStackTrace();
             return null;
         }
-
     }
 
     /**

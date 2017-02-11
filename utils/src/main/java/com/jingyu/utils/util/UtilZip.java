@@ -3,35 +3,39 @@ package com.jingyu.utils.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.jingyu.utils.encryption.rsa.Base64Helper;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 /**
- * description:
- * author zhangpengfei.
- *
- * @version 1.0
+ * @author zhangpengfei.
  */
 public class UtilZip {
 
     /**
      * 解压zip压缩文件到指定目录
-     * @param context 上下文对象
-     * @param assetName 压缩文件名
+     *
+     * @param context         上下文对象
+     * @param assetName       压缩文件名
      * @param outputDirectory 输出目录
-     * @param isReWrite 是否覆盖
+     * @param isReWrite       是否覆盖
      */
-    public static void unZip(Context context, String assetName, String outputDirectory, boolean isReWrite){
+    public static void unZip(Context context, String assetName, String outputDirectory, boolean isReWrite) {
         // 创建解压目标目录
         File file = new File(outputDirectory);
         // 如果目标目录不存在，则创建
@@ -81,13 +85,13 @@ public class UtilZip {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
-                if(null != inputStream) {
+                if (null != inputStream) {
                     inputStream.close();
                 }
 
-                if(null != zipInputStream) {
+                if (null != zipInputStream) {
                     zipInputStream.close();
                 }
             } catch (IOException e) {
@@ -100,18 +104,19 @@ public class UtilZip {
 
     /**
      * 解压zip压缩文件到指定目录
+     *
      * @param context 上下文对象
-     * @param in 输入目录
-     * @param out 输出目录
+     * @param in      输入目录
+     * @param out     输出目录
      */
-    public static void unzip(Context context, File in, String out, boolean isReWrite){
+    public static void unzip(Context context, File in, String out, boolean isReWrite) {
         long extractedSize = 0L;
-        if (null == in){
-            return ;
+        if (null == in) {
+            return;
         }
         File mOutput = new File(out);
-        if(!mOutput.exists()){
-            if(!mOutput.mkdirs()){
+        if (!mOutput.exists()) {
+            if (!mOutput.mkdirs()) {
                 Log.e("out", "Failed to make directories:" + mOutput.getAbsolutePath());
             }
         }
@@ -120,30 +125,30 @@ public class UtilZip {
         try {
             zip = new ZipFile(in);
             entries = (Enumeration<ZipEntry>) zip.entries();
-            while(entries.hasMoreElements()){
+            while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                if(entry.isDirectory()){
+                if (entry.isDirectory()) {
                     continue;
                 }
                 File destination = new File(mOutput, entry.getName());
-                if(!destination.getParentFile().exists()){
+                if (!destination.getParentFile().exists()) {
                     destination.getParentFile().mkdirs();
                 }
-                if(destination.exists()&&context!=null&&!isReWrite){
+                if (destination.exists() && context != null && !isReWrite) {
                 }
                 FileOutputStream outStream = new FileOutputStream(destination);
-                extractedSize+=copy(zip.getInputStream(entry),outStream);
+                extractedSize += copy(zip.getInputStream(entry), outStream);
                 outStream.close();
             }
         } catch (ZipException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
-                if(null != zip) {
+                if (null != zip) {
                     zip.close();
                 }
             } catch (IOException e) {
@@ -154,28 +159,28 @@ public class UtilZip {
         }
     }
 
-    private static int copy(InputStream input, OutputStream output){
-        byte[] buffer = new byte[1024*8];
-        BufferedInputStream in = new BufferedInputStream(input, 1024*8);
-        BufferedOutputStream out  = new BufferedOutputStream(output, 1024*8);
-        int count =0,n=0;
+    private static int copy(InputStream input, OutputStream output) {
+        byte[] buffer = new byte[1024 * 8];
+        BufferedInputStream in = new BufferedInputStream(input, 1024 * 8);
+        BufferedOutputStream out = new BufferedOutputStream(output, 1024 * 8);
+        int count = 0, n = 0;
         try {
-            while((n=in.read(buffer, 0, 1024*8))!=-1){
+            while ((n = in.read(buffer, 0, 1024 * 8)) != -1) {
                 out.write(buffer, 0, n);
-                count+=n;
+                count += n;
             }
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
-                if(null != out) {
+                if (null != out) {
                     out.close();
                 }
 
-                if(null != in) {
+                if (null != in) {
                     in.close();
                 }
             } catch (IOException e) {
@@ -183,5 +188,113 @@ public class UtilZip {
             }
         }
         return count;
+    }
+
+    public static String compress(String src) {
+        String result = null;
+        try {
+            if (src != null) {
+                ByteArrayOutputStream bos = null;
+                GZIPOutputStream gos = null;
+                try {
+                    bos = new ByteArrayOutputStream();
+                    gos = new GZIPOutputStream(bos);
+
+                    gos.write(src.getBytes());
+                    gos.finish();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (gos != null)
+                            gos.close();
+                        byte[] bytes = bos.toByteArray();
+                        result = Base64Helper.encode(bytes);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        if (bos != null)
+                            bos.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String deCompress(String compressSrc) {
+        String result = null;
+
+        try {
+            if (compressSrc != null) {
+
+                byte[] bytes = Base64Helper.decode(compressSrc);
+
+                result = deCompress(bytes);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String deCompress(byte[] compressBytes) {
+        return deCompress(compressBytes, "utf-8");
+    }
+
+    public static String deCompress(byte[] compressBytes, String encode) {
+
+        String result = null;
+
+        try {
+            ByteArrayInputStream bis = null;
+            GZIPInputStream gis = null;
+            ByteArrayOutputStream bos = null;
+
+            try {
+                bis = new ByteArrayInputStream(compressBytes);
+                gis = new GZIPInputStream(bis);
+                bos = new ByteArrayOutputStream();
+
+                byte[] buff = new byte[4096];
+                int len;
+                while ((len = gis.read(buff)) > 0) {
+                    bos.write(buff, 0, len);
+                }
+                result = new String(bos.toByteArray(), encode);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (bos != null)
+                        bos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (gis != null)
+                        gis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (bis != null)
+                        bis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }

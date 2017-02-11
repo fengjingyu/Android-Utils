@@ -3,7 +3,7 @@ package com.jingyu.utils.exception;
 import java.io.Serializable;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description
  */
 public class ExceptionBean implements Serializable {

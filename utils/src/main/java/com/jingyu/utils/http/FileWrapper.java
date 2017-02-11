@@ -5,7 +5,7 @@ import java.io.File;
 import okhttp3.MediaType;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 未写完，暂不可用
  */
 public class FileWrapper {

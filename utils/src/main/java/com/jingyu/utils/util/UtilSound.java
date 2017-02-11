@@ -5,7 +5,7 @@ import android.content.Context;
 import android.media.AudioManager;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilSound {

@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.utils.function.helper.Logger;
-import com.jingyu.utils.function.photo.LocalPhotoFragment;
+import com.jingyu.utils.function.photo.AblumPhotoFragment;
 
 /**
  * @email fengjingyu@foxmail.com
@@ -15,7 +15,7 @@ import com.jingyu.utils.function.photo.LocalPhotoFragment;
 public class ActivityDestroyGC extends BaseActivity {
     private int i = 10;
     private ImageView id_gc_imageview;
-    private LocalPhotoFragment localPhotoFragment;
+    private AblumPhotoFragment ablumPhotoFragment;
     private Handler handler = new Handler();
 
     @Override
@@ -25,8 +25,8 @@ public class ActivityDestroyGC extends BaseActivity {
 
         initWidgets();
 
-        localPhotoFragment = new LocalPhotoFragment();
-        addFragment(R.id.id_gc_fragment, localPhotoFragment);
+        ablumPhotoFragment = new AblumPhotoFragment();
+        addFragment(R.id.id_gc_fragment, ablumPhotoFragment);
     }
 
     public void initWidgets() {
@@ -49,8 +49,8 @@ public class ActivityDestroyGC extends BaseActivity {
                 System.gc();
                 System.gc();
 
-                Logger.i(localPhotoFragment.toString());
-                Logger.i(localPhotoFragment.getActivity());
+                Logger.i(ablumPhotoFragment.toString());
+                Logger.i(ablumPhotoFragment.getActivity());
 
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -58,8 +58,8 @@ public class ActivityDestroyGC extends BaseActivity {
                         Logger.i("handler --" + id_gc_imageview); // 不为空
                         Logger.i("handler --" + i);// 不为空
 
-                        Logger.i("handler --" + localPhotoFragment.toString()); // 不为空
-                        Logger.i("handler --" + localPhotoFragment.getActivity()); // 空
+                        Logger.i("handler --" + ablumPhotoFragment.toString()); // 不为空
+                        Logger.i("handler --" + ablumPhotoFragment.getActivity()); // 空
                     }
                 }, 10000);
 

@@ -3,7 +3,7 @@ package com.jingyu.utils.imageloader;
 import android.widget.ImageView;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public interface IImageLoader {

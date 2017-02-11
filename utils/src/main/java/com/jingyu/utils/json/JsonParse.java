@@ -14,7 +14,7 @@ import java.util.List;
 
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class JsonParse {
@@ -25,7 +25,6 @@ public class JsonParse {
      * 注：解析失败一定得返回null
      */
     public static <T extends JsonBean> T getJsonParseData(String json, Class<T> beanClass) {
-
         try {
             if (!UtilString.isBlank(json)) {
                 T result = getBean(beanClass);
@@ -37,13 +36,10 @@ public class JsonParse {
             e.printStackTrace();
             return null;
         }
-
     }
 
     public static JsonBean getJsonParseData(String json) {
-
         return getJsonParseData(json, JsonBean.class);
-
     }
 
     /**
@@ -80,11 +76,7 @@ public class JsonParse {
     }
 
     /**
-     * 创建一个空的XCJsonBean对象
-     *
-     * @param beanClass
-     * @param <T>
-     * @return
+     * 创建一个JsonBean对象
      */
     private static <T extends JsonBean> T getBean(Class<T> beanClass) {
         try {
@@ -98,11 +90,6 @@ public class JsonParse {
 
     /**
      * 解析
-     *
-     * @param result
-     * @param obj
-     * @param beanClass
-     * @param <T>
      */
     private static <T extends JsonBean> T parse(T result, JSONObject obj, Class<T> beanClass) {
         try {
@@ -144,10 +131,12 @@ public class JsonParse {
     public static final String TAB = "\t\t";
     public static final String RETURN = "\n";
 
+    /**
+     * 格式化json数据,方便打印到控制台
+     */
     public static String format(String jsonString) {
 
         try {
-
             StringBuilder sb = new StringBuilder();
             sb.append("\n");
             boolean isInQuotationMark = false;

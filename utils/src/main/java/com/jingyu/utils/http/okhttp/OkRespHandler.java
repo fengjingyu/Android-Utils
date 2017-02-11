@@ -24,8 +24,8 @@ import okhttp3.Headers;
 import okhttp3.Response;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description okhttp实现，该库的回调在子线程中的
+ * @author fengjingyu@foxmail.com
+ * @description 该库的回调在子线程中的
  */
 public class OkRespHandler<T> implements Callback {
 

@@ -14,7 +14,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class UtilNet {
@@ -46,7 +46,6 @@ public class UtilNet {
         } else {
             return false;
         }
-
     }
 
     /**
@@ -159,6 +158,7 @@ public class UtilNet {
 
     /**
      * 获取网络类型
+     *
      * @return 返回网络类型 2g 3g 4g wifi
      */
     public static String getNetworkType(Context context) {

@@ -11,12 +11,12 @@ import android.widget.TextView;
 import com.jingyu.utils.function.helper.Logger;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description 测试用的 , 直接创建一个listview , 然后 listview.setAdapter(new XCAdapterText(context,null);
+ * @author fengjingyu@foxmail.com
+ * @description 测试用的 , 直接创建一个listview , 然后 listview.setAdapter(new TestAdapter(context,null);
  */
-public class AdapterTest extends BAdapter<String> {
+public class TestAdapter extends PlusAdapter<String> {
 
-    public AdapterTest(Context context, List<String> data) {
+    public TestAdapter(Context context, List<String> data) {
         super(context, data);
         if (data == null) {
             list = new ArrayList<String>();

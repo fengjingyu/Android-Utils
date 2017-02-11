@@ -11,11 +11,10 @@ import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.exception.ExceptionBean;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.exception.IException2Server;
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.helper.SPHelper;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
-import com.jingyu.utils.imageloader.AsynLoader;
+import com.jingyu.utils.imageloader.UniversalImageLoader;
 import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
@@ -58,9 +57,7 @@ public class App extends Application {
     }
 
     private void initLog() {
-        Logger.initLog(getApplicationContext(),
-                ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG,
-                ConfigFile.APP_ROOT, ConfigFile.LOG_FILE, Constants.ENCODING_UTF8);
+        Logger.initLog(getApplication(), ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG, ConfigFile.APP_ROOT, ConfigFile.LOG_FILE);
     }
 
     private void createDir() {
@@ -81,11 +78,11 @@ public class App extends Application {
     }
 
     private void initImageLoader() {
-        Image.initImager(new AsynLoader(ConfigImages.getImageloader(getApplicationContext()), ConfigImages.default_image_options));
+        Image.initImager(new UniversalImageLoader(ConfigImages.getImageloader(getApplicationContext()), ConfigImages.default_image_options));
     }
 
     private void initCrash() {
-        CrashHandler.getInstance().init(ConfigLog.IS_INIT_CRASH_HANDLER, getApplicationContext(), ConfigFile.CRASH_DIR, ConfigLog.IS_SHOW_EXCEPTION_ACTIVITY);
+        CrashHandler.getInstance().init(ConfigLog.IS_INIT_CRASH_HANDLER, getApplication(), ConfigFile.CRASH_DIR, ConfigLog.IS_SHOW_EXCEPTION_ACTIVITY);
         CrashHandler.getInstance().setUploadServer(new IException2Server() {
             @Override
             public void uploadException2Server(String info, Throwable ex, Thread thread,

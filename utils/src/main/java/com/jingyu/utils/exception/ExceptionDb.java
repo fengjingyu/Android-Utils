@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description
  */
 public class ExceptionDb extends SQLiteOpenHelper {

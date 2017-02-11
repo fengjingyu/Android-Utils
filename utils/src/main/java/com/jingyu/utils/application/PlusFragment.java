@@ -12,7 +12,8 @@ import com.jingyu.utils.function.helper.Logger;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
+ * @description
  */
 public abstract class PlusFragment extends Fragment {
 
@@ -21,10 +22,6 @@ public abstract class PlusFragment extends Fragment {
     @SuppressWarnings("unchecked")
     public <T extends View> T getViewById(int id) {
         return (T) mContainer.findViewById(id);
-    }
-
-    public View createView(LayoutInflater inflater, int layout_id, ViewGroup container) {
-        return mContainer = (ViewGroup) inflater.inflate(layout_id, container, false);
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +34,10 @@ public abstract class PlusFragment extends Fragment {
             return getActivity().getIntent();
         }
         return null;
+    }
+
+    public View createView(LayoutInflater inflater, int layout_id, ViewGroup container) {
+        return mContainer = (ViewGroup) inflater.inflate(layout_id, container, false);
     }
 
     public void addChildFragment(int layout_id, Fragment fragment, String tag, boolean isToBackStack) {

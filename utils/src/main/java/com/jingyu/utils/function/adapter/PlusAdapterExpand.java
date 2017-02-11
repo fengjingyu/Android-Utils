@@ -6,11 +6,10 @@ import android.widget.BaseExpandableListAdapter;
 import java.util.List;
 
 /**
- * @author xiaocoder
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
-public abstract class BAdapterExpand<E, T> extends BaseExpandableListAdapter {
+public abstract class PlusAdapterExpand<E, T> extends BaseExpandableListAdapter {
     /**
      * 子item
      */
@@ -21,7 +20,7 @@ public abstract class BAdapterExpand<E, T> extends BaseExpandableListAdapter {
     public List<E> listParaent;
     public Context context;
 
-    public BAdapterExpand(Context context, List<List<T>> listChild, List<E> listParaent) {
+    public PlusAdapterExpand(Context context, List<List<T>> listChild, List<E> listParaent) {
         this.listChild = listChild;
         this.listParaent = listParaent;
         this.context = context;

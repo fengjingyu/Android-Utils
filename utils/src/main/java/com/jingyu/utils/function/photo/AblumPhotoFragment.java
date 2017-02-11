@@ -37,17 +37,24 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 打开本地相册
  */
-public class LocalPhotoFragment extends PlusFragment implements View.OnClickListener {
-    private ImageView xc_id_photo_local_imageview;
-    public static final int LOCAL_IMAGE_REQUEST_CODE = 2;// 打开当地相册的请求码
-    public static final int RESIZE_REQUEST_CODE = 3;// 裁剪的请求码
-    public File temp_photo_file;
+public class AblumPhotoFragment extends PlusFragment implements View.OnClickListener {
+    // 打开当地相册的请求码
+    public static final int LOCAL_IMAGE_REQUEST_CODE = 2;
+    // 裁剪的请求码
+    public static final int RESIZE_REQUEST_CODE = 3;
 
-    public boolean is_allow_resize; // 是否允许裁剪图片，默认为不允许
-    public int image_id;
+    private File tempPhotoFile;
+    // 保存图片的文件夹
+    private String savePhotoDir = "";
+
+    // 是否允许裁剪图片，默认为不允许
+    private boolean isAllowResize;
+
+    private ImageView ablumImageView;
+    private int imageId;
 
     private Handler handler = new Handler();
 
@@ -63,7 +70,7 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return createView(inflater, R.layout.fragment_photo_local, container);
+        return createView(inflater, R.layout.fragment_photo_ablum, container);
     }
 
     @Override
@@ -76,7 +83,7 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.xc_id_fragment_photo_local_imageview) {
+        if (id == R.id.ablumImageView) {
             getLocalPhoto();
         }
     }
@@ -111,7 +118,7 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
             switch (requestCode) {
                 case LOCAL_IMAGE_REQUEST_CODE:
                     if (data != null) {
-                        if (is_allow_resize) {
+                        if (isAllowResize) {
                             resizeImage(data.getData());
                         } else {
                             final Uri uri = data.getData();
@@ -156,12 +163,12 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
         FileOutputStream fos = null;
         try {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                if (temp_photo_file != null && temp_photo_file.exists()) {
-                    temp_photo_file.delete();
+                if (tempPhotoFile != null && tempPhotoFile.exists()) {
+                    tempPhotoFile.delete();
                 }
                 File file = new File(createDir(), "photo" + getTime() + ".jpg");
                 fos = new FileOutputStream(file);
-//                bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
+                //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.close();
                 if (listener != null) {
@@ -198,12 +205,12 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
             FileOutputStream fos = null;
             try {
                 if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    if (temp_photo_file != null && temp_photo_file.exists()) {
-                        temp_photo_file.delete();
+                    if (tempPhotoFile != null && tempPhotoFile.exists()) {
+                        tempPhotoFile.delete();
                     }
                     File file = new File(createDir(), "photo" + getTime() + ".jpg");
                     fos = new FileOutputStream(file);
-//                    bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
+                    //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                     fos.close();
                     if (listener != null) {
@@ -233,15 +240,12 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
         }
     }
 
-    public String save_photo_dir = ""; // Constants.CHAT_PHOTO_FILE
-
-    public void setSave_photo_dir(String save_photo_dir) {
-        this.save_photo_dir = save_photo_dir;
+    public void setSavePhotoDir(String savePhotoDir) {
+        this.savePhotoDir = savePhotoDir;
     }
 
-
     public File createDir() {
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + save_photo_dir);
+        File dir = new File(Environment.getExternalStorageDirectory() + "/" + savePhotoDir);
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -253,25 +257,25 @@ public class LocalPhotoFragment extends PlusFragment implements View.OnClickList
     }
 
     public void setImage(int drawable_id) {
-        this.image_id = drawable_id;
-        if (xc_id_photo_local_imageview != null) {
-            xc_id_photo_local_imageview.setImageResource(drawable_id);
+        this.imageId = drawable_id;
+        if (ablumImageView != null) {
+            ablumImageView.setImageResource(drawable_id);
         }
     }
 
-    public void setIsAllowResizeImage(boolean is_allow_resize) {
-        this.is_allow_resize = is_allow_resize;
+    public void setIsAllowResizeImage(boolean isAllowResize) {
+        this.isAllowResize = isAllowResize;
     }
 
     public void initWidgets() {
-        xc_id_photo_local_imageview = getViewById(R.id.xc_id_fragment_photo_local_imageview);
-        if (image_id > 0) {
-            xc_id_photo_local_imageview.setImageResource(image_id);
+        ablumImageView = getViewById(R.id.ablumImageView);
+        if (imageId > 0) {
+            ablumImageView.setImageResource(imageId);
         }
     }
 
     public void listeners() {
-        xc_id_photo_local_imageview.setOnClickListener(this);
+        ablumImageView.setOnClickListener(this);
     }
 
 

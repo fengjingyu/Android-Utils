@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * Created by xilinch on 2015/5/28.
  */
-public class UtilRC4 {
+public class RC4Helper {
 
     public static String encryByRC4(String keyStr, String data){
         if(TextUtils.isEmpty(keyStr) || TextUtils.isEmpty(data)){
@@ -28,7 +28,6 @@ public class UtilRC4 {
 
             byte[] decryStr = cipher1.doFinal(data.getBytes("UTF-8"));
             String str = Base64.encodeToString(decryStr, Base64.DEFAULT);
-            Logger.i("Myyyy", str);
             return str;
 
         } catch (Exception e){

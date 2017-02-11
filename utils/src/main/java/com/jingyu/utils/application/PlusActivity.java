@@ -16,7 +16,7 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description
  */
 public abstract class PlusActivity extends FragmentActivity {
@@ -26,6 +26,11 @@ public abstract class PlusActivity extends FragmentActivity {
         return (T) findViewById(id);
     }
 
+    @SuppressWarnings("unchecked")
+    public <T extends Fragment> T getFragmentByTag(String tag) {
+        return (T) getSupportFragmentManager().findFragmentByTag(tag);
+    }
+
     public Activity getActivity() {
         return this;
     }
@@ -33,16 +38,11 @@ public abstract class PlusActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (savedInstanceState != null) {
-            Logger.e(this, "回收后重新创建");
+            Logger.e(this, "回收后重新创建了");
         }
 
         ActivityCollector.addActivityToStack(this);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
     }
 
     @Override
@@ -68,10 +68,6 @@ public abstract class PlusActivity extends FragmentActivity {
         getSupportFragmentManager().executePendingTransactions();
     }
 
-    public void addFragment(int layout_id, Fragment fragment, String tag) {
-        addFragment(layout_id, fragment, tag, false);
-    }
-
     public void addFragment(int layout_id, Fragment fragment) {
         addFragment(layout_id, fragment, fragment.getClass().getSimpleName(), false);
     }
@@ -86,8 +82,8 @@ public abstract class PlusActivity extends FragmentActivity {
         getSupportFragmentManager().executePendingTransactions();
     }
 
-    public void replaceFragment(int layout_id, Fragment fragment, String tag) {
-        replaceFragment(layout_id, fragment, tag, false);
+    public void replaceFragment(int layout_id, Fragment fragment) {
+        replaceFragment(layout_id, fragment, fragment.getClass().getSimpleName(), false);
     }
 
     public void removeFragment(Fragment fragment) {
@@ -95,11 +91,6 @@ public abstract class PlusActivity extends FragmentActivity {
         ft.remove(fragment);
         ft.commitAllowingStateLoss();
         getSupportFragmentManager().executePendingTransactions();
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T extends Fragment> T getFragmentByTag(String tag) {
-        return (T) getSupportFragmentManager().findFragmentByTag(tag);
     }
 
     /**
@@ -111,16 +102,13 @@ public abstract class PlusActivity extends FragmentActivity {
         ft.commitAllowingStateLoss();
     }
 
-    /**
-     * add + show
-     */
     public Fragment showFragmentByClass(Class<? extends Fragment> fragment_class, int layout_id) {
         Fragment fragment = getFragmentByTag(fragment_class.getSimpleName());
         if (fragment == null) {
             try {
                 Constructor<? extends Fragment> cons = fragment_class.getConstructor();
                 fragment = cons.newInstance();
-                addFragment(layout_id, fragment, fragment.getClass().getSimpleName());
+                addFragment(layout_id, fragment);
             } catch (Exception e) {
                 e.printStackTrace();
             }

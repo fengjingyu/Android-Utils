@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author  fengjingyu@foxmail.com
  * @description 使用时记得在清单文件中注册 ShowExceptionsActivity
  */
 public class ShowExceptionsActivity extends Activity {

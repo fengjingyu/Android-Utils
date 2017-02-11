@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/xc_id_fragment_photo_camera_imageview"
+        android:id="@+id/cameraImageView"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_centerInParent="true"

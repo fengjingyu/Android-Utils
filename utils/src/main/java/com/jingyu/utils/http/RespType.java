@@ -1,7 +1,7 @@
 package com.jingyu.utils.http;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description http的响应结果
  */
 public enum RespType {

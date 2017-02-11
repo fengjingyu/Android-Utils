@@ -56,13 +56,10 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
     private void showDialog(ReqInfo reqInfo) {
         if (activityContext != null && reqInfo.isShowDialog()) {
             DialogManager dialogManager = DialogManager.getInstance(activityContext);
-
-            if (dialogManager.isDialogNull()) {
-                // TODO 更新dialog
-                // setDialogListener(DIALOG)
-                // dialogManager.updateHttpDialog(DIALOG);
-            }
-            dialogManager.show(String.valueOf(this.hashCode()));
+            // TODO 设置dialog
+            // addDialogListener(dialog)
+            // dialogManager.setDialog(dialog);
+            // dialogManager.mayShow(toString());
         }
     }
 
@@ -129,21 +126,18 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     private void closeDialog(boolean isShowDialog) {
         if (activityContext != null && isShowDialog) {
-            DialogManager.getInstance(activityContext).close(String.valueOf(hashCode()));
+            DialogManager.getInstance(activityContext).mayClose(toString());
         }
     }
 
-    public final void setDialogListener(Dialog dialog) {
-
+    public final void addDialogListener(Dialog dialog) {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-
                     closeDialog(true);
-
-                    if (!(activityContext instanceof MainActivity)) {
+                    if (activityContext != null && !(activityContext instanceof MainActivity)) {
                         activityContext.finish();
                     }
                 }

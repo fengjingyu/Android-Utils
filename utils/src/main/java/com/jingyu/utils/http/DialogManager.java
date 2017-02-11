@@ -2,11 +2,9 @@ package com.jingyu.utils.http;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.view.KeyEvent;
 
-import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.Constants;
+import com.jingyu.utils.function.helper.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,102 +18,97 @@ public class DialogManager {
     /**
      * 每一个activity对应一个DialogManager
      */
-    protected static DialogManager currentManager;
+    private static DialogManager instance;
     /**
      * 记录需要加载dialog的网络请求
      * <p/>
      * String:哪一个网络请求tag
-     * Boolean:为null或false表示还没发请求 或 请求完成了 ，为true表示请求未完成
+     * Boolean:为null或false表示还没发请求或请求完成了，为true表示请求未返回
      */
-    protected Map<String, Boolean> mHttpDialogRecoder;
-
+    private Map<String, Boolean> mRequests;
     /**
      * 加载中的dialog
      */
-    protected Dialog mHttpDialog;
-
+    private Dialog mHttpDialog;
     /**
      * 当前在哪个页面
      */
-    protected Activity mCurrentActivity;
+    private Activity mCurrentActivity;
 
-    /**
-     * @param activity 当前activity
-     */
+    private Activity getCurrentActivity() {
+        return mCurrentActivity;
+    }
+
     private DialogManager(Activity activity) {
         this.mCurrentActivity = activity;
-        this.mHttpDialogRecoder = new HashMap<>();
+        this.mRequests = new HashMap<>();
     }
 
     public static DialogManager getInstance(Activity activity) {
-
-        if (currentManager == null) {
-            currentManager = new DialogManager(activity);
+        if (instance == null) {
+            instance = new DialogManager(activity);
         } else {
-
-            if (currentManager.getmCurrentActivity() == activity) {
+            if (instance.getCurrentActivity() == activity) {
                 // do nothing
             } else {
-                currentManager.forceCloseDialog();
-                currentManager = new DialogManager(activity);
+                instance.closeHttpDialog();
+                instance = new DialogManager(activity);
             }
         }
-
-        return currentManager;
+        return instance;
     }
 
-    public boolean isAllRequestEnd() {
-
-        for (Map.Entry<String, Boolean> entry : mHttpDialogRecoder.entrySet()) {
+    private boolean isAllRequestEnd() {
+        for (Map.Entry<String, Boolean> entry : mRequests.entrySet()) {
             if (entry.getValue()) {
                 // 表示还有请求没有回来
                 return false;
             }
         }
         return true;
+    }
 
+    public void setDialog(Dialog httpDialog) {
+        if (httpDialog == null) {
+            throw new RuntimeException("DialogManager---setDialog()的httpDialog参数为null");
+        }
+        if (mHttpDialog == null || isAllRequestEnd()) {
+            // 只有没有进行中的请求时才可以更新dialog
+            mHttpDialog = httpDialog;
+        }
     }
 
     /**
-     * 当dialog不为null  且 show了，才会加入到集合中
-     *
-     * @param hashCode
+     * @param uniqueTag 记录这次请求的唯一标识符,可以用respHandler.toString();
      */
-    public void show(String hashCode) {
-
+    public void mayShow(String uniqueTag) {
         if (mHttpDialog == null) {
-            return;
+            throw new RuntimeException("DialogManager---mayShow()方法内的dialog为null,请先调用setDailog()");
         }
 
         if (isAllRequestEnd()) {
             // 没有正在进行的请求 或 所有已发出的请求都已返回
-            showHttpDialog();
-        }
-        // 记录将发出且需要转dialog的请求
-        mHttpDialogRecoder.put(hashCode, true);
-    }
-
-    public void close(String hashCode) {
-
-        if (mHttpDialog == null) {
-            return;
-        }
-
-        if (mHttpDialogRecoder.containsKey(hashCode)) {
-            // 从集合中删除需要转dialog的请求
-            mHttpDialogRecoder.remove(hashCode);
-
-            if (isAllRequestEnd()) {
-                closeHttpDialog();
-            }
-        }
-
-    }
-
-    private void showHttpDialog() {
-        if (mHttpDialog != null && !mHttpDialog.isShowing()) {
             mHttpDialog.show();
             Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "---showHttpDialog()");
+        } else {
+            // 有转dialog的请求未返回,页面正在转dialog
+        }
+
+        // 记录需要转dialog的请求
+        mRequests.put(uniqueTag, true);
+    }
+
+    /**
+     * @param uniqueTag 记录这次请求的唯一标识符,可以用respHandler.toString();
+     */
+    public void mayClose(String uniqueTag) {
+        if (mRequests.containsKey(uniqueTag)) {
+            // 从集合中删除需要转dialog的请求
+            mRequests.remove(uniqueTag);
+            if (isAllRequestEnd()) {
+                closeHttpDialog();
+                instance = null;
+            }
         }
     }
 
@@ -124,61 +117,6 @@ public class DialogManager {
             mHttpDialog.cancel();
             Logger.i(Constants.TAG_RESP_HANDLER, this.toString() + "---closeHttpDialog()");
         }
-    }
-
-    public void updateHttpDialog(Dialog httpDialog) {
-
-        if (httpDialog == null) {
-            return;
-        }
-
-        if (isAllRequestEnd()) {
-            // 只有在所有请求都返回了，才可以更新dialog
-            if (mHttpDialog != null) {
-                mHttpDialog.cancel();
-                mHttpDialog = null;
-            }
-
-            mHttpDialog = httpDialog;
-
-            mHttpDialog.setCanceledOnTouchOutside(false);
-            mHttpDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        onDialogKeyBackAction();
-                    }
-                    return false;
-                }
-            });
-        }
-    }
-
-    public void onDialogKeyBackAction() {
-
-        forceCloseDialog();
-
-        // 关闭activity
-        mCurrentActivity.finish();
-    }
-
-    public void forceCloseDialog() {
-        // 清空集合
-        mHttpDialogRecoder.clear();
-        // 关闭dialog
-        closeHttpDialog();
-    }
-
-    public Activity getmCurrentActivity() {
-        return mCurrentActivity;
-    }
-
-    public boolean isDialogNull() {
-        return mHttpDialog == null;
-    }
-
-    public void clear() {
-        currentManager = null;
     }
 
 }

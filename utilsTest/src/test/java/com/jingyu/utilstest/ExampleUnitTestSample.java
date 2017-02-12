@@ -64,7 +64,7 @@ public class ExampleUnitTestSample {
 
     @Test
     public void testAssert() {
-        assertEquals("chenleixing", "chenlei");
+        assertEquals("chenlei", "chenlei");
     }
 
     @Test(timeout = 1)

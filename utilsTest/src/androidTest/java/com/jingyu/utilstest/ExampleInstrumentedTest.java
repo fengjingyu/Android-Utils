@@ -7,7 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.json.JsonBean;
 import com.jingyu.utils.json.JsonParse;
-import com.jingyu.utils.util.UtilSystem;
 import com.jingyu.utilstest.model.TestModel;
 
 import org.json.JSONArray;
@@ -30,22 +29,23 @@ import static junit.framework.Assert.assertEquals;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() throws Exception {
-        // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
-        assertEquals("com.jingyu.guolinbook", appContext.getPackageName());
+        assertEquals("com.jingyu.utilstest", appContext.getPackageName());
     }
 
+    @Test
     public void testRuntime() {
         Logger.i("Runtime.getRuntime().availableProcessors()--" + Runtime.getRuntime().availableProcessors());
         Logger.i("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory());
     }
 
-    private void testUUID() {
+    @Test
+    public void testUUID() {
         Logger.i("UUID----" + UUID.randomUUID() + "----" + UUID.randomUUID().toString().length());
     }
 
-    private void testLinkedBlockQueue() {
+    @Test
+    public void testLinkedBlockQueue() {
         LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<>();
         queue.add("a");
         queue.add("b");
@@ -71,7 +71,8 @@ public class ExampleInstrumentedTest {
         Logger.i(queue.peek()); //b
     }
 
-    private void testJsonFormat() {
+    @Test
+    public void testJsonFormat() {
         String str = "{\n" +
                 "    \"code\": 0,\n" +
                 "    \"msg\": \"success\",\n" +
@@ -106,10 +107,9 @@ public class ExampleInstrumentedTest {
             e.printStackTrace();
             Logger.e(this.toString() + "---exception");
         }
-
-        Logger.i(UtilSystem.getDeviceId(InstrumentationRegistry.getTargetContext()) + "--------------deviceId");
     }
 
+    @Test
     public void testSubList() {
         List<TestModel> list = new ArrayList<>();
         TestModel model = new TestModel();

@@ -20,7 +20,6 @@ import java.util.Map;
  * 4 model的字段之上的注释会生成在db类中（仅多行注释）
  * 5 通过配置@query @update @delete可以生成对应的删查改方法
  * <p>
- * https://github.com/fengjingyu/Android-CodeGenerator
  */
 public class ModelDb extends SQLiteOpenHelper {
 

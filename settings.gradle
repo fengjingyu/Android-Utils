@@ -1,1 +1,1 @@
-include ':utilsTest', ':utils'
+include ':utilsTest', ':utils', ':tools'

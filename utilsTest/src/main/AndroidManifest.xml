@@ -80,6 +80,8 @@
         <activity android:name=".CloneActivity" />
         <activity android:name=".EncryptActivity" />
         <activity android:name="com.jingyu.app.CatalogueActivity" />
+        <activity android:name="com.jingyu.app.MenuDialogPercentActivity" />
+        <activity android:name="com.jingyu.app.ArrayAdapterActivity" />
 
         <meta-data
             android:name="MULTI_CHANNEL"

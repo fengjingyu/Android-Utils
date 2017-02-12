@@ -21,15 +21,14 @@ import javax.swing.JTextField;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
- * 1 model中的static的字段不会生成在db类中
+ * @description 1 model中的static的字段不会生成在db类中
  * 2 @ignore可以忽略model的某一个字段不生成在db类中
  * 3 默认会生成 insert（存入一个） inserts(批量存入) deleteAll(删除所有) queryCount(查询所有数量) queryAll（查询所有） queryPage（分页）方法
  * 4 model的字段之上的注释会生成在db类中（仅多行注释）
  * 5 通过配置@query @update @delete可以生成对应的删查改方法
  * <p>
  */
-public class DbCodeGenerator {
+public class DbGenerator {
     public static String LINE = System.getProperty("line.separator");
     /**
      * 创建文件的类名 = modelName+“。db”
@@ -364,7 +363,7 @@ public class DbCodeGenerator {
         }
         sb.append("SQLiteDatabase db = getWritableDatabase();\n");
         sb.append("int rows = db.delete(mOperatorTableName, " + where + " ," + whereArgs + ");\n");
-        sb.append("	//XCLog.i(XCConfig.TAG_DB, \"" + methodName + "()-->\" + rows + \"行\");\n");
+        sb.append("	//Logger.i(\"" + methodName + "()-->\" + rows + \"行\");\n");
         sb.append("db.close();\n");
         sb.append("return rows;\n}\n");
         return sb.toString();
@@ -384,7 +383,7 @@ public class DbCodeGenerator {
         sb.append("SQLiteDatabase db = getWritableDatabase();\n");
         sb.append("ContentValues values = createContentValue(model);\n");
         sb.append("int rows = db.update(mOperatorTableName, values, " + where + " , " + whereArgs + ");\n");
-        sb.append("	//XCLog.i(XCConfig.TAG_DB,\"" + methodName + "()更新了\" + rows + \"行\");\n");
+        sb.append("	//Logger.i(\"" + methodName + "()更新了\" + rows + \"行\");\n");
         sb.append("db.close();\n");
         sb.append("return rows;\n}\n");
         return sb.toString();
@@ -437,7 +436,7 @@ public class DbCodeGenerator {
                 "                                           ) {\n"
                 + "        try {\n"
                 +
-                "            // XCLog.i(XCConfig.TAG_DB, \"dbClazz----instanceDb()\");\n"
+                "            // Logger.i(\"dbClazz----instanceDb()\");\n"
                 +
                 "            Constructor constructor = dbClazz.getConstructor(Context.class, String.class);\n"
                 +
@@ -445,7 +444,7 @@ public class DbCodeGenerator {
                 + "            return (" + fileName + ") o;\n"
                 + "        } catch (Exception e) {\n"
                 + "            e.printStackTrace();\n"
-                + "            // XCLog.e(context, \"\", e);\n"
+                + "            // Logger.e(context, \"\", e);\n"
                 + "            return null;\n" + "        }\n" + "    }\n";
     }
 
@@ -667,7 +666,7 @@ public class DbCodeGenerator {
         sb.append("SQLiteDatabase db = getWritableDatabase();\n");
         sb.append("ContentValues values = createContentValue(model);\n");
         sb.append("long id = db.insert(mOperatorTableName, _ID, values);\n");
-        sb.append("	//XCLog.i(XCConfig.TAG_DB, \"insert()插入的记录的id是: \" + id);\n");
+        sb.append("	//Logger.i(\"insert()插入的记录的id是: \" + id);\n");
         sb.append("db.close();\n");
         sb.append("return id;\n}\n");
         return sb.toString();
@@ -684,7 +683,7 @@ public class DbCodeGenerator {
 
         sb.append("ContentValues values = createContentValue(model);\n");
         sb.append("long id = db.insert(mOperatorTableName, _ID, values);\n");
-        sb.append("	//XCLog.i(XCConfig.TAG_DB, \"insert()插入的记录的id是: \" + id);\n");
+        sb.append("	//Logger.i(\"insert()插入的记录的id是: \" + id);\n");
         sb.append("	count++;\n");
         sb.append("}\n");
         sb.append("db.close();\n");
@@ -1148,19 +1147,3 @@ public class DbCodeGenerator {
         return origin;
     }
 }
-
-
-// public void remit(int from, int to, int amount) {
-// SQLiteDatabase qlk_db = helper.getWritableDatabase();
-// try {
-// qlk_db.beginTransaction(); // 开始事务
-// qlk_db.execSQL("UPDATE person SET balance=balance-? WHERE id=?", new
-// Object[] { amount, from });
-// qlk_db.execSQL("UPDATE person SET balance=balance+? WHERE id=?", new
-// Object[] { amount, to });
-// qlk_db.setTransactionSuccessful(); // 事务结束时, 成功点之前的操作会被提交
-// } finally {
-// qlk_db.endTransaction(); // 结束事务, 将成功点之前的操作提交
-// qlk_db.close();
-// }
-// }

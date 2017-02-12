@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @author  fengjingyu@foxmail.com
  * @description
  */
-public class SpCodeGenerator {
+public class SpGenerator {
 
     public static JFrame frame;
     public static JTextField textfield;

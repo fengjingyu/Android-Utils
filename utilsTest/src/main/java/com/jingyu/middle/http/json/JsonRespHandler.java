@@ -10,8 +10,8 @@ import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.json.JsonParse;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description JsonModel jsonparse解析实现的handler
+ * @author fengjingyu@foxmail.com
+ * @description jsonparse解析的http回调类
  */
 public class JsonRespHandler extends BaseRespHandler<JsonModel> {
 

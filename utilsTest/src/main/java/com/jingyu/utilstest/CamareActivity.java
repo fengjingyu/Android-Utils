@@ -12,13 +12,13 @@ import com.jingyu.utils.function.photo.AblumPhotoFragment;
 import java.io.File;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class CamareActivity extends BaseActivity {
-    CameraPhotoFragment camera_fragment;
-    AblumPhotoFragment local_fragment;
-    ImageView id_imageview;
+    private CameraPhotoFragment cameraPhotoFragment;
+    private AblumPhotoFragment ablumPhotoFragment;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,41 +29,41 @@ public class CamareActivity extends BaseActivity {
     }
 
     public void initWidgets() {
-        camera_fragment = new CameraPhotoFragment();
-        local_fragment = new AblumPhotoFragment();
+        cameraPhotoFragment = new CameraPhotoFragment();
+        ablumPhotoFragment = new AblumPhotoFragment();
 
-        // camera_fragment.setIsAllowResizeImage(true);
-        camera_fragment.setImage(R.drawable.ic_launcher);
-        local_fragment.setImage(R.drawable.ic_launcher);
-        local_fragment.setIsAllowResizeImage(true);
+        // cameraPhotoFragment.setIsAllowResizeImage(true);
+        cameraPhotoFragment.setImage(R.mipmap.ic_launcher);
+        ablumPhotoFragment.setImage(R.mipmap.ic_launcher);
+        ablumPhotoFragment.setIsAllowResizeImage(true);
 
-        id_imageview = getViewById(R.id.id_imageview);
+        imageView = getViewById(R.id.imageview);
 
-        addFragment(R.id.xc_id_fragment_test_local, local_fragment);
-        addFragment(R.id.xc_id_fragment_test_camera, camera_fragment);
+        addFragment(R.id.ablum_layout, ablumPhotoFragment);
+        addFragment(R.id.camare_layout, cameraPhotoFragment);
 
     }
 
     public void setListeners() {
-        camera_fragment.setOnCaremaSelectedFileListener(new CameraPhotoFragment.OnCaremaSelectedFileListener() {
+        cameraPhotoFragment.setOnCaremaSelectedFileListener(new CameraPhotoFragment.OnCaremaSelectedFileListener() {
 
             @Override
             public void onCaremaSelectedFile(File file) {
                 Logger.i(Uri.fromFile(file));
                 Logger.i(file.getAbsolutePath());
                 Logger.i(file.toURI());
-                id_imageview.setImageURI(Uri.fromFile(file));
+                imageView.setImageURI(Uri.fromFile(file));
             }
         });
 
-        local_fragment.setOnLocalSelectedFileListener(new AblumPhotoFragment.OnLocalSelectedFileListener() {
+        ablumPhotoFragment.setOnLocalSelectedFileListener(new AblumPhotoFragment.OnLocalSelectedFileListener() {
 
             @Override
             public void onLocalSelectedFile(File file) {
                 Logger.i(Uri.fromFile(file));
                 Logger.i(file.getAbsolutePath());
                 Logger.i(file.toURI());
-                id_imageview.setImageURI(Uri.fromFile(file));
+                imageView.setImageURI(Uri.fromFile(file));
             }
         });
     }

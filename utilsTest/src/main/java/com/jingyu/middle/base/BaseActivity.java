@@ -6,16 +6,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 
+import com.jingyu.utils.application.PlusActivity;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilBroadcast;
-import com.jingyu.utilstest.R;
-import com.jingyu.utils.application.PlusActivity;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public abstract class BaseActivity extends PlusActivity {
@@ -33,12 +30,11 @@ public abstract class BaseActivity extends PlusActivity {
     private BroadcastReceiver mNetReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
             NetworkInfo info = mConnectivityManager.getActiveNetworkInfo();
 
-            boolean hasConnectivity = info != null && info.isConnected();
+            boolean hasConnectivity = (info != null && info.isConnected());
 
             if (hasConnectivity) {
                 Logger.dShortToast("有网");
@@ -108,24 +104,20 @@ public abstract class BaseActivity extends PlusActivity {
     }
 
     @Override
-    public void addFragment(int layout_id, Fragment fragment, String tag, boolean isToBackStack) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // 增加了动画效果
-        ft.setCustomAnimations(R.anim.anim_alpha_in, R.anim.anim_alpha);
-        ft.add(layout_id, fragment, tag);
-        if (isToBackStack) {
-            ft.addToBackStack(tag);
-        }
-        ft.commitAllowingStateLoss();
-        getSupportFragmentManager().executePendingTransactions();
+    public void onBackPressed() {
+        super.onBackPressed();
+        Logger.i(this, "---onBackPressed");
     }
 
     @Override
-    public void showFragment(Fragment fragment) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // 增加了动画效果
-        ft.setCustomAnimations(R.anim.anim_alpha_in, R.anim.anim_alpha);
-        ft.show(fragment);
-        ft.commitAllowingStateLoss();
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Logger.i(this, "---onNewIntent");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Logger.i(this, "---onSaveInstanceState");
     }
 }

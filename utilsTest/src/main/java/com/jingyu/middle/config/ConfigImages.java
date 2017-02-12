@@ -18,7 +18,7 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.jingyu.utilstest.R;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ConfigImages {
@@ -27,13 +27,13 @@ public class ConfigImages {
      * 默认图片加载option的配置
      */
     // TODO 修改默认图片
-    public static DisplayImageOptions default_image_options = new DisplayImageOptions.Builder()
+    public static DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
 
-            .showImageOnLoading(R.drawable.ic_launcher) // 设置图片在下载期间显示的图片
+            .showImageOnLoading(R.mipmap.ic_launcher) // 设置图片在下载期间显示的图片
 
-            .showImageForEmptyUri(R.drawable.ic_launcher)// 设置图片Uri为空或是错误的时候显示的图片
+            .showImageForEmptyUri(R.mipmap.ic_launcher)// 设置图片Uri为空或是错误的时候显示的图片
 
-            .showImageOnFail(R.drawable.ic_launcher) // 设置图片加载/解码过程中错误时候显示的图片
+            .showImageOnFail(R.mipmap.ic_launcher) // 设置图片加载/解码过程中错误时候显示的图片
 
             .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
 
@@ -53,46 +53,42 @@ public class ConfigImages {
      * imageloader 的配置
      */
     public static ImageLoader getImageloader(Context context) {
-        ImageLoader.getInstance().init(
-                new ImageLoaderConfiguration
+        ImageLoader.getInstance().init(new ImageLoaderConfiguration.Builder(context)
 
-                        .Builder(context)
+                .memoryCacheExtraOptions(480, 800)
+                // max width, max height，即保存的每个缓存文件的最大长宽
 
-                        .memoryCacheExtraOptions(480, 800)
-                        // max width, max height，即保存的每个缓存文件的最大长宽
+                .threadPoolSize(3)
+                // 线程池内加载的数量
 
-                        .threadPoolSize(3)
-                        // 线程池内加载的数量
+                .threadPriority(Thread.NORM_PRIORITY - 2)
 
-                        .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
 
-                        .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new WeakMemoryCache())
+                // You can pass your own memory cache
+                // implementation/你可以通过自己的内存缓存实现
+                // .memoryCacheSize(5 * 1024 * 1024)
+                .discCacheSize(50 * 1024 * 1024)
 
-                        .memoryCache(new WeakMemoryCache())
-                        // You can pass your own memory cache
-                        // implementation/你可以通过自己的内存缓存实现
-                        // .memoryCacheSize(5 * 1024 * 1024)
-                        .discCacheSize(50 * 1024 * 1024)
+                // 将保存的时候的URI名称用MD5 加密
+                .discCacheFileNameGenerator(new Md5FileNameGenerator())
 
-                        .discCacheFileNameGenerator(new Md5FileNameGenerator())
-                        // 将保存的时候的URI名称用MD5 加密
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
 
-                        .tasksProcessingOrder(QueueProcessingType.LIFO)
+                // 缓存的文件数量
+                .discCacheFileCount(500)
 
-                        .discCacheFileCount(500)
-                        // 缓存的文件数量
+                // 自定义缓存路径
+                .discCache(new UnlimitedDiscCache(UtilIoAndr.createDirInAndroid(context, ConfigFile.CACHE_DIR)))
 
-                        .discCache(new UnlimitedDiscCache(UtilIoAndr.createDirInAndroid(context, ConfigFile.CACHE_DIR)))
-                        // 自定义缓存路径
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
 
-                        .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
+                .imageDownloader(new BaseImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout
 
-                        .imageDownloader(
-                                new BaseImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout
+                .writeDebugLogs() // Remove for release app
 
-                        .writeDebugLogs() // Remove for release app
-
-                        .build());// 开始构建
+                .build());// 开始构建
         return ImageLoader.getInstance();
     }
 

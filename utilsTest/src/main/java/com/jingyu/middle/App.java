@@ -2,6 +2,7 @@ package com.jingyu.middle;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 
 import com.jingyu.middle.config.ConfigFile;
 import com.jingyu.middle.config.ConfigImages;
@@ -19,8 +20,11 @@ import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.GINGERBREAD;
+
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  */
 public class App extends Application {
 
@@ -53,7 +57,7 @@ public class App extends Application {
     }
 
     private void initSp() {
-        SPHelper.initSP(getApplicationContext(), ConfigFile.SP_FILE, Context.MODE_APPEND);// Context.MODE_MULTI_PROCESS
+        SPHelper.initSP(getApplicationContext(), ConfigFile.SP_FILE, Context.MODE_APPEND);// Context.MODE_MULTI_PROCES
     }
 
     private void initLog() {
@@ -61,15 +65,11 @@ public class App extends Application {
     }
 
     private void createDir() {
-        // 应用存储日志 缓存等信息的顶层文件夹
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
-        // 图片视频等缓存的文件夹
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.MOIVE_DIR);
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.VIDEO_DIR);
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.PHOTO_DIR);
-        // crash文件夹
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CRASH_DIR);
-        // cache文件夹
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CACHE_DIR);
     }
 
@@ -78,7 +78,7 @@ public class App extends Application {
     }
 
     private void initImageLoader() {
-        Image.initImager(new UniversalImageLoader(ConfigImages.getImageloader(getApplicationContext()), ConfigImages.default_image_options));
+        Image.initImager(new UniversalImageLoader(ConfigImages.getImageloader(getApplicationContext()), ConfigImages.displayImageOptions));
     }
 
     private void initCrash() {
@@ -102,7 +102,7 @@ public class App extends Application {
         Logger.i("域名环境--" + ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString());
         Logger.i("日志环境--" + ConfigLog.DEBUG_CONTROL.toString());
 
-        // Logger.i("cpuinfo--" + UtilSystem.getCPUInfos());
+        //Logger.i("cpuinfo--" + UtilSystem.getCPUInfos());
         Logger.i("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
         Logger.i("model--" + UtilSystem.getModel());
         Logger.i("operatorName--" + UtilSystem.getOperatorName(getApplicationContext()));
@@ -125,15 +125,14 @@ public class App extends Application {
     private void initLeakCanary() {
         if (!(ConfigLog.DEBUG_CONTROL == ConfigLog.DebugControl.CLOSE)) {
 
-//            if (SDK_INT >= GINGERBREAD) {
-//                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder() //
-//                        .detectAll()
-//                        .penaltyLog()
-//                        .penaltyDeath()
-//                        .build());
-//            }
-
-            // LeakCanary.install(this);
+          /*  if (SDK_INT >= GINGERBREAD) {
+                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                        .detectAll()
+                        .penaltyLog()
+                        .penaltyDeath()
+                        .build());
+            }
+            LeakCanary.install(this);*/
         }
     }
 }

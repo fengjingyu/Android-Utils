@@ -23,7 +23,7 @@ import com.jingyu.utils.util.UtilView;
 import java.util.List;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ContactsActivity extends BaseActivity {
@@ -62,7 +62,6 @@ public class ContactsActivity extends BaseActivity {
                 holder = (ContactViewHolder) convertView.getTag();
             }
 
-            // 获取和设置控件的显示值
             holder.textview.setText(bean.name + "--" + bean.email + "--" + bean.phone_number);
             Image.displayImage("http://www.baidu.com/img/bdlogo.png", holder.imageview);
 
@@ -77,12 +76,10 @@ public class ContactsActivity extends BaseActivity {
     }
 
     public void initWidgets() {
-        // listview
         contacts_listview = getViewById(R.id.contacts_list);
         UtilView.setListViewStyle(contacts_listview, null, 1, false);
 
-
-        final Dialog dialog = new ProgressDialog(this);
+        final Dialog dialog = new ProgressDialog(getActivity());
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
@@ -90,7 +87,7 @@ public class ContactsActivity extends BaseActivity {
             @Override
             public void run() {
                 // 获取联系人
-                final List<UtilContacts.ContactBean> list = UtilContacts.getContacts(ContactsActivity.this);
+                final List<UtilContacts.ContactBean> list = UtilContacts.getContacts(getApplicationContext());
 
                 handler.post(new Runnable() {
                     @Override
@@ -98,7 +95,7 @@ public class ContactsActivity extends BaseActivity {
                         Logger.i(list);
 
                         // 创建adapter
-                        ContactsAdapter adpater = new ContactsAdapter(ContactsActivity.this, list);
+                        ContactsAdapter adpater = new ContactsAdapter(getActivity(), list);
                         // 设置adapter
                         contacts_listview.setAdapter(adpater);
 
@@ -107,8 +104,6 @@ public class ContactsActivity extends BaseActivity {
                 });
             }
         });
-
-
     }
 
 }

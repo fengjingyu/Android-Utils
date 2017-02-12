@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xc_id_model_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c_white_ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
+            android:lineSpacingMultiplier="1.2"
+            android:textAllCaps="false"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/to_taskactivity0"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="to_taskactivity0"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/to_taskactivity1"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="to_taskactivity1"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/to_taskactivity2"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="to_taskactivity2"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/finish_taskactivity1"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="finish_taskactivity1"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/finish_taskactivity2"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="finish_taskactivity2"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/finish_current_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="finish_current_activity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/finish_all_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="finish_all_activity"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/finish_activity_then_startActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="finish_activity_then_startActivity"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</ScrollView>
+
+

@@ -5,8 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
+import com.jingyu.app.MainActivity;
 import com.jingyu.middle.App;
-import com.jingyu.utilstest.MainActivity;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.DialogManager;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public abstract class BaseRespHandler<T> implements RespHandler<T> {
@@ -57,14 +57,15 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
         if (activityContext != null && reqInfo.isShowDialog()) {
             DialogManager dialogManager = DialogManager.getInstance(activityContext);
             // TODO 设置dialog
-            // addDialogListener(dialog)
-            // dialogManager.setDialog(dialog);
-            // dialogManager.mayShow(toString());
+            Dialog dialog = new SystemDialog(activityContext);
+            addDialogListener(dialog);
+            dialogManager.setDialog(dialog);
+            dialogManager.mayShow(toString());
         }
     }
 
     /**
-     * 后台成功的返回码
+     * 服务端定义的成功状态码
      **/
     public static final String REQ_SUCCESS = "1";
 
@@ -173,9 +174,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
      * 设置请求对象的生成时间
      */
     public void setSendTime(ReqInfo reqInfo) {
-
         long time = System.currentTimeMillis();
-
         reqInfo.setSendTime(time + Constants.COMMA_EN + UtilDate.format(new Date(time)));
     }
 

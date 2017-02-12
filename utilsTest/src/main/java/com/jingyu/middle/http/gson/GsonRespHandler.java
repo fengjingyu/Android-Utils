@@ -9,8 +9,8 @@ import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 
 /**
- * @email fengjingyu@foxmail.com
- * @description gson解析的实现类
+ * @author fengjingyu@foxmail.com
+ * @description gson解析的http回调类
  */
 public class GsonRespHandler<T> extends BaseRespHandler<T> {
 
@@ -25,6 +25,9 @@ public class GsonRespHandler<T> extends BaseRespHandler<T> {
         this.clazz = clazz;
     }
 
+    /**
+     * 该方法是在子线程中的，解析失败返回null
+     */
     @Override
     public T onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 

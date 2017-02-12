@@ -1,7 +1,7 @@
 package com.jingyu.middle.http;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public interface IHttpRespInfo {

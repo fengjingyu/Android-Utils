@@ -19,88 +19,88 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/id_timer"
+                android:id="@+id/timer"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="几个定时器的例子" />
 
             <Button
-                android:id="@+id/id_clearcache"
+                android:id="@+id/clearcache"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="缓存清理的封装类" />
 
             <Button
-                android:id="@+id/id_contacts"
+                android:id="@+id/contacts"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:text="获取联系人" />
 
             <Button
-                android:id="@+id/id_lineGc"
+                android:id="@+id/destroygc"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="fragment与activity销毁时的回收问题" />
+                android:text="fragment与activity销毁时的回收问题"
+                android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/id_exception"
+                android:id="@+id/exception"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="crash异常的收集" />
+                android:text="crash异常的收集"
+                android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/id_test"
+                android:id="@+id/photo"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="sp存储、日志类、克隆、加密" />
+                android:text="封装了相册与摄像头获取图片的fragment"
+                android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/id_photo"
+                android:id="@+id/seachRecoder"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="封装了相册与摄像头获取图片的fragment" />
+                android:text="activity stack的管理"
+                android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/id_seachRecoder"
+                android:id="@+id/simpleadapter"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="多页面的搜索记录存储与activity stack的管理" />
+                android:text="简单的adapter"
+                android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/id_baseAdapter"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="baseAdapter" />
-
-            <Button
-                android:id="@+id/id_recyclerView"
+                android:id="@+id/recyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="recycleView" />
 
             <Button
-                android:id="@+id/id_recycleView_waterfall"
+                android:id="@+id/recycleView_waterfall"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="recycleView瀑布流" />
 
             <Button
-                android:id="@+id/id_leakcanary"
+                android:id="@+id/leakcanary"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="内存泄露检测" />
 
             <Button
-                android:id="@+id/id_propertyAnim"
+                android:id="@+id/propertyAnim"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="属性动画" />
 
             <Button
-                android:id="@+id/id_handler"
+                android:id="@+id/handler"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="handler详解" />
+                android:text="handler详解"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

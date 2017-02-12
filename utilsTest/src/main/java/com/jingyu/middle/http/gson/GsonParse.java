@@ -10,9 +10,6 @@ import com.jingyu.utils.util.UtilString;
 import java.io.StringReader;
 import java.lang.reflect.Type;
 
-/**
- * @author songxin
- */
 public class GsonParse {
     private static Gson gson = null;
 
@@ -23,20 +20,11 @@ public class GsonParse {
         return gson;
     }
 
-    /**
-     * Transfer the java bean to JSON string.
-     * Notice the bean mast can be serialize.
-     *
-     * @param bean
-     * @return
-     */
     public static String toJson(Object bean) {
         return getGson().toJson(bean);
     }
 
     /**
-     * 将bean转成数组形式
-     *
      * @param bean
      * @param typeOfSrc Type typeOfSrc = new TypeToken<ArrayList<Object>>(){}.getType();
      * @return
@@ -45,14 +33,6 @@ public class GsonParse {
         return getGson().toJson(bean, typeOfSrc);
     }
 
-
-    /**
-     * parse JSON to java bean
-     *
-     * @param json
-     * @param objClass
-     * @return
-     */
     public static <T> Object parseJson(String json, Class<T> objClass) {
         if (!UtilString.isBlank(json)) {
             try {

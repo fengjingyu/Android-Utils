@@ -1,7 +1,7 @@
 package com.jingyu.middle.config;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ConfigUrl {

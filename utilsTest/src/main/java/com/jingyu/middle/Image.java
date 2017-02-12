@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import com.jingyu.utils.imageloader.IImageLoader;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class Image {

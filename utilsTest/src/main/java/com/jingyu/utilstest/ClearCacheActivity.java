@@ -13,14 +13,14 @@ import com.jingyu.utils.util.UtilIoAndr;
 import java.io.File;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ClearCacheActivity extends BaseActivity implements View.OnClickListener {
 
     private Button clear;
-    private CleanCacheHelper helper;
     private File dir;
+    private CleanCacheHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +29,14 @@ public class ClearCacheActivity extends BaseActivity implements View.OnClickList
 
         initWidgets();
         setListeners();
+        logic();
     }
 
     public void initWidgets() {
         clear = getViewById(R.id.clear);
-        // 如果没有该dir会创建再返回，有则返回该dir
+    }
+
+    private void logic() {
         dir = UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
 
         ProgressDialog dialog = new ProgressDialog(this);

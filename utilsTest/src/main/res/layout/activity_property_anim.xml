@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/id_animButton"
+        android:id="@+id/animButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -15,7 +15,7 @@
         android:background="@mipmap/ic_launcher" />
 
     <Button
-        android:id="@+id/id_animButton2"
+        android:id="@+id/animButton2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -23,11 +23,21 @@
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
         android:background="@mipmap/ic_launcher" />
+
     <Button
-        android:id="@+id/id_animButton3"
+        android:id="@+id/animButton3"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/animButton4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"

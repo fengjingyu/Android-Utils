@@ -6,7 +6,7 @@ import com.jingyu.middle.base.BaseActivity;
 
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ExceptionActivity extends BaseActivity {
@@ -16,7 +16,6 @@ public class ExceptionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         int a = 1 / 0;
-
     }
 
 }

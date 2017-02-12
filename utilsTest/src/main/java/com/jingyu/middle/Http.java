@@ -10,7 +10,7 @@ import com.jingyu.utils.http.IHttp.RespHandler;
 import java.util.Map;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class Http {

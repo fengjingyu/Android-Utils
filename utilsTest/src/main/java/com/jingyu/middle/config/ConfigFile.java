@@ -1,7 +1,7 @@
 package com.jingyu.middle.config;
 
 /**
- * @email fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ConfigFile {
@@ -21,7 +21,7 @@ public class ConfigFile {
      */
     public static String CACHE_DIR = APP_ROOT + "/cache";
     /**
-     * chat目录
+     * 目录
      */
     public static String MEDIA_DIR = APP_ROOT + "/media";
     /**

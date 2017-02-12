@@ -27,7 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.jingyu.app.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,14 +36,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CatalogueActivity"
-            android:launchMode="singleTask" />
-        <activity
             android:name="com.jingyu.utils.exception.ShowExceptionsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".TimerActivity"
+            android:name="com.jingyu.app.TimerActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ClearCacheActivity"
@@ -52,37 +49,43 @@
             android:name=".ContactsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityDestroyGC"
+            android:name="com.jingyu.app.DestroyGCActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ExceptionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TestActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".CamareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".stack.SearchActivity"
+            android:name=".TaskActivity0"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".TaskActivity1"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".stack.SearchActivity2"
+            android:name=".TaskActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".stack.StackActivity"
+            android:name=".TaskActivity3"
             android:screenOrientation="portrait" />
-        <activity android:name=".BaseAdapterActivity" />
-        <activity android:name=".recyclerview.RecycleViewActivity" />
-        <activity android:name=".recyclerview.WaterFallActivity" />
-        <activity android:name=".PropertyAnimActivity" />
-        <activity android:name=".LeakCanaryActivity" />
-        <activity android:name=".HandlerActivity" />
-
+        <activity android:name=".AdapterActivity" />
+        <activity android:name="com.jingyu.app.recyclerview.RecycleViewActivity" />
+        <activity android:name="com.jingyu.app.recyclerview.WaterFallActivity" />
+        <activity android:name="com.jingyu.app.PropertyAnimActivity" />
+        <activity android:name="com.jingyu.app.LeakCanaryActivity" />
+        <activity android:name="com.jingyu.app.HandlerActivity" />
+        <activity android:name=".LogActivity" />
+        <activity android:name=".SPActivity" />
+        <activity android:name=".CloneActivity" />
+        <activity android:name=".EncryptActivity" />
+        <activity android:name="com.jingyu.app.CatalogueActivity" />
 
         <meta-data
             android:name="MULTI_CHANNEL"
             android:value="${MULTI_CHANNEL_VALUE}" />
+
+        <activity android:name="com.jingyu.tooltest.db.DbActivity"></activity>
     </application>
 
 </manifest>

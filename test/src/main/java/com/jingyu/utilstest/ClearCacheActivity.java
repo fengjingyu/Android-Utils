@@ -1,6 +1,8 @@
 package com.jingyu.utilstest;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -60,5 +62,9 @@ public class ClearCacheActivity extends BaseActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
         helper.quit();
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, ClearCacheActivity.class));
     }
 }

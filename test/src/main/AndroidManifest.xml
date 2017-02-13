@@ -31,13 +31,11 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity android:name="com.jingyu.utils.exception.ShowExceptionsActivity" />
-
         <activity android:name=".TimerActivity" />
         <activity android:name=".DestroyGCActivity" />
         <activity android:name=".recyclerview.RecycleViewActivity" />
@@ -46,9 +44,8 @@
         <activity android:name=".LeakCanaryActivity" />
         <activity android:name=".HandlerActivity" />
         <activity android:name=".CatalogueActivity" />
-        <activity android:name=".MenuDialogPercentActivity" />
+        <activity android:name=".MenuDialogActivity" />
         <activity android:name=".ArrayAdapterActivity" />
-
         <activity android:name="com.jingyu.utilstest.ClearCacheActivity" />
         <activity android:name="com.jingyu.utilstest.ContactsActivity" />
         <activity android:name="com.jingyu.utilstest.LogActivity" />
@@ -65,11 +62,11 @@
         <activity android:name="com.jingyu.utilstest.TaskActivity3" />
         <activity android:name="com.jingyu.utilstest.AdapterActivity" />
 
-
         <meta-data
             android:name="MULTI_CHANNEL"
             android:value="${MULTI_CHANNEL_VALUE}" />
 
+        <activity android:name=".PercentLayoutActivity"/>
     </application>
 
 </manifest>

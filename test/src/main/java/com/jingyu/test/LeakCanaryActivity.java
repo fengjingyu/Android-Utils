@@ -15,6 +15,8 @@
  */
 package com.jingyu.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -69,6 +71,10 @@ public class LeakCanaryActivity extends BaseActivity {
                 return null;
             }
         }.execute();
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, LeakCanaryActivity.class));
     }
 }
 

@@ -1,6 +1,7 @@
 package com.jingyu.utilstest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,5 +71,9 @@ public class AdapterActivity extends BaseActivity {
                 this.textview = (TextView) view.findViewById(R.id.id_content);
             }
         }
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, AdapterActivity.class));
     }
 }

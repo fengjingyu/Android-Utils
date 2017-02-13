@@ -42,6 +42,11 @@ android {
             manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_360"]
         }
     }
+
+    dexOptions {
+        maxProcessCount 4
+        javaMaxHeapSize "3g"
+    }
 }
 
 dependencies {

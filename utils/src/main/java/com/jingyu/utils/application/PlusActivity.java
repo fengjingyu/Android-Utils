@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.jingyu.utils.function.helper.ActivityCollector;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author  fengjingyu@foxmail.com
  * @description
  */
-public abstract class PlusActivity extends FragmentActivity {
+public abstract class PlusActivity extends AppCompatActivity {
 
     @SuppressWarnings("unchecked")
     public <T extends View> T getViewById(int id) {

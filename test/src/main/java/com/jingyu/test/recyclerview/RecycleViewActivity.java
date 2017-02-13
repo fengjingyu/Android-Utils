@@ -1,5 +1,7 @@
 package com.jingyu.test.recyclerview;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -141,5 +143,9 @@ public class RecycleViewActivity extends BaseActivity implements View.OnClickLis
             default:
                 break;
         }
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, RecycleViewActivity.class));
     }
 }

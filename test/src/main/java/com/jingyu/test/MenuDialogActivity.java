@@ -6,19 +6,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.jingyu.middle.base.BaseActivity;
 
-public class MenuDialogPercentActivity extends AppCompatActivity {
+
+public class MenuDialogActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menudialogpercent);
+        setContentView(R.layout.activity_menu_dialog);
 
         android.support.v7.app.ActionBar supportActionBar = getSupportActionBar();
 
@@ -33,7 +34,7 @@ public class MenuDialogPercentActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MenuDialogPercentActivity.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
                 dialog.setTitle("title");
                 dialog.setMessage("test dialog");
                 dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
@@ -56,7 +57,7 @@ public class MenuDialogPercentActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProgressDialog dialog = new ProgressDialog(MenuDialogPercentActivity.this);
+                ProgressDialog dialog = new ProgressDialog(getActivity());
                 dialog.setTitle("title");
                 dialog.setMessage("test dialog");
                 dialog.show();
@@ -82,8 +83,8 @@ public class MenuDialogPercentActivity extends AppCompatActivity {
         return true;
     }
 
-
     public static void actionStart(Context context) {
-        context.startActivity(new Intent(context, MenuDialogPercentActivity.class));
+        context.startActivity(new Intent(context, MenuDialogActivity.class));
     }
+
 }

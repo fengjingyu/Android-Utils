@@ -1,5 +1,7 @@
 package com.jingyu.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -62,6 +64,10 @@ public class DestroyGCActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         Logger.i(this + "--onDestroy()");
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, DestroyGCActivity.class));
     }
 
 }

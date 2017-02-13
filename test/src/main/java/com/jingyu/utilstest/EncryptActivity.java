@@ -1,9 +1,11 @@
 package com.jingyu.utilstest;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 
+import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.encryption.aes.AesEncryptAndDecrypt;
 import com.jingyu.utils.encryption.des.DesEncryptAndDecrypt;
@@ -12,7 +14,7 @@ import com.jingyu.utils.encryption.rsa.Base64Helper;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilString;
 
-public class EncryptActivity extends AppCompatActivity {
+public class EncryptActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +58,9 @@ public class EncryptActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, EncryptActivity.class));
     }
 }

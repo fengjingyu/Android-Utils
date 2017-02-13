@@ -1,5 +1,7 @@
 package com.jingyu.test.recyclerview;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -58,5 +60,8 @@ public class WaterFallActivity extends BaseActivity {
         return list;
     }
 
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, WaterFallActivity.class));
+    }
 
 }

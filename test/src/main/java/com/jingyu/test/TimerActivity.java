@@ -1,5 +1,7 @@
 package com.jingyu.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -97,6 +99,10 @@ public class TimerActivity extends BaseActivity {
         timer.cancel();
         timer.purge();
         scheduled.shutdown();
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, TimerActivity.class));
     }
 
 }

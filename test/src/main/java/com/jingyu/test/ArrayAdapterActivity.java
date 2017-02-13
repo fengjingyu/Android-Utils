@@ -3,15 +3,15 @@ package com.jingyu.test;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.jingyu.middle.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayAdapterActivity extends AppCompatActivity {
+public class ArrayAdapterActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

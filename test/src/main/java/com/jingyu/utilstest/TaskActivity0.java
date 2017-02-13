@@ -1,5 +1,7 @@
 package com.jingyu.utilstest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,6 +25,10 @@ public class TaskActivity0 extends BaseActivity {
                 TaskActivity1.actionStart(getActivity());
             }
         });
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, TaskActivity0.class));
     }
 
 }

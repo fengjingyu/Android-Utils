@@ -5,6 +5,8 @@ import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -13,6 +15,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 
 import com.jingyu.middle.base.BaseActivity;
+import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilScreen;
 
 /**
@@ -236,7 +239,11 @@ public class PropertyAnimActivity extends BaseActivity {
         final float b = (y1 - y2) / (x1 - x2) - a * (x1 + x2);
         final float c = y1 - (x1 * x1) * a - x1 * b;
 
-        System.out.println("-a->" + a + " b->" + b + " c->" + c);
+        Logger.i("-a->" + a + " b->" + b + " c->" + c);
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, PropertyAnimActivity.class));
     }
 }
 

@@ -1,8 +1,10 @@
 package com.jingyu.utilstest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
+import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.config.ConfigFile;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.helper.Logger;
@@ -12,7 +14,7 @@ import com.jingyu.utils.util.UtilIoAndr;
 import java.io.File;
 import java.util.ArrayList;
 
-public class LogActivity extends AppCompatActivity {
+public class LogActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,10 @@ public class LogActivity extends AppCompatActivity {
         Logger.i(UtilIo.getAllFilesByDirQueue(UtilIoAndr.createDirInSDCard(ConfigFile.APP_ROOT), new ArrayList<File>()));
 
         UtilIo.toFileByBytes(UtilIoAndr.createFileInAndroid(this, ConfigFile.APP_ROOT, "lalala.txt"), "写入的内容--1234567890987654321abc".getBytes(), true);
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, LogActivity.class));
     }
 
 }

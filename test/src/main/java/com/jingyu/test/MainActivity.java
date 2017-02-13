@@ -1,5 +1,7 @@
 package com.jingyu.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioGroup;
 
@@ -95,5 +97,9 @@ public class MainActivity extends BaseActivity {
             Logger.itemp(exceptionModelDb.queryCount());
             Logger.itemp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
         }
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, MainActivity.class));
     }
 }

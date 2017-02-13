@@ -1,5 +1,7 @@
 package com.jingyu.utilstest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -69,4 +71,7 @@ public class CamareActivity extends BaseActivity {
         });
     }
 
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, CamareActivity.class));
+    }
 }

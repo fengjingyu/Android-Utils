@@ -1,5 +1,7 @@
 package com.jingyu.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -118,9 +120,8 @@ public class HandlerActivity extends BaseActivity {
             });
         }
     }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, HandlerActivity.class));
+    }
 }
-/**
- * 1 在ActivityThread的main()方法中创建了Looper对象并启动了Looper循环，主线程中创建的Handler默认都是与这个Looper绑定的。
- * 2 由于子线程默认是不会创建Looper对象的，如果将Handler与子线程绑定，就要在绑定前先调用Looper.prepare()和Looper.loop()方法启动Looper循环，
- * 然后才能通过Handler向其所关联的MessageQueue中发送消息，否则就会报如下异常：Can't create handler inside thread that has not calledLooper.prepare()。
- */

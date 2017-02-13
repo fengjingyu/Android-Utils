@@ -1,6 +1,8 @@
 package com.jingyu.utilstest;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.jingyu.middle.Http;
@@ -88,4 +90,7 @@ public class HttpActivity extends BaseActivity {
 
     }
 
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, HttpActivity.class));
+    }
 }

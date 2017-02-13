@@ -1,5 +1,7 @@
 package com.jingyu.utilstest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -31,5 +33,9 @@ public class SPActivity extends AppCompatActivity {
         String result2 = SPHelper.spGet("5", "java") + SPHelper.spGet("1", 0.0f) + SPHelper.spGet("2", 0) + SPHelper.spGet("3", 0.1f)
                 + SPHelper.spGet("4", true) + SPHelper.spGet("6", null) + SPHelper.spGet("7", "    jkl");
         Logger.shortToast(result2);
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, SPActivity.class));
     }
 }

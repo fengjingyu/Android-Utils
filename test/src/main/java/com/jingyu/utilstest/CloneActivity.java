@@ -1,13 +1,15 @@
 package com.jingyu.utilstest;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utilstest.model.TestModel;
 
-public class CloneActivity extends AppCompatActivity {
+public class CloneActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +41,9 @@ public class CloneActivity extends AppCompatActivity {
         Logger.i("原始数据---" + testModel);
         Logger.i("浅克隆---" + simple2);
         Logger.i("深克隆---" + deep2);
+    }
+
+    public static void actionStart(Context activityContext) {
+        activityContext.startActivity(new Intent(activityContext, CloneActivity.class));
     }
 }

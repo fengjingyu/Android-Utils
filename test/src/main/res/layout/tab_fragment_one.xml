@@ -61,6 +61,13 @@
         android:layout_height="wrap_content"
         android:text="handler looper thread"
         android:textAllCaps="false" />
+    <!-- @c -->
+    <Button
+        android:id="@+id/fragmentLife"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fragment周期与返回栈"
+        android:textAllCaps="false" />
 
 
 </LinearLayout>

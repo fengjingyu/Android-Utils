@@ -19,8 +19,8 @@ public abstract class BaseActivity extends PlusActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         Logger.i(this + "---onCreate");
+        super.onCreate(savedInstanceState);
         initReceiver();
     }
 
@@ -63,61 +63,61 @@ public abstract class BaseActivity extends PlusActivity {
     @Override
     protected void onDestroy() {
         unbindReceiver();
-        super.onDestroy();
         Logger.i(this + "---onDestroy");
+        super.onDestroy();
     }
 
     @Override
     protected void onStart() {
-        super.onStart();
         Logger.i(this + "---onStart");
+        super.onStart();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
         Logger.i(this + "---onResume");
+        super.onResume();
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         Logger.i(this + "---onPause");
+        super.onPause();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();
         Logger.i(this + "---onStop");
+        super.onStop();
     }
 
     @Override
     protected void onRestart() {
-        super.onRestart();
         Logger.i(this + "---onRestart");
+        super.onRestart();
     }
 
     @Override
     public void finish() {
-        super.finish();
         Logger.i(this + "---finish");
+        super.finish();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Logger.i(this + "---onBackPressed");
+        super.onBackPressed();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
         Logger.i(this + "---onNewIntent");
+        super.onNewIntent(intent);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         Logger.i(this + "---onSaveInstanceState");
+        super.onSaveInstanceState(outState);
     }
 }

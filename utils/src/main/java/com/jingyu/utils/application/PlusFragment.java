@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jingyu.utils.function.helper.Logger;
-
 import java.util.List;
 
 /**
@@ -79,12 +77,14 @@ public abstract class PlusFragment extends Fragment {
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.hide(fragment);
         ft.commitAllowingStateLoss();
+        getChildFragmentManager().executePendingTransactions();
     }
 
     public void showChildFragment(Fragment fragment) {
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.show(fragment);
         ft.commitAllowingStateLoss();
+        getChildFragmentManager().executePendingTransactions();
     }
 
     /**
@@ -102,7 +102,9 @@ public abstract class PlusFragment extends Fragment {
         List<Fragment> fragments = getChildFragmentManager().getFragments();
         if (fragments != null) {
             for (Fragment fragment : fragments) {
-                fragment.onActivityResult(requestCode, resultCode, data);
+                if (fragment != null) {
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                }
             }
         }
     }

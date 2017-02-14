@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.DestroyGCActivity;
+import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.HandlerActivity;
 import com.jingyu.test.LeakCanaryActivity;
 import com.jingyu.test.PercentLayoutActivity;
@@ -26,6 +27,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     private Button systemDialog;
     private Button destroygc;
     private Button handler;
+    private Button fragmentLife;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +41,6 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         setListener();
     }
 
-
     private void setListener() {
         percentLayout.setOnClickListener(this);
         propertyAnim.setOnClickListener(this);
@@ -48,6 +49,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         systemDialog.setOnClickListener(this);
         destroygc.setOnClickListener(this);
         handler.setOnClickListener(this);
+        fragmentLife.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -58,6 +60,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         systemDialog = getViewById(R.id.systemDialog);
         destroygc = getViewById(R.id.destroygc);
         handler = getViewById(R.id.handler);
+        fragmentLife = getViewById(R.id.fragmentLife);
     }
 
     @Override
@@ -84,6 +87,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
             case R.id.handler:
                 HandlerActivity.actionStart(getActivity());
                 break;
+            case R.id.fragmentLife:
+                FragmentLifeActivity.actionStart(getActivity());
             default:
                 break;
 

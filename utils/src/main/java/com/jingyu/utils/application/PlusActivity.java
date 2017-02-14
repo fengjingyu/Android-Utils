@@ -16,7 +16,7 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 /**
- * @author  fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public abstract class PlusActivity extends AppCompatActivity {
@@ -68,6 +68,10 @@ public abstract class PlusActivity extends AppCompatActivity {
         getSupportFragmentManager().executePendingTransactions();
     }
 
+    public void addFragment(int layout_id, Fragment fragment, boolean isToBackStack) {
+        addFragment(layout_id, fragment, fragment.getClass().getSimpleName(), isToBackStack);
+    }
+
     public void addFragment(int layout_id, Fragment fragment) {
         addFragment(layout_id, fragment, fragment.getClass().getSimpleName(), false);
     }
@@ -82,6 +86,10 @@ public abstract class PlusActivity extends AppCompatActivity {
         getSupportFragmentManager().executePendingTransactions();
     }
 
+    public void replaceFragment(int layout_id, Fragment fragment, boolean isToBackStack) {
+        replaceFragment(layout_id, fragment, fragment.getClass().getSimpleName(), isToBackStack);
+    }
+
     public void replaceFragment(int layout_id, Fragment fragment) {
         replaceFragment(layout_id, fragment, fragment.getClass().getSimpleName(), false);
     }
@@ -93,13 +101,26 @@ public abstract class PlusActivity extends AppCompatActivity {
         getSupportFragmentManager().executePendingTransactions();
     }
 
-    /**
-     * 之前必须有add
-     */
+    public void removeFragments(List<Fragment> fragments) {
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment != null) {
+                    removeFragment(fragment);
+                }
+            }
+        }
+    }
+
+    public void removeAllFragments() {
+        // 调用陔方法之后,如果再次调用,getFragments()有size,但是元素为null
+        removeFragments(getSupportFragmentManager().getFragments());
+    }
+
     public void showFragment(Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.show(fragment);
         ft.commitAllowingStateLoss();
+        getSupportFragmentManager().executePendingTransactions();
     }
 
     public Fragment showFragmentByClass(Class<? extends Fragment> fragment_class, int layout_id) {
@@ -122,12 +143,15 @@ public abstract class PlusActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.hide(fragment);
         ft.commitAllowingStateLoss();
+        getSupportFragmentManager().executePendingTransactions();
     }
 
     public void hideFragment(List<Fragment> fragments) {
         if (fragments != null) {
             for (Fragment fragment : fragments) {
-                hideFragment(fragment);
+                if (fragment != null) {
+                    hideFragment(fragment);
+                }
             }
         }
     }
@@ -147,8 +171,10 @@ public abstract class PlusActivity extends AppCompatActivity {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         if (fragments != null) {
             for (Fragment fragment : fragments) {
-                Logger.i(this + "onActivityResult---" + fragment.toString());
-                fragment.onActivityResult(requestCode, resultCode, data);
+                if (fragment != null) {
+                    Logger.i(this + "onActivityResult---" + fragment.toString());
+                    fragment.onActivityResult(requestCode, resultCode, data);
+                }
             }
         }
     }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_fragment_life"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.jingyu.test.fragmentlife.FragmentLifeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/clearAllFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clearAllFragment"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/addFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="addFragment"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/addFragment2Stack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="addFragment2Stack"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/replaceFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="replaceFragment"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/replaceFragment2Stack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="replaceFragment2Stack"
+                android:textAllCaps="false" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/fragmentsNum"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/c_blue_20aae0"
+            android:gravity="center"
+            android:hint="fragment数量"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

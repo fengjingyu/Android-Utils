@@ -64,7 +64,8 @@
             android:name="MULTI_CHANNEL"
             android:value="${MULTI_CHANNEL_VALUE}" />
 
-        <activity android:name=".PercentLayoutActivity"/>
+        <activity android:name=".PercentLayoutActivity" />
+        <activity android:name=".fragmentlife.FragmentLifeActivity" />
     </application>
 
 </manifest>

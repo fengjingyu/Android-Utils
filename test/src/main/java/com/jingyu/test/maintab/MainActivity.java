@@ -1,15 +1,11 @@
-package com.jingyu.test;
+package com.jingyu.test.maintab;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioGroup;
 
-import com.jingyu.test.tab.FiveFragment;
-import com.jingyu.test.tab.FourFragment;
-import com.jingyu.test.tab.OneFragment;
-import com.jingyu.test.tab.ThreeFragment;
-import com.jingyu.test.tab.TwoFragment;
+import com.jingyu.test.R;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.exception.ExceptionDb;
@@ -35,7 +31,6 @@ public class MainActivity extends BaseActivity {
         initWidgets();
         setListeners();
         setDatas();
-
     }
 
     private void setDatas() {

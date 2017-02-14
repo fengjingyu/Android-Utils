@@ -155,7 +155,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     }
 
-    public static final int QUIT_FREEZE_TIME = 2000;
+    public static final int QUIT_FREEZE_TIME = 1500;
 
     public void endException() {
 

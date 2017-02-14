@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
-import com.jingyu.test.MainActivity;
+import com.jingyu.test.maintab.MainActivity;
 import com.jingyu.middle.App;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.helper.Logger;

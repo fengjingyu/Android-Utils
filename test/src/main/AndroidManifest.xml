@@ -27,7 +27,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".maintab.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,9 +43,7 @@
         <activity android:name=".PropertyAnimActivity" />
         <activity android:name=".LeakCanaryActivity" />
         <activity android:name=".HandlerActivity" />
-        <activity android:name=".CatalogueActivity" />
-        <activity android:name=".MenuDialogActivity" />
-        <activity android:name=".ArrayAdapterActivity" />
+        <activity android:name=".SystemDialogActivity" />
         <activity android:name="com.jingyu.utilstest.ClearCacheActivity" />
         <activity android:name="com.jingyu.utilstest.ContactsActivity" />
         <activity android:name="com.jingyu.utilstest.LogActivity" />

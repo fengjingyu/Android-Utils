@@ -1,7 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/c_orange_ff6600"
-    android:layout_height="match_parent" >
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-</RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试module(utils)"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/log"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日志输出"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/exception"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="exception"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sp"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/encrypt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加密"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/activity_collector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="activity管理"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/http"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="http"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/clone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clone"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/camare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="相册"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/contacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通讯录"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/cache"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清理缓存"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/adapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="adapter"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

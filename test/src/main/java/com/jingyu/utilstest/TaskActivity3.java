@@ -20,6 +20,7 @@ import com.jingyu.utils.util.UtilIo;
 public class TaskActivity3 extends BaseActivity {
 
     TextView info;
+    Button start_taskactivity0;
     Button to_taskactivity0;
     Button to_taskactivity1;
     Button to_taskactivity2;
@@ -40,6 +41,7 @@ public class TaskActivity3 extends BaseActivity {
 
     public void initWidgets() {
         info = getViewById(R.id.info);
+        start_taskactivity0 = getViewById(R.id.start_taskactivity0);
         to_taskactivity0 = getViewById(R.id.to_taskactivity0);
         to_taskactivity1 = getViewById(R.id.to_taskactivity1);
         to_taskactivity2 = getViewById(R.id.to_taskactivity2);
@@ -66,6 +68,13 @@ public class TaskActivity3 extends BaseActivity {
     }
 
     public void setListeners() {
+        start_taskactivity0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TaskActivity0.actionStart(getActivity());
+            }
+        });
+
         to_taskactivity0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +129,7 @@ public class TaskActivity3 extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ActivityCollector.finishCurrentActivity();
-                startActivity(new Intent(getActivity(), TaskActivity1.class));
+                startActivity(new Intent(getActivity(), TaskActivity3.class));
             }
         });
     }

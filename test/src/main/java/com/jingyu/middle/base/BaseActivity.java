@@ -37,10 +37,10 @@ public abstract class BaseActivity extends PlusActivity {
             boolean hasConnectivity = (info != null && info.isConnected());
 
             if (hasConnectivity) {
-                Logger.dShortToast("有网");
+                //Logger.dShortToast(getActivity() + "--有网");
                 onNetNormal();
             } else {
-                Logger.dShortToast("无网");
+                Logger.dShortToast(getActivity() + "--无网");
                 onNetLoss();
             }
         }
@@ -106,18 +106,18 @@ public abstract class BaseActivity extends PlusActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Logger.i(this, "---onBackPressed");
+        Logger.i(this + "---onBackPressed");
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Logger.i(this, "---onNewIntent");
+        Logger.i(this + "---onNewIntent");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Logger.i(this, "---onSaveInstanceState");
+        Logger.i(this + "---onSaveInstanceState");
     }
 }

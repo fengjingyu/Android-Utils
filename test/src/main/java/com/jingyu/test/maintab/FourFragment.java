@@ -1,4 +1,4 @@
-package com.jingyu.test.tab;
+package com.jingyu.test.maintab;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -39,7 +39,7 @@ import static org.junit.Assert.fail;
  * 如果我们暂时不用测试一个用例，我们不需要删除或都注释掉。只要改成：
  * @Ignore 你也可以说明一下原因@Ignore("something happens")
  */
-public class ExampleUnitTestSample {
+public class ExampleUnitTest2 {
 
     @Test
     public void addition_isCorrect() throws Exception {

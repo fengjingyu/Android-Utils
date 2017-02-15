@@ -4,11 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -46,53 +50,41 @@ public class UtilIoAndr {
         }
     }
 
-    public static String getStringFromAssets(Context context, String fileName) {
-
-        if (context == null) {
-            return null;
-        }
-
-        return UtilIo.toStringByInputStream(getInputStreamFromAsserts(context, fileName));
-
-    }
-
-    public static String getStringFromRaw(Context context, int resId) {
-        if (context == null) {
-            return null;
-        }
-
-        return UtilIo.toStringByInputStream(getInputStreamFromRaw(context, resId));
-    }
-
     /**
-     * 写文本到内部存储 ,默认为Ecplise的工程编码, 指定编码 在Android系统中，文件保存在
-     * /data/data/"PACKAGE_NAME"/files/ 目录下
+     * 写文本到内部存储,文件保存在/data/data/"PACKAGE_NAME"/files/ 目录下
      *
-     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt"
+     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径
      * @param content
-     * @param mode     模式 Context.MODE_APPEND等
-     * @throws java.io.IOException
-     * @charset "gbk" "utf-8"
+     * @param mode     模式 Context.MODE_APPEND/Context.MODE_PRIVATE
      */
     public static void write2Inside(Context context, String fileName, String content, int mode) {
-
         FileOutputStream fos = null;
+        BufferedWriter writer = null;
         try {
             fos = context.openFileOutput(fileName, mode);
-            fos.write(content.getBytes());
-            fos.flush();
-            fos.close();
+            writer = new BufferedWriter(new OutputStreamWriter(fos));
+            writer.write(content);
+            //fos.write(content.getBytes());
+            //fos.flush();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                if (writer != null) {
+                    writer.close();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+    }
+
+    public static void write2InsideByPrivate(Context context, String fileName, String content) {
+        write2Inside(context, fileName, content, Context.MODE_PRIVATE);
+    }
+
+    public static void write2InsideByAppend(Context context, String fileName, String content) {
+        write2Inside(context, fileName, content, Context.MODE_APPEND);
     }
 
     /**
@@ -101,8 +93,6 @@ public class UtilIoAndr {
      * @param dirName  如"aa/bb" 在SDCard下建立/mnt/sdcard/aa/bb的目录,
      *                 如null 或 "" 在/mnt/sdcard的目录下建立文件
      * @param fileName 如"cc.txt", 不可以是"ee/cc.txt"
-     * @param content
-     * @throws java.io.IOException
      */
     public static File write2SDCard(String dirName, String fileName, String content) {
         FileOutputStream fos = null;
@@ -131,62 +121,57 @@ public class UtilIoAndr {
     }
 
     /**
-     * 从内部存储读取文本文件,默认平台编码
+     * 从内部存储读取文本文件
      *
      * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
-     * @return
-     * @throws java.io.IOException
      */
     public static String readFromInside(Context context, String fileName) {
         FileInputStream in = null;
+        BufferedReader reader = null;
+        StringBuilder content = new StringBuilder();
         try {
             in = context.openFileInput(fileName);
-            return new String(UtilIo.toBytesByInputStream(in));
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                if (reader != null) {
+                    reader.close();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+        return content.toString();
     }
 
     /**
-     * 从sd卡中读取数据,默认ecplise工程编码
+     * 从sd卡中读取数据
      *
      * @param dirName  如果是"" 或null 则从Environment.getExternalStorageState()目录读取文件
      * @param fileName
-     * @return
-     * @throws java.io.IOException
      */
-    public static String readFromSDCard(String dirName, String fileName) throws IOException {
-
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return null;
-        }
-        if (dirName == null || dirName.trim().length() == 0) {
-            File file = new File(Environment.getExternalStorageDirectory(), fileName);
-            if (!file.exists()) {
-                return null;
+    public static String readFromSDCard(String dirName, String fileName) {
+        String result = null;
+        if (isSDcardExist()) {
+            try {
+                FileInputStream fis = null;
+                if (UtilString.isBlank(dirName)) {
+                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + UtilIo.FILE_SEPARATOR + fileName);
+                } else {
+                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + UtilIo.FILE_SEPARATOR + dirName + UtilIo.FILE_SEPARATOR + fileName);
+                }
+                result = UtilIo.toStringByInputStream(fis);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            FileInputStream in = new FileInputStream(file);
-            return new String(UtilIo.toBytesByInputStream(in));
         }
-        File dir = new File(Environment.getExternalStorageDirectory() + UtilIo.FILE_SEPARATOR + dirName);
-        if (!dir.exists()) {
-            return null;
-        }
-        File file = new File(dir, fileName);
-        if (!file.exists()) {
-            return null;
-        }
-        FileInputStream in = new FileInputStream(file);
-        return new String(UtilIo.toBytesByInputStream(in));
+        return result;
     }
 
     /**
@@ -284,10 +269,8 @@ public class UtilIoAndr {
      *                 或""默认为在Environment.getExternalStorageState()目录下创建文件
      * @param fileName 文件名-->"abc.txt"格式, 不可写成"abc/ed.txt"
      * @return 返回一个创建了文件夹和文件的目录, 如果没有SD卡, 返回null
-     * @throws java.io.IOException
      */
     public static File createFileInSDCard(String dirName, String fileName) {
-
         try {
             File dir = createDirInSDCard(dirName);
             if (dir == null) {
@@ -310,7 +293,6 @@ public class UtilIoAndr {
      * @param dirName  "aa/bb","aa"都可,如果是null 或""默认为在context.getCacheDir()目录下创建文件
      * @param fileName 文件名-->"abc.txt"格式, 不可写成"abc/ed.txt"
      * @return 返回一个创建了文件夹和文件的目录
-     * @throws java.io.IOException
      */
     public static File createFileInside(Context context, String dirName, String fileName) {
         try {

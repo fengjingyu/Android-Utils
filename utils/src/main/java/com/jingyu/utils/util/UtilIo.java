@@ -39,9 +39,6 @@ public class UtilIo {
     public static final String PATH_SEPARATOR = System.getProperty("path.separator");// 如环境变量的路径分隔符
     public static final String FILE_SEPARATOR = System.getProperty("file.separator");// 如c:/
 
-    /**
-     * 根据文件路径 递归创建文件
-     */
     public static File createFileByPath(String file) {
         try {
             String fileName = UtilString.subStringAfterLastSimbol(file, "/");

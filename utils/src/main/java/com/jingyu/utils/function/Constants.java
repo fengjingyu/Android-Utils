@@ -29,8 +29,6 @@ public class Constants {
      * 以下两个是临时测试查看的tag
      */
     public static final String TAG_TEMP = "temp";
-    public static final String TAG_TEST = "test";
-
     /**
      * 英文逗号
      */

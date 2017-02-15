@@ -205,11 +205,6 @@ public class Logger {
         i(Constants.TAG_TEMP, msg);
     }
 
-    public static void itest(Object msg) {
-
-        i(Constants.TAG_TEST, msg);
-    }
-
     /**
      * e不管是否上线，都会打印日志到本地，并输出到控制台
      */
@@ -225,7 +220,7 @@ public class Logger {
 
     public static void e(String hint, Exception e) {
         e.printStackTrace();
-        Log.e(Constants.TAG_ALOG, hint + "--" + "Exception-->" + e.toString() + "--" + e.getMessage());
+        Log.e(Constants.TAG_ALOG, hint + "--Exception-->" + e.toString() + "--" + e.getMessage());
         writeLog2File("Exception-->" + hint + "-->" + e.toString() + "--" + e.getMessage(), true);
     }
 
@@ -283,7 +278,6 @@ public class Logger {
 
         } catch (Exception e) {
             e.printStackTrace();
-            // 这里不要调用e(),可能相互调用，异常
         } finally {
             if (raf != null) {
                 try {
@@ -296,7 +290,7 @@ public class Logger {
     }
 
     /**
-     * 打印到XCConfig.TEMP_PRINT_FILE文件中，会覆盖之前的打印信息
+     * 打印到TEMP_PRINT_FILE文件中，会覆盖之前的打印信息
      * <p/>
      * 场景：如果json很长，有时控制台未必会全部打印出来，则可以去app的目录下找到这个临时文件查看
      */
@@ -355,7 +349,7 @@ public class Logger {
                         Log.i(tag, content);
                     }
                 } else {
-                    Log.i(tag, "传入XCLog.logFormatContent()的内容为空");
+                    Log.i(tag, "传入logFormatContent()的内容为空");
                 }
 
                 Log.i(tag, "－－－－－－－－－－－－－－－－－－  " + hint + "  MSG END －－－－－－－－－－－－－－－－－－");

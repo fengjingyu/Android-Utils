@@ -9,7 +9,7 @@ public class ConfigLog {
     /**
      * 是否打开调试日志开关 , 上线前，改为CLOSE
      */
-    public static DebugControl DEBUG_CONTROL = DebugControl.OPEN;
+    public static DebugControl DEBUG_CONTROL = DebugControl.DEFINE;
 
     /**
      * OPEN: 默认的配置，开发环境可以用这个值
@@ -48,10 +48,10 @@ public class ConfigLog {
             IS_OUTPUT = true;
 
             // i()方法是否打印到本地log日志; e()方法都会打印到log日志，不受该值控制
-            IS_PRINTLOG = true;
+            IS_PRINTLOG = false;
 
             // 调试土司是否开启
-            IS_DTOAST = false;
+            IS_DTOAST = true;
 
             // 是否初始化crashhandler
             IS_INIT_CRASH_HANDLER = true;

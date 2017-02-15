@@ -45,7 +45,7 @@ public class TimerActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-                Logger.i(Constants.TAG_TEST, count + "--onEnd");
+                Logger.itemp(count + "--onEnd");
             }
         };
         timer.start();

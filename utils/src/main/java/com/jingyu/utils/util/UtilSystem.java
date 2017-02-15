@@ -319,4 +319,14 @@ public class UtilSystem {
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.getAbsolutePath())));
     }
 
+    /**
+     * 模拟按home键效果
+     */
+    public static void pressHomeKey(Context context) {
+        Intent i = new Intent(Intent.ACTION_MAIN);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addCategory(Intent.CATEGORY_HOME);
+        context.startActivity(i);
+    }
+
 }

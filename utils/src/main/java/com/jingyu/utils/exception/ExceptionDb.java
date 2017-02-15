@@ -20,9 +20,9 @@ import java.util.Map;
  */
 public class ExceptionDb extends SQLiteOpenHelper {
 
-    public static String mDefaultDbName = "xCExceptionModel.db";
+    public static String mDefaultDbName = "exceptionModel.db";
     public static int mVersion = 1;
-    public static String mOperatorTableName = "xCExceptionModelTable";
+    public static String mOperatorTableName = "exceptionModelTable";
 
     /**
      * 排序常量

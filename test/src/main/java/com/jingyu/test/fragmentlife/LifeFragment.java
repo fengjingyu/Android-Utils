@@ -1,6 +1,5 @@
 package com.jingyu.test.fragmentlife;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,12 +11,14 @@ import com.jingyu.test.R;
 
 public class LifeFragment extends BaseFragment {
 
-    public static int count = 0;
+    private int index;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        count++;
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     @Nullable
@@ -29,7 +30,7 @@ public class LifeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int result = count % 5;
+        int result = getIndex() % 5;
         if (result == 0) {
             view.setBackgroundResource(R.color.yellow);
         } else if (result == 1) {

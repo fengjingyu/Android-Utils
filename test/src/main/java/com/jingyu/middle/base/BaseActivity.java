@@ -40,7 +40,7 @@ public abstract class BaseActivity extends PlusActivity {
                 //Logger.dShortToast(getActivity() + "--有网");
                 onNetNormal();
             } else {
-                Logger.dShortToast(getActivity() + "--无网");
+                //Logger.dShortToast(getActivity() + "--无网");
                 onNetLoss();
             }
         }

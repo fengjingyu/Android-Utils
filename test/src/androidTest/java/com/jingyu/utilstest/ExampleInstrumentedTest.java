@@ -27,16 +27,20 @@ import static junit.framework.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    public Context getContext() {
+        return InstrumentationRegistry.getTargetContext();
+    }
+
     @Test
     public void useAppContext() throws Exception {
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        assertEquals("com.jingyu.utilstest", appContext.getPackageName());
+        assertEquals("com.jingyu.test", getContext().getPackageName());
     }
 
     @Test
     public void testRuntime() {
         Logger.i("Runtime.getRuntime().availableProcessors()--" + Runtime.getRuntime().availableProcessors());
-        Logger.i("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory());
+        Logger.i("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory() / Math.pow(2, 30));
     }
 
     @Test
@@ -51,15 +55,10 @@ public class ExampleInstrumentedTest {
         queue.add("b");
         queue.add("c");
         queue.add("d");
-
-//        try {
-//            Logger.i(queue.take()); // a  //take 类似 poll remove
-//            Logger.i(queue.take()); // b
-//            Logger.i(queue.take()); // c
-//            Logger.i(queue.take()); // d
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        //Logger.i(queue.take()); // a  //take 类似 poll remove
+        //Logger.i(queue.take()); // b
+        //Logger.i(queue.take()); // c
+        //Logger.i(queue.take()); // d
 
         Logger.i(queue.peek()); //a  // peek 类似 element
         Logger.i(queue.peek()); //a
@@ -73,14 +72,6 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testJsonFormat() {
-        String str = "{\n" +
-                "    \"code\": 0,\n" +
-                "    \"msg\": \"success\",\n" +
-                "    \"data\": [\n" +
-                "\"/cr/100/200/aaa.mp4\"\n" +
-                "    ]\n" +
-                "}\n";
-
         String str2 = " {\"code\":0,\"msg\":\"成功\",\"data\":[[\"板蓝根\",\"白云山\"]]}";
 
         JsonBean bean = JsonParse.getJsonParseData(str2, JsonBean.class);
@@ -99,10 +90,9 @@ public class ExampleInstrumentedTest {
                 JSONArray array = (JSONArray) beans.get(0);
                 int count = array.length();
                 for (int i = 0; i < count; i++) {
-                    Logger.i((String) array.get(i));
+                    Logger.i(array.get(i));
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             Logger.e(this.toString() + "---exception");

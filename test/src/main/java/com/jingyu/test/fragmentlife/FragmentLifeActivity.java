@@ -3,6 +3,7 @@ package com.jingyu.test.fragmentlife;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class FragmentLifeActivity extends BaseActivity implements View.OnClickLi
     private Button clearAllFragment;
     private Button replaceFragment;
     private Button replaceFragment2Stack;
+    private int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,27 +52,34 @@ public class FragmentLifeActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void logic() {
-        addFragment(R.id.fragment_layout, new LifeFragment());
+        addFragment(R.id.fragment_layout, getFragment());
         setNumHint();
+    }
+
+    @NonNull
+    private LifeFragment getFragment() {
+        LifeFragment lifeFragment = new LifeFragment();
+        lifeFragment.setIndex(index++);
+        return lifeFragment;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addFragment:
-                addFragment(R.id.fragment_layout, new LifeFragment());
+                addFragment(R.id.fragment_layout, getFragment());
                 break;
             case R.id.addFragment2Stack:
-                addFragment(R.id.fragment_layout, new LifeFragment(), true);
+                addFragment(R.id.fragment_layout, getFragment(), true);
                 break;
             case R.id.clearAllFragment:
                 removeAllFragments();
                 break;
             case R.id.replaceFragment:
-                replaceFragment(R.id.fragment_layout, new LifeFragment());
+                replaceFragment(R.id.fragment_layout, getFragment());
                 break;
             case R.id.replaceFragment2Stack:
-                replaceFragment(R.id.fragment_layout, new LifeFragment(), true);
+                replaceFragment(R.id.fragment_layout, getFragment(), true);
                 break;
         }
         setNumHint();

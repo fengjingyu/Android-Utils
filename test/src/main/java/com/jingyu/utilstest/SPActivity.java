@@ -2,36 +2,72 @@ package com.jingyu.utilstest;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
+import com.jingyu.middle.Sp;
+import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.helper.SPHelper;
+import com.nostra13.universalimageloader.utils.L;
 
-public class SPActivity extends AppCompatActivity {
+import java.util.HashSet;
+import java.util.Set;
+
+public class SPActivity extends BaseActivity {
+
+    private SPHelper spHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sp);
-        testSp();
+        getViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
+        getViewById(R.id.clear).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clear();
+            }
+        });
+
+        spHelper = new SPHelper(getApplicationContext(), "ceshi_sp");
     }
 
-    private void testSp() {
-        SPHelper.spPut("1", "123 ");
-        SPHelper.spPut("2", 456);
-        SPHelper.spPut("3", 789.1F);
-        SPHelper.spPut("4", false);
-        SPHelper.spPut("5", " abc ");
+    private void clear() {
+        spHelper.clear();
+    }
 
-        //String result = SPHelper.spGet("1", "abc") + SPHelper.spGet("2", 0) + SPHelper.spGet("3", 0.1f)+ SPHelper.spGet("4", true) + SPHelper.spGet("5", "abc") + SPHelper.spGet("6", null) + SPHelper.spGet("7", "    jkl");
-        //Logger.shortToast(result);
+    private void save() {
 
-        SPHelper.spPut("1", 0.1f);
+        Sp.setUserName("小明");
+        Logger.i(Sp.getUserName());
 
-        String result2 = SPHelper.spGet("5", "java") + SPHelper.spGet("1", 0.0f) + SPHelper.spGet("2", 0) + SPHelper.spGet("3", 0.1f)
-                + SPHelper.spGet("4", true) + SPHelper.spGet("6", null) + SPHelper.spGet("7", "    jkl");
+        Sp.setUserPhoneNum("1234567");
+        Logger.i(Sp.getUserPhoneNum());
+
+
+        Set<String> set = new HashSet<>();
+        set.add("aa");
+        set.add("bb");
+        set.add("cc");
+        spHelper.spPut("0", set);
+        spHelper.spPut("1", "123 ");
+        spHelper.spPut("2", 456);
+        spHelper.spPut("3", 789.1F);
+        spHelper.spPut("4", false);
+        spHelper.spPut("5", " abc ");
+
+        // 会覆盖之前的String类型,转为float类型
+        spHelper.spPut("1", 0.1f);
+
+        String result2 = spHelper.spGet("5", "java") + spHelper.spGet("1", 0.0f) + spHelper.spGet("2", 0) + spHelper.spGet("3", 0.1f)
+                + spHelper.spGet("4", true) + spHelper.spGet("6", null) + spHelper.spGet("7", "    jkl");
         Logger.shortToast(result2);
     }
 

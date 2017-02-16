@@ -10,4 +10,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jingyu.utilstest.SPActivity">
 
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/save"
+        android:text="clear"
+        android:textAllCaps="false" />
+
+
 </RelativeLayout>

@@ -1,148 +1,163 @@
 package com.jingyu.utils.function.helper;
 
-import java.util.Map;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import java.util.Map;
+import java.util.Set;
 
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 使用前初始化initSP方法
+ * @description
  */
 
 /**
- *         2015-2-28 上午11:30:18
- *         <p/>
- *         log("--" + TAG, (sp.getString("09876561", null) == null) + "");//true
- *         sp.edit().putString("123456abcd2", null).commit();
- *         log("--" + TAG, (sp.getString("123456abcd2", "abc") + ""));//abc
- *         log("--" + TAG, (sp.getString("123456abcd2", "abc") == null) + "");//false
- *         log("--" + TAG, (sp.getString("123456abcd2", null) == null) + "");//true
- *         log("--" + TAG, (sp.getString("123456abcd2", null) + "") + "");//null
- *         <p/>
- *         sp.edit().putString("123456789", "1").apply();
- *         sp.edit().putString("123456789", null).apply();
- *         log("--" + TAG, sp.getString("123456789", "abc"));// "abc"
+ * 2015-2-28 上午11:30:18
+ * <p/>
+ * log("--" + TAG, (sp.getString("09876561", null) == null) + "");//true
+ * sp.edit().putString("123456abcd2", null).commit();
+ * log("--" + TAG, (sp.getString("123456abcd2", "abc") + ""));//abc
+ * log("--" + TAG, (sp.getString("123456abcd2", "abc") == null) + "");//false
+ * log("--" + TAG, (sp.getString("123456abcd2", null) == null) + "");//true
+ * log("--" + TAG, (sp.getString("123456abcd2", null) + "") + "");//null
+ * <p/>
+ * sp.edit().putString("123456789", "1").apply();
+ * sp.edit().putString("123456789", null).apply();
+ * log("--" + TAG, sp.getString("123456789", "abc"));// "abc"
  */
 
 public class SPHelper {
 
-    private static SharedPreferences sharedPreferences;
-    private static SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
 
     /**
      * @param context
      * @param fileName 不要加 ".xml"的后缀名
-     * @param mode     Context.Mode 下有四种模式常量
+     *                 Context.Mode 下有四种模式常量(6.0之后仅支持private模式)
      */
-    public static void initSP(Context context, String fileName, int mode) {
-        SPHelper.sharedPreferences = context.getSharedPreferences(fileName, mode);
+    public SPHelper(Context context, String fileName) {
+        sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
     }
 
-    public static boolean putString(String key, String value) {
-        editor = sharedPreferences.edit();
+    public void putString(String key, String value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
-        return editor.commit();
+        editor.apply();
     }
 
-    public static boolean putInt(String key, int value) {
-        editor = sharedPreferences.edit();
+    public void putInt(String key, int value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
-        return editor.commit();
+        editor.apply();
     }
 
-    public static boolean putLong(String key, long value) {
-        editor = sharedPreferences.edit();
+    public void putLong(String key, long value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong(key, value);
-        return editor.commit();
+        editor.apply();
     }
 
-    public static boolean putFloat(String key, float value) {
-        editor = sharedPreferences.edit();
+    public void putFloat(String key, float value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(key, value);
-        return editor.commit();
+        editor.apply();
     }
 
-    public static boolean putBoolean(String key, boolean value) {
-        editor = sharedPreferences.edit();
+    public void putBoolean(String key, boolean value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
-        return editor.commit();
+        editor.apply();
     }
 
-    public static boolean putStringSet(String key, Set<String> values) {
-        editor = sharedPreferences.edit();
+    public void putStringSet(String key, Set<String> values) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet(key, values);
-        return editor.commit();
+        editor.apply();
     }
 
-    public static String getString(String key, String defaultValue) {
+    public void clear() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    public String getString(String key, String defaultValue) {
         return sharedPreferences.getString(key, defaultValue);
     }
 
-    public static int getInt(String key, int defaultValue) {
+    public int getInt(String key, int defaultValue) {
         return sharedPreferences.getInt(key, defaultValue);
     }
 
-    public static long getLong(String key, long defaultValue) {
+    public long getLong(String key, long defaultValue) {
         return sharedPreferences.getLong(key, defaultValue);
     }
 
-    public static float getFloat(String key, float defaultValue) {
+    public float getFloat(String key, float defaultValue) {
         return sharedPreferences.getFloat(key, defaultValue);
     }
 
-    public static boolean getBoolean(String key, boolean defaultValue) {
+    public boolean getBoolean(String key, boolean defaultValue) {
         return sharedPreferences.getBoolean(key, defaultValue);
     }
 
-    public static Map<String, ?> getAll() {
+    public Map<String, ?> getAll() {
         return sharedPreferences.getAll();
     }
 
-    public static Set<String> getStringSet(String key, Set<String> defValues) {
+    public Set<String> getStringSet(String key, Set<String> defValues) {
         return sharedPreferences.getStringSet(key, defValues);
     }
 
-    public static void spPut(String key, boolean value) {
+    //-------------------------------------------------------------------------------------
+
+    public void spPut(String key, boolean value) {
         putBoolean(key, value);
     }
 
-    public static void spPut(String key, int value) {
+    public void spPut(String key, int value) {
         putInt(key, value);
     }
 
-    public static void spPut(String key, long value) {
+    public void spPut(String key, long value) {
         putLong(key, value);
     }
 
-    public static void spPut(String key, float value) {
+    public void spPut(String key, float value) {
         putFloat(key, value);
     }
 
-    public static void spPut(String key, String value) {
+    public void spPut(String key, String value) {
         putString(key, value);
     }
 
-    public static String spGet(String key, String default_value) {
+    public void spPut(String key, Set<String> set) {
+        putStringSet(key, set);
+    }
+
+    public String spGet(String key, String default_value) {
         return getString(key, default_value);
     }
 
-    public static int spGet(String key, int default_value) {
+    public int spGet(String key, int default_value) {
         return getInt(key, default_value);
     }
 
-    public static long spGet(String key, long default_value) {
+    public long spGet(String key, long default_value) {
         return getLong(key, default_value);
     }
 
-    public static boolean spGet(String key, boolean default_value) {
+    public boolean spGet(String key, boolean default_value) {
         return getBoolean(key, default_value);
     }
 
-    public static float spGet(String key, float default_value) {
+    public float spGet(String key, float default_value) {
         return getFloat(key, default_value);
+    }
+
+    public Set<String> get(String key, Set<String> default_value) {
+        return getStringSet(key, default_value);
     }
 
 }

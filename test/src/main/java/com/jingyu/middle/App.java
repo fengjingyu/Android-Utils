@@ -1,7 +1,6 @@
 package com.jingyu.middle;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.jingyu.middle.config.ConfigFile;
 import com.jingyu.middle.config.ConfigImages;
@@ -45,19 +44,10 @@ public class App extends Application {
         initCrash();
 
         simpleDeviceInfo();
-
     }
 
     public static Application getApplication() {
         return instance;
-    }
-
-    private void initSp() {
-        SPHelper.initSP(getApplicationContext(), ConfigFile.SP_FILE, Context.MODE_APPEND);// Context.MODE_MULTI_PROCES
-    }
-
-    private void initLog() {
-        Logger.initLog(getApplication(), ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG, ConfigFile.APP_ROOT, ConfigFile.LOG_FILE);
     }
 
     private void createDir() {
@@ -67,6 +57,14 @@ public class App extends Application {
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.PHOTO_DIR);
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CRASH_DIR);
         UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CACHE_DIR);
+    }
+
+    private void initLog() {
+        Logger.initLog(getApplication(), ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG, ConfigFile.APP_ROOT, ConfigFile.LOG_FILE);
+    }
+
+    private void initSp() {
+        Sp.initSP(new SPHelper(getApplicationContext(), ConfigFile.SP_FILE));
     }
 
     private void initHttp() {
@@ -81,8 +79,7 @@ public class App extends Application {
         CrashHandler.getInstance().init(ConfigLog.IS_INIT_CRASH_HANDLER, getApplication(), ConfigFile.CRASH_DIR, ConfigLog.IS_SHOW_EXCEPTION_ACTIVITY);
         CrashHandler.getInstance().setUploadServer(new IException2Server() {
             @Override
-            public void uploadException2Server(String info, Throwable ex, Thread thread,
-                                               ExceptionBean model, ExceptionDb db) {
+            public void uploadException2Server(String info, Throwable ex, Thread thread, ExceptionBean model, ExceptionDb db) {
                 if (db != null) {
                     model.setUserId(Sp.getUserId());
                     db.updateByUniqueId(model, model.getUniqueId());

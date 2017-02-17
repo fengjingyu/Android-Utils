@@ -9,7 +9,7 @@ public class ConfigUrl {
     /**
      * 当前的运行环境，即域名的控制, 上线前，改为ONLINE
      */
-    public static RunEnvironment CURRENT_RUN_ENVIRONMENT = RunEnvironment.ONLINE;
+    private static RunEnvironment RUN_ENVIRONMENT = RunEnvironment.ONLINE;
 
     public enum RunEnvironment {
         DEV, TEST, ONLINE
@@ -18,19 +18,19 @@ public class ConfigUrl {
     /**
      * 通用
      */
-    public static String HOST = "";
+    private static String HOST = "";
     /**
      * IM
      */
-    public static String CHAT = "";
+    private static String CHAT = "";
     /**
      * 通知
      */
-    public static String PUSH = "";
+    private static String PUSH = "";
     /**
      * html
      */
-    public static String HTML = "";
+    private static String HTML = "";
 
     static {
         initConfig();
@@ -40,17 +40,17 @@ public class ConfigUrl {
      * 初始化环境
      */
     public synchronized static void initConfig() {
-        if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.ONLINE) {
+        if (RUN_ENVIRONMENT == RunEnvironment.ONLINE) {
             HOST = "http://host";
             CHAT = "http://chat";
             PUSH = "http://push";
             HTML = "http://html";
-        } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.TEST) {
+        } else if (RUN_ENVIRONMENT == RunEnvironment.TEST) {
             HOST = "http://host";
             CHAT = "http://chat";
             PUSH = "http://push";
             HTML = "http://html";
-        } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.DEV) {
+        } else if (RUN_ENVIRONMENT == RunEnvironment.DEV) {
             HOST = "http://host";
             CHAT = "http://chat";
             PUSH = "http://push";
@@ -97,5 +97,10 @@ public class ConfigUrl {
     public static String getUrlHtml(String key) {
         return HTML + key;
     }
+
+    public static RunEnvironment getRunEnvironment() {
+        return RUN_ENVIRONMENT;
+    }
+
 
 }

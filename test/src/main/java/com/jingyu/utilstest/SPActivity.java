@@ -35,7 +35,7 @@ public class SPActivity extends BaseActivity {
             }
         });
 
-        spHelper = new SPHelper(getApplicationContext(), "ceshi_sp");
+        spHelper = new SPHelper(getApplication(), "ceshi_sp");
     }
 
     private void clear() {

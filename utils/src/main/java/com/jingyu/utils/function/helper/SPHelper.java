@@ -1,5 +1,6 @@
 package com.jingyu.utils.function.helper;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -32,12 +33,12 @@ public class SPHelper {
     private SharedPreferences sharedPreferences;
 
     /**
-     * @param context
-     * @param fileName 不要加 ".xml"的后缀名
-     *                 Context.Mode 下有四种模式常量(6.0之后仅支持private模式)
+     * @param application
+     * @param fileName    不要加 ".xml"的后缀名
+     *                    Context.Mode 下有四种模式常量(6.0之后仅支持private模式)
      */
-    public SPHelper(Context context, String fileName) {
-        sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
+    public SPHelper(Application application, String fileName) {
+        sharedPreferences = application.getSharedPreferences(fileName, Context.MODE_PRIVATE);
     }
 
     public void putString(String key, String value) {

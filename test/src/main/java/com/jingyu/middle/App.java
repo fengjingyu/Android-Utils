@@ -2,8 +2,7 @@ package com.jingyu.middle;
 
 import android.app.Application;
 
-import com.jingyu.middle.config.ConfigFile;
-import com.jingyu.middle.config.ConfigImages;
+import com.jingyu.middle.config.ConfigDir;
 import com.jingyu.middle.config.ConfigLog;
 import com.jingyu.middle.config.ConfigUrl;
 import com.jingyu.utils.exception.CrashHandler;
@@ -11,13 +10,9 @@ import com.jingyu.utils.exception.ExceptionBean;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.exception.IException2Server;
 import com.jingyu.utils.function.helper.Logger;
-import com.jingyu.utils.function.helper.SPHelper;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
-import com.jingyu.utils.imageloader.UniversalImageLoader;
-import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
-import com.nostra13.universalimageloader.utils.L;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -29,10 +24,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         instance = this;
-
-        createDir();
 
         initLog();
 
@@ -51,25 +43,17 @@ public class App extends Application {
         return instance;
     }
 
-    private void createDir() {
-        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
-        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.MOIVE_DIR);
-        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.VIDEO_DIR);
-        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.PHOTO_DIR);
-        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CRASH_DIR);
-        UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.CACHE_DIR);
-    }
-
     private void initLog() {
         Logger.Options options = new Logger.Options();
-        options.isLog2Console = true;
-        options.isLog2File = true;
-        options.isShowDebugToast = true;
+        options.isLog2Console = ConfigLog.isLog2Console();
+        options.isLog2File = ConfigLog.isLog2File();
+        options.isShowDebugToast = ConfigLog.isShowDebugToast();
+        options.logDir = ConfigDir.getLogDirName();
         Logger.initLog(getApplication(), options);
     }
 
     private void initSp() {
-        Sp.initSP(new SPHelper(getApplicationContext(), ConfigFile.SP_FILE));
+        Sp.initSP(getApplication());
     }
 
     private void initHttp() {
@@ -77,11 +61,11 @@ public class App extends Application {
     }
 
     private void initImageLoader() {
-        Image.initImager(new UniversalImageLoader(ConfigImages.getImageloader(getApplicationContext()), ConfigImages.displayImageOptions));
+        Image.initImage(getApplication());
     }
 
     private void initCrash() {
-        CrashHandler.getInstance().init(ConfigLog.IS_INIT_CRASH_HANDLER, getApplication(), ConfigFile.CRASH_DIR, ConfigLog.IS_SHOW_EXCEPTION_ACTIVITY);
+        CrashHandler.getInstance().init(ConfigLog.isInitCrashHandler(), getApplication(), ConfigDir.getCrashLogDirName(), ConfigLog.isShowExceptionActivity());
         CrashHandler.getInstance().setUploadServer(new IException2Server() {
             @Override
             public void uploadException2Server(String info, Throwable ex, Thread thread, ExceptionBean model, ExceptionDb db) {
@@ -97,8 +81,8 @@ public class App extends Application {
      * 设备启动时，输出设备与app的基本信息
      */
     public void simpleDeviceInfo() {
-        Logger.i("域名环境--" + ConfigUrl.CURRENT_RUN_ENVIRONMENT.toString());
-        Logger.i("日志环境--" + ConfigLog.DEBUG_CONTROL.toString());
+        Logger.i("域名环境--" + ConfigUrl.getRunEnvironment().toString());
+        Logger.i("日志环境--" + ConfigLog.getDebugControl().toString());
 
         //Logger.i("cpuinfo--" + UtilSystem.getCPUInfos());
         Logger.i("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
@@ -121,7 +105,7 @@ public class App extends Application {
     }
 
     private void initLeakCanary() {
-        if (!(ConfigLog.DEBUG_CONTROL == ConfigLog.DebugControl.CLOSE)) {
+        if (!(ConfigLog.getDebugControl() == ConfigLog.DebugControl.CLOSE)) {
 
           /*  if (SDK_INT >= GINGERBREAD) {
                 StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()

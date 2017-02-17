@@ -9,7 +9,7 @@ public class ConfigLog {
     /**
      * 是否打开调试日志开关 , 上线前，改为CLOSE
      */
-    public static DebugControl DEBUG_CONTROL = DebugControl.DEFINE;
+    private static DebugControl DEBUG_CONTROL = DebugControl.DEFINE;
 
     /**
      * OPEN: 默认的配置，开发环境可以用这个值
@@ -23,35 +23,35 @@ public class ConfigLog {
     /**
      * 是否打印日志到控制台
      */
-    public static boolean IS_OUTPUT;
+    private static boolean IS_LOG_2_CONSOLE;
     /**
      * 是否弹出调试的土司
      */
-    public static boolean IS_DTOAST;
+    private static boolean IS_SHOW_DEBUG_TOAST;
     /**
      * 是否初始化crashHandler,上线前得关
      */
-    public static boolean IS_INIT_CRASH_HANDLER;
+    private static boolean IS_INIT_CRASH_HANDLER;
     /**
      * 是否打印异常的日志到屏幕， 上线前得关
      */
-    public static boolean IS_SHOW_EXCEPTION_ACTIVITY;
+    private static boolean IS_SHOW_EXCEPTION_ACTIVITY;
     /**
      * 是否打印日志到手机文件中,i()中的上线前全部关闭
      */
-    public static boolean IS_PRINTLOG;
+    private static boolean IS_LOG_2_FILE;
 
     static {
         if (DEBUG_CONTROL == DebugControl.DEFINE) {
 
             // i()方法是否打印到控制台
-            IS_OUTPUT = true;
+            IS_LOG_2_CONSOLE = true;
 
             // i()方法是否打印到本地log日志; e()方法都会打印到log日志，不受该值控制
-            IS_PRINTLOG = false;
+            IS_LOG_2_FILE = false;
 
             // 调试土司是否开启
-            IS_DTOAST = true;
+            IS_SHOW_DEBUG_TOAST = true;
 
             // 是否初始化crashhandler
             IS_INIT_CRASH_HANDLER = true;
@@ -62,13 +62,13 @@ public class ConfigLog {
         } else if (DEBUG_CONTROL == DebugControl.OPEN) {
 
             // i()方法是否打印到控制台
-            IS_OUTPUT = true;
+            IS_LOG_2_CONSOLE = true;
 
             // i()方法是否打印到本地log日志; e()方法都会打印到log日志，不受该值控制
-            IS_PRINTLOG = true;
+            IS_LOG_2_FILE = true;
 
             // 调试土司是否开启
-            IS_DTOAST = true;
+            IS_SHOW_DEBUG_TOAST = true;
 
             // 是否初始化crashhandler
             IS_INIT_CRASH_HANDLER = true;
@@ -79,13 +79,13 @@ public class ConfigLog {
         } else if (DEBUG_CONTROL == DebugControl.CLOSE) {
 
             // i()方法是否打印到控制台
-            IS_OUTPUT = false;
+            IS_LOG_2_CONSOLE = false;
 
             // i()方法是否打印到本地log日志; e()方法都会打印到log日志，不受该值控制
-            IS_PRINTLOG = false;
+            IS_LOG_2_FILE = false;
 
             // 调试土司是否开启
-            IS_DTOAST = false;
+            IS_SHOW_DEBUG_TOAST = false;
 
             // 是否初始化crashhandler
             IS_INIT_CRASH_HANDLER = true;
@@ -98,5 +98,27 @@ public class ConfigLog {
         }
     }
 
+    public static DebugControl getDebugControl() {
+        return DEBUG_CONTROL;
+    }
 
+    public static boolean isLog2Console() {
+        return IS_LOG_2_CONSOLE;
+    }
+
+    public static boolean isShowDebugToast() {
+        return IS_SHOW_DEBUG_TOAST;
+    }
+
+    public static boolean isInitCrashHandler() {
+        return IS_INIT_CRASH_HANDLER;
+    }
+
+    public static boolean isShowExceptionActivity() {
+        return IS_SHOW_EXCEPTION_ACTIVITY;
+    }
+
+    public static boolean isLog2File() {
+        return IS_LOG_2_FILE;
+    }
 }

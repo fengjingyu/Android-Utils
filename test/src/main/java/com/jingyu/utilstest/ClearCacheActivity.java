@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.middle.config.ConfigFile;
+import com.jingyu.middle.config.ConfigDir;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.helper.CleanCacheHelper;
 import com.jingyu.utils.util.UtilIoAndr;
@@ -40,7 +40,7 @@ public class ClearCacheActivity extends BaseActivity implements View.OnClickList
     }
 
     private void logic() {
-        dir = UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigFile.APP_ROOT);
+        dir = UtilIoAndr.createDirInAndroid(getApplicationContext(), ConfigDir.getAppName());
 
         ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("测试");

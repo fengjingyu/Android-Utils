@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.middle.config.ConfigFile;
+import com.jingyu.middle.config.ConfigDir;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.util.UtilIo;
@@ -41,7 +41,7 @@ public class LogActivity extends BaseActivity {
                 Object obj = null;
                 Logger.i(obj);
 
-                Logger.i(UtilIo.getAllFilesByDirQueue(UtilIoAndr.createDirInSDCard(ConfigFile.APP_ROOT), new ArrayList<File>()));
+                Logger.i(UtilIo.getAllFilesByDirQueue(UtilIoAndr.createDirInSDCard(ConfigDir.getAppName()), new ArrayList<File>()));
             }
         });
 

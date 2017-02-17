@@ -53,7 +53,7 @@ public class Logger {
          */
         public int toastTimeGap = 2000;
         /**
-         * 缓存文件达到70M就会清空
+         * 字节,缓存文件达到70M就会清空 1024*1024*70 = 73400320
          */
         public long logFileLimitSize = 73400320;
         /**
@@ -61,7 +61,7 @@ public class Logger {
          */
         public String encoding = "utf-8";
         /**
-         * 存储日志文件的文件夹 例如传“aa/bb”
+         * 在sd卡的目录下创建文件夹 例如传“aa/bb”或 "aa"
          */
         public String logDir = "log_dir";
         /**
@@ -266,7 +266,7 @@ public class Logger {
             raf = new RandomAccessFile(file, "rw");
             long len = raf.length();
             raf.seek(len);
-            raf.write((content + "-->" + DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(new Date()) + "  end  " + System.getProperty("line.separator")).getBytes(options.encoding));
+            raf.write((content + "-->" + DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT).format(new Date()) + "  end  " + System.getProperty("line.separator")).getBytes(options.encoding));
 
         } catch (Exception e) {
             e.printStackTrace();

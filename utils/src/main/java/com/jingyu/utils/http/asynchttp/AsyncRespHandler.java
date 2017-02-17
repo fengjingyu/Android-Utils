@@ -200,7 +200,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     }
 
     protected void printHeaderInfo(Map<String, List<String>> headers) {
-        if (Logger.isOutput && headers != null) {
+        if (Logger.getOptions().isLog2Console && headers != null) {
             for (Map.Entry<String, List<String>> header : headers.entrySet()) {
 
                 List<String> values = header.getValue();

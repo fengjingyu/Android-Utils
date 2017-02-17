@@ -6,10 +6,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.json.JsonParse;
-import com.jingyu.utils.util.UtilString;
+import com.jingyu.utils.util.UtilIoAndr;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,105 +26,102 @@ import java.util.Date;
  * 使用前初始化initLog方法
  */
 public class Logger {
-    /**
-     * 毫秒
-     */
-    private static final int TOAST_TIME_GAP = 2000;
-    /**
-     * 缓存文件达到70M就会清空
-     */
-    private static final long LOG_FILE_LIMIT_SIZE = 73400320;
-    /**
-     * 编码
-     */
-    public static final String encoding = "utf-8";
-    /**
-     * 记录上一次土司的时间
-     */
-    private static long lastToastTime;
-    /**
-     * log文件 = dirDame(目录) + logFileName（文件名）
-     */
-    public static File file;
 
+    private static Options options = new Options();
     /**
-     * 以下值需要初始化
+     * 记录上一次吐司的时间,屏蔽连续吐司
      */
-    public static Application application;
-    /**
-     * 存储日志文件的文件夹 例如传“aa/bb”
-     */
-    private static String dirDame;
-    /**
-     * 日志文件名，例如传"123.txt"
-     */
-    private static String logFileName;
-    /**
-     * 调试土司是否显示
-     */
-    private static boolean isDtoast = false;
-    /**
-     * i类型的日志是否打印到日志文件中
-     */
-    private static boolean isPrintlog = false;
-    /**
-     * 日志是否输出到控制台
-     */
-    public static boolean isOutput = true;
+    private static long recordLastToastTime;
 
-    /**
-     * @param application   上下文
-     * @param is_dtoast     调试土司是否显示
-     * @param is_output     是否输出到控制台
-     * @param is_printlog   i日志是否打印到日志文件
-     * @param dir_name      日志文件件
-     * @param log_file_name 日志文件面
-     */
-    public static void initLog(Application application, boolean is_dtoast, boolean is_output, boolean is_printlog,
-                               String dir_name, String log_file_name) {
+    private static Application application;
 
-        Logger.application = application;
-        Logger.dirDame = UtilString.isAvaliable(dir_name) ? dir_name : "logDir_" + System.currentTimeMillis();
-        Logger.logFileName = UtilString.isAvaliable(log_file_name) ? log_file_name : "log_file.txt";
-        Logger.isDtoast = is_dtoast;
-        Logger.isOutput = is_output;
-        Logger.isPrintlog = is_printlog;
+    public static class Options {
+        /**
+         * 调试土司是否显示
+         */
+        public boolean isShowDebugToast = false;
+        /**
+         * i类型的日志是否打印到日志文件中,e类型的日志不受该值控制
+         */
+        public boolean isLog2File = false;
+        /**
+         * 日志是否输出到控制台
+         */
+        public boolean isLog2Console = false;
+        /**
+         * 毫秒内的连续toast不显示
+         */
+        public int toastTimeGap = 2000;
+        /**
+         * 缓存文件达到70M就会清空
+         */
+        public long logFileLimitSize = 73400320;
+        /**
+         * 编码
+         */
+        public String encoding = "utf-8";
+        /**
+         * 存储日志文件的文件夹 例如传“aa/bb”
+         */
+        public String logDir = "log_dir";
+        /**
+         * 默认日志文件名
+         */
+        private String logFile = "log_file.txt";
+        /**
+         * 默认临时文件名,比如json很长，有时控制台未必会全部打印出来,则打印到临时文件中查看
+         */
+        private String tempFile = "temp_file.txt";
+
+        /**
+         * 仅在有sd卡的时候写日志
+         */
+        public File getLogFile() {
+            // 存在则返回原文件,不存在则创建
+            return UtilIoAndr.createFileInSDCard(logDir, logFile);
+        }
+
+        /**
+         * 仅在有sd卡的时候写日志
+         */
+        public File getTempFile() {
+            // 存在则返回原文件,不存在则创建
+            return UtilIoAndr.createFileInSDCard(logDir, tempFile);
+        }
     }
 
-    /**
-     * 防止点击频繁, 不断的弹出
-     */
+    public static Options getOptions() {
+        return options;
+    }
+
+    public static void initLog(Application application, Options options) {
+        Logger.application = application;
+        if (options != null) {
+            Logger.options = options;
+        }
+    }
+
     public static void longToast(Object msg) {
         longToast(false, msg);
     }
 
-    /**
-     * 防止点击频繁, 不断的弹出
-     */
     public static void longToast(boolean showImmediately, Object msg) {
         toast(showImmediately, msg, Toast.LENGTH_LONG);
     }
 
-    /**
-     * 防止点击频繁, 不断的弹出
-     */
     public static void shortToast(Object msg) {
         shortToast(false, msg);
     }
 
-    /**
-     * 防止点击频繁, 不断的弹出
-     */
     public static void shortToast(boolean showImmediately, Object msg) {
         toast(showImmediately, msg, Toast.LENGTH_SHORT);
     }
-
 
     /**
      * 调试的toast , 上线前开关关闭
      */
     public static void dShortToast(boolean showImmediately, Object msg) {
-        if (isDtoast) {
+        if (options.isShowDebugToast) {
             shortToast(showImmediately, msg);
         }
     }
@@ -148,7 +144,7 @@ public class Logger {
      * 调试的toast , 上线前开关关闭
      */
     public static void dLongToast(boolean showImmediately, Object msg) {
-        if (isDtoast) {
+        if (options.isShowDebugToast) {
             longToast(showImmediately, msg);
         }
     }
@@ -159,49 +155,47 @@ public class Logger {
      * @param showtType         土司的类型 如 long short
      */
     private static void toast(boolean isShowImmediately, Object msg, int showtType) {
-
         if (application == null) {
             return;
         }
 
-        if (isShowImmediately || System.currentTimeMillis() - lastToastTime > TOAST_TIME_GAP) {
+        if (isShowImmediately || System.currentTimeMillis() - recordLastToastTime > options.toastTimeGap) {
             Toast.makeText(application, msg + "", showtType).show();
-            lastToastTime = System.currentTimeMillis();
+            recordLastToastTime = System.currentTimeMillis();
         }
-
     }
 
     /**
      * 以tag打印到控制台 和 文件
      */
     public static void i(Context context, Object msg) {
-        if (isOutput) {
+        if (options.isLog2Console) {
             Log.i(context.getClass().getSimpleName(), msg + "");
         }
-        if (isPrintlog) {
-            writeLog2File(context.getClass().getSimpleName() + "---" + msg, true);
+        if (options.isLog2File) {
+            write2LogFile(context.getClass().getSimpleName() + "---" + msg, true);
         }
     }
 
     public static void i(String tag, Object msg) {
-        if (isOutput) {
+        if (options.isLog2Console) {
             Log.i(tag, msg + "");
         }
-        if (isPrintlog) {
-            writeLog2File(msg + "", true);
+        if (options.isLog2File) {
+            write2LogFile(msg + "", true);
         }
     }
 
     public static void i(Object msg) {
-        if (isOutput) {
+        if (options.isLog2Console) {
             Log.i(Constants.TAG_SYSTEM_OUT, msg + "");
         }
-        if (isPrintlog) {
-            writeLog2File(msg + "", true);
+        if (options.isLog2File) {
+            write2LogFile(msg + "", true);
         }
     }
 
-    public static void itemp(Object msg) {
+    public static void temp(Object msg) {
         i(Constants.TAG_TEMP, msg);
     }
 
@@ -210,30 +204,31 @@ public class Logger {
      */
     public static void e(String hint) {
         Log.e(Constants.TAG_ALOG, hint);
-        writeLog2File(hint, true);
+        write2LogFile(hint, true);
     }
 
     public static void e(Context context, String hint) {
         Log.e(Constants.TAG_ALOG, context.getClass().getSimpleName() + "--" + hint);
-        writeLog2File(context.getClass().getSimpleName() + "--" + hint, true);
+        write2LogFile(context.getClass().getSimpleName() + "--" + hint, true);
     }
 
     public static void e(String hint, Exception e) {
         e.printStackTrace();
         Log.e(Constants.TAG_ALOG, hint + "--Exception-->" + e.toString() + "--" + e.getMessage());
-        writeLog2File("Exception-->" + hint + "-->" + e.toString() + "--" + e.getMessage(), true);
+        write2LogFile("Exception-->" + hint + "-->" + e.toString() + "--" + e.getMessage(), true);
     }
 
     public static void e(Context context, String hint, Exception e) {
         e.printStackTrace();
         Log.e(Constants.TAG_ALOG, "Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage());
-        writeLog2File("Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage(), true);
+        write2LogFile("Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage(), true);
     }
 
     /**
      * 删除日志文件
      */
-    public static synchronized void clearLog() {
+    public static synchronized void deleteLogFile() {
+        File file = options.getLogFile();
         if (file != null && file.exists()) {
             file.delete();
         }
@@ -242,30 +237,28 @@ public class Logger {
     /**
      * 只在有sd卡的时候，才会打印日志
      */
-    public static synchronized void writeLog2File(String content, boolean is_append) {
+    private static synchronized void write2LogFile(String content, boolean is_append) {
 
         if (application == null) {
             return;
         }
 
-        if (TextUtils.isEmpty(content) || !UtilIoAndr.isSDcardExist()) {
+        if (TextUtils.isEmpty(content)) {
             return;
         }
 
         RandomAccessFile raf = null;
 
         try {
+            File file = options.getLogFile();
+
             if (file == null || !file.exists()) {
-                // sd中，在app_root文件夹下创建log文件
-                file = UtilIoAndr.createFileInSDCard(dirDame, logFileName);
+                return;
             }
 
-            // 日志满了的处理
-            logFull();
-
-            // 已存在文件
-            if (!is_append) {
-                // 假如不允许追加写入，则删除 后 重新创建
+            if (file.length() > options.logFileLimitSize || !is_append) {
+                // 日志满了
+                // 不追加写入
                 file.delete();
                 file.createNewFile();
             }
@@ -273,8 +266,7 @@ public class Logger {
             raf = new RandomAccessFile(file, "rw");
             long len = raf.length();
             raf.seek(len);
-            raf.write((content + "-->" + DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.LONG).format(new Date()) + "  end  " + System.getProperty("line.separator"))
-                    .getBytes(encoding));
+            raf.write((content + "-->" + DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(new Date()) + "  end  " + System.getProperty("line.separator")).getBytes(options.encoding));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -289,23 +281,25 @@ public class Logger {
         }
     }
 
-    /**
-     * 打印到TEMP_PRINT_FILE文件中，会覆盖之前的打印信息
-     * <p/>
-     * 场景：如果json很长，有时控制台未必会全部打印出来，则可以去app的目录下找到这个临时文件查看
-     */
-    public synchronized static void tempPrint(String str) {
+    public synchronized static void write2TempFile(String content) {
+        write2TempFile(content, false);
+    }
 
-        if (application == null) {
-            return;
-        }
+    public synchronized static void write2TempFile(String content, boolean append) {
+        if (options.isLog2File) {
 
-        if (isOutput) {
+            if (application == null) {
+                return;
+            }
+
             FileOutputStream fos = null;
             try {
-                // 在app_root目录下创建temp_print文件，如果没有sd卡，则写到内部存储中
-                fos = new FileOutputStream(UtilIoAndr.createFileInAndroid(application, dirDame, "temp_file.txt"));
-                fos.write(str.getBytes());
+                File file = options.getTempFile();
+                if (file == null || !file.exists()) {
+                    return;
+                }
+                fos = new FileOutputStream(file, append);
+                fos.write(content.getBytes());
                 fos.flush();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -315,18 +309,9 @@ public class Logger {
                         fos.close();
                     } catch (Exception e2) {
                         e2.printStackTrace();
-                    } finally {
-                        fos = null;
                     }
                 }
             }
-        }
-    }
-
-    public static void logFull() throws Exception {
-        if (file != null && file.exists() && file.length() > LOG_FILE_LIMIT_SIZE) {
-            file.delete();
-            file.createNewFile();
         }
     }
 
@@ -334,8 +319,7 @@ public class Logger {
      * 格式化打印json到控制台
      */
     public static void logFormatContent(boolean bindLineAndlLog, String tag, String hint, String str) {
-
-        if (isOutput) {
+        if (options.isLog2Console) {
             String content = JsonParse.format(str);
             try {
                 Log.i(tag, "－－－－－－－－－－－－－－－－－－  " + hint + " MSG BEGIN －－－－－－－－－－－－－－－－－－");
@@ -351,7 +335,6 @@ public class Logger {
                 } else {
                     Log.i(tag, "传入logFormatContent()的内容为空");
                 }
-
                 Log.i(tag, "－－－－－－－－－－－－－－－－－－  " + hint + "  MSG END －－－－－－－－－－－－－－－－－－");
             } catch (Exception ex) {
                 Log.e(Constants.TAG_ALOG, "logFormatContent----" + content, ex);

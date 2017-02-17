@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.helper.Logger;
 
 import java.util.Timer;
@@ -40,12 +39,12 @@ public class TimerActivity extends BaseActivity {
         CountDownTimer timer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                Logger.i(count++);
+                Logger.temp(count++);
             }
 
             @Override
             public void onFinish() {
-                Logger.itemp(count + "--onEnd");
+                Logger.temp(count + "--onEnd");
             }
         };
         timer.start();

@@ -16,7 +16,7 @@ import java.net.URL;
  */
 public class DownloadRunnable implements Runnable {
 
-    private String tag = Constants.TAG_TEMP;
+    private String tag = "DownloadRunnable";
     //下载的地址
     private String url = "";
     //保存的文件

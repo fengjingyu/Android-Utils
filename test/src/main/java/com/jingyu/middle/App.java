@@ -17,6 +17,7 @@ import com.jingyu.utils.imageloader.UniversalImageLoader;
 import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
+import com.nostra13.universalimageloader.utils.L;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -60,7 +61,11 @@ public class App extends Application {
     }
 
     private void initLog() {
-        Logger.initLog(getApplication(), ConfigLog.IS_DTOAST, ConfigLog.IS_OUTPUT, ConfigLog.IS_PRINTLOG, ConfigFile.APP_ROOT, ConfigFile.LOG_FILE);
+        Logger.Options options = new Logger.Options();
+        options.isLog2Console = true;
+        options.isLog2File = true;
+        options.isShowDebugToast = true;
+        Logger.initLog(getApplication(), options);
     }
 
     private void initSp() {

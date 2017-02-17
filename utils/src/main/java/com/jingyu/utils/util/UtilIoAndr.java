@@ -88,7 +88,7 @@ public class UtilIoAndr {
     }
 
     /**
-     * 写文本到SD卡,默认为Ecplise的工程编码
+     * 写文本到SD卡
      *
      * @param dirName  如"aa/bb" 在SDCard下建立/mnt/sdcard/aa/bb的目录,
      *                 如null 或 "" 在/mnt/sdcard的目录下建立文件
@@ -162,9 +162,9 @@ public class UtilIoAndr {
             try {
                 FileInputStream fis = null;
                 if (UtilString.isBlank(dirName)) {
-                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + UtilIo.FILE_SEPARATOR + fileName);
+                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + File.separator + fileName);
                 } else {
-                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + UtilIo.FILE_SEPARATOR + dirName + UtilIo.FILE_SEPARATOR + fileName);
+                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + File.separator + dirName + File.separator + fileName);
                 }
                 result = UtilIo.toStringByInputStream(fis);
             } catch (Exception e) {
@@ -206,12 +206,10 @@ public class UtilIoAndr {
     public static File createDirInSDCard(String dirName) {
         File dir = null;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            // 传入"",或"     ",则返回file =
-            // Environment.getExternalStorageDirectory();
             if (dirName == null || dirName.trim().length() == 0) {
                 return Environment.getExternalStorageDirectory();// mnt/sdcard
             }
-            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + UtilIo.FILE_SEPARATOR + dirName;
+            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + dirName;
             dir = new File(dirPath);
 
             if (!dir.exists()) {
@@ -234,7 +232,7 @@ public class UtilIoAndr {
             // return context.getCacheDir();// 内部存储下的/data/data/<package name>/cache
             return context.getFilesDir();
         }
-        String dirPath = context.getFilesDir() + UtilIo.FILE_SEPARATOR + dirName;
+        String dirPath = context.getFilesDir() + File.separator + dirName;
         dir = new File(dirPath);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -265,10 +263,9 @@ public class UtilIoAndr {
     /**
      * 在SDCard中创建文件
      *
-     * @param dirName  "aa/bb" "aa"都可,如果是null
-     *                 或""默认为在Environment.getExternalStorageState()目录下创建文件
+     * @param dirName  "aa/bb" "aa"都可,如果是null 或"" 默认为在Environment.getExternalStorageState()目录下创建文件
      * @param fileName 文件名-->"abc.txt"格式, 不可写成"abc/ed.txt"
-     * @return 返回一个创建了文件夹和文件的目录, 如果没有SD卡, 返回null
+     * @return 文件存在返回存在的文件, 不存在则创建后返回, 如果没有SD卡, 返回null
      */
     public static File createFileInSDCard(String dirName, String fileName) {
         try {
@@ -292,7 +289,7 @@ public class UtilIoAndr {
      *
      * @param dirName  "aa/bb","aa"都可,如果是null 或""默认为在context.getCacheDir()目录下创建文件
      * @param fileName 文件名-->"abc.txt"格式, 不可写成"abc/ed.txt"
-     * @return 返回一个创建了文件夹和文件的目录
+     * @return 文件存在返回存在的文件, 不存在则创建后返回,失败则返回null
      */
     public static File createFileInside(Context context, String dirName, String fileName) {
         try {

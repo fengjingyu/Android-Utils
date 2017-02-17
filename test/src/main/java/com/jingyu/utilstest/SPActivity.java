@@ -10,7 +10,6 @@ import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.function.helper.SPHelper;
-import com.nostra13.universalimageloader.utils.L;
 
 import java.util.HashSet;
 import java.util.Set;

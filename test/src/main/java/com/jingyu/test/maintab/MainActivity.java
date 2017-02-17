@@ -89,8 +89,8 @@ public class MainActivity extends BaseActivity {
         ExceptionDb exceptionModelDb = CrashHandler.getInstance().getExceptionModelDb();
 
         if (exceptionModelDb != null) {
-            Logger.itemp(exceptionModelDb.queryCount());
-            Logger.itemp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
+            Logger.temp(exceptionModelDb.queryCount());
+            Logger.temp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
         }
     }
 

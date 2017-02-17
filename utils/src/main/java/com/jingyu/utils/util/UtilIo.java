@@ -36,8 +36,8 @@ import java.util.Vector;
 public class UtilIo {
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");// 换行符
-    public static final String PATH_SEPARATOR = System.getProperty("path.separator");// 如环境变量的路径分隔符
-    public static final String FILE_SEPARATOR = System.getProperty("file.separator");// 如c:/
+    public static final String PATH_SEPARATOR = System.getProperty("path.separator");// 如环境变量的路径分隔符 ; :
+    public static final String FILE_SEPARATOR = System.getProperty("file.separator");// 如c:/ 等同于File.separator
 
     public static File createFileByPath(String file) {
         try {

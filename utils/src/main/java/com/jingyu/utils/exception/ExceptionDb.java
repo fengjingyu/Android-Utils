@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author  fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class ExceptionDb extends SQLiteOpenHelper {
 
-    public static String mDefaultDbName = "exceptionModel.db";
+    public static String mDefaultDbName = "exception.db";
     public static int mVersion = 1;
-    public static String mOperatorTableName = "exceptionModelTable";
+    public static String mOperatorTableName = "exceptionTable";
 
     /**
      * 排序常量
@@ -107,7 +107,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
 
     }
 
-    public ContentValues createContentValue(ExceptionBean model) {
+    public ContentValues createContentValue(ExceptionInfo model) {
         ContentValues values = new ContentValues();
         values.put(INFO, model.getInfo());
         values.put(EXCEPTION_TIME, model.getExceptionTime());
@@ -117,8 +117,8 @@ public class ExceptionDb extends SQLiteOpenHelper {
         return values;
     }
 
-    public ExceptionBean createModel(Cursor c) {
-        ExceptionBean model = new ExceptionBean();
+    public ExceptionInfo createModel(Cursor c) {
+        ExceptionInfo model = new ExceptionInfo();
         model.setInfo(c.getString(c.getColumnIndex(INFO)));
         model.setExceptionTime(c.getString(c.getColumnIndex(EXCEPTION_TIME)));
         model.setUploadSuccess(c.getString(c.getColumnIndex(UPLOAD_SUCCESS)));
@@ -130,7 +130,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
     /**
      * 插入一条记录
      */
-    public synchronized long insert(ExceptionBean model) {
+    public synchronized long insert(ExceptionInfo model) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         long id = db.insert(mOperatorTableName, _ID, values);
@@ -139,10 +139,10 @@ public class ExceptionDb extends SQLiteOpenHelper {
         return id;
     }
 
-    public synchronized long inserts(List<ExceptionBean> list) {
+    public synchronized long inserts(List<ExceptionInfo> list) {
         int count = 0;
         SQLiteDatabase db = getWritableDatabase();
-        for (ExceptionBean model : list) {
+        for (ExceptionInfo model : list) {
             ContentValues values = createContentValue(model);
             long id = db.insert(mOperatorTableName, _ID, values);
             Logger.i(Constants.TAG_DB, "insert()插入的记录的id是: " + id);
@@ -186,7 +186,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
      */
     public synchronized int deleteUploadSuccess() {
         SQLiteDatabase db = getWritableDatabase();
-        int rows = db.delete(mOperatorTableName, UPLOAD_SUCCESS + "=?", new String[]{ExceptionBean.UPLOAD_YES});
+        int rows = db.delete(mOperatorTableName, UPLOAD_SUCCESS + "=?", new String[]{ExceptionInfo.UPLOAD_YES});
         Logger.i(Constants.TAG_DB, "delete_uploadSuccess-->" + rows + "行");
         db.close();
         return rows;
@@ -197,18 +197,18 @@ public class ExceptionDb extends SQLiteOpenHelper {
      */
     public synchronized int deleteUploadFail() {
         SQLiteDatabase db = getWritableDatabase();
-        int rows = db.delete(mOperatorTableName, UPLOAD_SUCCESS + "=?", new String[]{ExceptionBean.UPLOAD_NO});
+        int rows = db.delete(mOperatorTableName, UPLOAD_SUCCESS + "=?", new String[]{ExceptionInfo.UPLOAD_NO});
         Logger.i(Constants.TAG_DB, "delete_uploadFail-->" + rows + "行");
         db.close();
         return rows;
     }
 
-    public synchronized List<ExceptionBean> queryByUniqueId(String value) {
+    public synchronized List<ExceptionInfo> queryByUniqueId(String value) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(mOperatorTableName, null, UNIQUE_ID + "=?", new String[]{value}, null, null, null);
-        List<ExceptionBean> beans = new ArrayList<ExceptionBean>();
+        List<ExceptionInfo> beans = new ArrayList<ExceptionInfo>();
         while (c.moveToNext()) {
-            ExceptionBean bean = createModel(c);
+            ExceptionInfo bean = createModel(c);
             beans.add(bean);
         }
         c.close();
@@ -219,13 +219,13 @@ public class ExceptionDb extends SQLiteOpenHelper {
     /**
      * 查询上传成功的记录
      */
-    public synchronized List<ExceptionBean> queryUploadSuccess(String sort) {
+    public synchronized List<ExceptionInfo> queryUploadSuccess(String sort) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(mOperatorTableName, null, UPLOAD_SUCCESS + "=?",
-                new String[]{ExceptionBean.UPLOAD_YES}, null, null, _ID + sort); // 条件为null可以查询所有,见api;ORDER
-        List<ExceptionBean> beans = new ArrayList<ExceptionBean>();
+                new String[]{ExceptionInfo.UPLOAD_YES}, null, null, _ID + sort); // 条件为null可以查询所有,见api;ORDER
+        List<ExceptionInfo> beans = new ArrayList<ExceptionInfo>();
         while (c.moveToNext()) {
-            ExceptionBean bean = createModel(c);
+            ExceptionInfo bean = createModel(c);
             beans.add(bean);
         }
         c.close();
@@ -236,13 +236,13 @@ public class ExceptionDb extends SQLiteOpenHelper {
     /**
      * 查询上传失败的记录
      */
-    public synchronized List<ExceptionBean> queryUploadFail(String sort) {
+    public synchronized List<ExceptionInfo> queryUploadFail(String sort) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(mOperatorTableName, null, UPLOAD_SUCCESS + "=?",
-                new String[]{ExceptionBean.UPLOAD_NO}, null, null, _ID + sort); // 条件为null可以查询所有,见api;ORDER
-        List<ExceptionBean> beans = new ArrayList<ExceptionBean>();
+                new String[]{ExceptionInfo.UPLOAD_NO}, null, null, _ID + sort); // 条件为null可以查询所有,见api;ORDER
+        List<ExceptionInfo> beans = new ArrayList<ExceptionInfo>();
         while (c.moveToNext()) {
-            ExceptionBean bean = createModel(c);
+            ExceptionInfo bean = createModel(c);
             beans.add(bean);
         }
         c.close();
@@ -266,12 +266,12 @@ public class ExceptionDb extends SQLiteOpenHelper {
     /**
      * 查询所有
      */
-    public synchronized List<ExceptionBean> queryAllByIdDesc() {
+    public synchronized List<ExceptionInfo> queryAllByIdDesc() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(mOperatorTableName, null, null, null, null, null, _ID + SORT_DESC); // 条件为null可以查询所有
-        List<ExceptionBean> beans = new ArrayList<ExceptionBean>();
+        List<ExceptionInfo> beans = new ArrayList<ExceptionInfo>();
         while (c.moveToNext()) {
-            ExceptionBean bean = createModel(c);
+            ExceptionInfo bean = createModel(c);
             beans.add(bean);
         }
         c.close();
@@ -282,12 +282,12 @@ public class ExceptionDb extends SQLiteOpenHelper {
     /**
      * 查询所有
      */
-    public synchronized List<ExceptionBean> queryAllByIdAsc() {
+    public synchronized List<ExceptionInfo> queryAllByIdAsc() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(mOperatorTableName, null, null, null, null, null, _ID + SORT_ASC);
-        List<ExceptionBean> beans = new ArrayList<ExceptionBean>();
+        List<ExceptionInfo> beans = new ArrayList<ExceptionInfo>();
         while (c.moveToNext()) {
-            ExceptionBean bean = createModel(c);
+            ExceptionInfo bean = createModel(c);
             beans.add(bean);
         }
         c.close();
@@ -298,14 +298,14 @@ public class ExceptionDb extends SQLiteOpenHelper {
     /**
      * 分页查找
      */
-    public synchronized List<ExceptionBean> queryPageByIdAsc(int pageNum, int capacity) {
+    public synchronized List<ExceptionInfo> queryPageByIdAsc(int pageNum, int capacity) {
         String offset = (pageNum - 1) * capacity + ""; // 偏移量
         String len = capacity + ""; // 个数
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(mOperatorTableName, null, null, null, null, null, _ID + SORT_ASC, offset + "," + len);
-        List<ExceptionBean> beans = new ArrayList<ExceptionBean>();
+        List<ExceptionInfo> beans = new ArrayList<ExceptionInfo>();
         while (c.moveToNext()) {
-            ExceptionBean bean = createModel(c);
+            ExceptionInfo bean = createModel(c);
             beans.add(bean);
         }
         c.close();
@@ -316,14 +316,14 @@ public class ExceptionDb extends SQLiteOpenHelper {
     /**
      * 分页查找
      */
-    public synchronized List<ExceptionBean> queryPageByIdDesc(int pageNum, int capacity) {
+    public synchronized List<ExceptionInfo> queryPageByIdDesc(int pageNum, int capacity) {
         String offset = (pageNum - 1) * capacity + ""; // 偏移量
         String len = capacity + ""; // 个数
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(mOperatorTableName, null, null, null, null, null, _ID + SORT_DESC, offset + "," + len);
-        List<ExceptionBean> beans = new ArrayList<ExceptionBean>();
+        List<ExceptionInfo> beans = new ArrayList<ExceptionInfo>();
         while (c.moveToNext()) {
-            ExceptionBean bean = createModel(c);
+            ExceptionInfo bean = createModel(c);
             beans.add(bean);
         }
         c.close();
@@ -331,7 +331,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
         return beans;
     }
 
-    public synchronized int updateByUniqueId(ExceptionBean model, String value) {
+    public synchronized int updateByUniqueId(ExceptionInfo model, String value) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         int rows = db.update(mOperatorTableName, values, UNIQUE_ID + "=?", new String[]{value + ""});

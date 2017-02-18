@@ -1,6 +1,7 @@
 package com.jingyu.middle;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.jingyu.middle.config.Config;
 import com.jingyu.utils.exception.CrashHandler;
@@ -8,6 +9,10 @@ import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
+import com.squareup.leakcanary.LeakCanary;
+
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.GINGERBREAD;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -19,6 +24,11 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (isLeakCanaryProcess()) {
+            return;
+        }
+
         instance = this;
 
         initLog();
@@ -60,7 +70,28 @@ public class App extends Application {
     }
 
     private void initCrashHandler() {
-        CrashHandler.getInstance().init(getApplication(), Config.IS_INIT_CRASH_HANDLER, Config.IS_SHOW_EXCEPTION_ACTIVITY, Config.CRASH_LOG_DIR_NAME);
+        if (Config.IS_INIT_CRASH_HANDLER) {
+            CrashHandler.getInstance().init(getApplication(), Config.IS_SHOW_EXCEPTION_ACTIVITY, Config.CRASH_LOG_DIR_NAME);
+        }
+    }
+
+    private boolean isLeakCanaryProcess() {
+        if (Config.IS_INIT_LEAK_CANARY) {
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                // This process is dedicated to LeakCanary for heap analysis.You should not init your app in this process.
+                return true;
+            }
+
+            if (SDK_INT >= GINGERBREAD) {
+                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                        .detectAll()
+                        .penaltyLog()
+                        .penaltyDeath()
+                        .build());
+            }
+            LeakCanary.install(this);
+        }
+        return false;
     }
 
     /**
@@ -69,7 +100,6 @@ public class App extends Application {
     public void simpleDeviceInfo() {
         Logger.i("域名环境--" + Config.CURRENT_RUN_ENVIRONMENT);
 
-        //Logger.i("cpuinfo--" + UtilSystem.getCPUInfos());
         Logger.i("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
         Logger.i("model--" + UtilSystem.getModel());
         Logger.i("operatorName--" + UtilSystem.getOperatorName(getApplicationContext()));
@@ -89,16 +119,4 @@ public class App extends Application {
         Logger.i("statusBarHeightPx--" + UtilScreen.getStatusBarHeight(getApplicationContext()));
     }
 
-    private void initLeakCanary() {
-        if (Config.IS_INIT_LEAK_CANARY) {
-          /*  if (SDK_INT >= GINGERBREAD) {
-                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                        .detectAll()
-                        .penaltyLog()
-                        .penaltyDeath()
-                        .build());
-            }
-            LeakCanary.install(this);*/
-        }
-    }
 }

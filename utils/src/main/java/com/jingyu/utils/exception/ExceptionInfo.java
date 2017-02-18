@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author  fengjingyu@foxmail.com
  * @description
  */
-public class ExceptionBean implements Serializable {
+public class ExceptionInfo implements Serializable {
 
     private static final long serialVersionUID = 7806487539561621206L;
 
@@ -37,7 +37,7 @@ public class ExceptionBean implements Serializable {
 
     @Override
     public String toString() {
-        return "ExceptionBean{" +
+        return "ExceptionInfo{" +
                 "info='" + info + '\'' +
                 ", exceptionTime='" + exceptionTime + '\'' +
                 ", uploadSuccess='" + uploadSuccess + '\'' +
@@ -46,10 +46,10 @@ public class ExceptionBean implements Serializable {
                 '}';
     }
 
-    public ExceptionBean() {
+    public ExceptionInfo() {
     }
 
-    public ExceptionBean(String info, String exceptionTime, String uploadSuccess, String userId, String uniqueId) {
+    public ExceptionInfo(String info, String exceptionTime, String uploadSuccess, String userId, String uniqueId) {
         this.info = info;
         this.exceptionTime = exceptionTime;
         this.uploadSuccess = uploadSuccess;

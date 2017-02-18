@@ -57,8 +57,8 @@ public class Config {
         if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.DEV) {
             IS_SHOW_DEBUG_TOAST = true;
             IS_LOG_2_CONSOLE = true;
-            IS_LOG_2_FILE = true;
-            IS_INIT_LEAK_CANARY = true;
+            IS_LOG_2_FILE = false;
+            IS_INIT_LEAK_CANARY = false;
             IS_INIT_CRASH_HANDLER = true;
             IS_SHOW_EXCEPTION_ACTIVITY = true;
             HOST = "http://host/dev";

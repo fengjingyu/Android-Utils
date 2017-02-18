@@ -86,8 +86,7 @@ public class MainActivity extends BaseActivity {
      * 进入首页时，把未上传的异常信息上传到服务器
      */
     protected void uploadException() {
-        ExceptionDb exceptionModelDb = CrashHandler.getInstance().getExceptionModelDb();
-
+        ExceptionDb exceptionModelDb = CrashHandler.getInstance().getExceptionDb();
         if (exceptionModelDb != null) {
             Logger.temp(exceptionModelDb.queryCount());
             Logger.temp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));

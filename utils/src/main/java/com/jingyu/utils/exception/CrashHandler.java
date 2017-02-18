@@ -2,22 +2,22 @@ package com.jingyu.utils.exception;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.jingyu.utils.util.UtilDate;
-import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.helper.ActivityCollector;
-import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.util.UtilDate;
+import com.jingyu.utils.util.UtilIo;
+import com.jingyu.utils.util.UtilIoAndr;
+import com.jingyu.utils.util.UtilSystem;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -39,7 +39,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
     private static CrashHandler INSTANCE = new CrashHandler();
 
     private Application application;
-
     /**
      * 异常信息
      */
@@ -51,7 +50,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 存储SD卡的哪个目录
      */
-    private String mCrashDir;
+    private String mCrashDirName;
     /**
      * 异常上传接口
      */
@@ -59,7 +58,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 异常db
      */
-    private ExceptionDb exceptionModelDb;
+    private ExceptionDb exceptionDb;
     /**
      * 存入数据库的时间
      */
@@ -76,23 +75,17 @@ public class CrashHandler implements UncaughtExceptionHandler {
         return INSTANCE;
     }
 
-    public ExceptionDb getExceptionModelDb() {
-        return exceptionModelDb;
+    public ExceptionDb getExceptionDb() {
+        return exceptionDb;
     }
 
-    public CrashHandler init(Application app, boolean isInit, boolean isShowExceptionActivity, String crashDir) {
+    public CrashHandler init(Application app, boolean isShowExceptionActivity, String crashDirName) {
+        application = app;
+        mIsShowExceptionActivity = isShowExceptionActivity;
+        mCrashDirName = crashDirName;
+        exceptionDb = ExceptionDb.getInstance(application);
+        Thread.setDefaultUncaughtExceptionHandler(this);
 
-        if (isInit) {
-
-            application = app;
-
-            mIsShowExceptionActivity = isShowExceptionActivity;
-            mCrashDir = crashDir;
-
-            exceptionModelDb = ExceptionDb.getInstance(application);
-
-            Thread.setDefaultUncaughtExceptionHandler(this);
-        }
         return INSTANCE;
     }
 
@@ -103,74 +96,66 @@ public class CrashHandler implements UncaughtExceptionHandler {
      */
     @Override
     public synchronized void uncaughtException(Thread thread, Throwable ex) {
+        if (application != null && !UtilSystem.getProcessName(application).contains("crash")) {
+            // 收集设备参数信息
+            collectDeviceInfo(application);
 
-        // 收集设备参数信息
-        collectDeviceInfo(application);
+            // 设备参数信息 异常信息 写到crash目录的日志文件中
+            String info = saveCrashInfo2File(ex);
 
-        // 设备参数信息 异常信息 写到crash目录的日志文件中
-        String info = saveCrashInfo2File(ex);
+            // 打印到控制台、写到app目录的log中
+            toLogcat(info);
 
-        // 打印到控制台、写到app目录的log中
-        toLogcat(info);
+            // 存入数据库
+            ExceptionInfo model = sava2DB(info);
 
-        // 是否打开showExcpetionAcivity
-        toShowExceptionActivity(info);
+            // 是否打开showExcpetionAcivity
+            toShowExceptionActivity(info);
 
-        // 存入数据库，此时还未存userid，子类中根据需要是否存储
-        ExceptionBean model = sava2DB(info);
+            //上传到服务器
+            if (uploadServer != null) {
+                uploadServer.uploadException2Server(info, ex, thread, model, exceptionDb);
+            }
 
-        //上传到服务器
-        if (uploadServer != null) {
-            uploadServer.uploadException2Server(info, ex, thread, model, exceptionModelDb);
+            showToast(application, "ProcessName--" + UtilSystem.getProcessName(application) + ", ProcessId--" + UtilSystem.getPid() + UtilIo.LINE_SEPARATOR
+                    + ", thread.getName()--" + thread.getName() + ", thread.getId()---" + thread.getId());
         }
 
         endException();
-
     }
 
-    private ExceptionBean sava2DB(String info) {
-
-        ExceptionBean model = new ExceptionBean(
+    private ExceptionInfo sava2DB(String info) {
+        ExceptionInfo model = new ExceptionInfo(
                 info,
                 tempTime,
-                ExceptionBean.UPLOAD_NO,
+                ExceptionInfo.UPLOAD_NO,
                 "",
                 tempTime + Constants.UNDERLINE + UUID.randomUUID()
         );
 
-        if (exceptionModelDb != null) {
-            exceptionModelDb.insert(model);
+        if (exceptionDb != null) {
+            exceptionDb.insert(model);
         }
 
         return model;
-
     }
 
     /**
      * 在控制台显示 ，同时写入到log中
      */
     public void toLogcat(String hint) {
-
         Logger.e(hint);
-
     }
 
-    public static final int QUIT_FREEZE_TIME = 1500;
-
     public void endException() {
-
-        showToast(application, "很抱歉，程序遭遇异常，即将退出！");
-
         try {
-            Thread.sleep(QUIT_FREEZE_TIME);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        if (application != null) {
-            ActivityCollector.appExit();
-        }
-
+        ActivityCollector.finishAllActivity();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 
     /**
@@ -229,39 +214,38 @@ public class CrashHandler implements UncaughtExceptionHandler {
         String result = writer.toString();
         sb.append(result);
 
+        FileOutputStream fos = null;
+        String fileName = null;
         try {
             tempTime = System.currentTimeMillis() + "";
-            String time = UtilDate.format(new Date(), UtilDate.FORMAT_LONG);
-            String fileName = "crash-" + time + "-" + tempTime + ".log";
+            fileName = "crash-" + UtilDate.format(new Date(), UtilDate.FORMAT_LONG) + "-" + tempTime + ".log";
 
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-
-                FileOutputStream fos = new FileOutputStream(UtilIoAndr.createFileInSDCard(mCrashDir, fileName));
+            File fileInSDCard = UtilIoAndr.createFileInSDCard(mCrashDirName, fileName);
+            if (fileInSDCard != null && fileInSDCard.exists()) {
+                fos = new FileOutputStream(fileInSDCard);
                 fos.write(("crash=" + fileName + UtilIo.LINE_SEPARATOR + sb.toString()).getBytes());
-                fos.close();
-
             }
-
-            return "crash=" + fileName + UtilIo.LINE_SEPARATOR + sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.e("an error occured while writing file--", e);
+            Logger.e("CrashHandler--an error occured while writing file--", e);
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-        return sb.toString();
+        return "crash=" + fileName + UtilIo.LINE_SEPARATOR + sb.toString();
     }
-
-    public static final String EXCEPTION_INFO = "exception_info";
 
     /**
      * 打开一个activity展示异常信息
      */
     public void toShowExceptionActivity(String info) {
         if (mIsShowExceptionActivity) {
-            Intent intent = new Intent(application, ShowExceptionsActivity.class);
-            intent.putExtra(EXCEPTION_INFO, info);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            application.startActivity(intent);
+            ShowExceptionsActivity.actionStart(application, info);
         }
     }
 

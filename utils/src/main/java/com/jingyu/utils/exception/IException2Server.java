@@ -8,5 +8,5 @@ public interface IException2Server {
     /**
      * 回调接口
      */
-    void uploadException2Server(String info, Throwable ex, Thread thread, ExceptionBean model, ExceptionDb exceptionModelDb);
+    void uploadException2Server(String info, Throwable ex, Thread thread, ExceptionInfo model, ExceptionDb exceptionModelDb);
 }

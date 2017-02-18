@@ -65,12 +65,15 @@ dependencies {
     /** gson */
     compile 'com.google.code.gson:gson:2.4'
 
+    /** 图片加载 */
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
+
     /** aar方式引入 */
     // compile(name: 'utils-release', ext: 'aar')
     compile project(':utils')
 
     /** 内存泄露的依赖 */
-    //debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    //releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    //testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

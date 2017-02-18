@@ -38,9 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.jingyu.utils.exception.ShowExceptionsActivity"
-            android:process=":crashinfo" />
         <activity android:name=".TimerActivity" />
         <activity android:name=".DestroyGCActivity" />
         <activity android:name=".recyclerview.RecycleViewActivity" />

@@ -2,9 +2,11 @@ package com.jingyu.utils.exception;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
@@ -28,6 +30,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 
 /**
@@ -62,7 +66,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 存入数据库的时间
      */
-    private String tempTime;
+    private long tempTime;
 
     public void setUploadServer(IException2Server uploadServer) {
         this.uploadServer = uploadServer;
@@ -92,16 +96,17 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 当 UncaughtException 发生时会转入该函数来处理
      * <p/>
-     * try catch的异常是不会回调这个方法的
+     * 1 try catch的异常是不会回调这个方法的
+     * 2 uncaughtException方法内如果出现异常,不会回调这个方法,且会无响应黑屏,所以该方法内trycatch
      */
     @Override
     public synchronized void uncaughtException(Thread thread, Throwable ex) {
-        if (application != null && !UtilSystem.getProcessName(application).contains("crash")) {
+        try {
             // 收集设备参数信息
             collectDeviceInfo(application);
 
-            // 设备参数信息 异常信息 写到crash目录的日志文件中
-            String info = saveCrashInfo2File(ex);
+            // 设备参数信息 异常信息
+            String info = getCrashInfo(ex);
 
             // 打印到控制台、写到app目录的log中
             toLogcat(info);
@@ -109,25 +114,64 @@ public class CrashHandler implements UncaughtExceptionHandler {
             // 存入数据库
             ExceptionInfo model = sava2DB(info);
 
+            // 写到crash日志文件中
+            File file = save2CrashFile(info);
+
             // 是否打开showExcpetionAcivity
-            toShowExceptionActivity(info);
+            toShowExceptionActivity(file);
 
             //上传到服务器
             if (uploadServer != null) {
                 uploadServer.uploadException2Server(info, ex, thread, model, exceptionDb);
             }
 
-            showToast(application, "ProcessName--" + UtilSystem.getProcessName(application) + ", ProcessId--" + UtilSystem.getPid() + UtilIo.LINE_SEPARATOR
-                    + ", thread.getName()--" + thread.getName() + ", thread.getId()---" + thread.getId());
-        }
+            //showToast(application, "--application--" + application + ", ProcessName--" + UtilSystem.getProcessName(application) + ", ProcessId--" + UtilSystem.getPid());
+            showToast(application, "程序出现异常,稍后退出");
 
-        endException();
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                ActivityCollector.finishAllActivity();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+        }
+    }
+
+    private File save2CrashFile(String info) {
+        FileOutputStream fos = null;
+        File crashFile = null;
+        try {
+            String fileName = "crash-" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + ".txt";
+
+            crashFile = UtilIoAndr.createFileInSDCard(mCrashDirName, fileName);
+            if (crashFile != null && crashFile.exists()) {
+                fos = new FileOutputStream(crashFile);
+                fos.write(info.getBytes());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.e("CrashHandler--an error occured while writing file--", e);
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return crashFile;
     }
 
     private ExceptionInfo sava2DB(String info) {
         ExceptionInfo model = new ExceptionInfo(
                 info,
-                tempTime,
+                tempTime + "",
                 ExceptionInfo.UPLOAD_NO,
                 "",
                 tempTime + Constants.UNDERLINE + UUID.randomUUID()
@@ -145,17 +189,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
      */
     public void toLogcat(String hint) {
         Logger.e(hint);
-    }
-
-    public void endException() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ActivityCollector.finishAllActivity();
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
     }
 
     /**
@@ -193,8 +226,12 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 保存错误信息到crash目录的文件中 
      */
-    public String saveCrashInfo2File(Throwable ex) {
+    public String getCrashInfo(Throwable ex) {
         StringBuffer sb = new StringBuffer();
+
+        tempTime = System.currentTimeMillis();
+        sb.append("crash=" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + UtilIo.LINE_SEPARATOR);
+
         for (Map.Entry<String, String> entry : mInfos.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
@@ -213,39 +250,21 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
         String result = writer.toString();
         sb.append(result);
-
-        FileOutputStream fos = null;
-        String fileName = null;
-        try {
-            tempTime = System.currentTimeMillis() + "";
-            fileName = "crash-" + UtilDate.format(new Date(), UtilDate.FORMAT_LONG) + "-" + tempTime + ".log";
-
-            File fileInSDCard = UtilIoAndr.createFileInSDCard(mCrashDirName, fileName);
-            if (fileInSDCard != null && fileInSDCard.exists()) {
-                fos = new FileOutputStream(fileInSDCard);
-                fos.write(("crash=" + fileName + UtilIo.LINE_SEPARATOR + sb.toString()).getBytes());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Logger.e("CrashHandler--an error occured while writing file--", e);
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return "crash=" + fileName + UtilIo.LINE_SEPARATOR + sb.toString();
+        return sb.toString();
     }
 
     /**
      * 打开一个activity展示异常信息
      */
-    public void toShowExceptionActivity(String info) {
+    public void toShowExceptionActivity(File file) {
         if (mIsShowExceptionActivity) {
-            ShowExceptionsActivity.actionStart(application, info);
+            if (file != null) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Uri uri = Uri.fromFile(file);
+                intent.setDataAndType(uri, "text/plain");
+                application.startActivity(intent);
+            }
         }
     }
 

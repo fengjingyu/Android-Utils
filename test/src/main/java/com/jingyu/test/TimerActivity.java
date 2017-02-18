@@ -36,6 +36,7 @@ public class TimerActivity extends BaseActivity {
     int count = 0;
 
     private void countDownTimer() {
+        // 这个是在ui线程里回调
         CountDownTimer timer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {

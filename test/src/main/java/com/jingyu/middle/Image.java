@@ -4,7 +4,7 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.jingyu.middle.config.ConfigDir;
+import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
 import com.jingyu.utils.util.UtilIoAndr;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -23,6 +23,9 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
  * @description
  */
 public class Image {
+
+    private Image() {
+    }
 
     public static void displayImage(String url, ImageView imageview, Object... obj) {
         // TODO 指定配置,判断参数
@@ -87,7 +90,7 @@ public class Image {
 
                 .discCacheFileCount(500)
 
-                .discCache(new UnlimitedDiscCache(UtilIoAndr.createDirInAndroid(application, ConfigDir.getImageLoaderCacheDirName())))
+                .discCache(new UnlimitedDiscCache(UtilIoAndr.createDirInAndroid(application, Config.IMAGE_LOADER_CACHE_DIR_NAME)))
 
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
 

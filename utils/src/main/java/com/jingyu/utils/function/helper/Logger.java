@@ -63,22 +63,22 @@ public class Logger {
         /**
          * 在sd卡的目录下创建文件夹 例如传“aa/bb”或 "aa"
          */
-        public String logDir = "log_dir";
+        public String logDirName = "log_dir";
         /**
          * 默认日志文件名
          */
-        private String logFile = "log_file.txt";
+        private String logFileName = "log_file.txt";
         /**
          * 默认临时文件名,比如json很长，有时控制台未必会全部打印出来,则打印到临时文件中查看
          */
-        private String tempFile = "temp_file.txt";
+        private String tempFileName = "temp_file.txt";
 
         /**
          * 仅在有sd卡的时候写日志
          */
         public File getLogFile() {
             // 存在则返回原文件,不存在则创建
-            return UtilIoAndr.createFileInSDCard(logDir, logFile);
+            return UtilIoAndr.createFileInSDCard(logDirName, logFileName);
         }
 
         /**
@@ -86,7 +86,7 @@ public class Logger {
          */
         public File getTempFile() {
             // 存在则返回原文件,不存在则创建
-            return UtilIoAndr.createFileInSDCard(logDir, tempFile);
+            return UtilIoAndr.createFileInSDCard(logDirName, tempFileName);
         }
     }
 

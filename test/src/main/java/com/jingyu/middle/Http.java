@@ -14,6 +14,8 @@ import java.util.Map;
  * @description
  */
 public class Http {
+    private Http() {
+    }
 
     private static HttpClient httpClient;
 

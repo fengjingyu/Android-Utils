@@ -31,7 +31,7 @@ import java.util.UUID;
 
 
 /**
- * @author  fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description
  */
 public class CrashHandler implements UncaughtExceptionHandler {
@@ -80,7 +80,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         return exceptionModelDb;
     }
 
-    public CrashHandler init(boolean isInit, Application app, String crashDir, boolean isShowExceptionActivity) {
+    public CrashHandler init(Application app, boolean isInit, boolean isShowExceptionActivity, String crashDir) {
 
         if (isInit) {
 

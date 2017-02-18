@@ -35,4 +35,10 @@ public class UtilsTest {
         assertEquals(UtilIoAndr.readFromSDCard("aa/bb", "1.txt"), "android123");
     }
 
+    @Test
+    public void testMakeFileInside() {
+        UtilIoAndr.createFileInside(getContext(), "xiaoming/123", "aaa.txt");
+        UtilIoAndr.createFileInside(getContext(), "", "ccc.txt");
+    }
+
 }

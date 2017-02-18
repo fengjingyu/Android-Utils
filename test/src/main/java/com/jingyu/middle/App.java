@@ -2,13 +2,8 @@ package com.jingyu.middle;
 
 import android.app.Application;
 
-import com.jingyu.middle.config.ConfigDir;
-import com.jingyu.middle.config.ConfigLog;
-import com.jingyu.middle.config.ConfigUrl;
+import com.jingyu.middle.config.Config;
 import com.jingyu.utils.exception.CrashHandler;
-import com.jingyu.utils.exception.ExceptionBean;
-import com.jingyu.utils.exception.ExceptionDb;
-import com.jingyu.utils.exception.IException2Server;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
 import com.jingyu.utils.util.UtilScreen;
@@ -34,7 +29,7 @@ public class App extends Application {
 
         initHttp();
 
-        initCrash();
+        initCrashHandler();
 
         simpleDeviceInfo();
     }
@@ -45,10 +40,10 @@ public class App extends Application {
 
     private void initLog() {
         Logger.Options options = new Logger.Options();
-        options.isLog2Console = ConfigLog.isLog2Console();
-        options.isLog2File = ConfigLog.isLog2File();
-        options.isShowDebugToast = ConfigLog.isShowDebugToast();
-        options.logDir = ConfigDir.getLogDirName();
+        options.isLog2Console = Config.IS_LOG_2_CONSOLE;
+        options.isLog2File = Config.IS_LOG_2_FILE;
+        options.isShowDebugToast = Config.IS_SHOW_DEBUG_TOAST;
+        options.logDirName = Config.LOG_DIR_NAME;
         Logger.initLog(getApplication(), options);
     }
 
@@ -64,25 +59,15 @@ public class App extends Application {
         Image.initImage(getApplication());
     }
 
-    private void initCrash() {
-        CrashHandler.getInstance().init(ConfigLog.isInitCrashHandler(), getApplication(), ConfigDir.getCrashLogDirName(), ConfigLog.isShowExceptionActivity());
-        CrashHandler.getInstance().setUploadServer(new IException2Server() {
-            @Override
-            public void uploadException2Server(String info, Throwable ex, Thread thread, ExceptionBean model, ExceptionDb db) {
-                if (db != null) {
-                    model.setUserId(Sp.getUserId());
-                    db.updateByUniqueId(model, model.getUniqueId());
-                }
-            }
-        });
+    private void initCrashHandler() {
+        CrashHandler.getInstance().init(getApplication(), Config.IS_INIT_CRASH_HANDLER, Config.IS_SHOW_EXCEPTION_ACTIVITY, Config.CRASH_LOG_DIR_NAME);
     }
 
     /**
      * 设备启动时，输出设备与app的基本信息
      */
     public void simpleDeviceInfo() {
-        Logger.i("域名环境--" + ConfigUrl.getRunEnvironment().toString());
-        Logger.i("日志环境--" + ConfigLog.getDebugControl().toString());
+        Logger.i("域名环境--" + Config.CURRENT_RUN_ENVIRONMENT);
 
         //Logger.i("cpuinfo--" + UtilSystem.getCPUInfos());
         Logger.i("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
@@ -105,8 +90,7 @@ public class App extends Application {
     }
 
     private void initLeakCanary() {
-        if (!(ConfigLog.getDebugControl() == ConfigLog.DebugControl.CLOSE)) {
-
+        if (Config.IS_INIT_LEAK_CANARY) {
           /*  if (SDK_INT >= GINGERBREAD) {
                 StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                         .detectAll()

@@ -287,7 +287,7 @@ public class UtilIoAndr {
     /**
      * 在内部存储中创建文件
      *
-     * @param dirName  "aa/bb","aa"都可,如果是null 或""默认为在context.getCacheDir()目录下创建文件
+     * @param dirName  "aa/bb","aa"都可,如果是null 或""默认为在context.getFilesDir()目录下创建文件
      * @param fileName 文件名-->"abc.txt"格式, 不可写成"abc/ed.txt"
      * @return 文件存在返回存在的文件, 不存在则创建后返回,失败则返回null
      */

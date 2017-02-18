@@ -10,6 +10,8 @@ import com.jingyu.utils.function.helper.SPHelper;
  * @description 以下代码可以通过 SpGenerator.jar 生成
  */
 public class Sp {
+    private Sp() {
+    }
 
     public static final String USER_NAME = "userName";
     public static final String USER_ID = "userId";

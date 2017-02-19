@@ -3,8 +3,8 @@ package com.jingyu.utils.http.asynchttp;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.jingyu.utils.function.helper.ExecutorManager;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.ExecutorManager;
+import com.jingyu.utils.function.Logger;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.jingyu.utils.function.helper.Logger.TAG_HTTP;
+import static com.jingyu.utils.function.Logger.TAG_HTTP;
 
 
 /**

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.json.JsonBean;
 import com.jingyu.utils.json.JsonParse;
 import com.jingyu.utilstest.model.TestModel;

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 public class MyService extends Service {
 

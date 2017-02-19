@@ -2,7 +2,7 @@ package com.jingyu.middle;
 
 import android.app.Application;
 
-import com.jingyu.utils.function.helper.SPHelper;
+import com.jingyu.utils.function.SPHelper;
 
 
 /**
@@ -13,6 +13,8 @@ public class Sp {
     private Sp() {
     }
 
+    public static final String SP_FILE_NAME = "sp_file";
+
     public static final String USER_NAME = "userName";
     public static final String USER_ID = "userId";
     public static final String USER_TOKEN = "userToken";
@@ -21,7 +23,6 @@ public class Sp {
     public static final String USER_PHONE_NUM = "userPhoneNum";
     public static final String IS_INSTALL = "isInstall";
 
-    public static final String SP_FILE_NAME = "sp_file";
     private static SPHelper spHelper;
 
     public static void initSP(Application application) {

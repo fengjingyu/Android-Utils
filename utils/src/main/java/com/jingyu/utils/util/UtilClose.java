@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.helper;
+package com.jingyu.utils.util;
 
 import java.io.Closeable;
 
@@ -6,9 +6,9 @@ import java.io.Closeable;
  * @author fengjingyu@foxmail.com
  * @description
  */
-public class CloseHelper {
+public class UtilClose {
 
-    private CloseHelper() {
+    private UtilClose() {
     }
 
     public static void close(Closeable closeable) {

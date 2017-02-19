@@ -2,7 +2,7 @@ package com.jingyu.utils.encryption.rsa;
 
 import android.text.TextUtils;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;

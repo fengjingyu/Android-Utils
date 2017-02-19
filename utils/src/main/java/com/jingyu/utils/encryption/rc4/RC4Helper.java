@@ -3,8 +3,6 @@ package com.jingyu.utils.encryption.rc4;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.jingyu.utils.function.helper.Logger;
-
 import java.security.Key;
 
 import javax.crypto.Cipher;

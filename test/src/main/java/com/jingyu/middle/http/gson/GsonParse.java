@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilString;
 
 import java.io.StringReader;

@@ -3,12 +3,12 @@ package com.jingyu.middle.http.json;
 import android.app.Activity;
 
 import com.jingyu.middle.http.BaseRespHandler;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.json.JsonParse;
 
-import static com.jingyu.utils.function.helper.Logger.TAG_RESP_HANDLER;
+import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
 
 /**
  * @author fengjingyu@foxmail.com

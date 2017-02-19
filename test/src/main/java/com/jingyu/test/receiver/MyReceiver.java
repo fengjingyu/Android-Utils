@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilSystem;
 
 /**

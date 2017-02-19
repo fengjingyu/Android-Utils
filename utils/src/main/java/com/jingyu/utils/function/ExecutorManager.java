@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.helper;
+package com.jingyu.utils.function;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

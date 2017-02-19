@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jingyu.utils.application.PlusFragment;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 /**
  * @author fengjingyu@foxmail.com

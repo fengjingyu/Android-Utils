@@ -3,11 +3,11 @@ package com.jingyu.middle.http.gson;
 import android.app.Activity;
 
 import com.jingyu.middle.http.BaseRespHandler;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 
-import static com.jingyu.utils.function.helper.Logger.TAG_RESP_HANDLER;
+import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
 
 /**
  * @author fengjingyu@foxmail.com

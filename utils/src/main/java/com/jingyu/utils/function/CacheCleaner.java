@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.helper;
+package com.jingyu.utils.function;
 
 import android.app.Dialog;
 import android.os.Handler;
@@ -10,7 +10,7 @@ import java.io.File;
  * @author fengjingyu@foxmail.com
  * @description 删除缓存是在子线程运行的（文件或文件夹）
  */
-public class CleanCacheHelper {
+public class CacheCleaner {
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
@@ -45,7 +45,7 @@ public class CleanCacheHelper {
 
     private Dialog mDeletingDialog;
 
-    public CleanCacheHelper(Dialog deletingDialog, boolean deleteRootDir) {
+    public CacheCleaner(Dialog deletingDialog, boolean deleteRootDir) {
         mDeletingDialog = deletingDialog;
         isDeleteRootDir = deleteRootDir;
         // 如果是实际中, 可能存在正在删除, 而页面此时退出的情况

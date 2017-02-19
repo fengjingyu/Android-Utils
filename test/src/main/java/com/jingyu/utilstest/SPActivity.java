@@ -8,8 +8,8 @@ import android.view.View;
 import com.jingyu.middle.Sp;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
-import com.jingyu.utils.function.helper.Logger;
-import com.jingyu.utils.function.helper.SPHelper;
+import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.function.SPHelper;
 
 import java.util.HashSet;
 import java.util.Set;

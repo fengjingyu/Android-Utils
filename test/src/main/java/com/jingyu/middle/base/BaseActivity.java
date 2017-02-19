@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import com.jingyu.utils.application.PlusActivity;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilBroadcast;
 
 /**

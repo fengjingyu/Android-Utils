@@ -10,7 +10,7 @@ import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.http.BaseRespHandler;
 import com.jingyu.middle.http.json.JsonModel;
 import com.jingyu.middle.http.json.JsonRespHandler;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utilstest.model.TestModel;

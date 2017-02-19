@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

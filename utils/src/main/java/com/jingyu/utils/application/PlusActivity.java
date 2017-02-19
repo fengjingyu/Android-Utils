@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.jingyu.utils.function.helper.ActivityCollector;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.ActivityCollector;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilInput;
 
 import java.lang.reflect.Constructor;

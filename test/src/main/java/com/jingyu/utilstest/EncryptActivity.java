@@ -11,7 +11,7 @@ import com.jingyu.utils.encryption.aes.AesEncryptAndDecrypt;
 import com.jingyu.utils.encryption.des.DesEncryptAndDecrypt;
 import com.jingyu.utils.encryption.md5.Md5Helper;
 import com.jingyu.utils.encryption.rsa.Base64Helper;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilString;
 
 public class EncryptActivity extends BaseActivity {

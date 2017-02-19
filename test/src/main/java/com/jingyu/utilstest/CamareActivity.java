@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.photo.CameraPhotoFragment;
 import com.jingyu.utils.function.photo.AblumPhotoFragment;
 

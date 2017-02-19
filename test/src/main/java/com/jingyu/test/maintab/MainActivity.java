@@ -9,8 +9,8 @@ import com.jingyu.test.R;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.exception.ExceptionDb;
-import com.jingyu.utils.function.helper.ActivityCollector;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.ActivityCollector;
+import com.jingyu.utils.function.Logger;
 
 /**
  * @author fengjingyu@foxmail.com

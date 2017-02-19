@@ -11,7 +11,7 @@ import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.R;
 import com.jingyu.utilstest.AdapterActivity;
 import com.jingyu.utilstest.CamareActivity;
-import com.jingyu.utilstest.ClearCacheActivity;
+import com.jingyu.utilstest.CacheCleanActivity;
 import com.jingyu.utilstest.CloneActivity;
 import com.jingyu.utilstest.ContactsActivity;
 import com.jingyu.utilstest.EncryptActivity;
@@ -20,8 +20,6 @@ import com.jingyu.utilstest.HttpActivity;
 import com.jingyu.utilstest.LogActivity;
 import com.jingyu.utilstest.SPActivity;
 import com.jingyu.utilstest.TaskActivity0;
-
-import static android.R.attr.value;
 
 public class TwoFragment extends BaseFragment implements View.OnClickListener {
 
@@ -110,7 +108,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
                 ContactsActivity.actionStart(getActivity());
                 break;
             case R.id.cache:
-                ClearCacheActivity.actionStart(getActivity());
+                CacheCleanActivity.actionStart(getActivity());
                 break;
             case R.id.adapter:
                 AdapterActivity.actionStart(getActivity());

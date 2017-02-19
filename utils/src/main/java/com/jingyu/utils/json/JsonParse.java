@@ -1,6 +1,6 @@
 package com.jingyu.utils.json;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilString;
 
 import org.json.JSONArray;

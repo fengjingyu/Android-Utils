@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
-import com.jingyu.utils.function.helper.CleanCacheHelper;
+import com.jingyu.utils.function.CacheCleaner;
 import com.jingyu.utils.util.UtilIoAndr;
 
 import java.io.File;
@@ -19,11 +19,11 @@ import java.io.File;
  * @author fengjingyu@foxmail.com
  * @description
  */
-public class ClearCacheActivity extends BaseActivity implements View.OnClickListener {
+public class CacheCleanActivity extends BaseActivity implements View.OnClickListener {
 
     private Button clear;
     private File dir;
-    private CleanCacheHelper helper;
+    private CacheCleaner helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class ClearCacheActivity extends BaseActivity implements View.OnClickList
         dialog.setTitle("测试");
         dialog.setMessage("缓存清理中");
 
-        helper = new CleanCacheHelper(dialog, false);
+        helper = new CacheCleaner(dialog, false);
     }
 
     public void setListeners() {
@@ -65,6 +65,6 @@ public class ClearCacheActivity extends BaseActivity implements View.OnClickList
     }
 
     public static void actionStart(Context activityContext) {
-        activityContext.startActivity(new Intent(activityContext, ClearCacheActivity.class));
+        activityContext.startActivity(new Intent(activityContext, CacheCleanActivity.class));
     }
 }

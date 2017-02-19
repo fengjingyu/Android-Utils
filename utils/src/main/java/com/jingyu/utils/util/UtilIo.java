@@ -2,7 +2,7 @@ package com.jingyu.utils.util;
 
 import android.support.annotation.Nullable;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.runnable.DownloadRunnable;
 
 import java.io.BufferedReader;

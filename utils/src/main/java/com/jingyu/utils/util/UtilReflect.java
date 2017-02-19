@@ -1,6 +1,6 @@
 package com.jingyu.utils.util;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

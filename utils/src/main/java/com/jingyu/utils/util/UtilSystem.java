@@ -12,7 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.telephony.TelephonyManager;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;

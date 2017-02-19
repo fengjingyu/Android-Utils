@@ -1,7 +1,7 @@
 package com.jingyu.utils.function.runnable;
 
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilIo;
 
 import java.io.File;

@@ -3,7 +3,7 @@ package com.jingyu.utils.http.okhttp;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilIo;
@@ -22,7 +22,7 @@ import okhttp3.Callback;
 import okhttp3.Headers;
 import okhttp3.Response;
 
-import static com.jingyu.utils.function.helper.Logger.TAG_HTTP;
+import static com.jingyu.utils.function.Logger.TAG_HTTP;
 
 /**
  * @author fengjingyu@foxmail.com

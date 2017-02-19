@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.helper;
+package com.jingyu.utils.function;
 
 import android.app.Application;
 import android.content.Context;
@@ -11,21 +11,6 @@ import java.util.Set;
 /**
  * @author fengjingyu@foxmail.com
  * @description
- */
-
-/**
- * 2015-2-28 上午11:30:18
- * <p/>
- * log("--" + TAG, (sp.getString("09876561", null) == null) + "");//true
- * sp.edit().putString("123456abcd2", null).commit();
- * log("--" + TAG, (sp.getString("123456abcd2", "abc") + ""));//abc
- * log("--" + TAG, (sp.getString("123456abcd2", "abc") == null) + "");//false
- * log("--" + TAG, (sp.getString("123456abcd2", null) == null) + "");//true
- * log("--" + TAG, (sp.getString("123456abcd2", null) + "") + "");//null
- * <p/>
- * sp.edit().putString("123456789", "1").apply();
- * sp.edit().putString("123456789", null).apply();
- * log("--" + TAG, sp.getString("123456789", "abc"));// "abc"
  */
 
 public class SPHelper {

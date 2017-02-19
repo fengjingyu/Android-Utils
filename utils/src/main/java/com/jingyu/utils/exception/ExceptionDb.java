@@ -6,14 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jingyu.utils.function.helper.Logger.TAG_DB;
+import static com.jingyu.utils.function.Logger.TAG_DB;
 
 /**
  * @author fengjingyu@foxmail.com

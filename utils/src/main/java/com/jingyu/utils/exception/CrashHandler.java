@@ -12,8 +12,8 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.ActivityCollector;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.ActivityCollector;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.util.UtilIoAndr;

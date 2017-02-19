@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.helper;
+package com.jingyu.utils.function;
 
 import android.app.Application;
 import android.content.Context;
@@ -25,9 +25,7 @@ import java.util.Date;
  * 使用前初始化initLog方法
  */
 public class Logger {
-    /**
-     * 不要用system.out输出，用i(),i方法里默认的是该tag
-     */
+
     public static final String TAG_SYSTEM_OUT = "System.out";
     /**
      * 可查看如url 参数 返回的json等

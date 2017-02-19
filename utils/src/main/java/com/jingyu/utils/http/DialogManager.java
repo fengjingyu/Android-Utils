@@ -3,12 +3,12 @@ package com.jingyu.utils.http;
 import android.app.Activity;
 import android.app.Dialog;
 
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.jingyu.utils.function.helper.Logger.TAG_RESP_HANDLER;
+import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
 
 /**
  * @author fengjingyu@foxmail.com

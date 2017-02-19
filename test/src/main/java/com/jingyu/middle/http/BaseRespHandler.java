@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 import com.jingyu.test.maintab.MainActivity;
 import com.jingyu.middle.App;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.DialogManager;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jingyu.utils.function.helper.Logger.TAG_RESP_HANDLER;
+import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
 
 /**
  * @author fengjingyu@foxmail.com

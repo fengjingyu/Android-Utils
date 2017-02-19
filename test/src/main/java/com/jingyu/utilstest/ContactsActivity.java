@@ -17,8 +17,8 @@ import com.jingyu.middle.Image;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.adapter.PlusAdapter;
-import com.jingyu.utils.function.helper.ExecutorManager;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.ExecutorManager;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilContacts;
 import com.jingyu.utils.util.UtilView;
 

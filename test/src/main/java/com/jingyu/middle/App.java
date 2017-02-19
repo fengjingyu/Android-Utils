@@ -5,7 +5,7 @@ import android.app.Application;
 import com.jingyu.middle.config.Config;
 import com.jingyu.test.service.MyService;
 import com.jingyu.utils.exception.CrashHandler;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;

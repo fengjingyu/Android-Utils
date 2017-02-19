@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
-import com.jingyu.utils.function.helper.Logger;
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utilstest.model.TestModel;
 
 public class CloneActivity extends BaseActivity {

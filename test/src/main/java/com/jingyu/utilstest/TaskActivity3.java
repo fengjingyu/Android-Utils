@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
-import com.jingyu.utils.function.helper.ActivityCollector;
+import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.util.UtilIo;
 
 /**

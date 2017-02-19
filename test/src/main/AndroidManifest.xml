@@ -43,7 +43,7 @@
         <activity android:name=".LeakCanaryActivity" />
         <activity android:name=".HandlerActivity" />
         <activity android:name=".SystemDialogActivity" />
-        <activity android:name="com.jingyu.utilstest.ClearCacheActivity" />
+        <activity android:name="com.jingyu.utilstest.CacheCleanActivity" />
         <activity android:name="com.jingyu.utilstest.ContactsActivity" />
         <activity android:name="com.jingyu.utilstest.LogActivity" />
         <activity android:name="com.jingyu.utilstest.SPActivity" />

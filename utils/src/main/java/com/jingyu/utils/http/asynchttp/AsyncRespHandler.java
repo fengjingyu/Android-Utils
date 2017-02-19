@@ -6,7 +6,6 @@ import android.os.Looper;
 import com.jingyu.utils.function.helper.ExecutorManager;
 import com.jingyu.utils.function.helper.Logger;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
@@ -21,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.jingyu.utils.function.helper.Logger.TAG_HTTP;
 
 
 /**
@@ -60,7 +61,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respInfo.setDataBytes(bytes);
                     respInfo.setDataString(bytes);
 
-                    Logger.i(Constants.TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
+                    Logger.i(TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
                     // 打印头信息
                     printHeaderInfo(respInfo.getRespHeaders());
                     // 是否拦截或修改原始的resp
@@ -75,7 +76,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
             });
 
         } else {
-            Logger.i(Constants.TAG_HTTP, "onSuccess--->respHandler为null" + LINE + reqInfo);
+            Logger.i(TAG_HTTP, "onSuccess--->respHandler为null" + LINE + reqInfo);
         }
 
     }
@@ -97,7 +98,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respInfo.setRespType(RespType.FAILURE);
                     respInfo.setThrowable(throwable);
 
-                    Logger.i(Constants.TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + LINE + respInfo.getThrowable());
+                    Logger.i(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + LINE + respInfo.getThrowable());
                     respInfo.getThrowable().printStackTrace();
                     printHeaderInfo(respInfo.getRespHeaders());
 
@@ -110,7 +111,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                 }
             });
         } else {
-            Logger.i(Constants.TAG_HTTP, "onFailure--->respHandler为null" + LINE + reqInfo);
+            Logger.i(TAG_HTTP, "onFailure--->respHandler为null" + LINE + reqInfo);
         }
     }
 
@@ -206,7 +207,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                 List<String> values = header.getValue();
 
                 if (UtilCollections.isListAvaliable(values)) {
-                    Logger.i(Constants.TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
+                    Logger.i(TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
         }
@@ -225,9 +226,9 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            Logger.i(Constants.TAG_HTTP, this + LINE + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
+            Logger.i(TAG_HTTP, this + LINE + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
 
-            Logger.logFormatContent(Constants.TAG_HTTP, "", respInfo.getDataString());
+            Logger.logFormatContent(TAG_HTTP, "", respInfo.getDataString());
 
             // 如果解析失败一定得返回null或者crash
             T resultBean = respHandler.onParse2Model(reqInfo, respInfo);

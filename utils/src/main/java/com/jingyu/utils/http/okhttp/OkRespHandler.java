@@ -7,7 +7,6 @@ import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.RespInfo;
@@ -22,6 +21,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Headers;
 import okhttp3.Response;
+
+import static com.jingyu.utils.function.helper.Logger.TAG_HTTP;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -53,7 +54,7 @@ public class OkRespHandler<T> implements Callback {
             respInfo.setRespType(RespType.FAILURE);
             respInfo.setThrowable(e);
 
-            Logger.i(Constants.TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
+            Logger.i(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
             respInfo.getThrowable().printStackTrace();
             printHeaderInfo(respInfo.getRespHeaders());
 
@@ -64,7 +65,7 @@ public class OkRespHandler<T> implements Callback {
             // 回调到uithread
             handleFailOnUiThread(respInfo);
         } else {
-            Logger.i(Constants.TAG_HTTP, "onFailure--->respHandler" + LINE + reqInfo);
+            Logger.i(TAG_HTTP, "onFailure--->respHandler" + LINE + reqInfo);
         }
 
     }
@@ -85,7 +86,7 @@ public class OkRespHandler<T> implements Callback {
             respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
             respInfo.setThrowable(null);
 
-            Logger.i(Constants.TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
+            Logger.i(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
             // 打印头信息
             printHeaderInfo(respInfo.getRespHeaders());
             // 是否拦截或修改原始的resp
@@ -97,7 +98,7 @@ public class OkRespHandler<T> implements Callback {
             // 回调到uithread
             handleSuccessOnUiThread(resultBean, respInfo);
         } else {
-            Logger.i(Constants.TAG_HTTP, "onSuccess--->respHandler为空" + LINE + reqInfo);
+            Logger.i(TAG_HTTP, "onSuccess--->respHandler为空" + LINE + reqInfo);
         }
 
     }
@@ -177,7 +178,7 @@ public class OkRespHandler<T> implements Callback {
                 List<String> values = header.getValue();
 
                 if (UtilCollections.isListAvaliable(values)) {
-                    Logger.i(Constants.TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
+                    Logger.i(TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
         }
@@ -196,9 +197,9 @@ public class OkRespHandler<T> implements Callback {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            Logger.i(Constants.TAG_HTTP, this + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
+            Logger.i(TAG_HTTP, this + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
 
-            Logger.logFormatContent(Constants.TAG_HTTP, "", respInfo.getDataString());
+            Logger.logFormatContent(TAG_HTTP, "", respInfo.getDataString());
 
             // 如果解析失败一定得返回null或者crash
             T resultBean = respHandler.onParse2Model(reqInfo, respInfo);

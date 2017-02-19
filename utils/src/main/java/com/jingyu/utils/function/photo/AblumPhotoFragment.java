@@ -442,11 +442,11 @@ public class AblumPhotoFragment extends PlusFragment implements View.OnClickList
                 for (int i = 0; i < permissions.length; i++) {
                     if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                         // 用户允许
-                        Logger.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
+                        Logger.i("Permissions --> " + "Permission Granted: " + permissions[i]);
                         todo();
                     } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
                         // 用户拒绝
-                        Logger.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
+                        Logger.i("Permissions --> " + "Permission Denied: " + permissions[i]);
                         Logger.shortToast("请到设置界面打开相册权限");
                     }
                 }

@@ -35,7 +35,7 @@ public class SPHelper {
     /**
      * @param application
      * @param fileName    不要加 ".xml"的后缀名
-     *                    Context.Mode 下有四种模式常量(6.0之后仅支持private模式)
+     *                    Context.Mode 下有四种模式常量(仅推荐private模式)
      */
     public SPHelper(Application application, String fileName) {
         sharedPreferences = application.getSharedPreferences(fileName, Context.MODE_PRIVATE);

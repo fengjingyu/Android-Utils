@@ -1,6 +1,5 @@
 package com.jingyu.utils.util;
 
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.helper.Logger;
 
 import java.text.ParseException;
@@ -345,9 +344,9 @@ public class UtilDate {
         long curTime = System.currentTimeMillis() / (long) 1000;
         long time = curTime - timeStamp;
 
-        Logger.i(Constants.TAG_SYSTEM_OUT, time + "---时间差");
-        Logger.i(Constants.TAG_SYSTEM_OUT, curTime + "---当前时间");
-        Logger.i(Constants.TAG_SYSTEM_OUT, timeStamp + "---timeStamp");
+        Logger.i(time + "---时间差");
+        Logger.i(curTime + "---当前时间");
+        Logger.i(timeStamp + "---timeStamp");
 
         if (time < 60 && time >= 0) {
             return "刚刚";

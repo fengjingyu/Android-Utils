@@ -21,8 +21,12 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (UtilSystem.isMainProcess(getApplicationContext())) {
-            instance = this;
+        instance = this;
+
+        String processName = UtilSystem.getProcessName(getApplicationContext());
+        String packageName = getApplicationContext().getPackageName();
+
+        if (processName.equals(packageName)) {
 
             initLeakCanary();
 
@@ -38,7 +42,20 @@ public class App extends Application {
 
             simpleDeviceInfo();
 
-            initService();
+            initTestService();
+        }
+
+        if (processName.equals(packageName + ":myservice")) {
+
+            initLog();
+
+            initSp();
+
+            initHttp();
+
+            initCrashHandler();
+
+            simpleDeviceInfo();
         }
     }
 
@@ -105,7 +122,7 @@ public class App extends Application {
     }
 
     // 测试用
-    private void initService() {
+    private void initTestService() {
         MyService.actionStart(getApplicationContext());
     }
 

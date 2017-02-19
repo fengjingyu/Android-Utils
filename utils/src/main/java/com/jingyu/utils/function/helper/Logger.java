@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.json.JsonParse;
 import com.jingyu.utils.util.UtilIoAndr;
 
@@ -26,6 +25,30 @@ import java.util.Date;
  * 使用前初始化initLog方法
  */
 public class Logger {
+    /**
+     * 不要用system.out输出，用i(),i方法里默认的是该tag
+     */
+    public static final String TAG_SYSTEM_OUT = "System.out";
+    /**
+     * 可查看如url 参数 返回的json等
+     */
+    public static final String TAG_HTTP = "http";
+    /**
+     * 可查看http里每个方法的调用顺序
+     */
+    public static final String TAG_RESP_HANDLER = "respHandler";
+    /**
+     * DB的相关操作记录
+     */
+    public static final String TAG_DB = "db";
+    /**
+     * 如异常、重要的日志等用该tag，e()方法里就是用了该tag
+     */
+    public static final String TAG_ALERT = "alert";
+    /**
+     * 以下两个是临时测试查看的tag
+     */
+    public static final String TAG_TEMP = "temp";
 
     private static Options options = new Options();
     /**
@@ -188,7 +211,7 @@ public class Logger {
 
     public static void i(Object msg) {
         if (options.isLog2Console) {
-            Log.i(Constants.TAG_SYSTEM_OUT, msg + "");
+            Log.i(TAG_SYSTEM_OUT, msg + "");
         }
         if (options.isLog2File) {
             write2LogFile(msg + "", true);
@@ -196,31 +219,31 @@ public class Logger {
     }
 
     public static void temp(Object msg) {
-        i(Constants.TAG_TEMP, msg);
+        i(TAG_TEMP, msg);
     }
 
     /**
      * e不管是否上线，都会打印日志到本地，并输出到控制台
      */
     public static void e(String hint) {
-        Log.e(Constants.TAG_ALOG, hint);
+        Log.e(TAG_ALERT, hint);
         write2LogFile(hint, true);
     }
 
     public static void e(Context context, String hint) {
-        Log.e(Constants.TAG_ALOG, context.getClass().getSimpleName() + "--" + hint);
+        Log.e(TAG_ALERT, context.getClass().getSimpleName() + "--" + hint);
         write2LogFile(context.getClass().getSimpleName() + "--" + hint, true);
     }
 
     public static void e(String hint, Exception e) {
         e.printStackTrace();
-        Log.e(Constants.TAG_ALOG, hint + "--Exception-->" + e.toString() + "--" + e.getMessage());
+        Log.e(TAG_ALERT, hint + "--Exception-->" + e.toString() + "--" + e.getMessage());
         write2LogFile("Exception-->" + hint + "-->" + e.toString() + "--" + e.getMessage(), true);
     }
 
     public static void e(Context context, String hint, Exception e) {
         e.printStackTrace();
-        Log.e(Constants.TAG_ALOG, "Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage());
+        Log.e(TAG_ALERT, "Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage());
         write2LogFile("Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage(), true);
     }
 
@@ -337,7 +360,7 @@ public class Logger {
                 }
                 Log.i(tag, "－－－－－－－－－－－－－－－－－－  " + hint + "  MSG END －－－－－－－－－－－－－－－－－－");
             } catch (Exception ex) {
-                Log.e(Constants.TAG_ALOG, "logFormatContent----" + content, ex);
+                Log.e(TAG_ALERT, "logFormatContent----" + content, ex);
             }
         }
     }

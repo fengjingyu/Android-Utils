@@ -6,30 +6,6 @@ package com.jingyu.utils.function;
  */
 public class Constants {
     /**
-     * 不要用system.out输出，用i(),i方法里默认的是该tag
-     */
-    public static final String TAG_SYSTEM_OUT = "System.out";
-    /**
-     * 可查看如url 参数 返回的json等
-     */
-    public static final String TAG_HTTP = "http";
-    /**
-     * 可查看http里每个方法的调用顺序
-     */
-    public static final String TAG_RESP_HANDLER = "respHandler";
-    /**
-     * DB的相关操作记录
-     */
-    public static final String TAG_DB = "db";
-    /**
-     * 如异常、重要的日志等用该tag，e()方法里就是用了该tag
-     */
-    public static final String TAG_ALOG = "alog";
-    /**
-     * 以下两个是临时测试查看的tag
-     */
-    public static final String TAG_TEMP = "temp";
-    /**
      * 英文逗号
      */
     public static final String COMMA_EN = ",";

@@ -1,18 +1,15 @@
 package com.jingyu.middle;
 
 import android.app.Application;
-import android.os.StrictMode;
 
 import com.jingyu.middle.config.Config;
+import com.jingyu.test.service.MyService;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.function.helper.Logger;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
 import com.squareup.leakcanary.LeakCanary;
-
-import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.GINGERBREAD;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -24,24 +21,25 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (UtilSystem.isMainProcess(getApplicationContext())) {
+            instance = this;
 
-        if (isLeakCanaryProcess()) {
-            return;
+            initLeakCanary();
+
+            initLog();
+
+            initSp();
+
+            initImageLoader();
+
+            initHttp();
+
+            initCrashHandler();
+
+            simpleDeviceInfo();
+
+            initService();
         }
-
-        instance = this;
-
-        initLog();
-
-        initSp();
-
-        initImageLoader();
-
-        initHttp();
-
-        initCrashHandler();
-
-        simpleDeviceInfo();
     }
 
     public static Application getApplication() {
@@ -75,23 +73,10 @@ public class App extends Application {
         }
     }
 
-    private boolean isLeakCanaryProcess() {
+    private void initLeakCanary() {
         if (Config.IS_INIT_LEAK_CANARY) {
-            if (LeakCanary.isInAnalyzerProcess(this)) {
-                // This process is dedicated to LeakCanary for heap analysis.You should not init your app in this process.
-                return true;
-            }
-
-            if (SDK_INT >= GINGERBREAD) {
-                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                        .detectAll()
-                        .penaltyLog()
-                        .penaltyDeath()
-                        .build());
-            }
             LeakCanary.install(this);
         }
-        return false;
     }
 
     /**
@@ -117,6 +102,11 @@ public class App extends Application {
         Logger.i("screenHeightDP--" + UtilScreen.getScreenHeightDP(getApplicationContext()));
         Logger.i("screenWidthDP--" + UtilScreen.getScreenWidthDP(getApplicationContext()));
         Logger.i("statusBarHeightPx--" + UtilScreen.getStatusBarHeight(getApplicationContext()));
+    }
+
+    // 测试用
+    private void initService() {
+        MyService.actionStart(getApplicationContext());
     }
 
 }

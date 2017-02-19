@@ -31,8 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 
 /**
  * @author fengjingyu@foxmail.com
@@ -117,6 +115,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
             // 写到crash日志文件中
             File file = save2CrashFile(info);
 
+            // 如果主进程在application初始化的时候crash,会一直重启,所以到后台
+            if (UtilSystem.isMainProcess(application)) {
+                UtilSystem.pressHomeKey(application);
+            }
+
             // 是否打开showExcpetionAcivity
             toShowExceptionActivity(file);
 
@@ -126,9 +129,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
 
             //showToast(application, "--application--" + application + ", ProcessName--" + UtilSystem.getProcessName(application) + ", ProcessId--" + UtilSystem.getPid());
-            showToast(application, "程序出现异常,稍后退出");
+            showToast(application, UtilSystem.getProcessName(application) + "--程序出现异常");
 
-            Thread.sleep(1000);
+            Thread.sleep(1500);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -228,6 +231,8 @@ public class CrashHandler implements UncaughtExceptionHandler {
      */
     public String getCrashInfo(Throwable ex) {
         StringBuffer sb = new StringBuffer();
+
+        sb.append(UtilSystem.getProcessName(application) + UtilIo.LINE_SEPARATOR);
 
         tempTime = System.currentTimeMillis();
         sb.append("crash=" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + UtilIo.LINE_SEPARATOR);

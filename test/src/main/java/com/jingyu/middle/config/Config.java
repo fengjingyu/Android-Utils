@@ -19,7 +19,7 @@ public class Config {
      * 目录名设置
      */
     //TODO 修改app的名称
-    public final static String APP_NAME = "app_sample";
+    public final static String APP_NAME = "app_sample_01";
     // 图片加载库的缓存目录
     public final static String IMAGE_LOADER_CACHE_DIR_NAME = APP_NAME + "/imageLoaderCacheDir";
     // log目录
@@ -58,7 +58,7 @@ public class Config {
             IS_SHOW_DEBUG_TOAST = true;
             IS_LOG_2_CONSOLE = true;
             IS_LOG_2_FILE = false;
-            IS_INIT_LEAK_CANARY = false;
+            IS_INIT_LEAK_CANARY = true;
             IS_INIT_CRASH_HANDLER = true;
             IS_SHOW_EXCEPTION_ACTIVITY = true;
             HOST = "http://host/dev";
@@ -87,5 +87,20 @@ public class Config {
         } else {
             throw new RuntimeException("Config-->RunEnvironment的值有误");
         }
+    }
+
+    // 通用接口
+    public static String getHostUrl(String key) {
+        return HOST + key;
+    }
+
+    // 通知接口
+    public static String getPushUrl(String key) {
+        return PUSH + key;
+    }
+
+    // html接口
+    public static String getHtmlUrl(String key) {
+        return HTML + key;
     }
 }

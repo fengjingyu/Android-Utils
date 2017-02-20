@@ -1,8 +1,10 @@
 package com.jingyu.utils.application;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,5 +109,30 @@ public abstract class PlusFragment extends Fragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment != null) {
+                    fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param permission android.Manifest.permission
+     */
+    protected boolean isPermissionGranted(String permission) {
+        return ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    protected void permissionRequest(String[] permissions, int requestCode) {
+        // 这里不要使用ActivityCompat的.requestPermission,否则会回调到Activity的onRequestPermissionsResult
+        requestPermissions(permissions, requestCode);
     }
 }

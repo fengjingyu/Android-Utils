@@ -29,11 +29,10 @@
         <activity
             android:name=".maintab.MainActivity"
             android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".TimerActivity" />
         <activity android:name=".DestroyGCActivity" />
@@ -81,6 +80,15 @@
             android:enabled="true"
             android:exported="false"
             android:process=":myservice" />
+
+        <activity android:name=".RequestPermissionActivity" />
+        <activity android:name=".maintab.LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

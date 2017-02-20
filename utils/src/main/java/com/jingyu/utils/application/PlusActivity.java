@@ -2,9 +2,12 @@ package com.jingyu.utils.application;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -178,4 +181,16 @@ public abstract class PlusActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * @param permission android.Manifest.permission
+     */
+    protected boolean isPermissionGranted(String permission) {
+        return ContextCompat.checkSelfPermission(getActivity(), permission) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    protected void permissionRequest(String[] permissions, int requestCode) {
+        ActivityCompat.requestPermissions(getActivity(), permissions, requestCode);
+    }
+
 }

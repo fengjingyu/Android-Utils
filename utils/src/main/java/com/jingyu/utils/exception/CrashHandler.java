@@ -149,7 +149,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         FileOutputStream fos = null;
         File crashFile = null;
         try {
-            String fileName = "crash-" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + ".txt";
+            String fileName = "crash_" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG_CN) + "_" + tempTime;
 
             crashFile = UtilIoAndr.createFileInSDCard(mCrashDirName, fileName);
             if (crashFile != null && crashFile.exists()) {

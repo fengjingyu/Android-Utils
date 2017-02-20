@@ -45,7 +45,7 @@ public class UtilDate {
      * 中文全称  如：2010年12月01日  23时15分06秒
      * 030
      */
-    public static String FORMAT_LONG_CN = "yyyy年MM月dd日  HH时mm分ss秒";
+    public static String FORMAT_LONG_CN = "yyyy年MM月dd日_HH时mm分ss秒";
 
     /**
      * 029

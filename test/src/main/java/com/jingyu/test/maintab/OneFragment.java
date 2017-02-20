@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.DestroyGCActivity;
+import com.jingyu.test.RequestPermissionActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.HandlerActivity;
 import com.jingyu.test.LeakCanaryActivity;
@@ -28,6 +29,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     private Button destroygc;
     private Button handler;
     private Button fragmentLife;
+    private Button runPermission;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         destroygc.setOnClickListener(this);
         handler.setOnClickListener(this);
         fragmentLife.setOnClickListener(this);
+        runPermission.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -61,6 +64,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         destroygc = getViewById(R.id.destroygc);
         handler = getViewById(R.id.handler);
         fragmentLife = getViewById(R.id.fragmentLife);
+        runPermission = getViewById(R.id.runPermission);
     }
 
     @Override
@@ -89,6 +93,9 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.fragmentLife:
                 FragmentLifeActivity.actionStart(getActivity());
+                break;
+            case R.id.runPermission:
+                RequestPermissionActivity.actionStart(getActivity());
             default:
                 break;
 

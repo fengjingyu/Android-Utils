@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.jingyu.utils.function.ExecutorManager;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.json.JsonBean;
 import com.jingyu.utils.json.JsonParse;
@@ -16,9 +17,12 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertSame;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -120,6 +124,22 @@ public class ExampleInstrumentedTest {
         Logger.i("list", sub.get(0));//相同@1234567
         Logger.i("list", list.get(1));//相同@0123456
         Logger.i("list", sub.get(1));//相同@0123456
+    }
+
+    @Test
+    public void testExecutor() {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService2 = Executors.newCachedThreadPool();
+        assertSame(executorService, executorService2);
+
+//        ExecutorService executorService3 = Executors.newSingleThreadExecutor();
+//        ExecutorService executorService4 = Executors.newSingleThreadExecutor();
+//        assertSame(executorService3,executorService4);
+    }
+
+    @Test
+    public void testExecutorManager() {
+        assertSame(ExecutorManager.getCache(), ExecutorManager.getCache());
     }
 
 }

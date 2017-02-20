@@ -254,7 +254,7 @@ public class UtilSystem {
      * @param context 上下文
      * @param phone   电话
      */
-    public static void toPhone(Context context, String phone) {
+    public static void toDial(Context context, String phone) {
         if (!UtilString.isBlank(phone)) {
             try {
                 Uri uri = Uri.parse("tel:" + phone);
@@ -267,6 +267,13 @@ public class UtilSystem {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static Intent getCallIntent(String phoneNum) {
+        Uri uri = Uri.parse("tel:" + phoneNum);
+        Intent intent = new Intent(Intent.ACTION_CALL, uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
     }
 
     /**
@@ -292,18 +299,26 @@ public class UtilSystem {
     }
 
     public void installApk(Context context, File file) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-        // tomcat的conf的web.xml中有所有的文件类型
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            // tomcat的conf的web.xml中有所有的文件类型
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void uninstallApk(Context context, String packageName) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_DELETE);
-        intent.setData(Uri.parse("package:" + packageName));
-        context.startActivity(intent);
+        try {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_DELETE);
+            intent.setData(Uri.parse("package:" + packageName));
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -323,10 +338,14 @@ public class UtilSystem {
      * 模拟按home键效果
      */
     public static void pressHomeKey(Context context) {
-        Intent i = new Intent(Intent.ACTION_MAIN);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addCategory(Intent.CATEGORY_HOME);
-        context.startActivity(i);
+        try {
+            Intent i = new Intent(Intent.ACTION_MAIN);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.addCategory(Intent.CATEGORY_HOME);
+            context.startActivity(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -97,8 +97,9 @@ public class LaunchActivity extends BaseActivity {
             @Override
             public void run() {
                 MainActivity.actionStart(getActivity());
+                finish();
             }
-        }, 2000);
+        }, 1000);
     }
 
     private void initLog() {

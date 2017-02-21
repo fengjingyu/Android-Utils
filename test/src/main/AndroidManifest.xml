@@ -26,6 +26,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".maintab.LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".maintab.MainActivity"
             android:launchMode="singleTask">
@@ -42,11 +49,13 @@
         <activity android:name=".LeakCanaryActivity" />
         <activity android:name=".HandlerActivity" />
         <activity android:name=".SystemDialogActivity" />
+        <activity android:name=".ContactsActivity" />
+        <activity android:name=".RequestPermissionActivity" />
         <activity android:name="com.jingyu.utilstest.CacheCleanActivity" />
-        <activity android:name="com.jingyu.utilstest.ContactsActivity" />
         <activity android:name="com.jingyu.utilstest.LogActivity" />
         <activity android:name="com.jingyu.utilstest.SPActivity" />
         <activity android:name="com.jingyu.utilstest.CloneActivity" />
+        <activity android:name="com.jingyu.utilstest.HttpActivity" />
         <activity android:name="com.jingyu.utilstest.EncryptActivity" />
         <activity android:name="com.jingyu.utilstest.ExceptionActivity" />
         <activity android:name="com.jingyu.utilstest.CamareActivity" />
@@ -81,14 +90,6 @@
             android:exported="false"
             android:process=":myservice" />
 
-        <activity android:name=".RequestPermissionActivity" />
-        <activity android:name=".maintab.LaunchActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

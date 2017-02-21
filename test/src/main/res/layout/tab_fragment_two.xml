@@ -82,13 +82,6 @@
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/contacts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="通讯录"
-                android:textAllCaps="false" />
-
-            <Button
                 android:id="@+id/cache"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

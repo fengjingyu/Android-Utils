@@ -170,6 +170,13 @@ public class Logger {
         }
     }
 
+    public static void dErrorToast(Object msg) {
+        if (options.isShowDebugToast) {
+            longToast(true, "error--" + msg);
+        }
+        write2LogFile("error--" + msg, true);
+    }
+
     /**
      * @param isShowImmediately true为立即显示，不受时间的限制
      * @param msg               消息，可以object null
@@ -225,24 +232,24 @@ public class Logger {
      */
     public static void e(String hint) {
         Log.e(TAG_ALERT, hint);
-        write2LogFile(hint, true);
+        write2LogFile("error--" + hint, true);
     }
 
     public static void e(Context context, String hint) {
         Log.e(TAG_ALERT, context.getClass().getSimpleName() + "--" + hint);
-        write2LogFile(context.getClass().getSimpleName() + "--" + hint, true);
+        write2LogFile("error--" + context.getClass().getSimpleName() + "--" + hint, true);
     }
 
     public static void e(String hint, Exception e) {
         e.printStackTrace();
         Log.e(TAG_ALERT, hint + "--Exception-->" + e.toString() + "--" + e.getMessage());
-        write2LogFile("Exception-->" + hint + "-->" + e.toString() + "--" + e.getMessage(), true);
+        write2LogFile("error--" + "Exception-->" + hint + "-->" + e.toString() + "--" + e.getMessage(), true);
     }
 
     public static void e(Context context, String hint, Exception e) {
         e.printStackTrace();
         Log.e(TAG_ALERT, "Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage());
-        write2LogFile("Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage(), true);
+        write2LogFile("error--" + "Exception-->" + context.getClass().getSimpleName() + "--" + hint + "--" + e.toString() + "--" + e.getMessage(), true);
     }
 
     /**

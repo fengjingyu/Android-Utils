@@ -10,10 +10,9 @@ import android.widget.Button;
 import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.R;
 import com.jingyu.utilstest.AdapterActivity;
-import com.jingyu.utilstest.CamareActivity;
 import com.jingyu.utilstest.CacheCleanActivity;
+import com.jingyu.utilstest.CamareActivity;
 import com.jingyu.utilstest.CloneActivity;
-import com.jingyu.utilstest.ContactsActivity;
 import com.jingyu.utilstest.EncryptActivity;
 import com.jingyu.utilstest.ExceptionActivity;
 import com.jingyu.utilstest.HttpActivity;
@@ -31,7 +30,6 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
     private Button http;
     private Button clone;
     private Button camare;
-    private Button contacts;
     private Button cache;
     private Button adapter;
 
@@ -57,7 +55,6 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
         http.setOnClickListener(this);
         clone.setOnClickListener(this);
         camare.setOnClickListener(this);
-        contacts.setOnClickListener(this);
         cache.setOnClickListener(this);
         adapter.setOnClickListener(this);
     }
@@ -71,7 +68,6 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
         http = getViewById(R.id.http);
         clone = getViewById(R.id.clone);
         camare = getViewById(R.id.camare);
-        contacts = getViewById(R.id.contacts);
         cache = getViewById(R.id.cache);
         adapter = getViewById(R.id.adapter);
     }
@@ -103,9 +99,6 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.camare:
                 CamareActivity.actionStart(getActivity());
-                break;
-            case R.id.contacts:
-                ContactsActivity.actionStart(getActivity());
                 break;
             case R.id.cache:
                 CacheCleanActivity.actionStart(getActivity());

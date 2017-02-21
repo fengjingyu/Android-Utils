@@ -134,6 +134,7 @@ public abstract class PlusActivity extends AppCompatActivity {
                 addFragment(layout_id, fragment);
             } catch (Exception e) {
                 e.printStackTrace();
+                Logger.dErrorToast("showFragmentByClass()" + fragment_class);
             }
         } else {
             showFragment(fragment);

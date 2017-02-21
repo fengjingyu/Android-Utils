@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.jingyu.middle.base.BaseFragment;
+import com.jingyu.test.ContactsActivity;
 import com.jingyu.test.DestroyGCActivity;
 import com.jingyu.test.RequestPermissionActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
@@ -30,6 +31,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     private Button handler;
     private Button fragmentLife;
     private Button runPermission;
+    private Button contacts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         handler.setOnClickListener(this);
         fragmentLife.setOnClickListener(this);
         runPermission.setOnClickListener(this);
+        contacts.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -65,6 +68,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         handler = getViewById(R.id.handler);
         fragmentLife = getViewById(R.id.fragmentLife);
         runPermission = getViewById(R.id.runPermission);
+        contacts = getViewById(R.id.contacts);
     }
 
     @Override
@@ -96,6 +100,10 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.runPermission:
                 RequestPermissionActivity.actionStart(getActivity());
+                break;
+            case R.id.contacts:
+                ContactsActivity.actionStart(getActivity());
+                break;
             default:
                 break;
 

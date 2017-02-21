@@ -1,11 +1,16 @@
-package com.jingyu.utilstest;
+package com.jingyu.test;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +20,12 @@ import android.widget.TextView;
 
 import com.jingyu.middle.Image;
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.test.R;
-import com.jingyu.utils.function.adapter.PlusAdapter;
 import com.jingyu.utils.function.ExecutorManager;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilContacts;
+import com.jingyu.utils.function.adapter.PlusAdapter;
 import com.jingyu.utils.util.UtilView;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,17 +42,37 @@ public class ContactsActivity extends BaseActivity {
         setContentView(R.layout.activity_contacts);
 
         initWidgets();
+
+        if (isPermissionGranted(Manifest.permission.READ_CONTACTS)) {
+            read();
+        } else {
+            permissionRequest(new String[]{Manifest.permission.READ_CONTACTS}, 1);
+        }
     }
 
-    class ContactsAdapter extends PlusAdapter<UtilContacts.ContactBean> {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    read();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-        public ContactsAdapter(Context context, List<UtilContacts.ContactBean> list) {
+    class ContactsAdapter extends PlusAdapter<Contact> {
+
+        public ContactsAdapter(Context context, List<Contact> list) {
             super(context, list);
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            UtilContacts.ContactBean bean = list.get(position);
+            Contact bean = list.get(position);
 
             ContactViewHolder holder = null;
 
@@ -64,7 +88,7 @@ public class ContactsActivity extends BaseActivity {
                 holder = (ContactViewHolder) convertView.getTag();
             }
 
-            holder.textview.setText(bean.name + "--" + bean.email + "--" + bean.phone_number);
+            holder.textview.setText(bean.name + "@" + bean.phone_number);
             Image.displayImage("http://www.baidu.com/img/bdlogo.png", holder.imageview);
 
             return convertView;
@@ -77,20 +101,38 @@ public class ContactsActivity extends BaseActivity {
         }
     }
 
+    public static class Contact {
+        public String name;
+        public String phone_number;
+    }
+
     public void initWidgets() {
         contacts_listview = getViewById(R.id.contacts_list);
         UtilView.setListViewStyle(contacts_listview, null, 1, false);
+    }
 
+    private void read() {
         final Dialog dialog = new ProgressDialog(getActivity());
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
 
         ExecutorManager.getCache().execute(new Runnable() {
             @Override
             public void run() {
-                // 获取联系人
-                final List<UtilContacts.ContactBean> list = UtilContacts.getContacts(getApplicationContext());
+                Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+                final List<Contact> list = new LinkedList<Contact>();
 
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        Contact contact = new Contact();
+                        contact.name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                        contact.phone_number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        list.add(contact);
+                    }
+                }
+
+                // 获取联系人
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

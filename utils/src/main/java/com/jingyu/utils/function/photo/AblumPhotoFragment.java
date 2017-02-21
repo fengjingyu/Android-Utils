@@ -22,19 +22,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.jingyu.utils.R;
+import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.function.ExecutorManager;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilDate;
-import com.jingyu.utils.R;
-import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.util.UtilOom;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -46,7 +44,6 @@ public class AblumPhotoFragment extends PlusFragment implements View.OnClickList
     // 裁剪的请求码
     public static final int RESIZE_REQUEST_CODE = 3;
 
-    private File tempPhotoFile;
     // 保存图片的文件夹
     private String savePhotoDir = "";
 
@@ -89,7 +86,12 @@ public class AblumPhotoFragment extends PlusFragment implements View.OnClickList
     }
 
     public void getLocalPhoto() {
-        checkPermission();
+        if (isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // 有权限
+            todo();
+        } else {
+            permissionRequest(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_ABLUM_PERMISSIONS);
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -163,9 +165,6 @@ public class AblumPhotoFragment extends PlusFragment implements View.OnClickList
         FileOutputStream fos = null;
         try {
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                if (tempPhotoFile != null && tempPhotoFile.exists()) {
-                    tempPhotoFile.delete();
-                }
                 File file = new File(createDir(), "photo" + getTime() + ".jpg");
                 fos = new FileOutputStream(file);
                 //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
@@ -205,9 +204,6 @@ public class AblumPhotoFragment extends PlusFragment implements View.OnClickList
             FileOutputStream fos = null;
             try {
                 if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    if (tempPhotoFile != null && tempPhotoFile.exists()) {
-                        tempPhotoFile.delete();
-                    }
                     File file = new File(createDir(), "photo" + getTime() + ".jpg");
                     fos = new FileOutputStream(file);
                     //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
@@ -253,7 +249,7 @@ public class AblumPhotoFragment extends PlusFragment implements View.OnClickList
     }
 
     public String getTime() {
-        return UtilDate.format(new Date(), UtilDate.FORMAT_FULL_S);
+        return UtilDate.format(new Date(), UtilDate.FORMAT_CREATE_FILE);
     }
 
     public void setImage(int drawable_id) {
@@ -411,51 +407,24 @@ public class AblumPhotoFragment extends PlusFragment implements View.OnClickList
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
-    public void checkPermission() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // 检查是否有权限
-            int hasWRITE_EXTERNAL_STORAGEPermission = getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-            if (hasWRITE_EXTERNAL_STORAGEPermission != PackageManager.PERMISSION_GRANTED) {
-                List<String> permissions = new ArrayList<String>();
-                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                // 请求获取权限
-                requestPermissions(permissions.toArray(new String[permissions.size()]), REQUEST_CODE_SOME_FEATURES_PERMISSIONS);
-            } else {
-                // 有权限
-                todo();
-            }
-        } else {
-            //小于6.0
-            todo();
-        }
-    }
-
-    public static final int REQUEST_CODE_SOME_FEATURES_PERMISSIONS = 1;
+    public static final int REQUEST_CODE_ABLUM_PERMISSIONS = 1;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        Logger.i(this + "--onRequestPermissionsResult");
         switch (requestCode) {
-            case REQUEST_CODE_SOME_FEATURES_PERMISSIONS: {
-                // 遍历请求权限的集合
-                for (int i = 0; i < permissions.length; i++) {
-                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        // 用户允许
-                        Logger.i("Permissions --> " + "Permission Granted: " + permissions[i]);
+            case REQUEST_CODE_ABLUM_PERMISSIONS:
+                if (permissions.length > 0 && Manifest.permission.WRITE_EXTERNAL_STORAGE.equals(permissions[0])) {
+                    if (grantResults.length > 0 && PackageManager.PERMISSION_GRANTED == grantResults[0]) {
+                        // 有权限了
                         todo();
-                    } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                        // 用户拒绝
-                        Logger.i("Permissions --> " + "Permission Denied: " + permissions[i]);
+                    } else {
                         Logger.shortToast("请到设置界面打开相册权限");
                     }
                 }
-            }
-            break;
-            default: {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
+                break;
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void todo() {

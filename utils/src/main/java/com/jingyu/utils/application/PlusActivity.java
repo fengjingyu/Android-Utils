@@ -1,7 +1,6 @@
 package com.jingyu.utils.application;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -161,25 +160,6 @@ public abstract class PlusActivity extends AppCompatActivity {
 
     public void hideAllFragment() {
         hideFragment(getSupportFragmentManager().getFragments());
-    }
-
-    /**
-     * 这里得重写,否则startforresult时, 无法回调到fragment中的方法 ,
-     * 如果fragment中又有嵌套的话,fragmetn中的该方法也得重写
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Logger.i(this + "---onActivityResult");
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null) {
-            for (Fragment fragment : fragments) {
-                if (fragment != null) {
-                    Logger.i(this + "onActivityResult---" + fragment.toString());
-                    fragment.onActivityResult(requestCode, resultCode, data);
-                }
-            }
-        }
     }
 
     /**

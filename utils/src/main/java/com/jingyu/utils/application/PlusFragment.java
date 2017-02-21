@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 /**
  * @author fengjingyu@foxmail.com
  * @description
@@ -98,32 +96,6 @@ public abstract class PlusFragment extends Fragment {
         super.onHiddenChanged(hidden);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        List<Fragment> fragments = getChildFragmentManager().getFragments();
-        if (fragments != null) {
-            for (Fragment fragment : fragments) {
-                if (fragment != null) {
-                    fragment.onActivityResult(requestCode, resultCode, data);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        List<Fragment> fragments = getChildFragmentManager().getFragments();
-        if (fragments != null) {
-            for (Fragment fragment : fragments) {
-                if (fragment != null) {
-                    fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-                }
-            }
-        }
-    }
-
     /**
      * @param permission android.Manifest.permission
      */
@@ -132,7 +104,8 @@ public abstract class PlusFragment extends Fragment {
     }
 
     protected void permissionRequest(String[] permissions, int requestCode) {
-        // 这里不要使用ActivityCompat的.requestPermission,否则会回调到Activity的onRequestPermissionsResult
+        // 这里不要使用ActivityCompat.requestPermission,否则只会回调到Activity的onRequestPermissionsResult
+        // 这个方法请求权限,activity如果有多个fragment,只会回调到请求了权限的fragment的onRequestPermissionsResult
         requestPermissions(permissions, requestCode);
     }
 }

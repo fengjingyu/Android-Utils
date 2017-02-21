@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -26,9 +25,7 @@ import com.jingyu.utils.util.UtilOom;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -83,7 +80,12 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
     }
 
     public void getTakePhoto() {
-        checkPermission();
+        if (isPermissionGranted(Manifest.permission.CAMERA)) {
+            // 有权限
+            todo();
+        } else {
+            permissionRequest(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA_PERMISSIONS);
+        }
     }
 
     public void resizeImage(Uri uri) {
@@ -246,7 +248,7 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
     }
 
     public String getTime() {
-        return UtilDate.format(new Date(), UtilDate.FORMAT_FULL_S);
+        return UtilDate.format(new Date(), UtilDate.FORMAT_CREATE_FILE);
     }
 
     public void setImage(int drawableId) {
@@ -271,26 +273,6 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
         cameraImageView.setOnClickListener(this);
     }
 
-    public void checkPermission() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // 检查是否有权限
-            int hasCAMERAPermission = getActivity().checkSelfPermission(Manifest.permission.CAMERA);
-
-            if (hasCAMERAPermission != PackageManager.PERMISSION_GRANTED) {
-                List<String> permissions = new ArrayList<String>();
-                permissions.add(Manifest.permission.CAMERA);
-                requestPermissions(permissions.toArray(new String[permissions.size()]), REQUEST_CODE_SOME_FEATURES_PERMISSIONS);
-            } else {
-                // 有权限
-                todo();
-            }
-        } else {
-            //小于6.0
-            todo();
-        }
-    }
-
     public void todo() {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -312,29 +294,23 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
         }
     }
 
-    public static final int REQUEST_CODE_SOME_FEATURES_PERMISSIONS = 1;
+    public static final int REQUEST_CODE_CAMERA_PERMISSIONS = 2;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        Logger.i(this + "--onRequestPermissionsResult");
         switch (requestCode) {
-            case REQUEST_CODE_SOME_FEATURES_PERMISSIONS: {
-                // 遍历请求权限的集合
-                for (int i = 0; i < permissions.length; i++) {
-                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                        // 用户允许
-                        Logger.i("sinki ", "Permissions --> " + "Permission Granted: " + permissions[i]);
+            case REQUEST_CODE_CAMERA_PERMISSIONS: {
+                if (permissions.length > 0 && Manifest.permission.CAMERA.equals(permissions[0])) {
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         todo();
-                    } else if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                        // 用户拒绝
-                        Logger.i("sinki ", "Permissions --> " + "Permission Denied: " + permissions[i]);
+                    } else {
                         Logger.shortToast("请到设置界面打开摄像头权限");
                     }
                 }
             }
             break;
-            default: {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

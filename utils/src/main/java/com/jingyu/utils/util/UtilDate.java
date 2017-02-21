@@ -11,8 +11,6 @@ public class UtilDate {
 
     private static final String TIME_FLAG = "time-----";
 
-    public static String FORMAT_VERY_SHORT = "MM月dd日";
-
     public static String FORMAT_HH_MM = "HH:mm";
 
     public static String FORMAT_MM_DD_HH_MM = "MM月dd日 HH:mm";
@@ -32,21 +30,6 @@ public class UtilDate {
      */
     public static String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.S";
 
-    public static String FORMAT_FULL_S = "yyyyMMdd_HHmmssS";
-
-    /**
-     * 中文简写  如：2010年12月01日
-     */
-    public static String FORMAT_SHORT_CN = "yyyy年MM月dd";
-
-
-    /**
-     * 029
-     * 中文全称  如：2010年12月01日  23时15分06秒
-     * 030
-     */
-    public static String FORMAT_LONG_CN = "yyyy年MM月dd日_HH时mm分ss秒";
-
     /**
      * 029
      * 中文全称  如：2010年12月01日  23:15分
@@ -57,11 +40,9 @@ public class UtilDate {
     /**
      * 精确到毫秒的完整中文时间
      */
-    public static String FORMAT_FULL_CN = "yyyy年MM月dd日  HH时mm分ss秒SSS毫秒";
+    public static String FORMAT_FULL_CN = "yyyy年MM月dd日 HH时mm分ss秒SSS毫秒";
 
-    public static String FORMAT_SHORT_SHORT = "MM-dd  HH:mm";
-
-    public static String FORMAT_SHORT_DATA = "MM/dd";
+    public static String FORMAT_CREATE_FILE = "yyyyMMdd HH_mm_ss_SSS";
 
     /**
      * 把一个时间段,按HH:mm:ss显示

@@ -149,7 +149,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         FileOutputStream fos = null;
         File crashFile = null;
         try {
-            String fileName = "crash_" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG_CN) + "_" + tempTime;
+            String fileName = "crash_" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_CREATE_FILE);
 
             crashFile = UtilIoAndr.createFileInSDCard(mCrashDirName, fileName);
             if (crashFile != null && crashFile.exists()) {
@@ -158,7 +158,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.e("CrashHandler--an error occured while writing file--", e);
         } finally {
             if (fos != null) {
                 try {
@@ -210,7 +209,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
         } catch (NameNotFoundException e) {
             e.printStackTrace();
-            Logger.e("an error occured when collect package info--", e);
         }
 
         Field[] fields = Build.class.getDeclaredFields();
@@ -221,7 +219,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
                 Logger.i(field.getName() + " : " + field.get(null));
             } catch (Exception e) {
                 e.printStackTrace();
-                Logger.e("an error occured when collect crash info--", e);
             }
         }
     }

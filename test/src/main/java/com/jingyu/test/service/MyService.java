@@ -3,7 +3,6 @@ package com.jingyu.test.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
 
 import com.jingyu.utils.function.Logger;
@@ -18,14 +17,6 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Logger.i("myService()");
-            }
-        }, 20000);
-
         return super.onStartCommand(intent, flags, startId);
     }
 

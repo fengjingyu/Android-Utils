@@ -6,82 +6,100 @@
     android:background="@color/c_yellow_ffce43"
     android:orientation="vertical">
 
-    <!-- @c -->
-    <Button
-        android:id="@+id/percentLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="百分比布局"
-        android:textAllCaps="false" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!-- @c -->
-    <Button
-        android:id="@+id/propertyAnim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="属性动画抛物线"
-        android:textAllCaps="false" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- @c -->
+            <Button
+                android:id="@+id/percentLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="百分比布局"
+                android:textAllCaps="false" />
 
-    <!-- @c -->
-    <Button
-        android:id="@+id/leakCanary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="leakCanary库"
-        android:textAllCaps="false" />
+            <!-- @c -->
+            <Button
+                android:id="@+id/propertyAnim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="属性动画抛物线"
+                android:textAllCaps="false" />
 
-    <!-- @c -->
-    <Button
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="几种定时器的实现"
-        android:textAllCaps="false" />
+            <!-- @c -->
+            <Button
+                android:id="@+id/leakCanary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="leakCanary库"
+                android:textAllCaps="false" />
 
-    <!-- @c -->
-    <Button
-        android:id="@+id/systemDialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="系统的dailog"
-        android:textAllCaps="false" />
+            <!-- @c -->
+            <Button
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="几种定时器的实现"
+                android:textAllCaps="false" />
 
-    <!-- @c -->
-    <Button
-        android:id="@+id/destroygc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="activity fragment的destroy之后的引用"
-        android:textAllCaps="false" />
+            <!-- @c -->
+            <Button
+                android:id="@+id/systemDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="系统的dailog"
+                android:textAllCaps="false" />
 
-    <!-- @c -->
-    <Button
-        android:id="@+id/handler"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="handler looper thread"
-        android:textAllCaps="false" />
-    <!-- @c -->
-    <Button
-        android:id="@+id/fragmentLife"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fragment周期与返回栈"
-        android:textAllCaps="false" />
+            <!-- @c -->
+            <Button
+                android:id="@+id/destroygc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="activity fragment的destroy之后的引用"
+                android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/runPermission"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="运行时权限"
-        android:textAllCaps="false" />
+            <!-- @c -->
+            <Button
+                android:id="@+id/handler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="handler looper thread"
+                android:textAllCaps="false" />
+            <!-- @c -->
+            <Button
+                android:id="@+id/fragmentLife"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fragment周期与返回栈"
+                android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/contacts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="通讯录"
-        android:textAllCaps="false" />
+            <Button
+                android:id="@+id/runPermission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="运行时权限"
+                android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/contacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通讯录"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通知"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

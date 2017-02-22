@@ -1,13 +1,13 @@
 package com.jingyu.tooltest.db;
 
 
-import com.jingyu.utils.function.annotation.Delete;
-import com.jingyu.utils.function.annotation.Deletes;
-import com.jingyu.utils.function.annotation.Ignore;
-import com.jingyu.utils.function.annotation.Query;
-import com.jingyu.utils.function.annotation.Querys;
-import com.jingyu.utils.function.annotation.Update;
-import com.jingyu.utils.function.annotation.Updates;
+import com.jingyu.tooltest.annotation.Delete;
+import com.jingyu.tooltest.annotation.Deletes;
+import com.jingyu.tooltest.annotation.Ignore;
+import com.jingyu.tooltest.annotation.Query;
+import com.jingyu.tooltest.annotation.Querys;
+import com.jingyu.tooltest.annotation.Update;
+import com.jingyu.tooltest.annotation.Updates;
 
 import java.io.Serializable;
 

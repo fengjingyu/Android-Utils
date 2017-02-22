@@ -3,7 +3,6 @@ package com.jingyu.test.maintab;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -93,13 +92,9 @@ public class LaunchActivity extends BaseActivity {
 
         initTestService();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                MainActivity.actionStart(getActivity());
-                finish();
-            }
-        }, 1000);
+        MainActivity.actionStart(getActivity());
+
+        finish();
     }
 
     private void initLog() {

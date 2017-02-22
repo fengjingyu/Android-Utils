@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.annotation;
+package com.jingyu.tooltest.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -13,8 +13,9 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
 @Documented
-public @interface Updates {
+public @interface Update {
 
-    Update[] value();
+    String methodName();
 
+    String where();
 }

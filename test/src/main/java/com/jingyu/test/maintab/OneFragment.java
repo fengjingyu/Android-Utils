@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.ContactsActivity;
 import com.jingyu.test.DestroyGCActivity;
+import com.jingyu.test.NotifyActivity;
 import com.jingyu.test.RequestPermissionActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.HandlerActivity;
@@ -32,6 +33,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     private Button fragmentLife;
     private Button runPermission;
     private Button contacts;
+    private Button notification;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         fragmentLife.setOnClickListener(this);
         runPermission.setOnClickListener(this);
         contacts.setOnClickListener(this);
+        notification.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -69,6 +72,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         fragmentLife = getViewById(R.id.fragmentLife);
         runPermission = getViewById(R.id.runPermission);
         contacts = getViewById(R.id.contacts);
+        notification = getViewById(R.id.notification);
     }
 
     @Override
@@ -104,6 +108,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
             case R.id.contacts:
                 ContactsActivity.actionStart(getActivity());
                 break;
+            case R.id.notification:
+                NotifyActivity.actionStart(getActivity());
             default:
                 break;
 

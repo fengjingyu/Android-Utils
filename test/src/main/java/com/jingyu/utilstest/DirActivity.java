@@ -20,6 +20,44 @@ public class DirActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dir);
+        testAndroidApi();
+        testFile();
+        testStorager();
+    }
+
+    private void testStorager() {
+        Storager.Internal.getDir(this, "nihao");
+        Storager.Internal.getDir(this, "hehe/haha/xixi");
+        Storager.Internal.getDir(this, "cache/xiaoming");
+        Storager.Internal.getDir(this, "files/xiaohong");
+
+        File externalAndroidPackageDir = Storager.ExternalAndroid.getPackageDir(this);
+        Logger.i(externalAndroidPackageDir.exists() + "--externalAndroidPackageDir--" + externalAndroidPackageDir.getAbsolutePath());
+    }
+
+    private void testFile() {
+        File file = new File("C://123");
+        boolean result = file.mkdirs();
+        Logger.i(file + "--file.exists() =" + file.exists() + ",mkdirs()=" + result);//不会crash,但是文件不存在
+        //C:/123--file.exists() =false,mkdirs()=false
+
+        File file2 = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        boolean result2 = file2.mkdirs();
+        Logger.i(file2 + "--file2.exists() =" + file2.exists() + ",mkdirs()=" + result2);
+        // /storage/emulated/0--file2.exists() =true,mkdirs()=false
+
+        File file3 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + System.currentTimeMillis());
+        boolean result3 = file3.mkdirs();
+        Logger.i(file3 + "--file3.exists() =" + file3.exists() + ",mkdirs()=" + result3);
+        // /storage/emulated/0/1487840993165--file3.exists() =true,mkdirs()=true
+
+        File file4 = new File(getCacheDir().getAbsolutePath() + "/abc/bcd");
+        boolean result4 = file4.mkdirs();
+        Logger.i(file4 + "--file4.exists() =" + file4.exists() + ",mkdirs()=" + result4);
+        // /data/user/0/com.jingyu.test/cache/abc/bcd--file4.exists() =true,mkdirs()=true
+    }
+
+    private void testAndroidApi() {
         Logger.i(Environment.isExternalStorageEmulated() + "--ExternalStorageEmulated-" + UtilSystem.getPhoneBrand());
         //7.0小米5  true
         //6.0模拟器 true
@@ -92,32 +130,6 @@ public class DirActivity extends AppCompatActivity {
         Logger.i(Environment.getExternalStoragePublicDirectory("testdir2/123").mkdirs() + "--" + UtilSystem.getPhoneBrand()); //不会创建目录,可以多级目录即可含有path分隔符, 但仅仅返回一个file的路径,如果该文件夹不存在,并不会创建,得手动创建
         Logger.i(getDir("", Context.MODE_PRIVATE));//会创建目录 /data/user/0/com.jingyu.test/app_
         Logger.i(getDir(null, Context.MODE_PRIVATE));//会创建目录/data/user/0/com.jingyu.test/app_null
-
-
-        File file = new File("C://123");
-        boolean result = file.mkdirs();
-        Logger.i(file + "--file.exists() =" + file.exists() + ",mkdirs()=" + result);//不会crash,但是文件不存在
-        //C:/123--file.exists() =false,mkdirs()=false
-
-        File file2 = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
-        boolean result2 = file2.mkdirs();
-        Logger.i(file2 + "--file2.exists() =" + file2.exists() + ",mkdirs()=" + result2);
-        // /storage/emulated/0--file2.exists() =true,mkdirs()=false
-
-        File file3 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + System.currentTimeMillis());
-        boolean result3 = file3.mkdirs();
-        Logger.i(file3 + "--file3.exists() =" + file3.exists() + ",mkdirs()=" + result3);
-        // /storage/emulated/0/1487840993165--file3.exists() =true,mkdirs()=true
-
-        File file4 = new File(getCacheDir().getAbsolutePath()+"/abc/bcd");
-        boolean result4 = file4.mkdirs();
-        Logger.i(file4 + "--file4.exists() =" + file4.exists() + ",mkdirs()=" + result4);
-        // /data/user/0/com.jingyu.test/cache/abc/bcd--file4.exists() =true,mkdirs()=true
-
-        Storager.Internal.getDir(this,"nihao");
-        Storager.Internal.getDir(this,"hehe/haha/xixi");
-        Storager.Internal.getDir(this,"cache/xiaoming");
-        Storager.Internal.getDir(this,"files/xiaohong");
     }
 
     public static void actionStart(FragmentActivity activity) {

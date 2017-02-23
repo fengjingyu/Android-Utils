@@ -95,6 +95,13 @@
                 android:text="adapter"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/dir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dir"
+                android:textAllCaps="false" />
+
         </LinearLayout>
 
     </ScrollView>

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * @author  fengjingyu@foxmail.com
+ * @author fengjingyu@foxmail.com
  * @description 管理activity
  */
 public class ActivityCollector {
@@ -169,7 +169,6 @@ public class ActivityCollector {
     public static void appExit() {
         finishAllActivity();
         android.os.Process.killProcess(android.os.Process.myPid());
-        //System.exit(0);
     }
 
 }

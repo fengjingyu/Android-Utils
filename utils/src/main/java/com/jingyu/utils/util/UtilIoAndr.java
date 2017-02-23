@@ -121,7 +121,7 @@ public class UtilIoAndr {
     }
 
     /**
-     * 从内部存储读取文本文件
+     * 从内部存储读文件,文件在/data/data/"PACKAGE_NAME"/files/filename
      *
      * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
      */

@@ -13,6 +13,7 @@ import com.jingyu.utilstest.AdapterActivity;
 import com.jingyu.utilstest.CacheCleanActivity;
 import com.jingyu.utilstest.CamareActivity;
 import com.jingyu.utilstest.CloneActivity;
+import com.jingyu.utilstest.DirActivity;
 import com.jingyu.utilstest.EncryptActivity;
 import com.jingyu.utilstest.ExceptionActivity;
 import com.jingyu.utilstest.HttpActivity;
@@ -32,6 +33,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
     private Button camare;
     private Button cache;
     private Button adapter;
+    private Button dir;
 
 
     @Override
@@ -57,6 +59,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
         camare.setOnClickListener(this);
         cache.setOnClickListener(this);
         adapter.setOnClickListener(this);
+        dir.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -70,6 +73,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
         camare = getViewById(R.id.camare);
         cache = getViewById(R.id.cache);
         adapter = getViewById(R.id.adapter);
+        dir = getViewById(R.id.dir);
     }
 
 
@@ -105,6 +109,9 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.adapter:
                 AdapterActivity.actionStart(getActivity());
+                break;
+            case R.id.dir:
+                DirActivity.actionStart(getActivity());
                 break;
             default:
                 break;

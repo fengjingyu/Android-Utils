@@ -36,6 +36,9 @@ public class Storager {
         return null;
     }
 
+    /**
+     * "e:/haha/enen.o/hexx.&...we/android.txt") 这创建出来的是文件夹
+     */
     public static File createDir(String dirAbsolutePath) {
         if (isStringAvaliable(dirAbsolutePath)) {
             return createDir(new File(dirAbsolutePath));
@@ -55,13 +58,6 @@ public class Storager {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public static File createFile(String fileAbsolutePath) {
-        if (isStringAvaliable(fileAbsolutePath)) {
-            return createFile(new File(fileAbsolutePath));
-        }
-        return null;
     }
 
     public static File createFile(String dirAbsolutePath, String fileName) {

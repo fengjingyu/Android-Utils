@@ -13,6 +13,7 @@ import com.jingyu.utils.function.Storager;
 import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
+import java.io.IOException;
 
 public class DirActivity extends AppCompatActivity {
 
@@ -20,19 +21,83 @@ public class DirActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dir);
-        testAndroidApi();
-        testFile();
-        testStorager();
+        //testAndroidApi();
+        testStoragerInternal();
+        testStoragerAndroid();
     }
 
-    private void testStorager() {
-        Storager.Internal.getDir(this, "nihao");
-        Storager.Internal.getDir(this, "hehe/haha/xixi");
-        Storager.Internal.getDir(this, "cache/xiaoming");
-        Storager.Internal.getDir(this, "files/xiaohong");
+    public void log(String msg, File file, boolean isDir) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(msg);
+        if (file == null) {
+            sb.append("file为null ,");
+            Logger.i(sb.toString());
+            return;
+        } else {
+            sb.append("file不为null ," + file.getAbsolutePath() + " , ");
+        }
 
-        File externalAndroidPackageDir = Storager.ExternalAndroid.getPackageDir(this);
-        Logger.i(externalAndroidPackageDir.exists() + "--externalAndroidPackageDir--" + externalAndroidPackageDir.getAbsolutePath());
+        if (file.exists()) {
+            sb.append("file存在 ,");
+            Logger.i(sb.toString());
+            return;
+        } else {
+            sb.append("file不存在 ,");
+        }
+
+        if (isDir) {
+            if (file.mkdirs()) {
+                sb.append("file创建目录成功");
+            } else {
+                sb.append("file创建目录失败");
+            }
+        } else {
+            try {
+                if (file.createNewFile()) {
+                    sb.append("file创建文件成功");
+                } else {
+                    sb.append("file创建文件失败");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                sb.append("file创建件失败");
+            }
+        }
+        Logger.i(sb.toString());
+    }
+
+    private void testStoragerInternal() {
+        log("Storager.Internal.getDir(this, \"dir_01\")--", Storager.Internal.getDir(this, "dir_01"), true);
+        log("Storager.Internal.getDir(this, \"dir_02/dir_03/dir_04\")", Storager.Internal.getDir(this, "dir_02/dir_03/dir_04"), true);
+        log("Storager.Internal.getCacheDir(this)", Storager.Internal.getCacheDir(this), true);
+        log("Storager.Internal.getFilesDir(this)", Storager.Internal.getFilesDir(this), true);
+        log("Storager.Internal.getPackageDir(this)", Storager.Internal.getPackageDir(this), true);
+        log("Storager.Internal.getAppDir(this, \"dir_05\")", Storager.Internal.getAppDir(this, "dir_05"), true);
+        log("Storager.Internal.getFile(this, \"dir_06\", \"file_01\")", Storager.Internal.getFile(this, "dir_06", "file_01"), false);
+        log("Storager.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", Storager.Internal.getFile(this, "dir_07/dir_8", "file_02"), false);
+        log("Storager.Internal.getFile(this, \"lib\", \"file_03\")", Storager.Internal.getFile(this, "lib", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了
+        log("Storager.createFile(Storager.Internal.getCacheDir(this), \"file_04\")", Storager.createFile(Storager.Internal.getCacheDir(this), "file_04"), false); // 没权限,异常
+        log("Storager.Internal.getCacheFile(this, \"file_05\"), false)", Storager.Internal.getCacheFile(this, "file_05"), false); // 没权限,异常
+        log("Storager.Internal.getFilesFile(this, \"file_06\")", Storager.Internal.getFilesFile(this, "file_06"), false); // 没权限,异常
+    }
+
+    private void testStoragerPublic() {
+
+    }
+
+    private void testStoragerAndroid() {
+        log("Storager.ExternalAndroid.getPackageDir(this)", Storager.ExternalAndroid.getPackageDir(this), true);
+        log("Storager.ExternalAndroid.getCacheDir(this)", Storager.ExternalAndroid.getCacheDir(this), true);
+        log("Storager.ExternalAndroid.getFilesDir(this, \"\")", Storager.ExternalAndroid.getFilesDir(this, ""), true);
+        log("Storager.ExternalAndroid.getFilesDir(this, \"dir_01\")", Storager.ExternalAndroid.getFilesDir(this, "dir_01"), true);
+        log("Storager.ExternalAndroid.getFilesDir(this, \"dir_02/dir_03\")", Storager.ExternalAndroid.getFilesDir(this, "dir_02/dir_03"), true);
+        log("Storager.ExternalAndroid.getDir(this, \"dir_04/dir_05\")", Storager.ExternalAndroid.getDir(this, "dir_04/dir_05"), true);
+        log("Storager.ExternalAndroid.getFile(this, \"dir_06\", \"file_01\")", Storager.ExternalAndroid.getFile(this, "dir_06", "file_01"), true);
+        log("Storager.ExternalAndroid.getFile(this, \"dir_07/dir_08\", \"file_02\")", Storager.ExternalAndroid.getFile(this, "dir_07/dir_08", "file_02"), true);
+        log("Storager.createFile(Storager.ExternalAndroid.getCacheDir(this), \"file_03\")", Storager.createFile(Storager.ExternalAndroid.getCacheDir(this), "file_03"), true);
+        log("Storager.ExternalAndroid.getCacheFile(this, \"file_04\"), false)", Storager.ExternalAndroid.getCacheFile(this, "file_04"), false); // 没权限,异常
+        log("Storager.ExternalAndroid.getFilesFile(this, \"file_05\"), false)", Storager.ExternalAndroid.getFilesFile(this, "file_05"), false); // 没权限,异常
+
     }
 
     private void testFile() {
@@ -50,11 +115,6 @@ public class DirActivity extends AppCompatActivity {
         boolean result3 = file3.mkdirs();
         Logger.i(file3 + "--file3.exists() =" + file3.exists() + ",mkdirs()=" + result3);
         // /storage/emulated/0/1487840993165--file3.exists() =true,mkdirs()=true
-
-        File file4 = new File(getCacheDir().getAbsolutePath() + "/abc/bcd");
-        boolean result4 = file4.mkdirs();
-        Logger.i(file4 + "--file4.exists() =" + file4.exists() + ",mkdirs()=" + result4);
-        // /data/user/0/com.jingyu.test/cache/abc/bcd--file4.exists() =true,mkdirs()=true
     }
 
     private void testAndroidApi() {

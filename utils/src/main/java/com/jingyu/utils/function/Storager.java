@@ -4,9 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 
-import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.util.UtilString;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,123 +14,68 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-import static com.jingyu.utils.util.UtilIoAndr.createDirInside;
-
 /**
  * @author fengjingyu@foxmail.com
  */
 public class Storager {
 
-    /**
-     * 写文本到SD卡
-     *
-     * @param dirName  如"aa/bb" 在SDCard下建立/mnt/sdcard/aa/bb的目录,
-     *                 如null 或 "" 在/mnt/sdcard的目录下建立文件
-     * @param fileName 如"cc.txt", 不可以是"ee/cc.txt"
-     */
-    public static File write2SDCard(String dirName, String fileName, String content) {
-        FileOutputStream fos = null;
-        try {
-            File file = createFileInSDCard(dirName, fileName);
-            if (file == null) {
-                return null;
-            }
-            fos = new FileOutputStream(file);
-            fos.write(content.getBytes());
-            fos.flush();
-            fos.close();
-            return file;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+//    public static File write2SDCard(String dirName, String fileName, String content) {
+//        FileOutputStream fos = null;
+//        try {
+//            File file = createFileInSDCard(dirName, fileName);
+//            if (file == null) {
+//                return null;
+//            }
+//            fos = new FileOutputStream(file);
+//            fos.write(content.getBytes());
+//            fos.flush();
+//            fos.close();
+//            return file;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        } finally {
+//            if (fos != null) {
+//                try {
+//                    fos.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+//
+//    public static String readFromSDCard(String dirName, String fileName) {
+//        String result = null;
+//        if (isSDcardExist()) {
+//            try {
+//                FileInputStream fis = null;
+//                if (UtilString.isBlank(dirName)) {
+//                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + File.separator + fileName);
+//                } else {
+//                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + File.separator + dirName + File.separator + fileName);
+//                }
+//                result = UtilIo.toStringByInputStream(fis);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return result;
+//    }
+//
+//    public static File createDirInAndroid(Context context, String dirName) {
+//        try {
+//            if (isSDcardExist()) {
+//                return createDirInSDCard(dirName);
+//            } else {
+//                return createDirInside(context, dirName);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
-    /**
-     * 从sd卡中读取数据
-     *
-     * @param dirName  如果是"" 或null 则从Environment.getExternalStorageState()目录读取文件
-     * @param fileName
-     */
-    public static String readFromSDCard(String dirName, String fileName) {
-        String result = null;
-        if (isSDcardExist()) {
-            try {
-                FileInputStream fis = null;
-                if (UtilString.isBlank(dirName)) {
-                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + File.separator + fileName);
-                } else {
-                    fis = new FileInputStream(Environment.getExternalStorageDirectory() + File.separator + dirName + File.separator + fileName);
-                }
-                result = UtilIo.toStringByInputStream(fis);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 在sd卡中创建，如果没有sd卡， 则在内部存储中创建
-     *
-     * @param dirName "123","123/234","345/456/678","456/567/789.txt" (这个也是文件夹)
-     *                <p/>
-     *                会在 Environment.getExternalStorageDirectory()   + dirName下去建立目录
-     */
-    public static File createDirInAndroid(Context context, String dirName) {
-        try {
-            if (isSDcardExist()) {
-                return createDirInSDCard(dirName);
-            } else {
-                return createDirInside(context, dirName);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * 在android环境下的SDCard中创建文件夹,如果没有SDCard,则返回null
-     *
-     * @param dirName 如果传入的为 null或""或"   ",
-     *                则返回的file为Environment.getExternalStorageState()目录 如果传入的为
-     *                "aa/bb" 或"aa"
-     *                则返回的是在Environment.getExternalStorageState()目录下创建aa/bb 或aa文件夹
-     * @return
-     */
-    public static File createDirInSDCard(String dirName) {
-        File dir = null;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            if (dirName == null || dirName.trim().length() == 0) {
-                return Environment.getExternalStorageDirectory();// mnt/sdcard
-            }
-            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + dirName;
-            dir = new File(dirPath);
-
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-        }
-        return dir;
-    }
-
-
-    /**
-     * 先在sd卡中创建，如果没有sd卡， 则在内部存储中创建
-     *
-     * @param dirName
-     * @param fileName
-     * @return
-     */
 //    public static File createFileInAndroid(Context context, String dirName, String fileName) {
 //        try {
 //            if (isSDcardExist()) {
@@ -147,48 +89,37 @@ public class Storager {
 //        }
 //    }
 
-    /**
-     * 在SDCard中创建文件
-     *
-     * @param dirName  "aa/bb" "aa"都可,如果是null 或"" 默认为在Environment.getExternalStorageState()目录下创建文件
-     * @param fileName 文件名-->"abc.txt"格式, 不可写成"abc/ed.txt"
-     * @return 文件存在返回存在的文件, 不存在则创建后返回, 如果没有SD卡, 返回null
-     */
-    public static File createFileInSDCard(String dirName, String fileName) {
-        try {
-            File dir = createDirInSDCard(dirName);
-            if (dir == null) {
-                return null;
-            }
-            File file = new File(dir, fileName);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            return file;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     //---------------------------------------------------------------------------------------------------------------------------
     public static boolean isSDcardExist() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
-    public static File createDir(String dirAbsolutePath) {
-        File file = new File(dirAbsolutePath);
-        if (file.exists() || file.mkdirs()) {
-            return file;
+    public static boolean isStringAvaliable(String str) {
+        return str != null && str.trim().length() > 0;
+    }
+
+    public static File createDir(File dir) {
+        if (dir != null) {
+            if (dir.exists() || dir.mkdirs()) {
+                return dir;
+            }
         }
         return null;
     }
 
-    public static File createFile(String fileAbsolutePath) {
+    public static File createDir(String dirAbsolutePath) {
+        if (isStringAvaliable(dirAbsolutePath)) {
+            return createDir(new File(dirAbsolutePath));
+        }
+        return null;
+    }
+
+    public static File createFile(File file) {
         try {
-            File file = new File(fileAbsolutePath);
-            if (file.exists() || file.createNewFile()) {
-                return file;
+            if (file != null) {
+                if (file.exists() || file.createNewFile()) {
+                    return file;
+                }
             }
             return null;
         } catch (Exception e) {
@@ -197,16 +128,18 @@ public class Storager {
         }
     }
 
+    public static File createFile(String fileAbsolutePath) {
+        if (isStringAvaliable(fileAbsolutePath)) {
+            return createFile(new File(fileAbsolutePath));
+        }
+        return null;
+    }
+
     public static File createFile(String dirAbsolutePath, String fileName) {
-        if (dirAbsolutePath == null || dirAbsolutePath.trim().length() == 0) {
-            return null;
+        if (isStringAvaliable(dirAbsolutePath) && isStringAvaliable(fileName)) {
+            return createFile(dirAbsolutePath + File.separator + fileName);
         }
-
-        if (fileName == null || fileName.trim().length() == 0) {
-            return null;
-        }
-
-        return createFile(dirAbsolutePath + File.separator + fileName);
+        return null;
     }
 
     public static File createFile(File dir, String fileName) {
@@ -224,6 +157,20 @@ public class Storager {
     public static class ExternalAndroid {
 
         /**
+         * @return fileName 为 null /"" /" ",返回null
+         * fileName不为空:
+         * dirName 为 null /"" /"  " 则在Android/data/package/创建文件
+         * dirName 为"aa" 则在Android/data/package/aa创建文件
+         * dirName 为"aa/bb" 则在Android/data/package/aa/bb创建文件
+         */
+        public static File getFile(Context context, String dirName, String fileName) {
+            if (isStringAvaliable(fileName)) {
+                return createFile(getDir(context, dirName), fileName);
+            }
+            return null;
+        }
+
+        /**
          * @return 如果sd卡可用
          * dirName=null / "" / "  ",返回Android/data/<package>/
          * dirName="cc" 返回Android/data/<package>/cc
@@ -231,15 +178,12 @@ public class Storager {
          */
         public static File getDir(Context context, String dirName) {
             File packageDir = getPackageDir(context);
-            if (packageDir == null) {
-                return null;
-            } else {
-                if (dirName == null || dirName.trim().length() == 0) {
-                    return packageDir;
-                } else {
+            if (packageDir != null) {
+                if (isStringAvaliable(dirName)) {
                     return createDir(packageDir.getAbsolutePath() + File.separator + dirName);
                 }
             }
+            return packageDir;
         }
 
         /**
@@ -291,6 +235,20 @@ public class Storager {
      */
     public static class ExternalPublic {
         /**
+         * @return fileName 为 null /"" /" ",返回null
+         * fileName不为空:
+         * dirName 为 null /"" /"  " 则在/storage/sdcard/创建文件
+         * dirName 为"aa" 则在/storage/sdcard/aa创建文件
+         * dirName 为"aa/bb" 则在/storage/sdcard/aa/bb创建文件
+         */
+        public static File getFile(String dirName, String fileName) {
+            if (isStringAvaliable(fileName)) {
+                return createFile(getDir(dirName), fileName);
+            }
+            return null;
+        }
+
+        /**
          * @return /storage/sdcard/
          */
         public static File getDir() {
@@ -307,12 +265,8 @@ public class Storager {
         public static File getDir(String dirName) {
             if (isSDcardExist()) {
                 File dir = Environment.getExternalStoragePublicDirectory(dirName);
-                // 不会自动创建的,得调用mkdirs()
-                if (dir != null) {
-                    if (dir.exists() || dir.mkdirs()) {
-                        return dir;
-                    }
-                }
+                // 不会自动创建的
+                return createDir(dir);
             }
             return null;
         }
@@ -331,16 +285,10 @@ public class Storager {
          * dirName 为"aa/bb" 则在data/data/package/aa/bb创建文件
          */
         public static File getFile(Context context, String dirName, String fileName) {
-            if (fileName == null && fileName.trim().length() == 0) {
-                return null;
-            } else {
-                File dir = getDir(context, dirName);
-                if (dir != null) {
-                    return createFile(dir, fileName);
-                } else {
-                    return null;
-                }
+            if (isStringAvaliable(fileName)) {
+                return createFile(getDir(context, dirName), fileName);
             }
+            return null;
         }
 
         /**
@@ -349,10 +297,10 @@ public class Storager {
          * dirName="aa/bb" 返回/data/data/<package>/aa/bb
          */
         public static File getDir(Context context, String dirName) {
-            if (dirName == null || dirName.trim().length() == 0) {
-                return getPackageDir(context);
+            if (isStringAvaliable(dirName)) {
+                return createDir(getPackageDir(context).getAbsolutePath() + File.separator + dirName);
             }
-            return createDir(getPackageDir(context).getAbsolutePath() + File.separator + dirName);
+            return getPackageDir(context);
         }
 
         /**

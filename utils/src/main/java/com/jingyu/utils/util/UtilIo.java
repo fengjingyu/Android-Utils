@@ -30,12 +30,16 @@ import java.util.Properties;
  */
 public class UtilIo {
 
-    public static final String LINE_SEPARATOR = System.getProperty("line.separator");// 换行符
-    public static final String PATH_SEPARATOR = System.getProperty("path.separator");// 如环境变量的路径分隔符 ; :
-    public static final String FILE_SEPARATOR = System.getProperty("file.separator");// 如c:/ 等同于File.separator
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");// （windows:"\r\n"；unix:"\n"）； System.out.println();
+    public static final String PATH_SEPARATOR = System.getProperty("path.separator");// （windows:";"；unix:":"）；File.pathSeparator 环境变量
+    public static final String FILE_SEPARATOR = System.getProperty("file.separator");// （windows:"\"；unix:"/"）；File.separator  盘符
 
     @Nullable
     public static String getString(InputStreamReader inputStreamReader) {
+        if (inputStreamReader == null) {
+            return null;
+        }
+
         BufferedReader br = null;
         try {
             br = new BufferedReader(inputStreamReader);
@@ -53,7 +57,7 @@ public class UtilIo {
                 if (br != null) {
                     br.close();
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -61,6 +65,10 @@ public class UtilIo {
 
     @Nullable
     public static String getString(File file) {
+        if (file == null) {
+            return null;
+        }
+
         try {
             return getString(new FileReader(file));
         } catch (FileNotFoundException e) {
@@ -71,18 +79,21 @@ public class UtilIo {
 
     @Nullable
     public static String getString(InputStream inputStream) {
+        if (inputStream == null) {
+            return null;
+        }
         return getString(new InputStreamReader(inputStream));
     }
 
-    /**
-     * 把输入流转为字节数组
-     */
     @Nullable
     public static byte[] getBytes(InputStream inputStream) {
+        if (inputStream == null) {
+            return null;
+        }
         ByteArrayOutputStream byteArrayOutputStream = null;
         try {
             byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[10240];
+            byte[] buffer = new byte[8192];
             for (int len; (len = inputStream.read(buffer)) != -1; ) {
                 byteArrayOutputStream.write(buffer, 0, len);
             }
@@ -109,14 +120,39 @@ public class UtilIo {
         }
     }
 
-    public static boolean getFile(byte[] bytes, File toFile) {
-        return getFile(bytes, toFile, false);
+    public static boolean bytes2File(byte[] bytes, File toFile) {
+        return bytes2File(bytes, toFile, false);
     }
 
-    public static boolean getFile(byte[] bytes, File toFile, boolean append) {
+    public static boolean bytes2File(byte[] bytes, File toFile, boolean append) {
+        if (bytes == null || toFile == null) {
+            return false;
+        }
+
+        try {
+            return bytes2OutputStream(bytes, new FileOutputStream(toFile, append));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean string2OutputStream(String string, OutputStream outputStream) {
+        if (string == null || outputStream == null) {
+            return false;
+        }
+
+        return bytes2OutputStream(string.getBytes(), outputStream);
+    }
+
+    public static boolean bytes2OutputStream(byte[] bytes, OutputStream outputStream) {
+        if (bytes == null || outputStream == null) {
+            return false;
+        }
+
         BufferedOutputStream bufferedOutputStream = null;
         try {
-            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(toFile, append));
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
             bufferedOutputStream.write(bytes);
             bufferedOutputStream.flush();
             return true;
@@ -134,29 +170,50 @@ public class UtilIo {
         }
     }
 
-    public static boolean getFile(File fromFile, File toFile) {
-        return getFile(fromFile, toFile, false);
+    public static boolean file2File(File fromFile, File toFile) {
+        return file2File(fromFile, toFile, false);
     }
 
-    public static boolean getFile(File fromFile, File toFile, boolean append) {
+    public static boolean file2File(File fromFile, File toFile, boolean append) {
+        if (fromFile == null || toFile == null) {
+            return false;
+        }
+
         try {
-            return getFile(new FileInputStream(fromFile), toFile, append);
-        } catch (FileNotFoundException e) {
+            return inputStream2OutputStream(new FileInputStream(fromFile), new FileOutputStream(toFile, append));
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public static boolean getFile(InputStream in, File toFile) {
-        return getFile(in, toFile, false);
+    public static boolean inputStream2File(InputStream inputStream, File toFile) {
+        return inputStream2File(inputStream, toFile, false);
     }
 
-    public static boolean getFile(InputStream inputStream, File toFile, boolean append) {
+    public static boolean inputStream2File(InputStream inputStream, File toFile, boolean append) {
+        if (inputStream == null || toFile == null) {
+            return false;
+        }
+
+        try {
+            return inputStream2OutputStream(inputStream, new FileOutputStream(toFile, append));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean inputStream2OutputStream(InputStream inputStream, OutputStream outputStream) {
+        if (inputStream == null || outputStream == null) {
+            return false;
+        }
+
         BufferedOutputStream bufferedOutputStream = null;
         try {
-            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(toFile, append));
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
 
-            byte[] buf = new byte[10240];
+            byte[] buf = new byte[8192];
             for (int len; (len = inputStream.read(buf)) != -1; ) {
                 bufferedOutputStream.write(buf, 0, len);
                 bufferedOutputStream.flush();
@@ -184,21 +241,27 @@ public class UtilIo {
         }
     }
 
-    public static void printStream(InputStream inputStream, OutputStream outputStream) {
-        printStream(inputStream, outputStream);
+    public static boolean printStream(InputStream inputStream, OutputStream outputStream) {
+        return printStream(inputStream, outputStream, true);
     }
 
-    public static void printStream(InputStream inputStream, OutputStream outputStream, boolean append) {
+    public static boolean printStream(InputStream inputStream, OutputStream outputStream, boolean autoFlush) {
+        if (inputStream == null || outputStream == null) {
+            return false;
+        }
+
         BufferedReader reader = null;
         PrintWriter writer = null;
         try {
             reader = new BufferedReader(new InputStreamReader(inputStream));
-            writer = new PrintWriter(outputStream, append);
+            writer = new PrintWriter(outputStream, autoFlush);
             for (String line; (line = reader.readLine()) != null; ) {
                 writer.println(line);
             }
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         } finally {
             try {
                 if (writer != null) {
@@ -220,15 +283,17 @@ public class UtilIo {
 
     @Nullable
     public static Object deepClone(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+
         ObjectOutputStream objectOutputStream = null;
         ObjectInputStream objectInputStream = null;
         try {
-            //将对象写到流里
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
             objectOutputStream.writeObject(obj);
 
-            //从流里读出来
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
             objectInputStream = new ObjectInputStream(byteArrayInputStream);
             return objectInputStream.readObject();
@@ -256,6 +321,10 @@ public class UtilIo {
 
     @Nullable
     public static Object deserialization(File file) {
+        if (file == null) {
+            return null;
+        }
+
         ObjectInputStream objectInputStream = null;
         try {
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
@@ -274,6 +343,10 @@ public class UtilIo {
     }
 
     public static boolean serialization(File file, Object obj) {
+        if (file == null || obj == null) {
+            return false;
+        }
+
         ObjectOutputStream objectOutputStream = null;
         try {
             objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
@@ -293,45 +366,44 @@ public class UtilIo {
         }
     }
 
-    /**
-     * 以队列的方式获取目录里的文件
-     */
+    @Nullable
     public static List<File> getAllFilesByDirQueue(File dir) {
-        LinkedList<File> result = new LinkedList<>();
-        LinkedList<File> queue = new LinkedList<File>();
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                queue.addFirst(file);
-            } else {
-                result.add(file);
+        if (dir != null) {
+            LinkedList<File> result = new LinkedList<>();
+            LinkedList<File> queue = new LinkedList<File>();
+            File[] files = dir.listFiles();
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    queue.addFirst(file);
+                } else {
+                    result.add(file);
+                }
             }
-        }
-        //遍历队列 子目录都在队列中
-        while (!queue.isEmpty()) {
-            //从队列中取出子目录
-            File subDir = queue.removeLast();
-            result.add(subDir);
-            //遍历子目录。
-            File[] subFiles = subDir.listFiles();
-            // 如果目录是系统级文件夹，java没有访问权限，那么可能会返回null数组
-            if (subFiles != null) {
-                for (File subFile : subFiles) {
-                    //子目录中还有子目录，继续存到队列
-                    if (subFile.isDirectory()) {
-                        queue.addFirst(subFile);
-                    } else {
-                        result.add(subFile);
+            //遍历队列 子目录都在队列中
+            while (!queue.isEmpty()) {
+                //从队列中取出子目录
+                File subDir = queue.removeLast();
+                result.add(subDir);
+                //遍历子目录。
+                File[] subFiles = subDir.listFiles();
+                // 如果目录是系统级文件夹，java没有访问权限，那么可能会返回null数组
+                if (subFiles != null) {
+                    for (File subFile : subFiles) {
+                        //子目录中还有子目录，继续存到队列
+                        if (subFile.isDirectory()) {
+                            queue.addFirst(subFile);
+                        } else {
+                            result.add(subFile);
+                        }
                     }
                 }
             }
+            return result;
         }
-        return result;
+        return null;
     }
 
-    /**
-     * 根据指定的过滤器在指定目录下获取所有的符合过滤条件的文件，并存储到list集合中
-     */
+    @Nullable
     public static List<File> getFilterFiles(File dir, List<File> list, FileFilter filter) {
         if (dir != null && list != null && dir.exists() && dir.isDirectory()) {
             File[] files = dir.listFiles();
@@ -352,7 +424,12 @@ public class UtilIo {
         return list;
     }
 
+    @Nullable
     public static Properties getProperty(File configFile) {
+        if (configFile == null) {
+            return null;
+        }
+
         FileReader fr = null;
         try {
             fr = new FileReader(configFile);
@@ -374,10 +451,15 @@ public class UtilIo {
     }
 
     public static boolean saveProperty(File file, Properties properties, String desc) {
+        if (file == null || properties == null) {
+            return false;
+        }
+
         FileWriter fw = null;
         try {
             fw = new FileWriter(file);
-            properties.store(fw, desc);//desc为注释,不要写中文
+            //desc为注释,不要写中文
+            properties.store(fw, desc);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

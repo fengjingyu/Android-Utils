@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.Storager;
+import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
@@ -24,6 +25,7 @@ public class DirActivity extends AppCompatActivity {
         //testAndroidApi();
         testStoragerInternal();
         testStoragerAndroid();
+        testIo();
     }
 
     public void log(String msg, File file, boolean isDir) {
@@ -191,6 +193,14 @@ public class DirActivity extends AppCompatActivity {
         Logger.i(getDir("", Context.MODE_PRIVATE));//会创建目录 /data/user/0/com.jingyu.test/app_
         Logger.i(getDir(null, Context.MODE_PRIVATE));//会创建目录/data/user/0/com.jingyu.test/app_null
     }
+
+    private void testIo() {
+        Logger.i(UtilIo.getString(Storager.Stream.getInputStreamFromInternal(this, "1234")));
+        Logger.i(UtilIo.string2OutputStream("测试io", null));
+        Logger.i(UtilIo.string2OutputStream("测试io", Storager.Stream.getOutputStreamFromInternalAppend(this, "123")));
+        Logger.i(UtilIo.getString(Storager.Stream.getInputStreamFromInternal(this, "123")));
+    }
+
 
     public static void actionStart(FragmentActivity activity) {
         activity.startActivity(new Intent(activity, DirActivity.class));

@@ -166,7 +166,7 @@ public class UtilIoAndr {
                 } else {
                     fis = new FileInputStream(Environment.getExternalStorageDirectory() + File.separator + dirName + File.separator + fileName);
                 }
-                result = UtilIo.toStringByInputStream(fis);
+                result = UtilIo.getString(fis);
             } catch (Exception e) {
                 e.printStackTrace();
             }

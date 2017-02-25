@@ -4,15 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -383,76 +379,6 @@ public class Storager {
         }
 
         /**
-         * 写文本(覆盖之前的文件)到内部存储,文件保存在/data/data/"PACKAGE_NAME"/files/fileName
-         *
-         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-         */
-        public static void write2FilesDirPrivate(Context context, String fileName, String content) {
-            write2FilesDir(context, fileName, content, Context.MODE_PRIVATE);
-        }
-
-        /**
-         * 写文本(在之前文本后面接着写)到内部存储,文件保存在/data/data/"PACKAGE_NAME"/files/fileName
-         *
-         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-         */
-        public static void write2FilesDirAppend(Context context, String fileName, String content) {
-            write2FilesDir(context, fileName, content, Context.MODE_APPEND);
-        }
-
-        private static void write2FilesDir(Context context, String fileName, String content, int mode) {
-            FileOutputStream fos = null;
-            BufferedWriter writer = null;
-            try {
-                fos = context.openFileOutput(fileName, mode);
-                writer = new BufferedWriter(new OutputStreamWriter(fos));
-                writer.write(content);
-                //fos.write(content.getBytes());
-                //fos.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (writer != null) {
-                        writer.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        /**
-         * 从内部存储读文件,文件在/data/data/"PACKAGE_NAME"/files/filename
-         *
-         * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
-         */
-        public static String readFromFilesDir(Context context, String fileName) {
-            FileInputStream in = null;
-            BufferedReader reader = null;
-            StringBuilder content = new StringBuilder();
-            try {
-                in = context.openFileInput(fileName);
-                reader = new BufferedReader(new InputStreamReader(in));
-                String line = "";
-                while ((line = reader.readLine()) != null) {
-                    content.append(line);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return content.toString();
-        }
-
-        /**
          * @return /system
          */
         public static File getSystemDir() {
@@ -474,7 +400,7 @@ public class Storager {
         }
     }
 
-    public static class IOStream {
+    public static class Stream {
 
         public static InputStream getInputStreamFromRaw(Context context, int rawId) {
             try {
@@ -502,5 +428,52 @@ public class Storager {
                 return null;
             }
         }
+
+        /**
+         * 从内部存储读文件流,文件在/data/data/"PACKAGE_NAME"/files/filename
+         *
+         * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
+         */
+        public static FileInputStream getInputStreamFromInternal(Context context, String fileName) {
+            try {
+                return context.openFileInput(fileName);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        /**
+         * /data/data/"PACKAGE_NAME"/files/fileName
+         *
+         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
+         */
+        private static FileOutputStream getOutputStreamFromInternal(Context context, String fileName, int mode) {
+            try {
+                return context.openFileOutput(fileName, mode);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        /**
+         * /data/data/"PACKAGE_NAME"/files/fileName
+         *
+         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
+         */
+        public static void getOutputStreamFromInternalPrivate(Context context, String fileName) {
+            getOutputStreamFromInternal(context, fileName, Context.MODE_PRIVATE);
+        }
+
+        /**
+         * /data/data/"PACKAGE_NAME"/files/fileName
+         *
+         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
+         */
+        public static FileOutputStream getOutputStreamFromInternalAppend(Context context, String fileName) {
+            return getOutputStreamFromInternal(context, fileName, Context.MODE_APPEND);
+        }
+
     }
 }

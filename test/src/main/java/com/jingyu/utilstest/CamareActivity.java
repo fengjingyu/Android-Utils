@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
@@ -21,7 +24,14 @@ import java.io.File;
 public class CamareActivity extends BaseActivity {
     private CameraPhotoFragment cameraPhotoFragment;
     private AblumPhotoFragment ablumPhotoFragment;
-    private ImageView imageView;
+    private LinearLayout ablum_layout;
+    private Button ablumNoCrop;
+    private Button ablumCrop;
+    private LinearLayout camare_layout;
+    private Button caremaNoCrop;
+    private Button caremaCrop;
+    private ImageView imageview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +45,13 @@ public class CamareActivity extends BaseActivity {
         cameraPhotoFragment = new CameraPhotoFragment();
         ablumPhotoFragment = new AblumPhotoFragment();
 
-        // cameraPhotoFragment.setIsAllowResizeImage(true);
-        cameraPhotoFragment.setImage(R.mipmap.ic_launcher);
-        ablumPhotoFragment.setImage(R.mipmap.ic_launcher);
-        ablumPhotoFragment.setIsAllowResizeImage(true);
-
-        imageView = getViewById(R.id.imageview);
+        ablum_layout = getViewById(R.id.ablum_layout);
+        ablumNoCrop = getViewById(R.id.ablumNoCrop);
+        ablumCrop = getViewById(R.id.ablumCrop);
+        camare_layout = getViewById(R.id.camare_layout);
+        caremaNoCrop = getViewById(R.id.caremaNoCrop);
+        caremaCrop = getViewById(R.id.caremaCrop);
+        imageview = getViewById(R.id.imageview);
 
         addFragment(R.id.ablum_layout, ablumPhotoFragment);
         addFragment(R.id.camare_layout, cameraPhotoFragment);
@@ -48,27 +59,59 @@ public class CamareActivity extends BaseActivity {
     }
 
     public void setListeners() {
-        cameraPhotoFragment.setOnCaremaSelectedFileListener(new CameraPhotoFragment.OnCaremaSelectedFileListener() {
+//        ablumNoCrop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ablumPhotoFragment.setIsAllowResizeImage(false);
+//                ablumPhotoFragment.start();
+//            }
+//        });
+//        ablumCrop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ablumPhotoFragment.setIsAllowResizeImage(true);
+//                ablumPhotoFragment.start();
+//            }
+//        });
 
+//        ablumPhotoFragment.setOnLocalSelectedFileListener(new AblumPhotoFragment.OnLocalSelectedFileListener() {
+//
+//            @Override
+//            public void onLocalSelectedFile(File file) {
+//                Logger.i(Uri.fromFile(file));
+//                Logger.i(file.getAbsolutePath());
+//                Logger.i(file.toURI());
+//                imageview.setImageURI(Uri.fromFile(file));
+//            }
+//        });
+
+        caremaCrop.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCaremaSelectedFile(File file) {
-                Logger.i(Uri.fromFile(file));
-                Logger.i(file.getAbsolutePath());
-                Logger.i(file.toURI());
-                imageView.setImageURI(Uri.fromFile(file));
+            public void onClick(View v) {
+                cameraPhotoFragment.setResizeImage(true);
+                cameraPhotoFragment.start();
             }
         });
 
-        ablumPhotoFragment.setOnLocalSelectedFileListener(new AblumPhotoFragment.OnLocalSelectedFileListener() {
+        caremaNoCrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cameraPhotoFragment.setResizeImage(false);
+                cameraPhotoFragment.start();
+            }
+        });
+
+        cameraPhotoFragment.setOnCameraSelectedFileListener(new CameraPhotoFragment.OnCameraSelectedFileListener() {
 
             @Override
-            public void onLocalSelectedFile(File file) {
+            public void onCameraSelectedFile(File file) {
                 Logger.i(Uri.fromFile(file));
                 Logger.i(file.getAbsolutePath());
                 Logger.i(file.toURI());
-                imageView.setImageURI(Uri.fromFile(file));
+                imageview.setImageURI(Uri.fromFile(file));
             }
         });
+
     }
 
     public static void actionStart(Context activityContext) {

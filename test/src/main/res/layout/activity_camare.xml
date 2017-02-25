@@ -5,18 +5,43 @@
 
     <LinearLayout
         android:id="@+id/ablum_layout"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@mipmap/ic_launcher"
-        android:orientation="horizontal" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/ablumNoCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相册-无裁剪图片" />
+
+        <Button
+            android:id="@+id/ablumCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相册-裁剪图片" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/camare_layout"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/ablum_layout"
-        android:background="@mipmap/ic_launcher"
-        android:orientation="horizontal" />
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/caremaNoCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拍照-无裁剪图片" />
+
+        <Button
+            android:id="@+id/caremaCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拍照-裁剪图片" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageview"

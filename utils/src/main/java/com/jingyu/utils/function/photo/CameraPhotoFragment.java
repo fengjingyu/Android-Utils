@@ -7,17 +7,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.support.annotation.NonNull;
 
-import com.jingyu.utils.R;
 import com.jingyu.utils.application.PlusFragment;
-import com.jingyu.utils.function.ExecutorManager;
+import com.jingyu.utils.function.Constants;
+import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilOom;
@@ -32,63 +27,107 @@ import java.util.UUID;
  * @author fengjingyu@foxmail.com
  * @description 从摄像头获取图片
  */
-public class CameraPhotoFragment extends PlusFragment implements View.OnClickListener {
+public class CameraPhotoFragment extends PlusFragment {
     // 打开当地相册的请求码
     public static final int CAMERA_REQUEST_CODE = 0;
     // 裁剪的请求码
     public static final int RESIZE_REQUEST_CODE = 1;
-
-    private File tempPhotoFile;
+    // 权限的请求码
+    public static final int REQUEST_CODE_CAMERA_PERMISSIONS = 2;
+    // 图片文件
+    private File tempFile;
     // 存储图片的文件夹
-    private String savePhotoDir = "";
+    private File savePhotoDir;
     // 是否允许裁剪图片，默认为不允许
-    private boolean isAllowResize;
+    private boolean isResize;
 
-    private int imageId;
-    private ImageView cameraImageView;
-
-    private Handler handler = new Handler();
-
-    public interface OnCaremaSelectedFileListener {
-        void onCaremaSelectedFile(File file);
+    public interface OnCameraSelectedFileListener {
+        void onCameraSelectedFile(File file);
     }
 
-    OnCaremaSelectedFileListener listener;
+    private OnCameraSelectedFileListener listener;
 
-    public void setOnCaremaSelectedFileListener(OnCaremaSelectedFileListener listener) {
+    public void setOnCameraSelectedFileListener(OnCameraSelectedFileListener listener) {
         this.listener = listener;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return createView(inflater, R.layout.fragment_photo_camera, container);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initWidgets();
-        listeners();
-    }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.cameraImageView) {
-            getTakePhoto();
-        }
-    }
-
-    public void getTakePhoto() {
+    public void start() {
         if (isPermissionGranted(Manifest.permission.CAMERA)) {
-            // 有权限
-            todo();
+            openCamera();
         } else {
             permissionRequest(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA_PERMISSIONS);
         }
     }
 
-    public void resizeImage(Uri uri) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Logger.i(this + "--onRequestPermissionsResult");
+        switch (requestCode) {
+            case REQUEST_CODE_CAMERA_PERMISSIONS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                    Logger.shortToast("请到设置界面打开摄像头权限");
+                }
+            }
+            break;
+        }
+    }
+
+    public void openCamera() {
+        tempFile = DirHelper.createFile(getDir(), UUID.randomUUID().toString());
+        if (tempFile == null) {
+            Logger.shortToast("打开拍照失败");
+            return;
+        }
+
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+        cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Logger.i(this + "--onActivityResult");
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case CAMERA_REQUEST_CODE:
+                    final Uri uri = Uri.fromFile(tempFile);//这个data为null
+                    Logger.i(this + "--uri=" + uri);
+                    if (isResize) {
+                        requestResizeImage(uri);
+                    } else {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Bitmap bitmap = UtilOom.getBitmapForLargeByUri(getActivity(), uri, 500, Bitmap.Config.RGB_565);
+                                deleteTempFile();
+                                getImage(bitmap);
+                            }
+                        }).start();
+                    }
+                    break;
+                case RESIZE_REQUEST_CODE:
+                    deleteTempFile();
+                    if (data != null) {
+                        Bundle bundle = data.getExtras();
+                        if (bundle != null) {
+                            final Bitmap bitmap = bundle.getParcelable("data");
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getImage(bitmap);
+                                }
+                            }).start();
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void requestResizeImage(Uri uri) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
@@ -100,217 +139,71 @@ public class CameraPhotoFragment extends PlusFragment implements View.OnClickLis
         startActivityForResult(intent, RESIZE_REQUEST_CODE);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        } else {
-            switch (requestCode) {
-                case CAMERA_REQUEST_CODE:
-                    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                        if (tempPhotoFile != null && tempPhotoFile.exists()) {
-                            final Uri uri = Uri.fromFile(tempPhotoFile);
-                            if (isAllowResize) {
-                                resizeImage(uri);
-                            } else {
-
-                                ExecutorManager.getCache().execute(new Runnable() {
-                                    Bitmap bitmap;
-
-                                    @Override
-                                    public void run() {
-                                        bitmap = UtilOom.getBitmapForLargeByUri(getActivity(), uri, 500, Bitmap.Config.RGB_565);
-
-                                        handler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                getImage(bitmap);
-                                                if (bitmap != null) {
-                                                    bitmap.recycle();
-                                                    bitmap = null;
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-
-                            }
-                        } else {
-                            Logger.shortToast("获取图片失败");
-                        }
-                    } else {
-                        Logger.shortToast("未找到存储卡，无法存储照片！");
-                    }
-                    break;
-
-                case RESIZE_REQUEST_CODE:
-                    // 裁剪之后,关闭裁剪的activity后,会调用这个方法,
-                    if (data != null) { // 加入data不等于空,即可以去到bitmap
-                        getResizeImage(data);
-                    }
-                    break;
-            }
-        }
-    }
-
-    // 从这里获取最后返回的图片
     private void getImage(Bitmap bitmap) {
         FileOutputStream fos = null;
         try {
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                if (tempPhotoFile != null && tempPhotoFile.exists()) {
-                    tempPhotoFile.delete();
-                }
-                File file = new File(createDir(), "photo" + getTime() + ".jpg");
+            if (bitmap != null) {
+                final File file = new File(getDir(), "photo" + getTime() + ".jpg");
                 fos = new FileOutputStream(file);
                 //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.close();
-                if (listener != null) {
-                    listener.onCaremaSelectedFile(file);
-                }
-            } else {
-                Logger.shortToast("未检测到SD卡");
-                if (listener != null) {
-                    listener.onCaremaSelectedFile(null);
+                fos.flush();
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (listener != null) {
+                                listener.onCameraSelectedFile(file);
+                            }
+                        }
+                    });
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                    if (null != bitmap) {
-                        bitmap.recycle();
-                        bitmap = null;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public void getResizeImage(Intent data) {
-        Bundle extras = data.getExtras();
-        if (extras != null) {
-            Bitmap bitmap = extras.getParcelable("data");
-            // 保存到本地
-            FileOutputStream fos = null;
             try {
-                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    if (tempPhotoFile != null && tempPhotoFile.exists()) {
-                        tempPhotoFile.delete();
-                    }
-                    File file = new File(createDir(), "photo" + getTime() + ".jpg");
-                    fos = new FileOutputStream(file);
-                    //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                if (fos != null) {
                     fos.close();
-                    if (listener != null) {
-                        listener.onCaremaSelectedFile(file);
-                    }
-                } else {
-                    Logger.shortToast("未检测到SD卡");
-                    if (listener != null) {
-                        listener.onCaremaSelectedFile(null);
-                    }
                 }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                if (fos != null) {
-                    try {
-                        fos.close();
-                        if (null != bitmap) {
-                            bitmap.recycle();
-                            bitmap = null;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                if (null != bitmap) {
+                    bitmap.recycle();
                 }
             }
         }
     }
 
-    public void setSavePhotoDir(String savePhotoDir) {
-        this.savePhotoDir = savePhotoDir;
-    }
-
-    public File createDir() {
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + savePhotoDir);
-        if (!dir.exists()) {
-            dir.mkdirs();
+    private void deleteTempFile() {
+        if (tempFile != null && tempFile.exists()) {
+            tempFile.delete();
         }
-        return dir;
     }
 
-    public String getTime() {
+    private File getDir() {
+        File dir = DirHelper.createDir(savePhotoDir);
+        if (dir != null) {
+            return dir;
+        } else {
+            if (getActivity() != null) {
+                return savePhotoDir = DirHelper.getAndroidDir(getActivity(), Constants.DEFAULT_PHOTO_DIR_NAME);
+            }
+            return null;
+        }
+    }
+
+    private String getTime() {
         return UtilDate.format(new Date(), UtilDate.FORMAT_CREATE_FILE);
     }
 
-    public void setImage(int drawableId) {
-        this.imageId = drawableId;
-        if (cameraImageView != null) {
-            cameraImageView.setImageResource(drawableId);
-        }
+    public void setSavePhotoDir(File savePhotoDir) {
+        this.savePhotoDir = savePhotoDir;
     }
 
-    public void setIsAllowResizeImage(boolean isAllowResize) {
-        this.isAllowResize = isAllowResize;
+    public void setResizeImage(boolean isResize) {
+        this.isResize = isResize;
     }
 
-    public void initWidgets() {
-        cameraImageView = getViewById(R.id.cameraImageView);
-        if (imageId > 0) {
-            cameraImageView.setImageResource(imageId);
-        }
-    }
-
-    public void listeners() {
-        cameraImageView.setOnClickListener(this);
-    }
-
-    public void todo() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-            tempPhotoFile = new File(Environment.getExternalStorageDirectory(), UUID.randomUUID().toString());
-            if (!tempPhotoFile.exists()) {
-                try {
-                    tempPhotoFile.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Logger.shortToast("创建文件失败");
-                    return;
-                }
-            }
-            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempPhotoFile));
-            cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
-        } else {
-            Logger.shortToast("请插入sd卡");
-        }
-    }
-
-    public static final int REQUEST_CODE_CAMERA_PERMISSIONS = 2;
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        Logger.i(this + "--onRequestPermissionsResult");
-        switch (requestCode) {
-            case REQUEST_CODE_CAMERA_PERMISSIONS: {
-                if (permissions.length > 0 && Manifest.permission.CAMERA.equals(permissions[0])) {
-                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        todo();
-                    } else {
-                        Logger.shortToast("请到设置界面打开摄像头权限");
-                    }
-                }
-            }
-            break;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 }

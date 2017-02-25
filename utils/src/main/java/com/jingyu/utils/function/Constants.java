@@ -34,13 +34,8 @@ public class Constants {
      */
     public static final String ENCODING_UTF8 = "utf-8";
 
-    /**
-     * 编码格式
-     */
-    public static final String ENCODING_GBK = "gbk";
-
-    public static final String GET = "GET";
-
-    public static final String POST = "POST";
+    public static final String DEFAULT_PHOTO_DIR_NAME = "app_utils/photo";
+    public static final String DEFAULT_CRASH_DIR_NAME = "app_utils/crash";
+    public static final String DEFAULT_LOG_DIR_NAME = "app_utils/log";
 
 }

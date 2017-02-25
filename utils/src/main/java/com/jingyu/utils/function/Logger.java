@@ -14,10 +14,6 @@ import java.io.RandomAccessFile;
 import java.text.DateFormat;
 import java.util.Date;
 
-import cz.msebera.android.httpclient.entity.FileEntity;
-
-import static com.jingyu.utils.function.DirHelper.Internal.getAppDir;
-
 /**
  * @author fengjingyu@foxmail.com
  * @description 1 可以控制频率的吐司
@@ -116,7 +112,7 @@ public class Logger {
             if (dir != null) {
                 return dir;
             } else {
-                return logDir = DirHelper.getAndroidDir(application, "Logger");
+                return logDir = DirHelper.getAndroidDir(application, Constants.DEFAULT_LOG_DIR_NAME);
             }
         }
     }

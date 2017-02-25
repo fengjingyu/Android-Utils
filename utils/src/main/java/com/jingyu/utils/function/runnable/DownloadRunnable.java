@@ -1,6 +1,5 @@
 package com.jingyu.utils.function.runnable;
 
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.Logger;
 
 import java.io.File;
@@ -75,7 +74,7 @@ public class DownloadRunnable implements Runnable {
         boolean result = false;
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-            conn.setRequestMethod(Constants.GET);
+            conn.setRequestMethod("GET");
             conn.setConnectTimeout(10000);
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
                 result = toFileByInputStream(conn.getInputStream(), conn.getContentLength(), downloadListener);

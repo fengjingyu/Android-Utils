@@ -150,7 +150,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         if (dir != null) {
             return dir;
         } else {
-            return mCrashDir = DirHelper.getAndroidDir(application, "CrashHandler");
+            return mCrashDir = DirHelper.getAndroidDir(application, Constants.DEFAULT_CRASH_DIR_NAME);
         }
     }
 

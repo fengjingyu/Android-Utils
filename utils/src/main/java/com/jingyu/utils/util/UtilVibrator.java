@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.Vibrator;
 
 /**
- * @author fengjingyu@foxmail.com
- * @description 需要在AndroidManifest.xml 中添加震动权限：
  * <uses-permission android:name="android.permission.VIBRATE" />
  * <p/>
  * long milliseconds:震动的时长，单位是毫秒

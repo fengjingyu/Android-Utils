@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 
+import com.jingyu.utils.function.IOHelper;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -71,7 +73,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = UtilIoAndr.getInputStreamFromUri(context, uri);
+        input = IOHelper.getInputStreamFromUri(context, uri);
 
         if (input == null) {
             return null;
@@ -87,7 +89,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = UtilIoAndr.getInputStreamFromUri(context, uri);
+        input = IOHelper.getInputStreamFromUri(context, uri);
 
         if (input == null) {
             return null;
@@ -101,7 +103,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = UtilIoAndr.getInputStreamFromRaw(context, drawable_id);
+        input = IOHelper.getInputStreamFromRaw(context, drawable_id);
 
         if (input == null) {
             return null;
@@ -117,7 +119,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = UtilIoAndr.getInputStreamFromRaw(context, drawable_id);
+        input = IOHelper.getInputStreamFromRaw(context, drawable_id);
 
         if (input == null) {
             return null;
@@ -139,10 +141,6 @@ public class UtilOom {
             bitmapOptions.inJustDecodeBounds = false;
 
             bitmapOptions.inPreferredConfig = type;
-
-            bitmapOptions.inPurgeable = true;
-
-            bitmapOptions.inInputShareable = true;
 
             Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
             // BitmapFactory.decodeByteArray(data, 0, data.length, options);

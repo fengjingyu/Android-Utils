@@ -1,19 +1,14 @@
 package com.jingyu.utils.function;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 
 /**
  * @author fengjingyu@foxmail.com
  */
-public class Storager {
+public class DirHelper {
 
     public static boolean isSDcardExist() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
@@ -81,7 +76,7 @@ public class Storager {
          * @return fileName 为 null /"" /" ",返回null
          * fileName不为空:
          * dirName 为 null /"" /"  " 则在Android/data/package/创建文件
-         * dirName 为"aa" 则在Android/data/package/aa创建文件
+         * dirName 为"aa" 则在Android/data/package/aa/创建文件
          * dirName 为"aa/bb" 则在Android/data/package/aa/bb创建文件
          */
         public static File getFile(Context context, String dirName, String fileName) {
@@ -103,47 +98,11 @@ public class Storager {
         }
 
         /**
-         * Android/data/<package>/files/Music/fileName
-         */
-        public static File getMusicFile(Context context, String fileName) {
-            return createFile(getMusicDir(context), fileName);
-        }
-
-        /**
-         * Android/data/<package>/files/Pictures/fileName
-         */
-        public static File getPictureFile(Context context, String fileName) {
-            return createFile(getPictureDir(context), fileName);
-        }
-
-        /**
-         * Android/data/<package>/files/Movies/fileName
-         */
-        public static File getMoviesFile(Context context, String fileName) {
-            return createFile(getMovieDir(context), fileName);
-        }
-
-        /**
-         * Android/data/<package>/files/Ringtones/fileName
-         */
-        public static File getRingtonesFile(Context context, String fileName) {
-            return createFile(getRingtonesDir(context), fileName);
-        }
-
-        /**
          * Android/data/<package>/files/DCIM/fileName
          */
         public static File getDCIMFile(Context context, String fileName) {
             return createFile(getDCIMDir(context), fileName);
         }
-
-        /**
-         * Android/data/<package>/files/Download/fileName
-         */
-        public static File getDownloadFile(Context context, String fileName) {
-            return createFile(getDownloadDir(context), fileName);
-        }
-
 
         /**
          * @return 如果sd卡可用
@@ -203,46 +162,6 @@ public class Storager {
         }
 
         /**
-         * @return Android/data/<package>/files/Music
-         */
-        public static File getMusicDir(Context context) {
-            if (isSDcardExist()) {
-                return context.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-            }
-            return null;
-        }
-
-        /**
-         * @return Android/data/<package>/files/Pictures
-         */
-        public static File getPictureDir(Context context) {
-            if (isSDcardExist()) {
-                return context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            }
-            return null;
-        }
-
-        /**
-         * @return Android/data/<package>/files/Movies
-         */
-        public static File getMovieDir(Context context) {
-            if (isSDcardExist()) {
-                return context.getExternalFilesDir(Environment.DIRECTORY_MOVIES);
-            }
-            return null;
-        }
-
-        /**
-         * @return Android/data/<package>/files/Ringtones
-         */
-        public static File getRingtonesDir(Context context) {
-            if (isSDcardExist()) {
-                return context.getExternalFilesDir(Environment.DIRECTORY_RINGTONES);
-            }
-            return null;
-        }
-
-        /**
          * @return Android/data/<package>/files/DCIM
          */
         public static File getDCIMDir(Context context) {
@@ -252,15 +171,6 @@ public class Storager {
             return null;
         }
 
-        /**
-         * @return Android/data/<package>/files/Download
-         */
-        public static File getDownloadDir(Context context) {
-            if (isSDcardExist()) {
-                return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            }
-            return null;
-        }
     }
 
     /**
@@ -400,80 +310,26 @@ public class Storager {
         }
     }
 
-    public static class Stream {
-
-        public static InputStream getInputStreamFromRaw(Context context, int rawId) {
-            try {
-                return context.getResources().openRawResource(rawId);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
+    /**
+     * 先在ExternalAndroid取(Android/data/<package>/dirName),如果sd卡不存在
+     * 再到Internal取(data/data/<package>/dirName)
+     *
+     * @param dirName "aa" , "aa/bb"
+     */
+    public static File getAndroidDir(Context context, String dirName) {
+        File dir = ExternalAndroid.getDir(context, dirName);
+        if (dir != null) {
+            return dir;
         }
-
-        public static InputStream getInputStreamFromAsserts(Context context, String fileName) {
-            try {
-                return context.getAssets().open(fileName);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        public static InputStream getInputStreamFromUri(Context context, Uri uri) {
-            try {
-                return context.getContentResolver().openInputStream(uri);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        /**
-         * 从内部存储读文件流,文件在/data/data/"PACKAGE_NAME"/files/filename
-         *
-         * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
-         */
-        public static FileInputStream getInputStreamFromInternal(Context context, String fileName) {
-            try {
-                return context.openFileInput(fileName);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        /**
-         * /data/data/"PACKAGE_NAME"/files/fileName
-         *
-         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-         */
-        private static FileOutputStream getOutputStreamFromInternal(Context context, String fileName, int mode) {
-            try {
-                return context.openFileOutput(fileName, mode);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        /**
-         * /data/data/"PACKAGE_NAME"/files/fileName
-         *
-         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-         */
-        public static void getOutputStreamFromInternalPrivate(Context context, String fileName) {
-            getOutputStreamFromInternal(context, fileName, Context.MODE_PRIVATE);
-        }
-
-        /**
-         * /data/data/"PACKAGE_NAME"/files/fileName
-         *
-         * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-         */
-        public static FileOutputStream getOutputStreamFromInternalAppend(Context context, String fileName) {
-            return getOutputStreamFromInternal(context, fileName, Context.MODE_APPEND);
-        }
-
+        return Internal.getDir(context, dirName);
     }
+
+    public static File getAndroidFile(Context context, String dirName, String fileName) {
+        File file = ExternalAndroid.getFile(context, dirName, fileName);
+        if (file != null) {
+            return file;
+        }
+        return Internal.getFile(context, dirName, fileName);
+    }
+
 }

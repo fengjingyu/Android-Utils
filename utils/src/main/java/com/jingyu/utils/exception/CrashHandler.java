@@ -11,12 +11,12 @@ import android.os.Build;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.ActivityCollector;
+import com.jingyu.utils.function.Constants;
+import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.IOHelper;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilDate;
-import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.util.UtilIoAndr;
 import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
@@ -50,9 +50,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
      */
     private boolean mIsShowExceptionActivity;
     /**
-     * 存储SD卡的哪个目录
+     * 存储在哪个目录,如果是无效目录则存到内部存储
      */
-    private String mCrashDirName;
+    private File mCrashDir;
     /**
      * 异常上传接口
      */
@@ -81,10 +81,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
         return exceptionDb;
     }
 
-    public CrashHandler init(Application app, boolean isShowExceptionActivity, String crashDirName) {
+    public CrashHandler init(Application app, boolean isShowExceptionActivity, File crashDir) {
         application = app;
         mIsShowExceptionActivity = isShowExceptionActivity;
-        mCrashDirName = crashDirName;
+        mCrashDir = crashDir;
         exceptionDb = ExceptionDb.getInstance(application);
         Thread.setDefaultUncaughtExceptionHandler(this);
 
@@ -145,13 +145,22 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
     }
 
+    public File getCrashDir() {
+        File dir = DirHelper.createDir(mCrashDir);
+        if (dir != null) {
+            return dir;
+        } else {
+            return mCrashDir = DirHelper.getAndroidDir(application, "CrashHandler");
+        }
+    }
+
     private File save2CrashFile(String info) {
         FileOutputStream fos = null;
         File crashFile = null;
         try {
             String fileName = "crash_" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_CREATE_FILE);
 
-            crashFile = UtilIoAndr.createFileInSDCard(mCrashDirName, fileName);
+            crashFile = DirHelper.createFile(getCrashDir(), fileName);
             if (crashFile != null && crashFile.exists()) {
                 fos = new FileOutputStream(crashFile);
                 fos.write(info.getBytes());
@@ -229,10 +238,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
     public String getCrashInfo(Throwable ex) {
         StringBuffer sb = new StringBuffer();
 
-        sb.append(UtilSystem.getProcessName(application) + UtilIo.LINE_SEPARATOR);
+        sb.append(UtilSystem.getProcessName(application) + IOHelper.LINE_SEPARATOR);
 
         tempTime = System.currentTimeMillis();
-        sb.append("crash=" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + UtilIo.LINE_SEPARATOR);
+        sb.append("crash=" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + IOHelper.LINE_SEPARATOR);
 
         for (Map.Entry<String, String> entry : mInfos.entrySet()) {
             String key = entry.getKey();

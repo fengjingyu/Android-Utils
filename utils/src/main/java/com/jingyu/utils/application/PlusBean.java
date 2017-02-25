@@ -1,7 +1,7 @@
 package com.jingyu.utils.application;
 
 
-import com.jingyu.utils.util.UtilIo;
+import com.jingyu.utils.function.IOHelper;
 
 import java.io.Serializable;
 
@@ -32,6 +32,6 @@ public abstract class PlusBean implements Serializable, Cloneable {
      * 深克隆
      */
     public Object deepClone() {
-        return UtilIo.deepClone(this);
+        return IOHelper.deepClone(this);
     }
 }

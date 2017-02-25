@@ -1,5 +1,7 @@
-package com.jingyu.utils.util;
+package com.jingyu.utils.function;
 
+import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 
 import java.io.BufferedOutputStream;
@@ -28,11 +30,11 @@ import java.util.Properties;
  * @author fengjingyu@foxmail.com
  * @description
  */
-public class UtilIo {
+public class IOHelper {
 
-    public static final String LINE_SEPARATOR = System.getProperty("line.separator");// （windows:"\r\n"；unix:"\n"）； System.out.println();
-    public static final String PATH_SEPARATOR = System.getProperty("path.separator");// （windows:";"；unix:":"）；File.pathSeparator 环境变量
-    public static final String FILE_SEPARATOR = System.getProperty("file.separator");// （windows:"\"；unix:"/"）；File.separator  盘符
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");// （windows:"\r\n"；unix:"\n"）； System.out.println()
+    //public static final String PATH_SEPARATOR = System.getProperty("path.separator");// （windows:";"；unix:":"）；File.pathSeparator 环境变量
+    //public static final String FILE_SEPARATOR = System.getProperty("file.separator");// （windows:"\"；unix:"/"）；File.separator  盘符
 
     @Nullable
     public static String getString(InputStreamReader inputStreamReader) {
@@ -474,4 +476,78 @@ public class UtilIo {
             }
         }
     }
+
+    public static InputStream getInputStreamFromRaw(Context context, int rawId) {
+        try {
+            return context.getResources().openRawResource(rawId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static InputStream getInputStreamFromAsserts(Context context, String fileName) {
+        try {
+            return context.getAssets().open(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static InputStream getInputStreamFromUri(Context context, Uri uri) {
+        try {
+            return context.getContentResolver().openInputStream(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 从内部存储读文件流,文件在/data/data/"PACKAGE_NAME"/files/filename
+     *
+     * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
+     */
+    public static FileInputStream getInputStreamFromInternal(Context context, String fileName) {
+        try {
+            return context.openFileInput(fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * /data/data/"PACKAGE_NAME"/files/fileName
+     *
+     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
+     */
+    private static FileOutputStream getOutputStreamFromInternal(Context context, String fileName, int mode) {
+        try {
+            return context.openFileOutput(fileName, mode);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * /data/data/"PACKAGE_NAME"/files/fileName
+     *
+     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
+     */
+    public static void getOutputStreamFromInternalPrivate(Context context, String fileName) {
+        getOutputStreamFromInternal(context, fileName, Context.MODE_PRIVATE);
+    }
+
+    /**
+     * /data/data/"PACKAGE_NAME"/files/fileName
+     *
+     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
+     */
+    public static FileOutputStream getOutputStreamFromInternalAppend(Context context, String fileName) {
+        return getOutputStreamFromInternal(context, fileName, Context.MODE_APPEND);
+    }
+
 }

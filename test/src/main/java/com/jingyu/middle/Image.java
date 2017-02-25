@@ -6,7 +6,6 @@ import android.widget.ImageView;
 
 import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
-import com.jingyu.utils.util.UtilIoAndr;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
@@ -90,7 +89,7 @@ public class Image {
 
                 .discCacheFileCount(500)
 
-                .discCache(new UnlimitedDiscCache(UtilIoAndr.createDirInAndroid(application, Config.IMAGE_LOADER_CACHE_DIR_NAME)))
+                .discCache(new UnlimitedDiscCache(Config.getImageLoaderCacheDir(application)))
 
                 .defaultDisplayImageOptions(DisplayImageOptions.createSimple())
 

@@ -5,6 +5,7 @@ import android.os.Looper;
 
 import com.jingyu.utils.function.ExecutorManager;
 import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.function.IOHelper;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
@@ -12,7 +13,6 @@ import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.http.RespType;
 import com.jingyu.utils.util.UtilCollections;
-import com.jingyu.utils.util.UtilIo;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -226,7 +226,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            Logger.i(TAG_HTTP, this + LINE + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
+            Logger.i(TAG_HTTP, this + LINE + IOHelper.LINE_SEPARATOR + reqInfo + IOHelper.LINE_SEPARATOR);
 
             Logger.logFormatContent(TAG_HTTP, "", respInfo.getDataString());
 

@@ -7,13 +7,16 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jingyu.utils.json.JsonParse;
-import com.jingyu.utils.util.UtilIoAndr;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 import java.text.DateFormat;
 import java.util.Date;
+
+import cz.msebera.android.httpclient.entity.FileEntity;
+
+import static com.jingyu.utils.function.DirHelper.Internal.getAppDir;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -84,7 +87,7 @@ public class Logger {
         /**
          * 在sd卡的目录下创建文件夹 例如传“aa/bb”或 "aa"
          */
-        public String logDirName = "log_dir";
+        public File logDir;
         /**
          * 默认日志文件名
          */
@@ -98,16 +101,23 @@ public class Logger {
          * 仅在有sd卡的时候写日志
          */
         public File getLogFile() {
-            // 存在则返回原文件,不存在则创建
-            return UtilIoAndr.createFileInSDCard(logDirName, logFileName);
+            return DirHelper.createFile(getLogDir(), logFileName);
         }
 
         /**
          * 仅在有sd卡的时候写日志
          */
         public File getTempFile() {
-            // 存在则返回原文件,不存在则创建
-            return UtilIoAndr.createFileInSDCard(logDirName, tempFileName);
+            return DirHelper.createFile(getLogDir(), tempFileName);
+        }
+
+        public File getLogDir() {
+            File dir = DirHelper.createDir(logDir);
+            if (dir != null) {
+                return dir;
+            } else {
+                return logDir = DirHelper.getAndroidDir(application, "Logger");
+            }
         }
     }
 

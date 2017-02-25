@@ -1,5 +1,11 @@
 package com.jingyu.middle.config;
 
+import android.content.Context;
+
+import com.jingyu.utils.function.DirHelper;
+
+import java.io.File;
+
 /**
  * @author fengjingyu@foxmail.com
  * @description
@@ -14,18 +20,6 @@ public class Config {
 
     //TODO 项目上线前改为RELEASE
     public final static RunEnvironment CURRENT_RUN_ENVIRONMENT = RunEnvironment.DEV;
-
-    /**
-     * 目录名设置
-     */
-    //TODO 修改app的名称
-    public final static String APP_NAME = "app_sample_02_20";
-    // 图片加载库的缓存目录
-    public final static String IMAGE_LOADER_CACHE_DIR_NAME = APP_NAME + "/imageLoaderCacheDir";
-    // log目录
-    public final static String LOG_DIR_NAME = APP_NAME + "/log";
-    // crash目录
-    public final static String CRASH_LOG_DIR_NAME = LOG_DIR_NAME + "/crash";
 
     /**
      * 调试设置
@@ -102,5 +96,34 @@ public class Config {
     // html接口
     public static String getHtmlUrl(String key) {
         return HTML + key;
+    }
+
+
+    /**
+     * 目录名设置
+     */
+    //TODO 修改app的名称
+    private final static String APP_NAME = "app_sample_02_25";
+    // 图片加载库的缓存目录
+    private final static String IMAGE_LOADER_CACHE_DIR_NAME = APP_NAME + File.separator + "imageLoaderCacheDir";
+    // log目录
+    private final static String LOG_DIR_NAME = APP_NAME + File.separator + "log";
+    // crash目录
+    private final static String CRASH_LOG_DIR_NAME = APP_NAME + File.separator + "crash";
+
+    public static File getAppDir(Context context) {
+        return DirHelper.getAndroidDir(context, APP_NAME);
+    }
+
+    public static File getImageLoaderCacheDir(Context context) {
+        return DirHelper.getAndroidDir(context, IMAGE_LOADER_CACHE_DIR_NAME);
+    }
+
+    public static File getLogDir(Context context) {
+        return DirHelper.getAndroidDir(context, LOG_DIR_NAME);
+    }
+
+    public static File getCrashDir(Context context) {
+        return DirHelper.getAndroidDir(context, CRASH_LOG_DIR_NAME);
     }
 }

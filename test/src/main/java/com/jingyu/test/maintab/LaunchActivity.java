@@ -102,7 +102,7 @@ public class LaunchActivity extends BaseActivity {
         options.isLog2Console = Config.IS_LOG_2_CONSOLE;
         options.isLog2File = Config.IS_LOG_2_FILE;
         options.isShowDebugToast = Config.IS_SHOW_DEBUG_TOAST;
-        options.logDirName = Config.LOG_DIR_NAME;
+        options.logDir = Config.getLogDir(getApplicationContext());
         Logger.initLog(getApplication(), options);
     }
 
@@ -120,7 +120,7 @@ public class LaunchActivity extends BaseActivity {
 
     private void initCrashHandler() {
         if (Config.IS_INIT_CRASH_HANDLER) {
-            CrashHandler.getInstance().init(getApplication(), Config.IS_SHOW_EXCEPTION_ACTIVITY, Config.CRASH_LOG_DIR_NAME);
+            CrashHandler.getInstance().init(getApplication(), Config.IS_SHOW_EXCEPTION_ACTIVITY, Config.getCrashDir(getApplicationContext()));
         }
     }
 

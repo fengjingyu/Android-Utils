@@ -11,7 +11,6 @@ import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.CacheCleaner;
-import com.jingyu.utils.util.UtilIoAndr;
 
 import java.io.File;
 
@@ -40,7 +39,7 @@ public class CacheCleanActivity extends BaseActivity implements View.OnClickList
     }
 
     private void logic() {
-        dir = UtilIoAndr.createDirInAndroid(getApplicationContext(), Config.APP_NAME);
+        dir = Config.getAppDir(getApplicationContext());
 
         ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("测试");

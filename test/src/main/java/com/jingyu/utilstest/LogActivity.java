@@ -8,13 +8,10 @@ import android.view.View;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
+import com.jingyu.utils.function.IOHelper;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.function.Storager;
-import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.util.UtilIoAndr;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class LogActivity extends BaseActivity {
@@ -43,8 +40,8 @@ public class LogActivity extends BaseActivity {
                 Object obj = null;
                 Logger.i(obj);
 
-                Logger.i(UtilIo.getAllFilesByDirQueue(Storager.ExternalPublic.getDir(Config.APP_NAME)));
-                Logger.i(UtilIo.getFilterFiles(Storager.ExternalPublic.getDir(Config.APP_NAME), new LinkedList<File>(), null));
+                Logger.i(IOHelper.getAllFilesByDirQueue(Config.getAppDir(getApplicationContext())));
+                Logger.i(IOHelper.getFilterFiles(Config.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
             }
         });
 

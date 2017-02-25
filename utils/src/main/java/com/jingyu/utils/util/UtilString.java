@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.jingyu.utils.function.Constants;
+import com.jingyu.utils.function.IOHelper;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -351,7 +352,7 @@ public class UtilString {
         ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor(color));
         hightlight.setSpan(span, str.indexOf("：") + 1, (str).length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         textview.append(hightlight);
-        textview.append(UtilIo.LINE_SEPARATOR);
+        textview.append(IOHelper.LINE_SEPARATOR);
     }
 
     /**
@@ -364,7 +365,7 @@ public class UtilString {
         AbsoluteSizeSpan size_span = new AbsoluteSizeSpan(size);
         sizespan.setSpan(size_span, 0, (str).length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         textview.append(sizespan);
-        textview.append(UtilIo.LINE_SEPARATOR);
+        textview.append(IOHelper.LINE_SEPARATOR);
     }
 
     /**
@@ -669,7 +670,7 @@ public class UtilString {
 //            if (str.indexOf("：") > 0) {
 //                setLightAppendString(str, textview, "#184DA3");
 //            } else {
-//                textview.append(str + UtilIo.LINE_SEPARATOR);
+//                textview.append(str + IOHelper.LINE_SEPARATOR);
 //            }
 //        }
 //    }

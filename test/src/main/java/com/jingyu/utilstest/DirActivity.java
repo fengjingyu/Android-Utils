@@ -8,9 +8,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jingyu.test.R;
+import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.function.Storager;
-import com.jingyu.utils.util.UtilIo;
+import com.jingyu.utils.function.IOHelper;
 import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
@@ -69,18 +69,18 @@ public class DirActivity extends AppCompatActivity {
     }
 
     private void testStoragerInternal() {
-        log("Storager.Internal.getDir(this, \"dir_01\")--", Storager.Internal.getDir(this, "dir_01"), true);
-        log("Storager.Internal.getDir(this, \"dir_02/dir_03/dir_04\")", Storager.Internal.getDir(this, "dir_02/dir_03/dir_04"), true);
-        log("Storager.Internal.getCacheDir(this)", Storager.Internal.getCacheDir(this), true);
-        log("Storager.Internal.getFilesDir(this)", Storager.Internal.getFilesDir(this), true);
-        log("Storager.Internal.getPackageDir(this)", Storager.Internal.getPackageDir(this), true);
-        log("Storager.Internal.getAppDir(this, \"dir_05\")", Storager.Internal.getAppDir(this, "dir_05"), true);
-        log("Storager.Internal.getFile(this, \"dir_06\", \"file_01\")", Storager.Internal.getFile(this, "dir_06", "file_01"), false);
-        log("Storager.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", Storager.Internal.getFile(this, "dir_07/dir_8", "file_02"), false);
-        log("Storager.Internal.getFile(this, \"lib\", \"file_03\")", Storager.Internal.getFile(this, "lib", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了
-        log("Storager.createFile(Storager.Internal.getCacheDir(this), \"file_04\")", Storager.createFile(Storager.Internal.getCacheDir(this), "file_04"), false); // 没权限,异常
-        log("Storager.Internal.getCacheFile(this, \"file_05\"), false)", Storager.Internal.getCacheFile(this, "file_05"), false); // 没权限,异常
-        log("Storager.Internal.getFilesFile(this, \"file_06\")", Storager.Internal.getFilesFile(this, "file_06"), false); // 没权限,异常
+        log("DirHelper.Internal.getDir(this, \"dir_01\")--", DirHelper.Internal.getDir(this, "dir_01"), true);
+        log("DirHelper.Internal.getDir(this, \"dir_02/dir_03/dir_04\")", DirHelper.Internal.getDir(this, "dir_02/dir_03/dir_04"), true);
+        log("DirHelper.Internal.getCacheDir(this)", DirHelper.Internal.getCacheDir(this), true);
+        log("DirHelper.Internal.getFilesDir(this)", DirHelper.Internal.getFilesDir(this), true);
+        log("DirHelper.Internal.getPackageDir(this)", DirHelper.Internal.getPackageDir(this), true);
+        log("DirHelper.Internal.getAppDir(this, \"dir_05\")", DirHelper.Internal.getAppDir(this, "dir_05"), true);
+        log("DirHelper.Internal.getFile(this, \"dir_06\", \"file_01\")", DirHelper.Internal.getFile(this, "dir_06", "file_01"), false);
+        log("DirHelper.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", DirHelper.Internal.getFile(this, "dir_07/dir_8", "file_02"), false);
+        log("DirHelper.Internal.getFile(this, \"lib\", \"file_03\")", DirHelper.Internal.getFile(this, "lib", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了
+        log("DirHelper.createFile(DirHelper.Internal.getCacheDir(this), \"file_04\")", DirHelper.createFile(DirHelper.Internal.getCacheDir(this), "file_04"), false); // 没权限,异常
+        log("DirHelper.Internal.getCacheFile(this, \"file_05\"), false)", DirHelper.Internal.getCacheFile(this, "file_05"), false); // 没权限,异常
+        log("DirHelper.Internal.getFilesFile(this, \"file_06\")", DirHelper.Internal.getFilesFile(this, "file_06"), false); // 没权限,异常
     }
 
     private void testStoragerPublic() {
@@ -88,17 +88,17 @@ public class DirActivity extends AppCompatActivity {
     }
 
     private void testStoragerAndroid() {
-        log("Storager.ExternalAndroid.getPackageDir(this)", Storager.ExternalAndroid.getPackageDir(this), true);
-        log("Storager.ExternalAndroid.getCacheDir(this)", Storager.ExternalAndroid.getCacheDir(this), true);
-        log("Storager.ExternalAndroid.getFilesDir(this, \"\")", Storager.ExternalAndroid.getFilesDir(this, ""), true);
-        log("Storager.ExternalAndroid.getFilesDir(this, \"dir_01\")", Storager.ExternalAndroid.getFilesDir(this, "dir_01"), true);
-        log("Storager.ExternalAndroid.getFilesDir(this, \"dir_02/dir_03\")", Storager.ExternalAndroid.getFilesDir(this, "dir_02/dir_03"), true);
-        log("Storager.ExternalAndroid.getDir(this, \"dir_04/dir_05\")", Storager.ExternalAndroid.getDir(this, "dir_04/dir_05"), true);
-        log("Storager.ExternalAndroid.getFile(this, \"dir_06\", \"file_01\")", Storager.ExternalAndroid.getFile(this, "dir_06", "file_01"), true);
-        log("Storager.ExternalAndroid.getFile(this, \"dir_07/dir_08\", \"file_02\")", Storager.ExternalAndroid.getFile(this, "dir_07/dir_08", "file_02"), true);
-        log("Storager.createFile(Storager.ExternalAndroid.getCacheDir(this), \"file_03\")", Storager.createFile(Storager.ExternalAndroid.getCacheDir(this), "file_03"), true);
-        log("Storager.ExternalAndroid.getCacheFile(this, \"file_04\"), false)", Storager.ExternalAndroid.getCacheFile(this, "file_04"), false); // 没权限,异常
-        log("Storager.ExternalAndroid.getFilesFile(this, \"file_05\"), false)", Storager.ExternalAndroid.getFilesFile(this, "file_05"), false); // 没权限,异常
+        log("DirHelper.ExternalAndroid.getPackageDir(this)", DirHelper.ExternalAndroid.getPackageDir(this), true);
+        log("DirHelper.ExternalAndroid.getCacheDir(this)", DirHelper.ExternalAndroid.getCacheDir(this), true);
+        log("DirHelper.ExternalAndroid.getFilesDir(this, \"\")", DirHelper.ExternalAndroid.getFilesDir(this, ""), true);
+        log("DirHelper.ExternalAndroid.getFilesDir(this, \"dir_01\")", DirHelper.ExternalAndroid.getFilesDir(this, "dir_01"), true);
+        log("DirHelper.ExternalAndroid.getFilesDir(this, \"dir_02/dir_03\")", DirHelper.ExternalAndroid.getFilesDir(this, "dir_02/dir_03"), true);
+        log("DirHelper.ExternalAndroid.getDir(this, \"dir_04/dir_05\")", DirHelper.ExternalAndroid.getDir(this, "dir_04/dir_05"), true);
+        log("DirHelper.ExternalAndroid.getFile(this, \"dir_06\", \"file_01\")", DirHelper.ExternalAndroid.getFile(this, "dir_06", "file_01"), true);
+        log("DirHelper.ExternalAndroid.getFile(this, \"dir_07/dir_08\", \"file_02\")", DirHelper.ExternalAndroid.getFile(this, "dir_07/dir_08", "file_02"), true);
+        log("DirHelper.createFile(DirHelper.ExternalAndroid.getCacheDir(this), \"file_03\")", DirHelper.createFile(DirHelper.ExternalAndroid.getCacheDir(this), "file_03"), true);
+        log("DirHelper.ExternalAndroid.getCacheFile(this, \"file_04\"), false)", DirHelper.ExternalAndroid.getCacheFile(this, "file_04"), false); // 没权限,异常
+        log("DirHelper.ExternalAndroid.getFilesFile(this, \"file_05\"), false)", DirHelper.ExternalAndroid.getFilesFile(this, "file_05"), false); // 没权限,异常
 
     }
 
@@ -195,10 +195,10 @@ public class DirActivity extends AppCompatActivity {
     }
 
     private void testIo() {
-        Logger.i(UtilIo.getString(Storager.Stream.getInputStreamFromInternal(this, "1234")));
-        Logger.i(UtilIo.string2OutputStream("测试io", null));
-        Logger.i(UtilIo.string2OutputStream("测试io", Storager.Stream.getOutputStreamFromInternalAppend(this, "123")));
-        Logger.i(UtilIo.getString(Storager.Stream.getInputStreamFromInternal(this, "123")));
+        Logger.i(IOHelper.getString(IOHelper.getInputStreamFromInternal(this, "1234")));
+        Logger.i(IOHelper.string2OutputStream("测试io", null));
+        Logger.i(IOHelper.string2OutputStream("测试io", IOHelper.getOutputStreamFromInternalAppend(this, "123")));
+        Logger.i(IOHelper.getString(IOHelper.getInputStreamFromInternal(this, "123")));
     }
 
 

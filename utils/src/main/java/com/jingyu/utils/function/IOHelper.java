@@ -477,7 +477,8 @@ public class IOHelper {
         }
     }
 
-    public static InputStream getInputStreamFromRaw(Context context, int rawId) {
+    @Nullable
+    public static InputStream getRawInputStream(Context context, int rawId) {
         try {
             return context.getResources().openRawResource(rawId);
         } catch (Exception e) {
@@ -486,7 +487,8 @@ public class IOHelper {
         }
     }
 
-    public static InputStream getInputStreamFromAsserts(Context context, String fileName) {
+    @Nullable
+    public static InputStream getAssertInputStream(Context context, String fileName) {
         try {
             return context.getAssets().open(fileName);
         } catch (Exception e) {
@@ -495,7 +497,8 @@ public class IOHelper {
         }
     }
 
-    public static InputStream getInputStreamFromUri(Context context, Uri uri) {
+    @Nullable
+    public static InputStream getUriInputStream(Context context, Uri uri) {
         try {
             return context.getContentResolver().openInputStream(uri);
         } catch (Exception e) {
@@ -505,49 +508,19 @@ public class IOHelper {
     }
 
     /**
-     * 从内部存储读文件流,文件在/data/data/"PACKAGE_NAME"/files/filename
+     * 从内部存储读文件,文件在/data/data/"PACKAGE_NAME"/files/filename
      *
      * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
      */
-    public static FileInputStream getInputStreamFromInternal(Context context, String fileName) {
+    @Nullable
+    public static String getInternalFilesString(Context context, String fileName) {
         try {
-            return context.openFileInput(fileName);
+            FileInputStream fileInputStream = context.openFileInput(fileName);
+            return getString(fileInputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-    /**
-     * /data/data/"PACKAGE_NAME"/files/fileName
-     *
-     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-     */
-    private static FileOutputStream getOutputStreamFromInternal(Context context, String fileName, int mode) {
-        try {
-            return context.openFileOutput(fileName, mode);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * /data/data/"PACKAGE_NAME"/files/fileName
-     *
-     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-     */
-    public static void getOutputStreamFromInternalPrivate(Context context, String fileName) {
-        getOutputStreamFromInternal(context, fileName, Context.MODE_PRIVATE);
-    }
-
-    /**
-     * /data/data/"PACKAGE_NAME"/files/fileName
-     *
-     * @param fileName 如 "android.txt" ,不可以是"aa/bb.txt",即不可以包含路径分隔符
-     */
-    public static FileOutputStream getOutputStreamFromInternalAppend(Context context, String fileName) {
-        return getOutputStreamFromInternal(context, fileName, Context.MODE_APPEND);
     }
 
 }

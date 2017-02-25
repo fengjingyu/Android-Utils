@@ -98,13 +98,6 @@ public class DirHelper {
         }
 
         /**
-         * Android/data/<package>/files/DCIM/fileName
-         */
-        public static File getDCIMFile(Context context, String fileName) {
-            return createFile(getDCIMDir(context), fileName);
-        }
-
-        /**
          * @return 如果sd卡可用
          * dirName=null / "" / "  ",返回Android/data/<package>/
          * dirName="cc" 返回Android/data/<package>/cc
@@ -285,7 +278,11 @@ public class DirHelper {
          * @return /data/data/<package>/
          */
         public static File getPackageDir(Context context) {
-            return context.getCacheDir().getParentFile();
+            File cacheDir = context.getCacheDir();
+            if (cacheDir != null) {
+                return cacheDir.getParentFile();
+            }
+            return null;
         }
 
         /**
@@ -325,11 +322,14 @@ public class DirHelper {
     }
 
     public static File getAndroidFile(Context context, String dirName, String fileName) {
-        File file = ExternalAndroid.getFile(context, dirName, fileName);
-        if (file != null) {
-            return file;
+        if (isStringAvaliable(fileName)) {
+            File file = ExternalAndroid.getFile(context, dirName, fileName);
+            if (file != null) {
+                return file;
+            }
+            return Internal.getFile(context, dirName, fileName);
         }
-        return Internal.getFile(context, dirName, fileName);
+        return null;
     }
 
 }

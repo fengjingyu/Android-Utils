@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.function.IOHelper;
 import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
@@ -24,48 +23,18 @@ public class DirActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dir);
         //testAndroidApi();
         testStoragerInternal();
-        testStoragerAndroid();
-        testIo();
+        testStoragerExternalAndroid();
+        testAndroid();
     }
 
-    public void log(String msg, File file, boolean isDir) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(msg);
-        if (file == null) {
-            sb.append("file为null ,");
-            Logger.i(sb.toString());
-            return;
-        } else {
-            sb.append("file不为null ," + file.getAbsolutePath() + " , ");
-        }
+    private void testAndroid() {
+        log("DirHelper.getAndroidDir(getApplicationContext(),\"dirdir_01\")", DirHelper.getAndroidDir(getApplicationContext(), "dirdir_01"), true);
+        log("DirHelper.getAndroidDir(getApplicationContext(),\"dirdir_02/dirdir_03\")", DirHelper.getAndroidDir(getApplicationContext(), "dirdir_02/dirdir_03"), true);
+        log("DirHelper.getAndroidDir(getApplicationContext(),null)", DirHelper.getAndroidDir(getApplicationContext(), null), true);
 
-        if (file.exists()) {
-            sb.append("file存在 ,");
-            Logger.i(sb.toString());
-            return;
-        } else {
-            sb.append("file不存在 ,");
-        }
-
-        if (isDir) {
-            if (file.mkdirs()) {
-                sb.append("file创建目录成功");
-            } else {
-                sb.append("file创建目录失败");
-            }
-        } else {
-            try {
-                if (file.createNewFile()) {
-                    sb.append("file创建文件成功");
-                } else {
-                    sb.append("file创建文件失败");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                sb.append("file创建件失败");
-            }
-        }
-        Logger.i(sb.toString());
+        log("DirHelper.getAndroidFile(getApplicationContext(),\"dirdir_04\",\"filefile_01\")", DirHelper.getAndroidFile(getApplicationContext(), "dirdir_04", "filefile_01"), false);
+        log("DirHelper.getAndroidFile(getApplicationContext(),\"dirdir_05/dirdir_06\",\"filefile_02\"", DirHelper.getAndroidFile(getApplicationContext(), "dirdir_05/dirdir_06", "filefile_02"), false);
+        log("DirHelper.getAndroidFile(getApplicationContext(),\"dirdir_07\"", DirHelper.getAndroidFile(getApplicationContext(), "dirdir_07", ""), false);
     }
 
     private void testStoragerInternal() {
@@ -76,18 +45,14 @@ public class DirActivity extends AppCompatActivity {
         log("DirHelper.Internal.getPackageDir(this)", DirHelper.Internal.getPackageDir(this), true);
         log("DirHelper.Internal.getAppDir(this, \"dir_05\")", DirHelper.Internal.getAppDir(this, "dir_05"), true);
         log("DirHelper.Internal.getFile(this, \"dir_06\", \"file_01\")", DirHelper.Internal.getFile(this, "dir_06", "file_01"), false);
-        log("DirHelper.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", DirHelper.Internal.getFile(this, "dir_07/dir_8", "file_02"), false);
-        log("DirHelper.Internal.getFile(this, \"lib\", \"file_03\")", DirHelper.Internal.getFile(this, "lib", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了
-        log("DirHelper.createFile(DirHelper.Internal.getCacheDir(this), \"file_04\")", DirHelper.createFile(DirHelper.Internal.getCacheDir(this), "file_04"), false); // 没权限,异常
-        log("DirHelper.Internal.getCacheFile(this, \"file_05\"), false)", DirHelper.Internal.getCacheFile(this, "file_05"), false); // 没权限,异常
-        log("DirHelper.Internal.getFilesFile(this, \"file_06\")", DirHelper.Internal.getFilesFile(this, "file_06"), false); // 没权限,异常
+        log("DirHelper.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", DirHelper.Internal.getFile(this, "dir_07/dir_08", "file_02"), false);
+        log("DirHelper.Internal.getFile(this, \"lib\", \"file_03\")", DirHelper.Internal.getFile(this, "lib/dir_09/dir_10", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了
+        log("DirHelper.createFile(DirHelper.Internal.getCacheDir(this), \"file_04\")", DirHelper.createFile(DirHelper.Internal.getCacheDir(this), "file_04"), false);
+        log("DirHelper.Internal.getCacheFile(this, \"file_05\"), false)", DirHelper.Internal.getCacheFile(this, "file_05"), false);
+        log("DirHelper.Internal.getFilesFile(this, \"file_06\")", DirHelper.Internal.getFilesFile(this, "file_06"), false);
     }
 
-    private void testStoragerPublic() {
-
-    }
-
-    private void testStoragerAndroid() {
+    private void testStoragerExternalAndroid() {
         log("DirHelper.ExternalAndroid.getPackageDir(this)", DirHelper.ExternalAndroid.getPackageDir(this), true);
         log("DirHelper.ExternalAndroid.getCacheDir(this)", DirHelper.ExternalAndroid.getCacheDir(this), true);
         log("DirHelper.ExternalAndroid.getFilesDir(this, \"\")", DirHelper.ExternalAndroid.getFilesDir(this, ""), true);
@@ -97,9 +62,9 @@ public class DirActivity extends AppCompatActivity {
         log("DirHelper.ExternalAndroid.getFile(this, \"dir_06\", \"file_01\")", DirHelper.ExternalAndroid.getFile(this, "dir_06", "file_01"), true);
         log("DirHelper.ExternalAndroid.getFile(this, \"dir_07/dir_08\", \"file_02\")", DirHelper.ExternalAndroid.getFile(this, "dir_07/dir_08", "file_02"), true);
         log("DirHelper.createFile(DirHelper.ExternalAndroid.getCacheDir(this), \"file_03\")", DirHelper.createFile(DirHelper.ExternalAndroid.getCacheDir(this), "file_03"), true);
-        log("DirHelper.ExternalAndroid.getCacheFile(this, \"file_04\"), false)", DirHelper.ExternalAndroid.getCacheFile(this, "file_04"), false); // 没权限,异常
-        log("DirHelper.ExternalAndroid.getFilesFile(this, \"file_05\"), false)", DirHelper.ExternalAndroid.getFilesFile(this, "file_05"), false); // 没权限,异常
-
+        log("DirHelper.ExternalAndroid.getCacheFile(this, \"file_04\"), false)", DirHelper.ExternalAndroid.getCacheFile(this, "file_04"), false);
+        log("DirHelper.ExternalAndroid.getFilesFile(this, \"file_05\"), false)", DirHelper.ExternalAndroid.getFilesFile(this, "file_05"), false);
+        log("DirHelper.ExternalAndroid.getFile(this, \"dir_09/dir_10\", \"file_06\")", DirHelper.ExternalAndroid.getFile(this, "dir_09/dir_10", "file_06"), false);
     }
 
     private void testFile() {
@@ -194,13 +159,45 @@ public class DirActivity extends AppCompatActivity {
         Logger.i(getDir(null, Context.MODE_PRIVATE));//会创建目录/data/user/0/com.jingyu.test/app_null
     }
 
-    private void testIo() {
-        Logger.i(IOHelper.getString(IOHelper.getInputStreamFromInternal(this, "1234")));
-        Logger.i(IOHelper.string2OutputStream("测试io", null));
-        Logger.i(IOHelper.string2OutputStream("测试io", IOHelper.getOutputStreamFromInternalAppend(this, "123")));
-        Logger.i(IOHelper.getString(IOHelper.getInputStreamFromInternal(this, "123")));
-    }
+    public void log(String msg, File file, boolean isDir) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(msg);
+        if (file == null) {
+            sb.append("file为null ,");
+            Logger.i(sb.toString());
+            return;
+        } else {
+            sb.append("file不为null ," + file.getAbsolutePath() + " , ");
+        }
 
+        if (file.exists()) {
+            sb.append("file存在 ,");
+            Logger.i(sb.toString());
+            return;
+        } else {
+            sb.append("file不存在 ,");
+        }
+
+        if (isDir) {
+            if (file.mkdirs()) {
+                sb.append("file创建目录成功");
+            } else {
+                sb.append("file创建目录失败");
+            }
+        } else {
+            try {
+                if (file.createNewFile()) {
+                    sb.append("file创建文件成功");
+                } else {
+                    sb.append("file创建文件失败");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                sb.append("file创建件失败");
+            }
+        }
+        Logger.i(sb.toString());
+    }
 
     public static void actionStart(FragmentActivity activity) {
         activity.startActivity(new Intent(activity, DirActivity.class));

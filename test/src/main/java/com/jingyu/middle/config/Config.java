@@ -103,16 +103,16 @@ public class Config {
      * 目录名设置
      */
     //TODO 修改app的名称
-    private final static String APP_NAME = "app_sample_02_25";
+    private final static String APP_DIR_NAME = "app_sample_02_25";
     // 图片加载库的缓存目录
-    private final static String IMAGE_LOADER_CACHE_DIR_NAME = APP_NAME + File.separator + "imageLoaderCacheDir";
+    private final static String IMAGE_LOADER_CACHE_DIR_NAME = APP_DIR_NAME + File.separator + "imageLoaderCache";
     // log目录
-    private final static String LOG_DIR_NAME = APP_NAME + File.separator + "log";
+    private final static String LOG_DIR_NAME = APP_DIR_NAME + File.separator + "log";
     // crash目录
-    private final static String CRASH_LOG_DIR_NAME = APP_NAME + File.separator + "crash";
+    private final static String CRASH_LOG_DIR_NAME = APP_DIR_NAME + File.separator + "crash";
 
     public static File getAppDir(Context context) {
-        return DirHelper.getAndroidDir(context, APP_NAME);
+        return DirHelper.getAndroidDir(context, APP_DIR_NAME);
     }
 
     public static File getImageLoaderCacheDir(Context context) {

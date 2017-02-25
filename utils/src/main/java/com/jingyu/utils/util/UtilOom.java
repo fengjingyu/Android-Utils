@@ -73,7 +73,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = IOHelper.getInputStreamFromUri(context, uri);
+        input = IOHelper.getUriInputStream(context, uri);
 
         if (input == null) {
             return null;
@@ -89,7 +89,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = IOHelper.getInputStreamFromUri(context, uri);
+        input = IOHelper.getUriInputStream(context, uri);
 
         if (input == null) {
             return null;
@@ -103,7 +103,7 @@ public class UtilOom {
 
         InputStream input = null;
 
-        input = IOHelper.getInputStreamFromRaw(context, drawable_id);
+        input = IOHelper.getRawInputStream(context, drawable_id);
 
         if (input == null) {
             return null;
@@ -119,7 +119,7 @@ public class UtilOom {
 
         double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0; // 如px=200
 
-        input = IOHelper.getInputStreamFromRaw(context, drawable_id);
+        input = IOHelper.getRawInputStream(context, drawable_id);
 
         if (input == null) {
             return null;
@@ -175,10 +175,6 @@ public class UtilOom {
             onlyBoundsOptions.inJustDecodeBounds = true;
 
             onlyBoundsOptions.inPreferredConfig = type;
-
-            onlyBoundsOptions.inPurgeable = true;
-
-            onlyBoundsOptions.inInputShareable = true;
 
             BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
 

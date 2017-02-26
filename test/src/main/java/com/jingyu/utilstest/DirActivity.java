@@ -42,7 +42,7 @@ public class DirActivity extends AppCompatActivity {
         log("DirHelper.Internal.getDir(this, \"dir_02/dir_03/dir_04\")", DirHelper.Internal.getDir(this, "dir_02/dir_03/dir_04"), true);
         log("DirHelper.Internal.getCacheDir(this)", DirHelper.Internal.getCacheDir(this), true);
         log("DirHelper.Internal.getFilesDir(this)", DirHelper.Internal.getFilesDir(this), true);
-        log("DirHelper.Internal.getPackageDir(this)", DirHelper.Internal.getPackageDir(this), true);
+        log("DirHelper.Internal.getPackageDir(this)", DirHelper.Internal.getDir(this,""), true);
         log("DirHelper.Internal.getAppDir(this, \"dir_05\")", DirHelper.Internal.getAppDir(this, "dir_05"), true);
         log("DirHelper.Internal.getFile(this, \"dir_06\", \"file_01\")", DirHelper.Internal.getFile(this, "dir_06", "file_01"), false);
         log("DirHelper.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", DirHelper.Internal.getFile(this, "dir_07/dir_08", "file_02"), false);
@@ -53,7 +53,7 @@ public class DirActivity extends AppCompatActivity {
     }
 
     private void testStoragerExternalAndroid() {
-        log("DirHelper.ExternalAndroid.getPackageDir(this)", DirHelper.ExternalAndroid.getPackageDir(this), true);
+        log("DirHelper.ExternalAndroid.getPackageDir(this)", DirHelper.ExternalAndroid.getDir(this,""), true);
         log("DirHelper.ExternalAndroid.getCacheDir(this)", DirHelper.ExternalAndroid.getCacheDir(this), true);
         log("DirHelper.ExternalAndroid.getFilesDir(this, \"\")", DirHelper.ExternalAndroid.getFilesDir(this, ""), true);
         log("DirHelper.ExternalAndroid.getFilesDir(this, \"dir_01\")", DirHelper.ExternalAndroid.getFilesDir(this, "dir_01"), true);

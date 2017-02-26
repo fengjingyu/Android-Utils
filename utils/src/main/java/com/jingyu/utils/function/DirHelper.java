@@ -104,13 +104,20 @@ public class DirHelper {
          * dirName="aa/bb" 返回Android/data/<package>/aa/bb
          */
         public static File getDir(Context context, String dirName) {
-            File packageDir = getPackageDir(context);
-            if (packageDir != null) {
-                if (isStringAvaliable(dirName)) {
-                    return createDir(packageDir.getAbsolutePath() + File.separator + dirName);
+            if (isSDcardExist()) {
+                File externalCacheDir = context.getExternalCacheDir();
+                if (externalCacheDir != null) {
+                    File packageDir = externalCacheDir.getParentFile();
+                    if (packageDir != null) {
+                        if (isStringAvaliable(dirName)) {
+                            return createDir(packageDir.getAbsolutePath() + File.separator + dirName);
+                        } else {
+                            return packageDir;
+                        }
+                    }
                 }
             }
-            return packageDir;
+            return null;
         }
 
         /**
@@ -137,19 +144,6 @@ public class DirHelper {
         public static File getFilesDir(Context context, String dirName) {
             if (isSDcardExist()) {
                 return context.getExternalFilesDir(dirName);
-            }
-            return null;
-        }
-
-        /**
-         * @return Android/data/<package>/
-         */
-        public static File getPackageDir(Context context) {
-            if (isSDcardExist()) {
-                File cacheDir = context.getExternalCacheDir();
-                if (cacheDir != null) {
-                    return cacheDir.getParentFile();
-                }
             }
             return null;
         }
@@ -243,13 +237,18 @@ public class DirHelper {
          * dirName="aa/bb" 返回/data/data/<package>/aa/bb
          */
         public static File getDir(Context context, String dirName) {
-            File packageDir = getPackageDir(context);
-            if (packageDir != null) {
-                if (isStringAvaliable(dirName)) {
-                    return createDir(packageDir.getAbsolutePath() + File.separator + dirName);
+            File cacheDir = context.getCacheDir();
+            if (cacheDir != null) {
+                File packageDir = cacheDir.getParentFile();
+                if (packageDir != null) {
+                    if (isStringAvaliable(dirName)) {
+                        return createDir(packageDir.getAbsolutePath() + File.separator + dirName);
+                    } else {
+                        return packageDir;
+                    }
                 }
             }
-            return packageDir;
+            return null;
         }
 
         /**
@@ -275,17 +274,6 @@ public class DirHelper {
          */
         public static File getFilesDir(Context context) {
             return context.getFilesDir();
-        }
-
-        /**
-         * @return /data/data/<package>/
-         */
-        public static File getPackageDir(Context context) {
-            File cacheDir = context.getCacheDir();
-            if (cacheDir != null) {
-                return cacheDir.getParentFile();
-            }
-            return null;
         }
 
         /**

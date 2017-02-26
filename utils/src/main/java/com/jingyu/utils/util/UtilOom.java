@@ -68,6 +68,8 @@ public class UtilOom {
     /**
      * 从uri获取到bitmap，适用于大图
      * type = Bitmap.Config.RGB_565
+     * Uri.fromFile(file)
+     * pix 500
      */
     public static Bitmap getBitmapForLargeByUri(Context context, Uri uri, float pix, Bitmap.Config type) {
 

@@ -15,31 +15,34 @@ import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilDate;
-import com.jingyu.utils.util.UtilOom;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author fengjingyu@foxmail.com
  * @description 从摄像头获取图片
  */
 public class CameraPhotoFragment extends PlusFragment {
-    // 打开当地相册的请求码
+    // 打开摄像头的请求码
     public static final int CAMERA_REQUEST_CODE = 0;
     // 裁剪的请求码
     public static final int RESIZE_REQUEST_CODE = 1;
     // 权限的请求码
     public static final int REQUEST_CODE_CAMERA_PERMISSIONS = 2;
-    // 图片文件
-    private File tempFile;
+    // 拍照的图片
+    private File caremaPhotoFile;
+    // 拍照后裁剪的图片
+    private File cropPhotoFile;
     // 存储图片的文件夹
     private File savePhotoDir;
     // 是否允许裁剪图片，默认为不允许
     private boolean isResize;
+    // 裁剪图片是返回bitmap还是uri
+    private boolean isCropReturnBitmap = true;
 
     public interface OnCameraSelectedFileListener {
         void onCameraSelectedFile(File file);
@@ -75,16 +78,14 @@ public class CameraPhotoFragment extends PlusFragment {
     }
 
     public void openCamera() {
-        tempFile = DirHelper.createFile(getDir(), UUID.randomUUID().toString());
-        if (tempFile == null) {
+        if ((caremaPhotoFile = getCameraOutputFile()) != null && caremaPhotoFile.exists()) {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(caremaPhotoFile));
+            cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+        } else {
             Logger.shortToast("打开拍照失败");
-            return;
         }
-
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
-        cameraIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
     }
 
     @Override
@@ -93,37 +94,40 @@ public class CameraPhotoFragment extends PlusFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case CAMERA_REQUEST_CODE:
-                    final Uri uri = Uri.fromFile(tempFile);//这个data为null
+                    Uri uri = Uri.fromFile(caremaPhotoFile);//这个data为null
                     Logger.i(this + "--uri=" + uri);
                     if (isResize) {
-                        requestResizeImage(uri);
+                        if ((cropPhotoFile = getCropOutputFile()) != null && cropPhotoFile.exists()) {
+                            requestResizeImage(uri);
+                        } else {
+                            Logger.shortToast("裁剪图片失败");
+                        }
                     } else {
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Bitmap bitmap = UtilOom.getBitmapForLargeByUri(getActivity(), uri, 500, Bitmap.Config.RGB_565);
-                                deleteTempFile();
-                                getImage(bitmap);
-                            }
-                        }).start();
+                        if (listener != null) {
+                            listener.onCameraSelectedFile(caremaPhotoFile);
+                        }
                     }
                     break;
                 case RESIZE_REQUEST_CODE:
-                    deleteTempFile();
-                    if (data != null) {
-                        Bundle bundle = data.getExtras();
-                        if (bundle != null) {
-                            final Bitmap bitmap = bundle.getParcelable("data");
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    getImage(bitmap);
-                                }
-                            }).start();
+                    deleteCameraPhotoFile();
+                    if (isCropReturnBitmap) {
+                        if (data != null) {
+                            Bundle bundle = data.getExtras();
+                            if (bundle != null) {
+                                Bitmap bitmap = bundle.getParcelable("data");
+                                getFile(bitmap);
+                            }
+                        }
+                    } else {
+                        if (listener != null) {
+                            listener.onCameraSelectedFile(cropPhotoFile);
                         }
                     }
                     break;
             }
+        } else {
+            deleteCameraPhotoFile();
+            deleteCropPhotoFile();
         }
     }
 
@@ -131,55 +135,81 @@ public class CameraPhotoFragment extends PlusFragment {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
+        // 裁剪框的比例，1:1
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
+        // 裁剪后输出图片尺寸的大小, 如果output数值太大且return-data为true,可能会内存溢出
         intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 300);
-        intent.putExtra("return-data", true);
+        //图片格式
+        intent.putExtra("outputFormat", "JPEG");
+        //是否将数据保留在Bitmap中返回
+        if (isCropReturnBitmap) {
+            intent.putExtra("return-data", true);
+        } else {
+            intent.putExtra("return-data", false);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cropPhotoFile));
+        }
         startActivityForResult(intent, RESIZE_REQUEST_CODE);
     }
 
-    private void getImage(Bitmap bitmap) {
-        FileOutputStream fos = null;
-        try {
-            if (bitmap != null) {
-                final File file = new File(getDir(), "photo" + getTime() + ".jpg");
-                fos = new FileOutputStream(file);
-                //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.flush();
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (listener != null) {
-                                listener.onCameraSelectedFile(file);
-                            }
+    private void getFile(final Bitmap bitmap) {
+        if (bitmap != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    BufferedOutputStream bufferedOutputStream = null;
+                    try {
+                        bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(cropPhotoFile));
+                        //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bufferedOutputStream);
+                        bufferedOutputStream.flush();
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onCameraSelectedFile(cropPhotoFile);
+                                    }
+                                }
+                            });
                         }
-                    });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            if (bufferedOutputStream != null) {
+                                bufferedOutputStream.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            bitmap.recycle();
+                        }
+                    }
                 }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (null != bitmap) {
-                    bitmap.recycle();
-                }
-            }
+            }).start();
         }
     }
 
-    private void deleteTempFile() {
-        if (tempFile != null && tempFile.exists()) {
-            tempFile.delete();
+    private void deleteCameraPhotoFile() {
+        if (caremaPhotoFile != null && caremaPhotoFile.exists()) {
+            caremaPhotoFile.delete();
         }
+    }
+
+    private void deleteCropPhotoFile() {
+        if (cropPhotoFile != null && cropPhotoFile.exists()) {
+            cropPhotoFile.delete();
+        }
+    }
+
+    private File getCameraOutputFile() {
+        return DirHelper.createFile(getDir(), "photo" + getTime() + ".jpg");
+    }
+
+    private File getCropOutputFile() {
+        return DirHelper.createFile(getDir(), isCropReturnBitmap + "_crop_photo" + getTime() + ".jpg");
     }
 
     private File getDir() {

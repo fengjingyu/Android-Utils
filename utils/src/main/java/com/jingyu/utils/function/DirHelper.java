@@ -14,7 +14,7 @@ public class DirHelper {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
-    public static boolean isStringAvaliable(String str) {
+    private static boolean isStringAvaliable(String str) {
         return str != null && str.trim().length() > 0;
     }
 
@@ -243,10 +243,13 @@ public class DirHelper {
          * dirName="aa/bb" 返回/data/data/<package>/aa/bb
          */
         public static File getDir(Context context, String dirName) {
-            if (isStringAvaliable(dirName)) {
-                return createDir(getPackageDir(context).getAbsolutePath() + File.separator + dirName);
+            File packageDir = getPackageDir(context);
+            if (packageDir != null) {
+                if (isStringAvaliable(dirName)) {
+                    return createDir(packageDir.getAbsolutePath() + File.separator + dirName);
+                }
             }
-            return getPackageDir(context);
+            return packageDir;
         }
 
         /**

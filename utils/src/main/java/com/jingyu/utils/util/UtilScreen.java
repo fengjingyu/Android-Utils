@@ -21,6 +21,10 @@ public class UtilScreen {
         return context.getResources().getDisplayMetrics().density;
     }
 
+    public static float getDensityDpi(Context context) {
+        return context.getResources().getDisplayMetrics().densityDpi;
+    }
+
     public static int getScreenHeightPx(Context context) {
         return getScreenSizeByMetric(context)[1];
     }

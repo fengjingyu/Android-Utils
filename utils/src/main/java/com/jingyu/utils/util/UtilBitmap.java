@@ -22,32 +22,112 @@ import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.provider.MediaStore.Video.Thumbnails;
 
+import com.jingyu.utils.function.IOHelper;
+
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 
 
-public class UtilImage {
+public class UtilBitmap {
 
-    /**
-     * 从资产目录里获取bitmap
-     */
-    public static Bitmap getBitmapFromAsserts(Context context, String name) {
+    public static File compressBitmap(File file, Bitmap bitmap, int quality) {
+        BufferedOutputStream bufferedOutputStream = null;
         try {
-            InputStream inputStream = context.getAssets().open(name);
-            return BitmapFactory.decodeStream(inputStream);
-
+            bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bufferedOutputStream);
+            bufferedOutputStream.flush();
+            return file;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                if (bufferedOutputStream != null) {
+                    bufferedOutputStream.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Bitmap getBitmapByUri(Context context, Uri uri, Bitmap.Config type, float pix) {
+        int[] sizes = justDecodeSize(IOHelper.getUriInputStream(context, uri));
+        if (sizes != null) {
+            int originalSize = (sizes[1] > sizes[0]) ? sizes[1] : sizes[0];
+            double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0;
+            return decodeStream(IOHelper.getUriInputStream(context, uri), type, ratio);
+        }
+        return null;
+    }
+
+    public static Bitmap getBitmapByRaw(Context context, int rawId, float pix, Bitmap.Config type) {
+        int[] sizes = justDecodeSize(IOHelper.getRawInputStream(context, rawId));
+        if (sizes != null) {
+            int originalSize = (sizes[1] > sizes[0]) ? sizes[1] : sizes[0];
+            double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0;
+            return decodeStream(IOHelper.getRawInputStream(context, rawId), type, ratio);
+        }
+        return null;
+    }
+
+    public static Bitmap decodeStream(InputStream input, Bitmap.Config type, double ratio) {
+        if (input == null) {
+            return null;
+        }
+        try {
+            BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+            // bitmapOptions.inSampleSize = (int) Math.round(ratio) <= 1 ? 1 : (int) Math.floor(ratio);
+            bitmapOptions.inSampleSize = (int) ratio <= 1 ? 1 : (int) Math.floor(ratio);
+            bitmapOptions.inJustDecodeBounds = false;
+            bitmapOptions.inPreferredConfig = type;
+            // BitmapFactory.decodeByteArray(data, 0, data.length, options);
+            return BitmapFactory.decodeStream(input, null, bitmapOptions);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                input.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     /**
-     * 获取apk的图标
+     * 返回的第一个是宽， 第二个是高
      */
+    public static int[] justDecodeSize(InputStream input) {
+        if (input == null) {
+            return null;
+        }
+        try {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(input, null, options);
+            if ((options.outWidth != -1) && (options.outHeight != -1)) {
+                return new int[]{options.outWidth, options.outHeight};
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                input.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static Drawable getApkIcon(Context context, String apkPath) {
         // 获得包管理器
         PackageManager pm = context.getPackageManager();
@@ -62,74 +142,46 @@ public class UtilImage {
         return null;
     }
 
-    /**
-     * drawable 转成圆形的bitmap
-     */
-    public static Bitmap toRoundBitmapById(Context context, int id) {
-        Drawable drawable = context.getResources().getDrawable(id);
-        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-        return toRoundBitmap(bitmap);
+    public static byte[] bitmapToByte(Bitmap b) {
+        if (b == null) {
+            return null;
+        }
+        ByteArrayOutputStream o = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 100, o);
+        return o.toByteArray();
     }
 
-    /**
-     * 把bitmap转为圆形的bitmap
-     */
-    public static Bitmap toRoundBitmap(Bitmap bitmap) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        float roundPx;
-        float left, top, right, bottom, dst_left, dst_top, dst_right, dst_bottom;
-        if (width <= height) {
-            roundPx = width / 2;
-            top = 0;
-            left = 0;
-            bottom = width;
-            right = width;
-            height = width;
-            dst_left = 0;
-            dst_top = 0;
-            dst_right = width;
-            dst_bottom = width;
-        } else {
-            roundPx = height / 2;
-            float clip = (width - height) / 2;
-            left = clip;
-            right = width - clip;
-            top = 0;
-            bottom = height;
-            width = height;
-            dst_left = 0;
-            dst_top = 0;
-            dst_right = height;
-            dst_bottom = height;
+    public static byte[] drawableToByte(Drawable d) {
+        return bitmapToByte(drawableToBitmap(d));
+    }
+
+    public static Drawable byteToDrawable(byte[] b) {
+        return bitmapToDrawable(byteToBitmap(b));
+    }
+
+    public static Bitmap byteToBitmap(byte[] b) {
+        return (b == null || b.length == 0) ? null : BitmapFactory.decodeByteArray(b, 0, b.length);
+    }
+
+    public static Bitmap drawableToBitmap(Drawable d) {
+        return d == null ? null : ((BitmapDrawable) d).getBitmap();
+    }
+
+    public static Drawable bitmapToDrawable(Bitmap b) {
+        return b == null ? null : new BitmapDrawable(null, b);
+    }
+
+    public static Bitmap scaleImageTo(Bitmap org, int newWidth, int newHeight) {
+        return scaleImage(org, (float) newWidth / org.getWidth(), (float) newHeight / org.getHeight());
+    }
+
+    public static Bitmap scaleImage(Bitmap org, float scaleWidth, float scaleHeight) {
+        if (org == null) {
+            return null;
         }
-
-        Bitmap output = Bitmap.createBitmap(width, height, Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect src = new Rect((int) left, (int) top, (int) right, (int) bottom);
-        final Rect dst = new Rect((int) dst_left, (int) dst_top, (int) dst_right, (int) dst_bottom);
-        final RectF rectF = new RectF(dst);
-
-        paint.setAntiAlias(true);
-
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(Color.WHITE);
-        paint.setStrokeWidth(4);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, src, dst, paint);
-
-        // 画白色圆圈
-        paint.reset();
-        paint.setColor(Color.WHITE);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(4);
-        paint.setAntiAlias(true);
-        canvas.drawCircle(width / 2, width / 2, width / 2 - 4 / 2, paint);
-        return output;
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        return Bitmap.createBitmap(org, 0, 0, org.getWidth(), org.getHeight(), matrix, true);
     }
 
     public static Bitmap getVideoThumbnail(File file) {
@@ -144,93 +196,7 @@ public class UtilImage {
         return ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), Thumbnails.FULL_SCREEN_KIND);
     }
 
-    /**
-     * bitmap -->字节数组
-     */
-    public static byte[] bitmapToByte(Bitmap b) {
-        if (b == null) {
-            return null;
-        }
-        ByteArrayOutputStream o = new ByteArrayOutputStream();
-        b.compress(Bitmap.CompressFormat.PNG, 100, o); // 压缩成png
-        // ,100是正常模式,越小图片越不清晰,o是输出流
-        return o.toByteArray();
-    }
-
-    /**
-     * 字节数组-->bitmap
-     */
-    public static Bitmap byteToBitmap(byte[] b) {
-        return (b == null || b.length == 0) ? null : BitmapFactory.decodeByteArray(b, 0, b.length);
-    }
-
-    /**
-     * 获取drawable
-     *
-     * @param id 如R.drawable.ic_pada
-     */
-    public static Drawable getDrawable(Context context, int id) {
-        // Drawable drawable=image.getDrawable();
-        return (context == null || id == 0) ? null : context.getResources().getDrawable(id);
-    }
-
-    /**
-     * Drawable to Bitmap
-     */
-    public static Bitmap drawableToBitmap(Drawable d) {
-        return d == null ? null : ((BitmapDrawable) d).getBitmap();
-    }
-
-    /**
-     * Bitmap to Drawable
-     */
-    public static Drawable bitmapToDrawable(Bitmap b) {
-        return b == null ? null : new BitmapDrawable(null, b);
-    }
-
-    /**
-     * Drawable to byte array
-     */
-    public static byte[] drawableToByte(Drawable d) {
-        return bitmapToByte(drawableToBitmap(d));
-    }
-
-    /**
-     * byte array to Drawable
-     */
-    public static Drawable byteToDrawable(byte[] b) {
-        return bitmapToDrawable(byteToBitmap(b));
-    }
-
-    /**
-     * scale image
-     */
-    public static Bitmap scaleImageTo(Bitmap org, int newWidth, int newHeight) {
-        return scaleImage(org, (float) newWidth / org.getWidth(), (float) newHeight / org.getHeight());
-    }
-
-    /**
-     * scale image
-     */
-    public static Bitmap scaleImage(Bitmap org, float scaleWidth, float scaleHeight) {
-        if (org == null) {
-            return null;
-        }
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        return Bitmap.createBitmap(org, 0, 0, org.getWidth(), org.getHeight(), matrix, true);
-    }
-
-
-    /**
-     * 图片旋转
-     *
-     * @param bmp
-     * @param degree
-     * @return
-     */
     public static Bitmap postRotateBitamp(Bitmap bmp, float degree) {
-        // 获得Bitmap的高和宽
         int bmpWidth = bmp.getWidth();
         int bmpHeight = bmp.getHeight();
         // 产生resize后的Bitmap对象
@@ -240,13 +206,6 @@ public class UtilImage {
         return resizeBmp;
     }
 
-    /**
-     * 图片翻转
-     *
-     * @param bmp
-     * @param flag
-     * @return
-     */
     public static Bitmap reverseBitmap(Bitmap bmp, int flag) {
         float[] floats = null;
         switch (flag) {
@@ -263,13 +222,9 @@ public class UtilImage {
             matrix.setValues(floats);
             return Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
         }
-
         return bmp;
     }
 
-    /**
-     * 放大缩小图片
-     */
     public static Bitmap zoomBitmap(Bitmap bitmap, int w, int h) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -277,8 +232,7 @@ public class UtilImage {
         float scaleWidht = ((float) w / width);
         float scaleHeight = ((float) h / height);
         matrix.postScale(scaleWidht, scaleHeight);
-        Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-        return newbmp;
+        return Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
     }
 
     /**
@@ -357,17 +311,61 @@ public class UtilImage {
         return output;
     }
 
-    /**
-     * 使圆角功能支持BitampDrawable
-     *
-     * @param bitmapDrawable
-     * @param pixels
-     * @return
-     */
-    public static BitmapDrawable toRoundCorner(BitmapDrawable bitmapDrawable, int pixels) {
-        Bitmap bitmap = bitmapDrawable.getBitmap();
-        bitmapDrawable = new BitmapDrawable(toRoundCorner(bitmap, pixels));
-        return bitmapDrawable;
+    public static Bitmap toRoundBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float roundPx;
+        float left, top, right, bottom, dst_left, dst_top, dst_right, dst_bottom;
+        if (width <= height) {
+            roundPx = width / 2;
+            top = 0;
+            left = 0;
+            bottom = width;
+            right = width;
+            height = width;
+            dst_left = 0;
+            dst_top = 0;
+            dst_right = width;
+            dst_bottom = width;
+        } else {
+            roundPx = height / 2;
+            float clip = (width - height) / 2;
+            left = clip;
+            right = width - clip;
+            top = 0;
+            bottom = height;
+            width = height;
+            dst_left = 0;
+            dst_top = 0;
+            dst_right = height;
+            dst_bottom = height;
+        }
+
+        Bitmap output = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final Paint paint = new Paint();
+        final Rect src = new Rect((int) left, (int) top, (int) right, (int) bottom);
+        final Rect dst = new Rect((int) dst_left, (int) dst_top, (int) dst_right, (int) dst_bottom);
+        final RectF rectF = new RectF(dst);
+
+        paint.setAntiAlias(true);
+
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(Color.WHITE);
+        paint.setStrokeWidth(4);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, src, dst, paint);
+
+        // 画白色圆圈
+        paint.reset();
+        paint.setColor(Color.WHITE);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(4);
+        paint.setAntiAlias(true);
+        canvas.drawCircle(width / 2, width / 2, width / 2 - 4 / 2, paint);
+        return output;
     }
 
     public static Bitmap makeReflectionBitmap(Bitmap originalImage) {
@@ -399,22 +397,6 @@ public class UtilImage {
         paint.setXfermode(new PorterDuffXfermode(Mode.DST_IN));
         canvas.drawRect(0, height, width, bitmapWithReflection.getHeight() + reflectionGap, paint);
         return bitmapWithReflection;
-    }
-
-    public static Bitmap readBitmap(Context context, int resId) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Config.RGB_565;
-        options.inPurgeable = true;
-        options.inInputShareable = true;
-        try {
-            // inNativeAlloc 属性设置为true，可以不把使用的内存算到VM里
-            BitmapFactory.Options.class.getField("inNativeAlloc").setBoolean(options, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // 获取资源图片
-        InputStream is = context.getResources().openRawResource(resId);
-        return BitmapFactory.decodeStream(is, null, options);
     }
 
 }

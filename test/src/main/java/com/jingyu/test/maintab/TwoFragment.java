@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.R;
 import com.jingyu.utilstest.AdapterActivity;
+import com.jingyu.utilstest.BitmapActivity;
 import com.jingyu.utilstest.CacheCleanActivity;
 import com.jingyu.utilstest.CamareActivity;
 import com.jingyu.utilstest.CloneActivity;
@@ -34,6 +35,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
     private Button cache;
     private Button adapter;
     private Button dir;
+    private Button bitmap;
 
 
     @Override
@@ -60,6 +62,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
         cache.setOnClickListener(this);
         adapter.setOnClickListener(this);
         dir.setOnClickListener(this);
+        bitmap.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -74,6 +77,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
         cache = getViewById(R.id.cache);
         adapter = getViewById(R.id.adapter);
         dir = getViewById(R.id.dir);
+        bitmap = getViewById(R.id.bitmap);
     }
 
 
@@ -112,6 +116,9 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.dir:
                 DirActivity.actionStart(getActivity());
+                break;
+            case R.id.bitmap:
+                BitmapActivity.actionStart(getActivity());
                 break;
             default:
                 break;

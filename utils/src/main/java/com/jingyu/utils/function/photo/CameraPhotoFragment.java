@@ -165,7 +165,6 @@ public class CameraPhotoFragment extends PlusFragment {
                     BufferedOutputStream bufferedOutputStream = null;
                     try {
                         bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(cropOutputFile));
-                        //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bufferedOutputStream);
                         bufferedOutputStream.flush();
                         if (getActivity() != null) {

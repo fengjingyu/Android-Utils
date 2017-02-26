@@ -102,6 +102,13 @@
                 android:text="dir"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/bitmap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bitmap"
+                android:textAllCaps="false" />
+
         </LinearLayout>
 
     </ScrollView>

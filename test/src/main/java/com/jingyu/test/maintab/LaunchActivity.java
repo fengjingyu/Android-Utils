@@ -148,6 +148,7 @@ public class LaunchActivity extends BaseActivity {
         Logger.i("screenHeightPx--" + UtilScreen.getScreenHeightPx(getApplicationContext()));
         Logger.i("screenWidthPx--" + UtilScreen.getScreenWidthPx(getApplicationContext()));
         Logger.i("getDensity--" + UtilScreen.getDensity(getApplicationContext()));
+        Logger.i("getDensityDpi--" + UtilScreen.getDensityDpi(getApplicationContext()));
         Logger.i("screenHeightDP--" + UtilScreen.getScreenHeightDP(getApplicationContext()));
         Logger.i("screenWidthDP--" + UtilScreen.getScreenWidthDP(getApplicationContext()));
         Logger.i("statusBarHeightPx--" + UtilScreen.getStatusBarHeight(getApplicationContext()));

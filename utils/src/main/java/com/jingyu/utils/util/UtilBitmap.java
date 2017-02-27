@@ -128,6 +128,27 @@ public class UtilBitmap {
         }
     }
 
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        return inSampleSize;
+    }
+
+    public static Bitmap getSmallBitmap(String filePath, int reqWidth, int reqHeight) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
+    }
+
     public static Drawable getApkIcon(Context context, String apkPath) {
         // 获得包管理器
         PackageManager pm = context.getPackageManager();
@@ -202,8 +223,7 @@ public class UtilBitmap {
         // 产生resize后的Bitmap对象
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
-        Bitmap resizeBmp = Bitmap.createBitmap(bmp, 0, 0, bmpWidth, bmpHeight, matrix, true);
-        return resizeBmp;
+        return Bitmap.createBitmap(bmp, 0, 0, bmpWidth, bmpHeight, matrix, true);
     }
 
     public static Bitmap reverseBitmap(Bitmap bmp, int flag) {

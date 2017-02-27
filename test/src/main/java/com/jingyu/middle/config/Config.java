@@ -103,7 +103,7 @@ public class Config {
      * 目录名设置
      */
     //TODO 修改app的名称
-    private final static String APP_DIR_NAME = "app_sample_02_25";
+    private final static String APP_DIR_NAME = "app_test_02_27";
     // 图片加载库的缓存目录
     private final static String IMAGE_LOADER_CACHE_DIR_NAME = APP_DIR_NAME + File.separator + "imageLoaderCache";
     // log目录

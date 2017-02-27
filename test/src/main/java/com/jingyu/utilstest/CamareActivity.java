@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.function.photo.CameraPhotoFragment;
 import com.jingyu.utils.function.photo.AblumPhotoFragment;
+import com.jingyu.utils.function.photo.CameraPhotoFragment;
 
 import java.io.File;
 
@@ -74,7 +74,7 @@ public class CamareActivity extends BaseActivity {
 //            }
 //        });
 
-//        ablumPhotoFragment.setOnLocalSelectedFileListener(new AblumPhotoFragment.OnLocalSelectedFileListener() {
+//        ablumPhotoFragment.setOnAblumSelectedFileListener(new AblumPhotoFragment.OnAblumSelectedFileListener() {
 //
 //            @Override
 //            public void onLocalSelectedFile(File file) {

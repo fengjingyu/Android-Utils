@@ -1,437 +1,245 @@
 package com.jingyu.utils.function.photo;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.support.annotation.NonNull;
 
-import com.jingyu.utils.R;
 import com.jingyu.utils.application.PlusFragment;
-import com.jingyu.utils.function.ExecutorManager;
+import com.jingyu.utils.function.Constants;
+import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilDate;
-import com.jingyu.utils.util.UtilOom;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 
+
 /**
  * @author fengjingyu@foxmail.com
- * @description 打开本地相册
+ * @description 从相册获取图片
  */
-public class AblumPhotoFragment extends PlusFragment implements View.OnClickListener {
-    // 打开当地相册的请求码
-    public static final int LOCAL_IMAGE_REQUEST_CODE = 2;
+public class AblumPhotoFragment extends PlusFragment {
+    // 打开相册的请求码
+    public static final int ABLUM_REQUEST_CODE = 3;
     // 裁剪的请求码
-    public static final int RESIZE_REQUEST_CODE = 3;
-
-    // 保存图片的文件夹
-    private String savePhotoDir = "";
-
+    public static final int RESIZE_REQUEST_CODE = 4;
+    // 权限的请求码
+    public static final int REQUEST_CODE_ABLUM_PERMISSIONS = 5;
+    // 选中的相册文件
+    private File ablumOutputFile;
+    // 拍照后裁剪的图片
+    private File cropOutputFile;
+    // 存储图片的文件夹
+    private File savePhotoDir;
     // 是否允许裁剪图片，默认为不允许
-    private boolean isAllowResize;
+    private boolean isResize;
+    // 裁剪图片是返回bitmap还是uri
+    private CropReturnPattern cropReturnPattern = CropReturnPattern.URI;
 
-    private ImageView ablumImageView;
-    private int imageId;
-
-    private Handler handler = new Handler();
-
-    public interface OnLocalSelectedFileListener {
-        void onLocalSelectedFile(File file);
+    enum CropReturnPattern {
+        BITMAP, URI
     }
 
-    OnLocalSelectedFileListener listener;
+    public interface OnAblumSelectedFileListener {
+        void onAblumSelectedFile(File file);
+    }
 
-    public void setOnLocalSelectedFileListener(OnLocalSelectedFileListener listener) {
+    private OnAblumSelectedFileListener listener;
+
+    public void setOnAblumSelectedFileListener(OnAblumSelectedFileListener listener) {
         this.listener = listener;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return createView(inflater, R.layout.fragment_photo_ablum, container);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initWidgets();
-        listeners();
-    }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.ablumImageView) {
-            getLocalPhoto();
-        }
-    }
-
-    public void getLocalPhoto() {
+    public void start() {
         if (isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            // 有权限
-            todo();
+            openAblum();
         } else {
             permissionRequest(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_ABLUM_PERMISSIONS);
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public void resizeImage(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            String url = getPath(getActivity(), uri);
-            intent.setDataAndType(Uri.fromFile(new File(url)), "image/*");
-        } else {
-            intent.setDataAndType(uri, "image/*");
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Logger.i(this + "--onRequestPermissionsResult");
+        switch (requestCode) {
+            case REQUEST_CODE_ABLUM_PERMISSIONS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openAblum();
+                } else {
+                    Logger.shortToast("请到设置界面打开写权限");
+                }
+            }
+            break;
         }
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, RESIZE_REQUEST_CODE);
+    }
+
+    private void openAblum() {
+        try {
+            Intent ablumIntent = new Intent();
+            ablumIntent.setType("image/*");
+            ablumIntent.setAction(Intent.ACTION_GET_CONTENT);
+            ablumIntent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(ablumIntent, ABLUM_REQUEST_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.shortToast("打开相册失败");
+        }
+    }
+
+    private void openCrop(Uri uri) {
+        try {
+            if (uri != null && (cropOutputFile = createCropOutputFile()) != null && cropOutputFile.exists()) {
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.setDataAndType(uri, "image/*");
+                intent.putExtra("crop", "true");
+                // 裁剪框的比例，1:1
+                intent.putExtra("aspectX", 1);
+                intent.putExtra("aspectY", 1);
+                // 裁剪后输出图片尺寸的大小
+                intent.putExtra("outputX", 300);
+                intent.putExtra("outputY", 300);
+                //图片格式
+                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                //是否将数据保留在Bitmap中返回
+                if (cropReturnPattern == CropReturnPattern.BITMAP) {
+                    intent.putExtra("return-data", true);
+                } else {
+                    intent.putExtra("return-data", false);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cropOutputFile));
+                }
+                startActivityForResult(intent, RESIZE_REQUEST_CODE);
+            } else {
+                Logger.shortToast("打开裁剪图片失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.shortToast("打开裁剪图片失败");
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        } else {
+        Logger.i(this + "--onActivityResult--" + (data == null ? "data为null" : ""));
+        if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case LOCAL_IMAGE_REQUEST_CODE:
-                    if (data != null) {
-                        if (isAllowResize) {
-                            resizeImage(data.getData());
-                        } else {
-                            final Uri uri = data.getData();
-                            if (uri == null) {
-                                Logger.shortToast("系统获取图片失败");
-                                return;
-                            }
-                            ExecutorManager.getCache().execute(new Runnable() {
-                                Bitmap bitmap;
-
-                                @Override
-                                public void run() {
-                                    bitmap = UtilOom.getBitmapForLargeByUri(getActivity(), uri, 500, Bitmap.Config.RGB_565);
-
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            getImage(bitmap);
-                                            if (bitmap != null) {
-                                                bitmap.recycle();
-                                                bitmap = null;
-                                            }
-                                        }
-                                    });
-                                }
-                            });
+                case ABLUM_REQUEST_CODE:
+                    if (isResize) {
+                        openCrop(data != null ? data.getData() : null);
+                    } else {
+                        if (listener != null) {
+                            listener.onAblumSelectedFile(ablumOutputFile);
                         }
                     }
                     break;
                 case RESIZE_REQUEST_CODE:
-                    // 裁剪之后,关闭裁剪的activity后,会调用这个方法,
-                    if (data != null) { // 加入data不等于空,即可以去到bitmap
-                        getResizeImage(data);
+                    if (cropReturnPattern == CropReturnPattern.BITMAP) {
+                        if (data != null) {
+                            Bundle bundle = data.getExtras();
+                            if (bundle != null) {
+                                Bitmap bitmap = bundle.getParcelable("data");
+                                bitmap2File(bitmap);
+                            }
+                        }
+                    } else {
+                        if (listener != null) {
+                            listener.onAblumSelectedFile(cropOutputFile);
+                        }
                     }
                     break;
             }
+        } else {
+            deleteCropOutputFile();
         }
     }
 
-    // 从这里获取最后返回的图片
-    private void getImage(Bitmap bitmap) {
-        FileOutputStream fos = null;
-        try {
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                File file = new File(createDir(), "photo" + getTime() + ".jpg");
-                fos = new FileOutputStream(file);
-                //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.close();
-                if (listener != null) {
-                    listener.onLocalSelectedFile(file);
-                }
-            } else {
-                Logger.shortToast("未检测到SD卡");
-                if (listener != null) {
-                    listener.onLocalSelectedFile(null);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                    if (null != bitmap) {
-                        bitmap.recycle();
-                        bitmap = null;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public void getResizeImage(Intent data) {
-        Bundle extras = data.getExtras();
-        if (extras != null) {
-            Bitmap bitmap = extras.getParcelable("data");
-            // 保存到本地
-            FileOutputStream fos = null;
-            try {
-                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    File file = new File(createDir(), "photo" + getTime() + ".jpg");
-                    fos = new FileOutputStream(file);
-                    //bitmap = Bitmap.createScaledBitmap(bitmap, 700, 700, true);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                    fos.close();
-                    if (listener != null) {
-                        listener.onLocalSelectedFile(file);
-                    }
-                } else {
-                    Logger.shortToast("未检测到SD卡");
-                    if (listener != null) {
-                        listener.onLocalSelectedFile(null);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (fos != null) {
+    private void bitmap2File(final Bitmap bitmap) {
+        if (bitmap != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    BufferedOutputStream bufferedOutputStream = null;
                     try {
-                        fos.close();
-                        if (null != bitmap) {
-                            bitmap.recycle();
-                            bitmap = null;
+                        bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(cropOutputFile));
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bufferedOutputStream);
+                        bufferedOutputStream.flush();
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (listener != null) {
+                                        listener.onAblumSelectedFile(cropOutputFile);
+                                    }
+                                }
+                            });
                         }
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
+                    } finally {
+                        try {
+                            if (bufferedOutputStream != null) {
+                                bufferedOutputStream.close();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } finally {
+                            bitmap.recycle();
+                        }
                     }
                 }
+            }).start();
+        }
+    }
+
+    private void deleteCropOutputFile() {
+        if (cropOutputFile != null && cropOutputFile.exists()) {
+            cropOutputFile.delete();
+        }
+    }
+
+    private File createAblumOutputFile() {
+        return DirHelper.createFile(getPhotoDir(), "ablum_" + getTime() + ".jpg");
+    }
+
+    private File createCropOutputFile() {
+        return DirHelper.createFile(getPhotoDir(), cropReturnPattern + "_crop_ablum_" + getTime() + ".jpg");
+    }
+
+    public File getPhotoDir() {
+        File dir = DirHelper.createDir(savePhotoDir);
+        if (dir != null) {
+            return dir;
+        } else {
+            if (getActivity() != null) {
+                // 相机可能无法吸入内部的存储
+                return savePhotoDir = DirHelper.ExternalAndroid.getDir(getActivity(), Constants.DEFAULT_PHOTO_DIR_NAME);
             }
+            return null;
         }
     }
 
-    public void setSavePhotoDir(String savePhotoDir) {
-        this.savePhotoDir = savePhotoDir;
-    }
-
-    public File createDir() {
-        File dir = new File(Environment.getExternalStorageDirectory() + "/" + savePhotoDir);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        return dir;
-    }
-
-    public String getTime() {
+    private String getTime() {
         return UtilDate.format(new Date(), UtilDate.FORMAT_CREATE_FILE);
     }
 
-    public void setImage(int drawable_id) {
-        this.imageId = drawable_id;
-        if (ablumImageView != null) {
-            ablumImageView.setImageResource(drawable_id);
-        }
+    public void setCropReturnPattern(CropReturnPattern cropReturnPattern) {
+        this.cropReturnPattern = cropReturnPattern;
     }
 
-    public void setIsAllowResizeImage(boolean isAllowResize) {
-        this.isAllowResize = isAllowResize;
+    public void setSavePhotoDir(File savePhotoDir) {
+        this.savePhotoDir = savePhotoDir;
     }
 
-    public void initWidgets() {
-        ablumImageView = getViewById(R.id.ablumImageView);
-        if (imageId > 0) {
-            ablumImageView.setImageResource(imageId);
-        }
+    public void setResizeImage(boolean isResize) {
+        this.isResize = isResize;
     }
 
-    public void listeners() {
-        ablumImageView.setOnClickListener(this);
-    }
-
-
-    //以下是关键，原本uri返回的是file:///...来着的，android4.4返回的是content:///...
-    @SuppressLint("NewApi")
-    public static String getPath(final Context context, final Uri uri) {
-
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-        // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-            // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-
-            }
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
-            }
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{
-                        split[1]
-                };
-
-                return getDataColumn(context, contentUri, selection, selectionArgs);
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            // Return the remote address
-            if (isGooglePhotosUri(uri))
-                return uri.getLastPathSegment();
-
-            return getDataColumn(context, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-
-        return null;
-    }
-
-    /**
-     * Get the value of the data column for this Uri. This is useful for
-     * MediaStore Uris, and other file-based ContentProviders.
-     *
-     * @param context       The context.
-     * @param uri           The Uri to query.
-     * @param selection     (Optional) Filter used in the query.
-     * @param selectionArgs (Optional) Selection arguments used in the query.
-     * @return The value of the _data column, which is typically a file path.
-     */
-    public static String getDataColumn(Context context, Uri uri, String selection,
-                                       String[] selectionArgs) {
-
-        Cursor cursor = null;
-        final String column = "_data";
-        final String[] projection = {
-                column
-        };
-
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                final int index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(index);
-            }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return null;
-    }
-
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
-     */
-    public static boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    public static boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    public static boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is Google Photos.
-     */
-    public static boolean isGooglePhotosUri(Uri uri) {
-        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
-    }
-
-    public static final int REQUEST_CODE_ABLUM_PERMISSIONS = 1;
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        Logger.i(this + "--onRequestPermissionsResult");
-        switch (requestCode) {
-            case REQUEST_CODE_ABLUM_PERMISSIONS:
-                if (permissions.length > 0 && Manifest.permission.WRITE_EXTERNAL_STORAGE.equals(permissions[0])) {
-                    if (grantResults.length > 0 && PackageManager.PERMISSION_GRANTED == grantResults[0]) {
-                        // 有权限了
-                        todo();
-                    } else {
-                        Logger.shortToast("请到设置界面打开相册权限");
-                    }
-                }
-                break;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    private void todo() {
-        Intent intentFromLocal = new Intent();
-        intentFromLocal.setType("image/*"); // 设置文件类型
-        intentFromLocal.setAction(Intent.ACTION_GET_CONTENT);
-        intentFromLocal.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intentFromLocal, LOCAL_IMAGE_REQUEST_CODE);
-    }
 }

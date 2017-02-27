@@ -1,51 +1,40 @@
 package com.jingyu.utils.util;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.media.AudioManager;
+import android.os.Vibrator;
 
-/**
- * @author fengjingyu@foxmail.com
- * @description
- */
 public class UtilSound {
 
-    /**
-     * 扬声器 听筒
-     */
-    public static void setSpeakerphoneOn(Activity activity, boolean on) {
-
+    public static void setSpeakerphone(Activity activity, boolean on) {
         AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-
         if (on) {
             audioManager.setSpeakerphoneOn(true);
+            audioManager.setMode(AudioManager.MODE_NORMAL);
         } else {
-            //关闭扬声器
             audioManager.setSpeakerphoneOn(false);
-            //把声音设定成Earpiece（听筒）出来，设定为正在通话中
-            audioManager.setMode(AudioManager.MODE_IN_CALL);
+            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
         }
     }
 
-    public static void setSpeakerphoneOn2(Activity activity, boolean on) {
+    public static void Vibrate(Context context, long milliseconds) {
+        Vibrator vib = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+        vib.vibrate(milliseconds);
+    }
 
-        AudioManager audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-
-        if (on) {
-            audioManager.setSpeakerphoneOn(true);
-            // add by xjs on 20151123 08:13 start
-            // 修复：“当手机中启动过大白云诊后，打电话时，默认为扬声器模式”的问题。
-            audioManager.setMode(AudioManager.MODE_NORMAL);
-            // add by xjs on 20151123 08:13 end
-        } else {
-            //关闭扬声器
-            audioManager.setSpeakerphoneOn(false);
-            //把声音设定成Earpiece（听筒）出来，设定为正在通话中
-            // modify by xjs on 20151121 15:25 start
-            // 设置声音模式，使用 MODE_IN_COMMUNICATION 代替 MODE_IN_CALL，修复JIRA上904的问题。
-            // audioManager.setMode(AudioManager.MODE_IN_CALL); // deleted by xjs on 20151121 15:28
-            audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
-            // modify by xjs on 20151121 15:25 end
-        }
+    /**
+     * <uses-permission android:name="android.permission.VIBRATE" />
+     * <p/>
+     * long milliseconds:震动的时长，单位是毫秒
+     * <p/>
+     * long[] pattern:自定义震动模式 。数组中数字的含义依次是静止的时长，震动时长，静止时长，震动时长。。。时长的单位是毫秒
+     * <p/>
+     * boolean isRepeat:是否反复震动，如果是true，反复震动，如果是false，只震动一次
+     */
+    public static void Vibrate(Context context, long[] pattern, boolean isRepeat) {
+        Vibrator vib = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+        vib.vibrate(pattern, isRepeat ? 1 : -1);
     }
 }

@@ -208,14 +208,14 @@ public class CameraPhotoFragment extends PlusFragment {
     }
 
     private File getCameraOutputFile() {
-        return DirHelper.createFile(getDir(), "photo" + getTime() + ".jpg");
+        return DirHelper.createFile(getPhotoDir(), "photo" + getTime() + ".jpg");
     }
 
     private File getCropOutputFile() {
-        return DirHelper.createFile(getDir(), cropReturnPattern + "_crop_photo" + getTime() + ".jpg");
+        return DirHelper.createFile(getPhotoDir(), cropReturnPattern + "_crop_photo" + getTime() + ".jpg");
     }
 
-    private File getDir() {
+    public File getPhotoDir() {
         File dir = DirHelper.createDir(savePhotoDir);
         if (dir != null) {
             return dir;

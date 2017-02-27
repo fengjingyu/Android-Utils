@@ -100,7 +100,7 @@ public class LaunchActivity extends BaseActivity {
     private void initLog() {
         Logger.Options options = new Logger.Options();
         options.isLog2Console = Config.IS_LOG_2_CONSOLE;
-        options.isLog2File = Config.IS_LOG_2_FILE;
+        options.isErrorInfo2File = Config.IS_ERROR_INFO_2_FILE;
         options.isShowDebugToast = Config.IS_SHOW_DEBUG_TOAST;
         options.logDir = Config.getLogDir(getApplicationContext());
         Logger.initLog(getApplication(), options);

@@ -54,16 +54,9 @@ public class LogActivity extends BaseActivity {
                     Logger.e("678");
                     int i = 1 / 0;
                 } catch (Exception e) {
-                    Logger.e(getActivity(), "--oncreate()--", e);
+                    Logger.e(getActivity() + "--oncreate()--", e);
                 }
                 Logger.e("1234567890");
-            }
-        });
-
-        getViewById(R.id.loggertemp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Logger.write2TempFile("android--" + System.currentTimeMillis());
             }
         });
 

@@ -117,14 +117,12 @@ public class OkRespHandler<T> implements Callback {
                 } catch (Exception e1) {
                     e1.printStackTrace();
                     Logger.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
-                    Logger.dLongToast(true, reqInfo.getUrl() + LINE + "failure（） 异常了，框架里trycatch了,赶紧查看log。e的日志");
                 } finally {
                     try {
                         end(respInfo);
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         Logger.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
-                        Logger.dLongToast(true, reqInfo.getUrl() + LINE + "failure--->end（） 异常，框架里trycatch了,赶紧查看log日志");
                     }
                 }
             }
@@ -157,14 +155,12 @@ public class OkRespHandler<T> implements Callback {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Logger.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
-                    Logger.dLongToast(true, reqInfo.getUrl() + LINE + "success（） 异常了，框架里trycatch了,赶紧查看log的日志");
                 } finally {
                     try {
                         end(respInfo);
                     } catch (Exception e) {
                         e.printStackTrace();
                         Logger.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
-                        Logger.dLongToast(true, reqInfo.getUrl() + LINE + "success--->end（） 异常了，框架里trycatch了,赶紧查看log.e的日志");
                     }
                 }
             }
@@ -209,7 +205,6 @@ public class OkRespHandler<T> implements Callback {
                     @Override
                     public void run() {
                         Logger.e("解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString());
-                        Logger.dLongToast(true, "数据解析失败，详情请查看本地日志" + LINE + respInfo.getDataString());
                     }
                 });
             }
@@ -221,8 +216,7 @@ public class OkRespHandler<T> implements Callback {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Logger.e("解析数据异常" + LINE + this + LINE + e + LINE + reqInfo + LINE + respInfo.getDataString());
-                    Logger.dLongToast(true, "数据解析异常，详情请查看本地日志" + LINE + respInfo.getDataString());
+                    Logger.e("解析数据异常" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString(), e);
                 }
             });
             return null;

@@ -88,8 +88,8 @@ public class MainActivity extends BaseActivity {
     protected void uploadException() {
         ExceptionDb exceptionModelDb = CrashHandler.getInstance().getExceptionDb();
         if (exceptionModelDb != null) {
-            Logger.temp(exceptionModelDb.queryCount());
-            Logger.temp(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
+            Logger.i(exceptionModelDb.queryCount());
+            Logger.i(exceptionModelDb.queryUploadFail(ExceptionDb.SORT_DESC));
         }
     }
 

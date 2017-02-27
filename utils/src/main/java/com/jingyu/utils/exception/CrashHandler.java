@@ -9,13 +9,13 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.IOHelper;
-import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilSystem;
 
@@ -199,7 +199,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * 在控制台显示 ，同时写入到log中
      */
     public void toLogcat(String hint) {
-        Logger.e(hint);
+        Log.e(this.getClass().getSimpleName(), hint);
     }
 
     /**
@@ -225,7 +225,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
             try {
                 field.setAccessible(true);
                 mInfos.put(field.getName(), field.get(null).toString());
-                Logger.i(field.getName() + " : " + field.get(null));
             } catch (Exception e) {
                 e.printStackTrace();
             }

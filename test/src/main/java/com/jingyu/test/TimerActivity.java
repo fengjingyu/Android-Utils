@@ -40,12 +40,12 @@ public class TimerActivity extends BaseActivity {
         CountDownTimer timer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                Logger.temp(count++);
+                Logger.i(count++);
             }
 
             @Override
             public void onFinish() {
-                Logger.temp(count + "--onEnd");
+                Logger.i(count + "--onEnd");
             }
         };
         timer.start();

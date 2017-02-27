@@ -136,7 +136,6 @@ public class ActivityCollector {
             while (true) {
 
                 if (stack.isEmpty()) {
-                    Logger.e("---toActivity()的stack为null");
                     return null;
                 }
 

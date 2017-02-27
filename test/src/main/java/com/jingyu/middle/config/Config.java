@@ -28,8 +28,8 @@ public class Config {
     public final static boolean IS_SHOW_DEBUG_TOAST;
     // 是否打印日志到控制台
     public final static boolean IS_LOG_2_CONSOLE;
-    // i()方法是否打印到本地log日志; e()方法都会打印到log日志，不受该值控制
-    public final static boolean IS_LOG_2_FILE;
+    // 错误信息日志信息是否写到文件里
+    public final static boolean IS_ERROR_INFO_2_FILE;
     // 是否启用内存泄漏检测库
     public final static boolean IS_INIT_LEAK_CANARY;
     // 是否初始化crashHandler
@@ -51,7 +51,7 @@ public class Config {
         if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.DEV) {
             IS_SHOW_DEBUG_TOAST = true;
             IS_LOG_2_CONSOLE = true;
-            IS_LOG_2_FILE = false;
+            IS_ERROR_INFO_2_FILE = true;
             IS_INIT_LEAK_CANARY = true;
             IS_INIT_CRASH_HANDLER = true;
             IS_SHOW_EXCEPTION_ACTIVITY = true;
@@ -61,7 +61,7 @@ public class Config {
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.TEST) {
             IS_SHOW_DEBUG_TOAST = false;
             IS_LOG_2_CONSOLE = true;
-            IS_LOG_2_FILE = false;
+            IS_ERROR_INFO_2_FILE = true;
             IS_INIT_LEAK_CANARY = true;
             IS_INIT_CRASH_HANDLER = true;
             IS_SHOW_EXCEPTION_ACTIVITY = true;
@@ -71,7 +71,7 @@ public class Config {
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.RELEASE) {
             IS_SHOW_DEBUG_TOAST = false;
             IS_LOG_2_CONSOLE = false;
-            IS_LOG_2_FILE = false;
+            IS_ERROR_INFO_2_FILE = true;
             IS_INIT_LEAK_CANARY = false;
             IS_INIT_CRASH_HANDLER = false;
             IS_SHOW_EXCEPTION_ACTIVITY = false;

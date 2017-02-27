@@ -38,7 +38,7 @@ public class GsonParse {
             try {
                 return getGson().fromJson(json, objClass);
             } catch (JsonSyntaxException e) {
-                Logger.e("Parse json error: " + e.getMessage());
+                Logger.e("Parse json error: ", e);
             }
         }
         return null;
@@ -54,7 +54,7 @@ public class GsonParse {
             try {
                 return getGson().fromJson(json, typeOfT);
             } catch (JsonSyntaxException e) {
-                Logger.e("Parse json error: " + e.getMessage());
+                Logger.e("Parse json error: ", e);
             }
         }
         return null;

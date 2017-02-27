@@ -41,7 +41,7 @@ public abstract class PlusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            Logger.e(this, "回收后重新创建了");
+            Logger.i(this + "回收后重新创建了");
         }
 
         ActivityCollector.addActivityToStack(this);
@@ -134,7 +134,7 @@ public abstract class PlusActivity extends AppCompatActivity {
                 addFragment(layout_id, fragment);
             } catch (Exception e) {
                 e.printStackTrace();
-                Logger.dErrorToast("showFragmentByClass()" + fragment_class);
+                Logger.e("showFragmentByClass()异常--" + fragment_class, e);
             }
         } else {
             showFragment(fragment);

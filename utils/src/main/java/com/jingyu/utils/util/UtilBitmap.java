@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -22,10 +23,7 @@ import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
-import android.net.Uri;
 import android.provider.MediaStore.Video.Thumbnails;
-
-import com.jingyu.utils.function.IOHelper;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,7 +34,10 @@ import java.io.InputStream;
 
 public class UtilBitmap {
 
-    public static File compressBitmap(File file, Bitmap bitmap, int quality) {
+    public static File compressBitmap(Bitmap bitmap, File file, int quality) {
+        if (bitmap == null || file == null) {
+            return null;
+        }
         BufferedOutputStream bufferedOutputStream = null;
         try {
             bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
@@ -57,36 +58,15 @@ public class UtilBitmap {
         }
     }
 
-    public static Bitmap getBitmapByUri(Context context, Uri uri, Bitmap.Config type, float pix) {
-        int[] sizes = justDecodeSize(IOHelper.getUriInputStream(context, uri));
-        if (sizes != null) {
-            int originalSize = (sizes[1] > sizes[0]) ? sizes[1] : sizes[0];
-            double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0;
-            return decodeStream(IOHelper.getUriInputStream(context, uri), type, ratio);
-        }
-        return null;
-    }
-
-    public static Bitmap getBitmapByRaw(Context context, int rawId, float pix, Bitmap.Config type) {
-        int[] sizes = justDecodeSize(IOHelper.getRawInputStream(context, rawId));
-        if (sizes != null) {
-            int originalSize = (sizes[1] > sizes[0]) ? sizes[1] : sizes[0];
-            double ratio = (originalSize > pix) ? (originalSize / pix) : 1.0;
-            return decodeStream(IOHelper.getRawInputStream(context, rawId), type, ratio);
-        }
-        return null;
-    }
-
-    public static Bitmap decodeStream(InputStream input, Bitmap.Config type, double ratio) {
+    public static Bitmap decodeStream(InputStream input, Bitmap.Config type, int simpleSize) {
         if (input == null) {
             return null;
         }
         try {
             BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-            // bitmapOptions.inSampleSize = (int) Math.round(ratio) <= 1 ? 1 : (int) Math.floor(ratio);
-            bitmapOptions.inSampleSize = (int) ratio <= 1 ? 1 : (int) Math.floor(ratio);
-            bitmapOptions.inJustDecodeBounds = false;
+            bitmapOptions.inSampleSize = simpleSize;
             bitmapOptions.inPreferredConfig = type;
+            bitmapOptions.inJustDecodeBounds = false;
             // BitmapFactory.decodeByteArray(data, 0, data.length, options);
             return BitmapFactory.decodeStream(input, null, bitmapOptions);
         } catch (Exception e) {
@@ -101,10 +81,7 @@ public class UtilBitmap {
         }
     }
 
-    /**
-     * 返回的第一个是宽， 第二个是高
-     */
-    public static int[] justDecodeSize(InputStream input) {
+    public static BitmapFactory.Options decodeImageSize(InputStream input) {
         if (input == null) {
             return null;
         }
@@ -112,10 +89,7 @@ public class UtilBitmap {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(input, null, options);
-            if ((options.outWidth != -1) && (options.outHeight != -1)) {
-                return new int[]{options.outWidth, options.outHeight};
-            }
-            return null;
+            return options;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -128,25 +102,14 @@ public class UtilBitmap {
         }
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        final int height = options.outHeight;
-        final int width = options.outWidth;
+    public static int calculateInSampleSize(int imgWidth, int imgHeight, int reqWidth, int reqHeight) {
         int inSampleSize = 1;
-        if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height / (float) reqHeight);
-            final int widthRatio = Math.round((float) width / (float) reqWidth);
+        if (imgHeight > reqHeight || imgWidth > reqWidth) {
+            final int heightRatio = Math.round((float) imgHeight / (float) reqHeight);
+            final int widthRatio = Math.round((float) imgWidth / (float) reqWidth);
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         return inSampleSize;
-    }
-
-    public static Bitmap getSmallBitmap(String filePath, int reqWidth, int reqHeight) {
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filePath, options);
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(filePath, options);
     }
 
     public static Drawable getApkIcon(Context context, String apkPath) {
@@ -172,12 +135,16 @@ public class UtilBitmap {
         return o.toByteArray();
     }
 
+    public Bitmap inputStreamToBitmap(Resources resources, InputStream inputStream) {
+        return new BitmapDrawable(resources, inputStream).getBitmap();
+    }
+
     public static byte[] drawableToByte(Drawable d) {
         return bitmapToByte(drawableToBitmap(d));
     }
 
-    public static Drawable byteToDrawable(byte[] b) {
-        return bitmapToDrawable(byteToBitmap(b));
+    public static Drawable byteToDrawable(Resources resources, byte[] b) {
+        return bitmapToDrawable(resources, byteToBitmap(b));
     }
 
     public static Bitmap byteToBitmap(byte[] b) {
@@ -188,8 +155,8 @@ public class UtilBitmap {
         return d == null ? null : ((BitmapDrawable) d).getBitmap();
     }
 
-    public static Drawable bitmapToDrawable(Bitmap b) {
-        return b == null ? null : new BitmapDrawable(null, b);
+    public static Drawable bitmapToDrawable(Resources resources, Bitmap b) {
+        return b == null ? null : new BitmapDrawable(resources, b);
     }
 
     public static Bitmap scaleImageTo(Bitmap org, int newWidth, int newHeight) {

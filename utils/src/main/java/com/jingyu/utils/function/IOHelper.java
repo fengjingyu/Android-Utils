@@ -480,6 +480,9 @@ public class IOHelper {
     @Nullable
     public static InputStream getRawInputStream(Context context, int rawId) {
         try {
+            if (context == null || rawId < 0) {
+                return null;
+            }
             return context.getResources().openRawResource(rawId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -490,6 +493,9 @@ public class IOHelper {
     @Nullable
     public static InputStream getAssertInputStream(Context context, String fileName) {
         try {
+            if (context == null || fileName == null) {
+                return null;
+            }
             return context.getAssets().open(fileName);
         } catch (Exception e) {
             e.printStackTrace();
@@ -500,6 +506,9 @@ public class IOHelper {
     @Nullable
     public static InputStream getUriInputStream(Context context, Uri uri) {
         try {
+            if (context == null || uri == null) {
+                return null;
+            }
             return context.getContentResolver().openInputStream(uri);
         } catch (Exception e) {
             e.printStackTrace();

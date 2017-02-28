@@ -7,19 +7,21 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
 import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.IOHelper;
 import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.util.UtilBitmap;
 import com.jingyu.utils.util.UtilDate;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 
@@ -44,6 +46,7 @@ public class AblumPhotoFragment extends PlusFragment {
     private boolean isResize;
     // 裁剪图片是返回bitmap还是uri
     private CropReturnPattern cropReturnPattern = CropReturnPattern.URI;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     enum CropReturnPattern {
         BITMAP, URI
@@ -83,6 +86,9 @@ public class AblumPhotoFragment extends PlusFragment {
     }
 
     private void openAblum() {
+        // 连续拍照时需重置
+        ablumOutputFile = null;
+        cropOutputFile = null;
         try {
             Intent ablumIntent = new Intent();
             ablumIntent.setType("image/*");
@@ -135,9 +141,7 @@ public class AblumPhotoFragment extends PlusFragment {
                     if (isResize) {
                         openCrop(data != null ? data.getData() : null);
                     } else {
-                        if (listener != null) {
-                            listener.onAblumSelectedFile(ablumOutputFile);
-                        }
+                        uri2File(data != null ? data.getData() : null);
                     }
                     break;
                 case RESIZE_REQUEST_CODE:
@@ -161,39 +165,54 @@ public class AblumPhotoFragment extends PlusFragment {
         }
     }
 
+    private void uri2File(final Uri uri) {
+        if (uri != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    InputStream uriInputStream = IOHelper.getUriInputStream(getActivity(), uri);
+                    Bitmap bitmap = UtilBitmap.decodeStream(uriInputStream, Bitmap.Config.RGB_565, 1);
+                    final File file = UtilBitmap.compressBitmap(bitmap, ablumOutputFile = createAblumOutputFile(), 100);
+                    if (file != null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) {
+                                    listener.onAblumSelectedFile(file);
+                                }
+                            }
+                        });
+                    } else {
+                        deleteAblumOutputFile();
+                    }
+
+                    if (bitmap != null) {
+                        bitmap.recycle();
+                    }
+                }
+            }).start();
+        }
+    }
+
     private void bitmap2File(final Bitmap bitmap) {
         if (bitmap != null) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    BufferedOutputStream bufferedOutputStream = null;
-                    try {
-                        bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(cropOutputFile));
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bufferedOutputStream);
-                        bufferedOutputStream.flush();
-                        if (getActivity() != null) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (listener != null) {
-                                        listener.onAblumSelectedFile(cropOutputFile);
-                                    }
+                    final File file = UtilBitmap.compressBitmap(bitmap, cropOutputFile, 100);
+                    if (file != null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) {
+                                    listener.onAblumSelectedFile(file);
                                 }
-                            });
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            if (bufferedOutputStream != null) {
-                                bufferedOutputStream.close();
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            bitmap.recycle();
-                        }
+                        });
+                    } else {
+                        deleteCropOutputFile();
                     }
+                    bitmap.recycle();
                 }
             }).start();
         }
@@ -205,12 +224,18 @@ public class AblumPhotoFragment extends PlusFragment {
         }
     }
 
+    private void deleteAblumOutputFile() {
+        if (ablumOutputFile != null && ablumOutputFile.exists()) {
+            ablumOutputFile.delete();
+        }
+    }
+
     private File createAblumOutputFile() {
         return DirHelper.createFile(getPhotoDir(), "ablum_" + getTime() + ".jpg");
     }
 
     private File createCropOutputFile() {
-        return DirHelper.createFile(getPhotoDir(), cropReturnPattern + "_crop_ablum_" + getTime() + ".jpg");
+        return DirHelper.createFile(getPhotoDir(), "ablum_crop" + getTime() + ".jpg");
     }
 
     public File getPhotoDir() {

@@ -59,31 +59,31 @@ public class CamareActivity extends BaseActivity {
     }
 
     public void setListeners() {
-//        ablumNoCrop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ablumPhotoFragment.setIsAllowResizeImage(false);
-//                ablumPhotoFragment.start();
-//            }
-//        });
-//        ablumCrop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ablumPhotoFragment.setIsAllowResizeImage(true);
-//                ablumPhotoFragment.start();
-//            }
-//        });
+        ablumNoCrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ablumPhotoFragment.setResizeImage(false);
+                ablumPhotoFragment.start();
+            }
+        });
+        ablumCrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ablumPhotoFragment.setResizeImage(true);
+                ablumPhotoFragment.start();
+            }
+        });
 
-//        ablumPhotoFragment.setOnAblumSelectedFileListener(new AblumPhotoFragment.OnAblumSelectedFileListener() {
-//
-//            @Override
-//            public void onLocalSelectedFile(File file) {
-//                Logger.i(Uri.fromFile(file));
-//                Logger.i(file.getAbsolutePath());
-//                Logger.i(file.toURI());
-//                imageview.setImageURI(Uri.fromFile(file));
-//            }
-//        });
+        ablumPhotoFragment.setOnAblumSelectedFileListener(new AblumPhotoFragment.OnAblumSelectedFileListener() {
+
+            @Override
+            public void onAblumSelectedFile(File file) {
+                Logger.i(Uri.fromFile(file));
+                Logger.i(file.getAbsolutePath());
+                Logger.i(file.toURI());
+                imageview.setImageURI(Uri.fromFile(file));
+            }
+        });
 
         caremaCrop.setOnClickListener(new View.OnClickListener() {
             @Override

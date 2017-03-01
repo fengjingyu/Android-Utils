@@ -34,19 +34,19 @@ import java.io.InputStream;
 
 public class UtilBitmap {
 
-    public static File compressBitmap(Bitmap bitmap, File file, int quality) {
+    public static boolean compressBitmap(Bitmap bitmap, File file, int quality) {
         if (bitmap == null || file == null) {
-            return null;
+            return false;
         }
         BufferedOutputStream bufferedOutputStream = null;
         try {
             bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(file));
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bufferedOutputStream);
             bufferedOutputStream.flush();
-            return file;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return false;
         } finally {
             try {
                 if (bufferedOutputStream != null) {
@@ -59,7 +59,7 @@ public class UtilBitmap {
     }
 
     public static Bitmap decodeStream(InputStream input, Bitmap.Config type, int simpleSize) {
-        if (input == null) {
+        if (input == null || simpleSize <= 0) {
             return null;
         }
         try {
@@ -110,6 +110,18 @@ public class UtilBitmap {
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
         return inSampleSize;
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        if (options == null) {
+            return 0;
+        } else {
+            return calculateInSampleSize(options.outWidth, options.outHeight, reqWidth, reqHeight);
+        }
+    }
+
+    public static int calculateInSampleSize(InputStream inputStream, int reqWidth, int reqHeight) {
+        return calculateInSampleSize(decodeImageSize(inputStream), reqWidth, reqHeight);
     }
 
     public static Drawable getApkIcon(Context context, String apkPath) {

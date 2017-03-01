@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
@@ -15,12 +14,15 @@ import android.support.annotation.NonNull;
 import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.IOHelper;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilBitmap;
 import com.jingyu.utils.util.UtilDate;
 
 import java.io.File;
 import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -35,27 +37,22 @@ public class CameraPhotoFragment extends PlusFragment {
     public static final int REQUEST_CODE_CAMERA_PERMISSIONS = 2;
     // 拍照的图片
     private File cameraOutputFile;
-    // 拍照后裁剪的图片
+    // 裁剪的图片
     private File cropOutputFile;
     // 存储图片的文件夹
     private File savePhotoDir;
     // 是否允许裁剪图片，默认为不允许
     private boolean isResize;
-    // 裁剪图片是返回bitmap还是uri
-    private CropReturnPattern cropReturnPattern = CropReturnPattern.URI;
     private Handler handler = new Handler(Looper.getMainLooper());
+    private Executor singleThread = Executors.newSingleThreadExecutor();
 
-    enum CropReturnPattern {
-        BITMAP, URI
+    public interface OnCameraListener {
+        void onPhotoSuccess(File originPhoto, File smallPhoto);
     }
 
-    public interface OnCameraSelectedFileListener {
-        void onCameraSelectedFile(File file);
-    }
+    private OnCameraListener listener;
 
-    private OnCameraSelectedFileListener listener;
-
-    public void setOnCameraSelectedFileListener(OnCameraSelectedFileListener listener) {
+    public void setOnCameraListener(OnCameraListener listener) {
         this.listener = listener;
     }
 
@@ -97,38 +94,30 @@ public class CameraPhotoFragment extends PlusFragment {
                 Logger.shortToast("打开拍照失败");
             }
         } else {
-            Logger.shortToast("打开拍照失败");
+            Logger.shortToast("未检测到外部存储设备");
         }
     }
 
-    private void openCrop(Uri uri) {
-        try {
-            if (uri != null && (cropOutputFile = createCropOutputFile()) != null && cropOutputFile.exists()) {
+    private void openCrop() {
+        if ((cropOutputFile = createCropOutputFile()) != null && cropOutputFile.exists()) {
+            try {
                 Intent intent = new Intent("com.android.camera.action.CROP");
-                intent.setDataAndType(uri, "image/*");
+                intent.setDataAndType(Uri.fromFile(cameraOutputFile), "image/*");
                 intent.putExtra("crop", "true");
                 // 裁剪框的比例，1:1
                 intent.putExtra("aspectX", 1);
                 intent.putExtra("aspectY", 1);
-                // 裁剪后输出图片尺寸的大小
-                intent.putExtra("outputX", 300);
-                intent.putExtra("outputY", 300);
                 //图片格式
                 intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-                //是否将数据保留在Bitmap中返回
-                if (cropReturnPattern == CropReturnPattern.BITMAP) {
-                    intent.putExtra("return-data", true);
-                } else {
-                    intent.putExtra("return-data", false);
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cropOutputFile));
-                }
+                intent.putExtra("return-data", false);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cropOutputFile));
                 startActivityForResult(intent, RESIZE_REQUEST_CODE);
-            } else {
+            } catch (Exception e) {
+                e.printStackTrace();
                 Logger.shortToast("打开裁剪图片失败");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Logger.shortToast("打开裁剪图片失败");
+        } else {
+            Logger.shortToast("未检测到外部存储设备");
         }
     }
 
@@ -139,69 +128,75 @@ public class CameraPhotoFragment extends PlusFragment {
             switch (requestCode) {
                 case CAMERA_REQUEST_CODE:
                     if (isResize) {
-                        openCrop(Uri.fromFile(cameraOutputFile));
+                        openCrop();
                     } else {
-                        if (listener != null) {
-                            listener.onCameraSelectedFile(cameraOutputFile);
-                        }
+                        processInThread(cameraOutputFile, null, createSmallOutputFile(cameraOutputFile), false);
                     }
                     break;
                 case RESIZE_REQUEST_CODE:
-                    deleteCameraOutputFile();
-                    if (cropReturnPattern == CropReturnPattern.BITMAP) {
-                        if (data != null) {
-                            Bundle bundle = data.getExtras();
-                            if (bundle != null) {
-                                Bitmap bitmap = bundle.getParcelable("data");
-                                bitmap2File(bitmap);
-                            }
-                        }
-                    } else {
-                        if (listener != null) {
-                            listener.onCameraSelectedFile(cropOutputFile);
-                        }
-                    }
+                    processInThread(cameraOutputFile, cropOutputFile, createSmallOutputFile(cropOutputFile), true);
                     break;
             }
         } else {
-            deleteCameraOutputFile();
-            deleteCropOutputFile();
+            deleteFile(cameraOutputFile);
+            deleteFile(cropOutputFile);
         }
     }
 
-    private void bitmap2File(final Bitmap bitmap) {
-        if (bitmap != null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    final File file = UtilBitmap.compressBitmap(bitmap, cropOutputFile, 100);
-                    if (file != null) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (listener != null) {
-                                    listener.onCameraSelectedFile(file);
-                                }
-                            }
-                        });
-                    } else {
-                        deleteCropOutputFile();
+    // 用到的参数全部传入,避免线程的问题,因为可以多次拍摄,所以可能成员变量cameraOutputFile ,cropOutputFile,isResize等值会被改变
+    private void processInThread(final File cameraOutputFile, final File cropOutputFile, final File smallOutputFile, final boolean isResizeImage) {
+        singleThread.execute(new Runnable() {
+            @Override
+            public void run() {
+                process(cameraOutputFile, cropOutputFile, smallOutputFile, isResizeImage);
+            }
+        });
+    }
+
+    private void process(final File cameraOutputFile, final File cropOutputFile, final File smallOutputFile, final boolean isResizeImage) {
+        boolean result = false;
+        Bitmap bitmap = null;
+        try {
+            Uri uri = isResizeImage ? Uri.fromFile(cropOutputFile) : Uri.fromFile(cameraOutputFile);
+            int sampleSize = UtilBitmap.calculateInSampleSize(IOHelper.getUriInputStream(getActivity(), uri), 300, 300);
+            bitmap = UtilBitmap.decodeStream(IOHelper.getUriInputStream(getActivity(), uri), Bitmap.Config.RGB_565, sampleSize);
+            result = UtilBitmap.compressBitmap(bitmap, smallOutputFile, 100);
+
+            if (result) {
+                // 确保是在主线程中回调
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (listener != null) {
+                            listener.onPhotoSuccess(isResizeImage ? cropOutputFile : cameraOutputFile, smallOutputFile);
+                        }
                     }
-                    bitmap.recycle();
+                });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (bitmap != null) {
+                bitmap.recycle();
+            }
+
+            if (result) {
+                if (isResizeImage) {
+                    deleteFile(cameraOutputFile);
                 }
-            }).start();
+            } else {
+                deleteFile(cameraOutputFile);
+                deleteFile(cropOutputFile);
+                deleteFile(smallOutputFile);
+            }
         }
     }
 
-    private void deleteCameraOutputFile() {
-        if (cameraOutputFile != null && cameraOutputFile.exists()) {
-            cameraOutputFile.delete();
-        }
-    }
 
-    private void deleteCropOutputFile() {
-        if (cropOutputFile != null && cropOutputFile.exists()) {
-            cropOutputFile.delete();
+    private void deleteFile(File file) {
+        if (file != null && file.exists()) {
+            file.delete();
         }
     }
 
@@ -210,7 +205,14 @@ public class CameraPhotoFragment extends PlusFragment {
     }
 
     private File createCropOutputFile() {
-        return DirHelper.createFile(getPhotoDir(), "camera_crop" + getTime() + ".jpg");
+        return DirHelper.createFile(getPhotoDir(), "camera_crop_" + getTime() + ".jpg");
+    }
+
+    private File createSmallOutputFile(File originOutputFile) {
+        if (originOutputFile != null && originOutputFile.exists()) {
+            return DirHelper.createFile(getPhotoDir(), "small_" + originOutputFile.getName());
+        }
+        return null;
     }
 
     public File getPhotoDir() {
@@ -219,7 +221,7 @@ public class CameraPhotoFragment extends PlusFragment {
             return dir;
         } else {
             if (getActivity() != null) {
-                // 相机可能无法吸入内部的存储
+                // 相机无法进入内部存储
                 return savePhotoDir = DirHelper.ExternalAndroid.getDir(getActivity(), Constants.DEFAULT_PHOTO_DIR_NAME);
             }
             return null;
@@ -228,10 +230,6 @@ public class CameraPhotoFragment extends PlusFragment {
 
     private String getTime() {
         return UtilDate.format(new Date(), UtilDate.FORMAT_CREATE_FILE);
-    }
-
-    public void setCropReturnPattern(CropReturnPattern cropReturnPattern) {
-        this.cropReturnPattern = cropReturnPattern;
     }
 
     public void setSavePhotoDir(File savePhotoDir) {

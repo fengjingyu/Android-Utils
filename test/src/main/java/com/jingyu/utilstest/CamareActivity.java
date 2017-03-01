@@ -74,14 +74,13 @@ public class CamareActivity extends BaseActivity {
             }
         });
 
-        ablumPhotoFragment.setOnAblumSelectedFileListener(new AblumPhotoFragment.OnAblumSelectedFileListener() {
-
+        ablumPhotoFragment.setOnAblumListener(new AblumPhotoFragment.OnAblumListener() {
             @Override
-            public void onAblumSelectedFile(File file) {
-                Logger.i(Uri.fromFile(file));
-                Logger.i(file.getAbsolutePath());
-                Logger.i(file.toURI());
-                imageview.setImageURI(Uri.fromFile(file));
+            public void onPhotoSuccess(File originPhoto, File smallPhoto) {
+                Logger.i(Uri.fromFile(smallPhoto));
+                Logger.i(smallPhoto.getAbsolutePath());
+                Logger.i(smallPhoto.toURI());
+                imageview.setImageURI(Uri.fromFile(smallPhoto));
             }
         });
 
@@ -101,14 +100,13 @@ public class CamareActivity extends BaseActivity {
             }
         });
 
-        cameraPhotoFragment.setOnCameraSelectedFileListener(new CameraPhotoFragment.OnCameraSelectedFileListener() {
-
+        cameraPhotoFragment.setOnCameraListener(new CameraPhotoFragment.OnCameraListener() {
             @Override
-            public void onCameraSelectedFile(File file) {
-                Logger.i(Uri.fromFile(file));
-                Logger.i(file.getAbsolutePath());
-                Logger.i(file.toURI());
-                imageview.setImageURI(Uri.fromFile(file));
+            public void onPhotoSuccess(File originPhoto, File smallPhoto) {
+                Logger.i(Uri.fromFile(smallPhoto));
+                Logger.i(smallPhoto.getAbsolutePath());
+                Logger.i(smallPhoto.toURI());
+                imageview.setImageURI(Uri.fromFile(smallPhoto));
             }
         });
 

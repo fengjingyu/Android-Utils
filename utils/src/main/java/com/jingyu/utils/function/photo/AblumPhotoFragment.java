@@ -96,11 +96,11 @@ public class AblumPhotoFragment extends PlusFragment {
         }
     }
 
-    private void openCrop() {
+    private void openCrop(Uri uri) {
         if ((cropOutputFile = createCropOutputFile()) != null && cropOutputFile.exists()) {
             try {
                 Intent intent = new Intent("com.android.camera.action.CROP");
-                intent.setDataAndType(Uri.fromFile(ablumOutputFile), "image/*");
+                intent.setDataAndType(uri, "image/*");
                 intent.putExtra("crop", "true");
                 // 裁剪框的比例，1:1
                 intent.putExtra("aspectX", 1);
@@ -126,7 +126,7 @@ public class AblumPhotoFragment extends PlusFragment {
             switch (requestCode) {
                 case ABLUM_REQUEST_CODE:
                     if (isResize) {
-                        openCrop();
+                        openCrop(data != null ? data.getData() : null);
                     } else {
                         if (uri2AblumOutputFile(data != null ? data.getData() : null)) {
                             processInThread(ablumOutputFile, null, createSmallOutputFile(ablumOutputFile), false);
@@ -168,9 +168,11 @@ public class AblumPhotoFragment extends PlusFragment {
         Bitmap bitmap = null;
         try {
             Uri uri = isResizeImage ? Uri.fromFile(cropOutputFile) : Uri.fromFile(ablumOutputFile);
+            // 像素尺寸压缩
             int sampleSize = UtilBitmap.calculateInSampleSize(IOHelper.getUriInputStream(getActivity(), uri), 300, 300);
             bitmap = UtilBitmap.decodeStream(IOHelper.getUriInputStream(getActivity(), uri), Bitmap.Config.RGB_565, sampleSize);
-            result = UtilBitmap.compressBitmap(bitmap, smallOutputFile, 100);
+            // 占用磁盘空间压缩
+            result = UtilBitmap.compressBitmap(bitmap, smallOutputFile, 60);
 
             if (result) {
                 // 确保是在主线程中回调

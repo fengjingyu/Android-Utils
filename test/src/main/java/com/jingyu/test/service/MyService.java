@@ -11,7 +11,6 @@ public class MyService extends Service {
 
     @Override
     public void onCreate() {
-        Logger.i("myService--onCreate()");
         super.onCreate();
     }
 

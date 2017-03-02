@@ -166,8 +166,13 @@ public class ActivityCollector {
      * 退出应用程序
      */
     public static void appExit() {
-        finishAllActivity();
-        android.os.Process.killProcess(android.os.Process.myPid());
+        try {
+            ActivityCollector.finishAllActivity();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
     }
 
 }

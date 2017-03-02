@@ -12,7 +12,6 @@ import com.jingyu.middle.Sp;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
-import com.jingyu.test.service.MyService;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.asynchttp.AsyncClient;
@@ -156,6 +155,7 @@ public class LaunchActivity extends BaseActivity {
 
     // 测试用
     private void initTestService() {
-        MyService.actionStart(getApplicationContext());
+//        MyService.actionStart(getApplicationContext());
+//        NewProcessService.actionStart(getApplicationContext());
     }
 }

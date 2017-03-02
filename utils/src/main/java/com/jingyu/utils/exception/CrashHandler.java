@@ -12,7 +12,6 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.IOHelper;
@@ -39,6 +38,8 @@ import java.util.UUID;
 public class CrashHandler implements UncaughtExceptionHandler {
 
     private static CrashHandler INSTANCE = new CrashHandler();
+
+    private UncaughtExceptionHandler defaultUncaughtExceptionHandler;
 
     private Application application;
     /**
@@ -86,6 +87,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         mIsShowExceptionActivity = isShowExceptionActivity;
         mCrashDir = crashDir;
         exceptionDb = ExceptionDb.getInstance(application);
+        defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(this);
 
         return INSTANCE;
@@ -115,7 +117,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             // 写到crash日志文件中
             File file = save2CrashFile(info);
 
-            // 如果主进程在application初始化的时候crash,会一直重启,所以到后台
+            // 如果主进程在application里初始化了crashhandler,然后在application里又crash,会一直重启,所以到后台
             if (UtilSystem.isMainProcess(application)) {
                 UtilSystem.pressHomeKey(application);
             }
@@ -131,17 +133,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
             //showToast(application, "--application--" + application + ", ProcessName--" + UtilSystem.getProcessName(application) + ", ProcessId--" + UtilSystem.getPid());
             showToast(application, UtilSystem.getProcessName(application) + "--程序出现异常");
 
-            Thread.sleep(1500);
+            Thread.sleep(2000);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            try {
-                ActivityCollector.finishAllActivity();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                android.os.Process.killProcess(android.os.Process.myPid());
-            }
+            defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
         }
     }
 
@@ -196,16 +192,16 @@ public class CrashHandler implements UncaughtExceptionHandler {
     }
 
     /**
-     * 在控制台显示 ，同时写入到log中
+     * 在控制台显示
      */
-    public void toLogcat(String hint) {
+    private void toLogcat(String hint) {
         Log.e(this.getClass().getSimpleName(), hint);
     }
 
     /**
      * 收集设备参数信息
      */
-    public void collectDeviceInfo(Context ctx) {
+    private void collectDeviceInfo(Context ctx) {
         try {
             PackageManager pm = ctx.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(ctx.getPackageName(), PackageManager.GET_ACTIVITIES);
@@ -234,7 +230,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 保存错误信息到crash目录的文件中 
      */
-    public String getCrashInfo(Throwable ex) {
+    private String getCrashInfo(Throwable ex) {
         StringBuffer sb = new StringBuffer();
 
         sb.append(UtilSystem.getProcessName(application) + IOHelper.LINE_SEPARATOR);
@@ -266,7 +262,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     /**
      * 打开一个activity展示异常信息
      */
-    public void toShowExceptionActivity(File file) {
+    private void toShowExceptionActivity(File file) {
         if (mIsShowExceptionActivity) {
             if (file != null) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);

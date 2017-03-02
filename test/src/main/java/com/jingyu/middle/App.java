@@ -8,7 +8,11 @@ import android.app.Application;
  */
 public class App extends Application {
 
-    static Application instance;
+    private static App instance;
+
+    public static App getApplication() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
@@ -16,8 +20,5 @@ public class App extends Application {
         instance = this;
     }
 
-    public static Application getApplication() {
-        return instance;
-    }
 
 }

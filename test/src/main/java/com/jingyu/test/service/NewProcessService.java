@@ -7,15 +7,13 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.Process;
 
-import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilSystem;
 
-public class MyService extends Service {
+public class NewProcessService extends Service {
 
-    private boolean isDestroy;
-    private MyServiceBinder serviceBinder = new MyServiceBinder();
+    private NewProcessService.NewProcessServiceBinder newProcessServiceBinder = new NewProcessServiceBinder();
 
-    public class MyServiceBinder extends Binder {
+    public class NewProcessServiceBinder extends Binder {
 
         String getInfo() {
             StringBuilder sb = new StringBuilder();
@@ -26,46 +24,36 @@ public class MyService extends Service {
             return sb.toString();
         }
 
-        MyService getService() {
-            return MyService.this;
-        }
-
-        boolean isServiceDestroy() {
-            return isDestroy;
+        NewProcessService getNewProcessService() {
+            return NewProcessService.this;
         }
     }
 
     @Override
     public void onCreate() {
-        isDestroy = false;
-        Logger.i(this + "--onCreate()");
         super.onCreate();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Logger.i(this + "--onStartCommand()");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Logger.i(this + "--onBind()");
-        return serviceBinder;
+        return newProcessServiceBinder;
     }
 
     @Override
     public void onDestroy() {
-        isDestroy = true;
-        Logger.i(this + "--onDestroy()");
         super.onDestroy();
     }
 
     public static void actionStart(Context context) {
-        context.startService(new Intent(context, MyService.class));
+        context.startService(new Intent(context, NewProcessService.class));
     }
 
     public static void actionStop(Context context) {
-        context.stopService(new Intent(context, MyService.class));
+        context.stopService(new Intent(context, NewProcessService.class));
     }
 }

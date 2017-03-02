@@ -88,12 +88,18 @@
         <service
             android:name=".service.MyService"
             android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".service.NewProcessService"
+            android:enabled="true"
             android:exported="false"
-            android:process=":myservice" />
+            android:process=":newProcessService" />
 
         <activity android:name=".NotifyActivity" />
         <activity android:name="com.jingyu.utilstest.DirActivity" />
-        <activity android:name="com.jingyu.utilstest.BitmapActivity"/>
+        <activity android:name="com.jingyu.utilstest.BitmapActivity" />
+        <activity android:name=".service.MyServiceActivity" />
+        <activity android:name=".service.NewProcessServiceActivity" />
     </application>
 
 </manifest>

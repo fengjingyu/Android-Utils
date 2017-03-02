@@ -20,6 +20,8 @@ import com.jingyu.test.PropertyAnimActivity;
 import com.jingyu.test.R;
 import com.jingyu.test.SystemDialogActivity;
 import com.jingyu.test.TimerActivity;
+import com.jingyu.test.service.MyServiceActivity;
+import com.jingyu.test.service.NewProcessServiceActivity;
 
 public class OneFragment extends BaseFragment implements View.OnClickListener {
 
@@ -34,6 +36,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     private Button runPermission;
     private Button contacts;
     private Button notification;
+    private Button service;
+    private Button service_process;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         runPermission.setOnClickListener(this);
         contacts.setOnClickListener(this);
         notification.setOnClickListener(this);
+        service.setOnClickListener(this);
+        service_process.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -73,6 +79,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         runPermission = getViewById(R.id.runPermission);
         contacts = getViewById(R.id.contacts);
         notification = getViewById(R.id.notification);
+        service = getViewById(R.id.service);
+        service_process = getViewById(R.id.service_process);
     }
 
     @Override
@@ -110,6 +118,13 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.notification:
                 NotifyActivity.actionStart(getActivity());
+                break;
+            case R.id.service:
+                MyServiceActivity.actionStart(getActivity());
+                break;
+            case R.id.service_process:
+                NewProcessServiceActivity.actionStart(getActivity());
+                break;
             default:
                 break;
 

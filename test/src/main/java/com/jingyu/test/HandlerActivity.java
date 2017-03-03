@@ -85,11 +85,11 @@ public class HandlerActivity extends BaseActivity {
         public void run() {
             Looper.prepare();// 线程和looper关联
             synchronized (mLock) {
-                // 这个handler默认是与当前的线程关联
+                // 这个handler默认是与当前的线程的looper关联
                 mHandler = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
-                        Logger.i(this);
+                        Logger.i(msg.what + this.toString());
                         // content.setText("button3 update");// 会crash，ui只能在主线程里更新，这个mHandler不是主线程的
                     }
                 };

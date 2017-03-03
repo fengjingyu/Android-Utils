@@ -86,20 +86,21 @@
         </receiver>
 
         <service
-            android:name=".service.MyService"
+            android:name=".service.LocalService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".service.NewProcessService"
+            android:name=".service.AIDLService"
             android:enabled="true"
             android:exported="false"
-            android:process=":newProcessService" />
+            android:process=":aidlservice"
+            />
 
         <activity android:name=".NotifyActivity" />
         <activity android:name="com.jingyu.utilstest.DirActivity" />
         <activity android:name="com.jingyu.utilstest.BitmapActivity" />
-        <activity android:name=".service.MyServiceActivity" />
-        <activity android:name=".service.NewProcessServiceActivity" />
+        <activity android:name=".service.LocalServiceActivity" />
+        <activity android:name=".service.AIDLServiceActivity" />
     </application>
 
 </manifest>

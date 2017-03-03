@@ -10,34 +10,20 @@ import android.os.Process;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilSystem;
 
-public class MyService extends Service {
+public class LocalService extends Service {
 
-    private boolean isDestroy;
-    private MyServiceBinder serviceBinder = new MyServiceBinder();
+    private final IBinder mBinder = new LocalBinder();
 
-    public class MyServiceBinder extends Binder {
+    public class LocalBinder extends Binder {
 
-        String getInfo() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(this.getClass().getName());
-            sb.append(", 线程名=" + Thread.currentThread().getName());
-            sb.append(", pid = " + Process.myPid());
-            sb.append(", 进程名= " + UtilSystem.getProcessName(getApplicationContext()));
-            return sb.toString();
+        LocalService getService() {
+            return LocalService.this;
         }
 
-        MyService getService() {
-            return MyService.this;
-        }
-
-        boolean isServiceDestroy() {
-            return isDestroy;
-        }
     }
 
     @Override
     public void onCreate() {
-        isDestroy = false;
         Logger.i(this + "--onCreate()");
         super.onCreate();
     }
@@ -51,21 +37,30 @@ public class MyService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Logger.i(this + "--onBind()");
-        return serviceBinder;
+        return mBinder;
     }
 
     @Override
     public void onDestroy() {
-        isDestroy = true;
         Logger.i(this + "--onDestroy()");
         super.onDestroy();
     }
 
     public static void actionStart(Context context) {
-        context.startService(new Intent(context, MyService.class));
+        context.startService(new Intent(context, LocalService.class));
     }
 
     public static void actionStop(Context context) {
-        context.stopService(new Intent(context, MyService.class));
+        context.stopService(new Intent(context, LocalService.class));
     }
+
+    public String getInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getClass().getName());
+        sb.append(", 线程名=" + Thread.currentThread().getName());
+        sb.append(", pid = " + Process.myPid());
+        sb.append(", 进程名= " + UtilSystem.getProcessName(getApplicationContext()));
+        return sb.toString();
+    }
+
 }

@@ -155,7 +155,7 @@ public class LaunchActivity extends BaseActivity {
 
     // 测试用
     private void initTestService() {
-//        MyService.actionStart(getApplicationContext());
-//        NewProcessService.actionStart(getApplicationContext());
+//        LocalService.actionStart(getApplicationContext());
+//        AIDLService.actionStart(getApplicationContext());
     }
 }

@@ -20,8 +20,8 @@ import com.jingyu.test.PropertyAnimActivity;
 import com.jingyu.test.R;
 import com.jingyu.test.SystemDialogActivity;
 import com.jingyu.test.TimerActivity;
-import com.jingyu.test.service.MyServiceActivity;
-import com.jingyu.test.service.NewProcessServiceActivity;
+import com.jingyu.test.service.LocalServiceActivity;
+import com.jingyu.test.service.AIDLServiceActivity;
 
 public class OneFragment extends BaseFragment implements View.OnClickListener {
 
@@ -120,10 +120,10 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
                 NotifyActivity.actionStart(getActivity());
                 break;
             case R.id.service:
-                MyServiceActivity.actionStart(getActivity());
+                LocalServiceActivity.actionStart(getActivity());
                 break;
             case R.id.service_process:
-                NewProcessServiceActivity.actionStart(getActivity());
+                AIDLServiceActivity.actionStart(getActivity());
                 break;
             default:
                 break;

@@ -13,24 +13,29 @@ import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
 
-public class NewProcessServiceActivity extends BaseActivity implements View.OnClickListener {
+public class LocalServiceActivity extends BaseActivity implements View.OnClickListener {
 
     private Button startService;
     private Button stopService;
     private Button bindService;
     private Button unbindService;
 
-    private NewProcessService.NewProcessServiceBinder newProcessServiceBinder;
+    boolean mBound = false;
+    private LocalService.LocalBinder myServiceBinder;
 
-    private ServiceConnection serviceConnection2 = new ServiceConnection() {
+    private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            newProcessServiceBinder = (NewProcessService.NewProcessServiceBinder) service;
-            Logger.i(this + "--onServiceConnected--" + newProcessServiceBinder.getInfo());
+            myServiceBinder = (LocalService.LocalBinder) service;
+            mBound = true;
+            Logger.i(this + "--onServiceConnected--" + myServiceBinder.getService().getInfo());
         }
 
+        // 这个如果是系统kill才会调用
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            myServiceBinder = null;
+            mBound = false;
             Logger.i(this + "--onServiceDisconnected--" + name);
         }
     };
@@ -38,7 +43,7 @@ public class NewProcessServiceActivity extends BaseActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_process_service);
+        setContentView(R.layout.activity_local_service);
         initWidget();
         setListener();
     }
@@ -61,30 +66,27 @@ public class NewProcessServiceActivity extends BaseActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.startService:
-                NewProcessService.actionStart(getActivity());
+                LocalService.actionStart(getActivity());
                 break;
             case R.id.stopService:
-                NewProcessService.actionStop(getActivity());
+                LocalService.actionStop(getActivity());
                 break;
             case R.id.bindService:
-                bindService(new Intent(this, NewProcessService.class), serviceConnection2, BIND_AUTO_CREATE);
+                bindService(new Intent(this, LocalService.class), serviceConnection, BIND_AUTO_CREATE);
                 break;
             case R.id.unbindService:
                 try {
-//                    if (newProcessServiceBinder != null && !newProcessServiceBinder.isBindAlive()) {
-                    unbindService(serviceConnection2);
-//                    } else {
-//                        Logger.longToast("服务未创建 或 服务已经销毁了 ,拦截了unbindService()方法的调用");
-//                    }
+                    unbindService(serviceConnection);
+                    mBound = false;
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Logger.longToast("服务未创建 或 服务已经销毁了 ,调用unbindService() crash了");
+                    Logger.longToast("服务未创建 或 服务已经销毁了 或 未绑定服务 ,调用unbindService() crash了");
                 }
                 break;
         }
     }
 
     public static void actionStart(FragmentActivity activity) {
-        activity.startActivity(new Intent(activity, NewProcessServiceActivity.class));
+        activity.startActivity(new Intent(activity, LocalServiceActivity.class));
     }
 }

@@ -58,7 +58,7 @@ public class Logger {
         /**
          * 日志是否输出到控制台
          */
-        public boolean isLog2Console = false;
+        public boolean isLog2Console = true;
         /**
          * e类型的日志是否写到日志文件中
          */

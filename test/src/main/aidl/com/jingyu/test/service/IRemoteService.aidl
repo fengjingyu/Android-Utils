@@ -16,10 +16,19 @@ interface IRemoteService {
 
     List<String> getNames();
 
-    // in：客户端的参数输入；
-    // out：服务端的参数输入；
-    // inout：这个可以叫输入输出参数，客户端可输入、服务端也可输入。客户端输入了参数到服务端后，服务端也可对该参数进行修改等，最后在客户端上得到的是服务端输出的参数。
-    AIDLBean getAIDLBean(in AIDLBean bean);
+
+    AIDLBean getBeanIn(in AIDLBean bean);
+
+    // out传入的参数,service可以接收到bena,但是bean里的值全部都没有,都的是默认值
+    AIDLBean getBeanOut(out AIDLBean bean);
+
+    AIDLBean getBeanInOut(inout AIDLBean bean);
+
+    void getBeanIn2(in AIDLBean bean);
+
+    void getBeanOut2(out AIDLBean bean);
+
+    void getBeanInOut2(inout AIDLBean bean);
 
     String registerCallBack(in AIDLCallBack callBack);
 

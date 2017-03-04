@@ -39,4 +39,11 @@
         android:text="unbindService"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/repeatCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="repeatCall"
+        android:textAllCaps="false" />
+
 </LinearLayout>

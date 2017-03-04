@@ -20,6 +20,7 @@ public class AIDLServiceActivity extends BaseActivity implements View.OnClickLis
     private Button stopService;
     private Button bindService;
     private Button unbindService;
+    private Button repeatCall;
 
     private IRemoteService remoteService;
 
@@ -41,31 +42,78 @@ public class AIDLServiceActivity extends BaseActivity implements View.OnClickLis
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            Logger.i(this + "--onServiceConnected--" + name);
             remoteService = IRemoteService.Stub.asInterface(service);
-
-            try {
-                Logger.i(this + "--onServiceConnected--" + remoteService.getInfo());
-                Logger.i(this + "--onServiceConnected--" + remoteService.getNames().toString());
-                AIDLBean aidlBean = new AIDLBean();
-                aidlBean.setAddress("gz");
-                aidlBean.setAge(20);
-                aidlBean.setName("测试");
-                Logger.i(this + "--onServiceConnected--" + remoteService.getAIDLBean(aidlBean));
-                Logger.i(this + "--onServiceConnected--" + remoteService.registerCallBack(aidlCallBack));
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
             mBound = true;
+            call();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            remoteService = null;
             Logger.i(this + "--onServiceDisconnected--" + name);
+            remoteService = null;
             mBound = false;
         }
     };
+
+    private void call() {
+        if (remoteService == null) {
+            Logger.i("remoteService为null");
+            return;
+        }
+        try {
+            Logger.i(remoteService.getInfo());
+            Logger.i(remoteService.getNames());
+
+            AIDLBean in = new AIDLBean();
+            in.setName("client_in");
+            in.setId(1);
+            Logger.i("getBeanIn(),in修饰符,客户端传入" + in);
+            AIDLBean beanIn = remoteService.getBeanIn(in);
+            Logger.i("getBeanIn(),in修饰符,客户端收到返回" + beanIn);
+
+            AIDLBean out = new AIDLBean();
+            out.setName("client_out");
+            out.setId(1);
+            Logger.i("getBeanOut(),out修饰符,客户端传入" + out);
+            AIDLBean beanOut = remoteService.getBeanOut(out);
+            Logger.i("getBeanOut(),out修饰符,客户端收到返回" + beanOut);
+
+            AIDLBean inout = new AIDLBean();
+            inout.setName("client_inout");
+            inout.setId(1);
+            Logger.i("getBeanInOut(),inout修饰符,客户端传入" + inout);
+            AIDLBean beanInOut = remoteService.getBeanInOut(inout);
+            Logger.i("getBeanInOut(),inout修饰符,客户端收到返回" + beanInOut);
+
+            AIDLBean in2 = new AIDLBean();
+            in2.setName("client_in2");
+            in2.setId(1);
+            Logger.i("getBeanIn2(),in修饰符,客户端传入" + in2);
+            remoteService.getBeanIn2(in2);
+            Logger.i("getBeanIn2(),in修饰符,此时客户端的" + in2);
+
+            AIDLBean out2 = new AIDLBean();
+            out2.setName("client_out2");
+            out2.setId(1);
+            Logger.i("getBeanOut2(),out修饰符,客户端传入" + out2);
+            remoteService.getBeanOut2(out2);
+            Logger.i("getBeanOut2(),out修饰符,此时客户端的" + out2);
+
+            AIDLBean inout2 = new AIDLBean();
+            inout2.setName("client_inout2");
+            inout2.setId(1);
+            Logger.i("getBeanInOut2(),inout修饰符,客户端传入" + inout2);
+            remoteService.getBeanInOut2(inout2);
+            Logger.i("getBeanInOut2(),inout修饰符,此时客户端的" + inout2);
+
+
+            Logger.i(remoteService.registerCallBack(aidlCallBack));
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +128,7 @@ public class AIDLServiceActivity extends BaseActivity implements View.OnClickLis
         stopService = getViewById(R.id.stopService);
         bindService = getViewById(R.id.bindService);
         unbindService = getViewById(R.id.unbindService);
+        repeatCall = getViewById(R.id.repeatCall);
     }
 
     public void setListener() {
@@ -87,6 +136,7 @@ public class AIDLServiceActivity extends BaseActivity implements View.OnClickLis
         stopService.setOnClickListener(this);
         bindService.setOnClickListener(this);
         unbindService.setOnClickListener(this);
+        repeatCall.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +159,9 @@ public class AIDLServiceActivity extends BaseActivity implements View.OnClickLis
                     e.printStackTrace();
                     Logger.longToast("服务未创建 或 服务已经销毁了 或 未绑定服务 ,调用unbindService() crash了");
                 }
+                break;
+            case R.id.repeatCall:
+                call();
                 break;
         }
     }

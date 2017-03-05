@@ -93,14 +93,18 @@
             android:name=".service.AIDLService"
             android:enabled="true"
             android:exported="false"
-            android:process=":aidlservice"
-            />
+            android:process=":aidlservice" />
+        <service
+            android:name=".download.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity android:name=".NotifyActivity" />
         <activity android:name="com.jingyu.utilstest.DirActivity" />
         <activity android:name="com.jingyu.utilstest.BitmapActivity" />
         <activity android:name=".service.LocalServiceActivity" />
         <activity android:name=".service.AIDLServiceActivity" />
+        <activity android:name=".download.DownloadActivity" />
     </application>
 
 </manifest>

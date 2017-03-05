@@ -52,8 +52,9 @@ public class NotifyActivity extends BaseActivity {
                 .setAutoCancel(true) // 或者 cancel(id)
                 .setContentIntent(PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
                 .setSound(Uri.fromFile(new File(("/system/media/audio/ringtones/World.ogg"))))
-                .setLights(Color.BLUE,1000,1000)
+                .setLights(Color.BLUE,1000,1000)// led
                 .setPriority(NotificationCompat.PRIORITY_MAX)//原生的有效果,小米5没效果需要去设置页面的悬浮通知
+                .setTicker("ticker")
                 .build();
 
         ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(id, notification);

@@ -19,6 +19,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     Button startDownload;
     Button pauseDownload;
     Button cancelDownload;
+    Button startRangeDownload;
 
     DownloadService.DownloadBinder downloadBinder;
 
@@ -49,11 +50,13 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         startDownload = getViewById(R.id.startDownload);
         pauseDownload = getViewById(R.id.pauseDownload);
         cancelDownload = getViewById(R.id.cancelDownload);
+        startRangeDownload = getViewById(R.id.startRangeDownload);
 
 
         startDownload.setOnClickListener(this);
         pauseDownload.setOnClickListener(this);
         cancelDownload.setOnClickListener(this);
+        startRangeDownload.setOnClickListener(this);
 
     }
 
@@ -62,7 +65,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         if (downloadBinder != null) {
             switch (v.getId()) {
                 case R.id.startDownload:
-                    downloadBinder.startDownload(new DownloadOptions("http://192.168.1.101/android/test_debug.apk",
+                    downloadBinder.startDownload(new DownloadOptions("http://192.168.1.101/android/test.apk",
                             DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "test.apk")));
                     break;
                 case R.id.pauseDownload:
@@ -70,6 +73,10 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                     break;
                 case R.id.cancelDownload:
                     downloadBinder.cancleDownload();
+                    break;
+                case R.id.startRangeDownload:
+                    downloadBinder.startDownload(new DownloadOptions("http://192.168.1.101/android/test_range.apk",
+                            DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "test_range.apk"), true));
                     break;
                 default:
                     break;

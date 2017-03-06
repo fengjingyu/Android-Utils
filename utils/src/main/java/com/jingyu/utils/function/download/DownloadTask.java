@@ -39,14 +39,8 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
     protected boolean isParamsAvaliable() {
         if (options != null) {
             if (options.getUrl() != null && options.getUrl().trim().length() > 0) {
-                if (options.isRangeDownload()) {
-                    if (DirHelper.createFile(options.getFile()) != null) {
-                        return true;
-                    }
-                } else {
-                    if (DirHelper.deleteAndCreateFile(options.getFile()) != null) {
-                        return true;
-                    }
+                if (options.getFile() != null) {
+                    return true;
                 }
             }
         }
@@ -61,21 +55,41 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
         }
     }
 
-    protected Object[] request(long rangePosition) {
+    protected long requestContentLength() {
+        HttpURLConnection urlConnection = null;
+        try {
+            urlConnection = (HttpURLConnection) new URL(options.getUrl()).openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setConnectTimeout(10000);
+            if (HttpURLConnection.HTTP_OK == urlConnection.getResponseCode()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    return urlConnection.getContentLengthLong();
+                } else {
+                    return (long) urlConnection.getContentLength();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return -1;
+    }
+
+    protected InputStream requestInputStream(long rangePosition) {
         try {
             HttpURLConnection urlConnection = (HttpURLConnection) new URL(options.getUrl()).openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setConnectTimeout(10000);
             urlConnection.setRequestProperty("Range", "bytes=" + rangePosition + "-");
             if (HttpURLConnection.HTTP_PARTIAL == urlConnection.getResponseCode()) {
-                Object[] objects = new Object[2];
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    objects[0] = urlConnection.getContentLengthLong();
-                } else {
-                    objects[0] = (long) urlConnection.getContentLength();
-                }
-                objects[1] = urlConnection.getInputStream();
-                return objects;
+                return urlConnection.getInputStream();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,41 +108,48 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
             long contentLength;
             long rangePosition;
             try {
-                rangePosition = options.isRangeDownload() ? options.getFile().length() : 0;
-                Object[] objects = request(rangePosition);
-                if (objects == null || !(objects[0] instanceof Long) || !(objects[1] instanceof InputStream)) {
-                    return TYPE_FAILE;
-                }
-                contentLength = (long) objects[0];
-                bufferedInputStream = new BufferedInputStream((InputStream) objects[1]);
-
+                contentLength = requestContentLength();
                 if (contentLength <= 0) {
                     return TYPE_FAILE;
-                } else if (contentLength == options.getFile().length()) {
+                } else if (contentLength == (options.getFile().exists() ? options.getFile().length() : 0)) {
                     return TYPE_SUCCESS;
                 } else {
-                    randomAccessFile = new RandomAccessFile(options.getFile(), "rw");
-                    randomAccessFile.seek(rangePosition);
-
-                    byte[] buf = new byte[1024];
-                    long totalProgress = rangePosition;
-                    for (int len; (len = bufferedInputStream.read(buf)) != -1; ) {
-                        if (isCanceled) {
-                            return TYPE_CANCELED;
-                        } else if (isPaused) {
-                            return TYPE_PAUSED;
-                        } else {
-                            randomAccessFile.write(buf, 0, len);
-                            totalProgress = totalProgress + len;
-                            int progressPercent = (int) (totalProgress * 100 / contentLength);
-                            if (progressPercent > beforeProgressPercent) {
-                                publishProgress(totalProgress, contentLength, (long) progressPercent);
-                                beforeProgressPercent = progressPercent;
-                            }
+                    if (options.isRangeDownload()) {
+                        if (DirHelper.createFile(options.getFile()) == null) {
+                            return TYPE_FAILE;
+                        }
+                    } else {
+                        if (DirHelper.deleteAndCreateFile(options.getFile()) == null) {
+                            return TYPE_FAILE;
                         }
                     }
-                    if (totalProgress == contentLength) {
-                        return TYPE_SUCCESS;
+
+                    rangePosition = options.getFile().length();
+                    InputStream inputStream = requestInputStream(rangePosition);
+                    if (inputStream != null) {
+                        bufferedInputStream = new BufferedInputStream(inputStream);
+                        randomAccessFile = new RandomAccessFile(options.getFile(), "rw");
+                        randomAccessFile.seek(rangePosition);
+                        byte[] buf = new byte[1024];
+                        long totalProgress = rangePosition;
+                        for (int len; (len = bufferedInputStream.read(buf)) != -1; ) {
+                            if (isCanceled) {
+                                return TYPE_CANCELED;
+                            } else if (isPaused) {
+                                return TYPE_PAUSED;
+                            } else {
+                                randomAccessFile.write(buf, 0, len);
+                                totalProgress = totalProgress + len;
+                                int progressPercent = (int) (totalProgress * 100 / contentLength);
+                                if (progressPercent > beforeProgressPercent) {
+                                    publishProgress(totalProgress, contentLength, (long) progressPercent);
+                                    beforeProgressPercent = progressPercent;
+                                }
+                            }
+                        }
+                        if (totalProgress == contentLength) {
+                            return TYPE_SUCCESS;
+                        }
                     }
                 }
             } catch (Exception e) {

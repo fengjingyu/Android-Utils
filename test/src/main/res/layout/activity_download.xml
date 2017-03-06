@@ -31,5 +31,11 @@
         android:layout_height="wrap_content"
         android:text="cancelDownload"
         android:textAllCaps="false" />
+    <Button
+        android:id="@+id/startRangeDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="startRangeDownload"
+        android:textAllCaps="false" />
 
 </LinearLayout>

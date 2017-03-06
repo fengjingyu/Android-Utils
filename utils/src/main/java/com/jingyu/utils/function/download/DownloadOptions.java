@@ -20,6 +20,10 @@ public class DownloadOptions {
         this.isRangeDownload = isRangeDownload;
     }
 
+    public DownloadOptions(String url, File saveFile) {
+        this(url, saveFile, false);
+    }
+
     public String getUrl() {
         return url;
     }

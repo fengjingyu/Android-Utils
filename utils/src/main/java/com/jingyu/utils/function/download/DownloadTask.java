@@ -3,6 +3,8 @@ package com.jingyu.utils.function.download;
 import android.os.AsyncTask;
 import android.os.Build;
 
+import com.jingyu.utils.function.DirHelper;
+
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -34,11 +36,17 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
         this.options = downloadOptions;
     }
 
-    protected boolean isOptoinsAvaliable() {
+    protected boolean isParamsAvaliable() {
         if (options != null) {
             if (options.getUrl() != null && options.getUrl().trim().length() > 0) {
-                if (options.getFile() != null && options.getFile().exists()) {
-                    return true;
+                if (options.isRangeDownload()) {
+                    if (DirHelper.createFile(options.getFile()) != null) {
+                        return true;
+                    }
+                } else {
+                    if (DirHelper.deleteAndCreateFile(options.getFile()) != null) {
+                        return true;
+                    }
                 }
             }
         }
@@ -53,13 +61,12 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
         }
     }
 
-    protected Object[] request(long downloadedLength) {
-        HttpURLConnection urlConnection = null;
+    protected Object[] request(long rangePosition) {
         try {
-            urlConnection = (HttpURLConnection) new URL(options.getUrl()).openConnection();
+            HttpURLConnection urlConnection = (HttpURLConnection) new URL(options.getUrl()).openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setConnectTimeout(10000);
-            urlConnection.setRequestProperty("Range", "bytes=" + downloadedLength + "-");
+            urlConnection.setRequestProperty("Range", "bytes=" + rangePosition + "-");
             if (HttpURLConnection.HTTP_PARTIAL == urlConnection.getResponseCode()) {
                 Object[] objects = new Object[2];
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -72,29 +79,23 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         return null;
     }
 
+    // 防止更新的频率太快,影响ui线程的运行
+    private int beforeProgressPercent;
+
     @Override
     protected Integer doInBackground(Void[] params) {
-        if (isOptoinsAvaliable()) {
+        if (isParamsAvaliable()) {
             BufferedInputStream bufferedInputStream = null;
             RandomAccessFile randomAccessFile = null;
             long contentLength;
-            long downloadedLength;
+            long rangePosition;
             try {
-                downloadedLength = options.isRangeDownload() ? options.getFile().length() : 0;
-
-                Object[] objects = request(downloadedLength);
+                rangePosition = options.isRangeDownload() ? options.getFile().length() : 0;
+                Object[] objects = request(rangePosition);
                 if (objects == null || !(objects[0] instanceof Long) || !(objects[1] instanceof InputStream)) {
                     return TYPE_FAILE;
                 }
@@ -103,14 +104,14 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
 
                 if (contentLength <= 0) {
                     return TYPE_FAILE;
-                } else if (contentLength == downloadedLength) {
+                } else if (contentLength == options.getFile().length()) {
                     return TYPE_SUCCESS;
                 } else {
                     randomAccessFile = new RandomAccessFile(options.getFile(), "rw");
-                    randomAccessFile.seek(downloadedLength);
+                    randomAccessFile.seek(rangePosition);
 
                     byte[] buf = new byte[1024];
-                    long totalProgress = downloadedLength;
+                    long totalProgress = rangePosition;
                     for (int len; (len = bufferedInputStream.read(buf)) != -1; ) {
                         if (isCanceled) {
                             return TYPE_CANCELED;
@@ -118,10 +119,17 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
                             return TYPE_PAUSED;
                         } else {
                             randomAccessFile.write(buf, 0, len);
-                            publishProgress(totalProgress = totalProgress + len, contentLength);
+                            totalProgress = totalProgress + len;
+                            int progressPercent = (int) (totalProgress * 100 / contentLength);
+                            if (progressPercent > beforeProgressPercent) {
+                                publishProgress(totalProgress, contentLength, (long) progressPercent);
+                                beforeProgressPercent = progressPercent;
+                            }
                         }
                     }
-                    return TYPE_SUCCESS;
+                    if (totalProgress == contentLength) {
+                        return TYPE_SUCCESS;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -148,10 +156,11 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
 
     @Override
     protected void onProgressUpdate(Long... values) {
-        long totalProgress = values[0];
-        long contentLength = values[1];
         if (listener != null) {
-            listener.onDownloadProgress(totalProgress, contentLength, totalProgress * 1.0 / contentLength);
+            long totalProgress = values[0];
+            long contentLength = values[1];
+            long progressPercent = values[2];
+            listener.onDownloadProgress(totalProgress, contentLength, (int) progressPercent);
         }
     }
 

@@ -8,10 +8,11 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
-import com.jingyu.utils.R;
+import com.jingyu.test.R;
 import com.jingyu.utils.function.download.DownloadListener;
 import com.jingyu.utils.function.download.DownloadOptions;
 import com.jingyu.utils.function.download.DownloadTask;
+import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
 
@@ -27,11 +28,12 @@ public class DownloadService extends Service {
         public void onDownloadSuccess(File file) {
             stopForeground(true);
             getNotificationManager().notify(1, getNotiication("下载成功", -1));
+            UtilSystem.installApk(getApplicationContext(), file);
         }
 
         @Override
-        public void onDownloadProgress(long totalProgress, long contentLength, double downloadPercent) {
-            getNotificationManager().notify(1, getNotiication("下载中..", (int) downloadPercent));
+        public void onDownloadProgress(long totalProgress, long contentLength, int progressPercent) {
+            getNotificationManager().notify(1, getNotiication("下载中..", progressPercent));
         }
 
         @Override
@@ -91,7 +93,7 @@ public class DownloadService extends Service {
 
     protected Notification getNotiication(String title, int progress) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle(title);
         if (progress > 0) {
             builder.setContentText(progress + "%");

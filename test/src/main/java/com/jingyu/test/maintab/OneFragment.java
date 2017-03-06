@@ -12,6 +12,7 @@ import com.jingyu.test.ContactsActivity;
 import com.jingyu.test.DestroyGCActivity;
 import com.jingyu.test.NotifyActivity;
 import com.jingyu.test.RequestPermissionActivity;
+import com.jingyu.test.download.DownloadActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.HandlerActivity;
 import com.jingyu.test.LeakCanaryActivity;
@@ -38,6 +39,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     private Button notification;
     private Button service;
     private Button service_process;
+    private Button download;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         notification.setOnClickListener(this);
         service.setOnClickListener(this);
         service_process.setOnClickListener(this);
+        download.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -81,6 +84,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         notification = getViewById(R.id.notification);
         service = getViewById(R.id.service);
         service_process = getViewById(R.id.service_process);
+        download = getViewById(R.id.download);
+
     }
 
     @Override
@@ -125,6 +130,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
             case R.id.service_process:
                 AIDLServiceActivity.actionStart(getActivity());
                 break;
+            case R.id.download:
+                DownloadActivity.actionStart(getActivity());
             default:
                 break;
 

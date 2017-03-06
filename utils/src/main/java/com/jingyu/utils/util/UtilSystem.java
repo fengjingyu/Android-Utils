@@ -298,7 +298,7 @@ public class UtilSystem {
         }
     }
 
-    public void installApk(Context context, File file) {
+    public static void installApk(Context context, File file) {
         try {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
@@ -310,7 +310,7 @@ public class UtilSystem {
         }
     }
 
-    public void uninstallApk(Context context, String packageName) {
+    public static void uninstallApk(Context context, String packageName) {
         try {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_DELETE);

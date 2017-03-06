@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
+import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.download.DownloadOptions;
 
 public class DownloadActivity extends BaseActivity implements View.OnClickListener {
 
@@ -59,7 +62,8 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         if (downloadBinder != null) {
             switch (v.getId()) {
                 case R.id.startDownload:
-                    downloadBinder.startDownload(null);
+                    downloadBinder.startDownload(new DownloadOptions("http://192.168.1.101/android/test_debug.apk",
+                            DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "test.apk")));
                     break;
                 case R.id.pauseDownload:
                     downloadBinder.pauseDownload();
@@ -78,5 +82,9 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         unbindService(serviceConnection);
+    }
+
+    public static void actionStart(FragmentActivity activity) {
+        activity.startActivity(new Intent(activity, DownloadActivity.class));
     }
 }

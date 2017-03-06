@@ -12,7 +12,7 @@ public interface DownloadListener {
 
     void onDownloadSuccess(File file);
 
-    void onDownloadProgress(long totalProgress, long contentLength, double downloadPercent);
+    void onDownloadProgress(long totalProgress, long contentLength, int progressPercent);
 
     void onDownloadFail(File file);
 

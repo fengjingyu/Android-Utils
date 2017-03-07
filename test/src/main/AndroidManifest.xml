@@ -105,6 +105,9 @@
         <activity android:name=".service.LocalServiceActivity" />
         <activity android:name=".service.AIDLServiceActivity" />
         <activity android:name=".download.DownloadActivity" />
+        <activity
+            android:name=".material.ToolBarActivity"
+            android:theme="@style/AppThemeNoActionBar" />
     </application>
 
 </manifest>

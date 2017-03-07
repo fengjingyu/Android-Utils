@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.middle.http.SystemDialog;
 
 /**
  * @description 看看不同版本系统上的dialog显示效果
@@ -45,28 +44,54 @@ public class SystemDialogActivity extends BaseActivity {
                 progressDialog();
                 break;
             case R.id.menu_item3:
-                progressBar();
+                progressDialog2();
+                break;
+            case R.id.menu_item4:
+                progressDialog3();
         }
         return true;
     }
 
-    private void progressBar() {
-        SystemDialog dialog = new SystemDialog(getActivity());
-        dialog.setCanceledOnTouchOutside(true);
+    private void progressDialog3() {
+        final ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setMax(100);
+        new Thread(new Runnable() {
+            int progress = 21;
+
+            @Override
+            public void run() {
+                while (progress < 100) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    progress = progress + 1;
+                    dialog.setProgress(progress);
+                    dialog.setSecondaryProgress(progress - 20);
+                }
+            }
+        }).start();
+
         dialog.show();
+    }
+
+    private void progressDialog2() {
+        ProgressDialog.show(getActivity(), "", "  加载中..", true, true);
     }
 
     private void progressDialog() {
         ProgressDialog dialog = new ProgressDialog(getActivity());
         dialog.setTitle("title");
-        dialog.setMessage("test dialog");
+        dialog.setMessage("content");
         dialog.show();
     }
 
     private void alertDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle("title");
-        dialog.setMessage("test dialog");
+        dialog.setMessage("content");
         dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

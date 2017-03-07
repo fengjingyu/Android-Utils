@@ -15,7 +15,7 @@ import com.jingyu.test.R;
  * @author fengjingyu@foxmail.com
  * @description
  */
-public class SystemDialog extends Dialog {
+public class ProgressBarDialog extends Dialog {
 
     private ViewGroup dialogLayout;
 
@@ -29,7 +29,7 @@ public class SystemDialog extends Dialog {
         return dialogLayout;
     }
 
-    public SystemDialog(Context context) {
+    public ProgressBarDialog(Context context) {
         super(context, R.style.TransDialog);
         dialogLayout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.dialog_system, null);
         textView = (TextView) dialogLayout.findViewById(R.id.dialog_system_textview);

@@ -59,7 +59,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
         if (activityContext != null && reqInfo.isShowDialog()) {
             DialogManager dialogManager = DialogManager.getInstance(activityContext);
             // TODO 设置dialog
-            Dialog dialog = new SystemDialog(activityContext);
+            Dialog dialog = new ProgressBarDialog(activityContext);
             addDialogListener(dialog);
             dialogManager.setDialog(dialog);
             dialogManager.mayShow(toString());

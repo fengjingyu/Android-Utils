@@ -38,7 +38,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     private Button contacts;
     private Button notification;
     private Button service;
-    private Button service_process;
+    private Button aidl;
     private Button download;
 
     @Override
@@ -66,7 +66,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         contacts.setOnClickListener(this);
         notification.setOnClickListener(this);
         service.setOnClickListener(this);
-        service_process.setOnClickListener(this);
+        aidl.setOnClickListener(this);
         download.setOnClickListener(this);
     }
 
@@ -83,9 +83,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
         contacts = getViewById(R.id.contacts);
         notification = getViewById(R.id.notification);
         service = getViewById(R.id.service);
-        service_process = getViewById(R.id.service_process);
+        aidl = getViewById(R.id.aidl);
         download = getViewById(R.id.download);
-
     }
 
     @Override
@@ -127,7 +126,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
             case R.id.service:
                 LocalServiceActivity.actionStart(getActivity());
                 break;
-            case R.id.service_process:
+            case R.id.aidl:
                 AIDLServiceActivity.actionStart(getActivity());
                 break;
             case R.id.download:

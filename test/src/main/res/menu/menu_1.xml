@@ -10,5 +10,8 @@
         android:title="progressDialog" />
     <item
         android:id="@+id/menu_item3"
-        android:title="progressBar" />
+        android:title="progressDialog2" />
+    <item
+        android:id="@+id/menu_item4"
+        android:title="progressDialog3" />
 </menu>

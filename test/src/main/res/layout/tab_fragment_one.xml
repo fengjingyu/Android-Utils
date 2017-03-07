@@ -106,10 +106,10 @@
                 android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/service_process"
+                android:id="@+id/aidl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="service_process"
+                android:text="aidl"
                 android:textAllCaps="false" />
 
             <Button

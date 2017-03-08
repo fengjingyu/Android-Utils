@@ -16,7 +16,7 @@ import com.jingyu.test.download.DownloadActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.HandlerActivity;
 import com.jingyu.test.LeakCanaryActivity;
-import com.jingyu.test.PercentLayoutActivity;
+import com.jingyu.test.material.PercentLayoutActivity;
 import com.jingyu.test.PropertyAnimActivity;
 import com.jingyu.test.R;
 import com.jingyu.test.SystemDialogActivity;
@@ -24,9 +24,10 @@ import com.jingyu.test.TimerActivity;
 import com.jingyu.test.service.LocalServiceActivity;
 import com.jingyu.test.service.AIDLServiceActivity;
 
+import static com.jingyu.test.R.id.percentLayout;
+
 public class OneFragment extends BaseFragment implements View.OnClickListener {
 
-    private Button percentLayout;
     private Button propertyAnim;
     private Button leakCanary;
     private Button timer;
@@ -54,7 +55,6 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setListener() {
-        percentLayout.setOnClickListener(this);
         propertyAnim.setOnClickListener(this);
         leakCanary.setOnClickListener(this);
         timer.setOnClickListener(this);
@@ -71,7 +71,6 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initWidget() {
-        percentLayout = getViewById(R.id.percentLayout);
         propertyAnim = getViewById(R.id.propertyAnim);
         leakCanary = getViewById(R.id.leakCanary);
         timer = getViewById(R.id.timer);
@@ -90,9 +89,6 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.percentLayout:
-                PercentLayoutActivity.actionStart(getActivity());
-                break;
             case R.id.propertyAnim:
                 PropertyAnimActivity.actionStart(getActivity());
                 break;

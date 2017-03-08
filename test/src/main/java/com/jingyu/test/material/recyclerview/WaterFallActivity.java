@@ -1,4 +1,4 @@
-package com.jingyu.test.recyclerview;
+package com.jingyu.test.material.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,6 @@ import android.view.View;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -32,7 +29,7 @@ public class WaterFallActivity extends BaseActivity {
         recyclerView = getViewById(R.id.id_recyclerView);
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(adapter = new WaterFallAdapter(getData()));
+        recyclerView.setAdapter(adapter = new WaterFallAdapter(null));
 
         // 添加 和 移除的默认动画效果
         // recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -50,14 +47,6 @@ public class WaterFallActivity extends BaseActivity {
                 Logger.shortToast("onLongClickAction--" + position + "--" + adapter.getList().get(position));
             }
         });
-    }
-
-    private List<String> getData() {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            list.add(String.valueOf(i));
-        }
-        return list;
     }
 
     public static void actionStart(Context activityContext) {

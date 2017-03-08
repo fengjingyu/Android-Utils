@@ -1,4 +1,4 @@
-package com.jingyu.test.recyclerview;
+package com.jingyu.test.material.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;

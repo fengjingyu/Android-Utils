@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="1dp"
-    android:background="@color/c_blue_20aae0"
-    >
+    app:cardCornerRadius="4dp"
+    app:elevation="5dp">
 
     <TextView
         android:id="@+id/id_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/c_blue_20aae0"
         android:gravity="center" />
-</FrameLayout>
+</android.support.v7.widget.CardView>

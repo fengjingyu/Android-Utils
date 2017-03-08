@@ -1,4 +1,4 @@
-package com.jingyu.test.recyclerview;
+package com.jingyu.test.material.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jingyu.test.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ import java.util.Random;
  */
 public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.MyViewHolder> {
 
-    interface OnClickAction {
+    public interface OnClickAction {
         void onClickAction(View view);
 
         void onLongClickAction(View view);
@@ -33,6 +34,9 @@ public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.MyVi
     private List<String> list;
 
     public WaterFallAdapter(List<String> list) {
+        if (list == null){
+            list = getData();
+        }
         this.list = list;
     }
 
@@ -104,6 +108,14 @@ public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.MyVi
                 }
             });
         }
+    }
+
+    public List<String> getData() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            list.add(String.valueOf(i));
+        }
+        return list;
     }
 }
 

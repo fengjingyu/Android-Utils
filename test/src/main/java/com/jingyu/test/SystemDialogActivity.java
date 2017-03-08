@@ -37,16 +37,16 @@ public class SystemDialogActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item1:
+            case R.id.toolbar_item1:
                 alertDialog();
                 break;
-            case R.id.menu_item2:
+            case R.id.toolbar_item2:
                 progressDialog();
                 break;
-            case R.id.menu_item3:
+            case R.id.toolbar_item3:
                 progressDialog2();
                 break;
-            case R.id.menu_item4:
+            case R.id.toolbar_item4:
                 progressDialog3();
         }
         return true;

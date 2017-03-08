@@ -9,11 +9,13 @@ import android.widget.Button;
 
 import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.R;
-import com.jingyu.test.material.ToolBarActivity;
+import com.jingyu.test.material.MaterialActivity;
+import com.jingyu.test.material.PercentLayoutActivity;
 
 public class ThreeFragment extends BaseFragment implements View.OnClickListener {
 
-    Button toolbar;
+    Button material;
+    Button percentLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,18 +30,23 @@ public class ThreeFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void setListener() {
-        toolbar.setOnClickListener(this);
+        material.setOnClickListener(this);
+        percentLayout.setOnClickListener(this);
     }
 
     public void initWidget() {
-        toolbar = getViewById(R.id.toolbar);
+        material = getViewById(R.id.material);
+        percentLayout = getViewById(R.id.percentLayout);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.toolbar:
-                ToolBarActivity.actionStart(getActivity());
+            case R.id.material:
+                MaterialActivity.actionStart(getActivity());
+                break;
+            case R.id.percentLayout:
+                PercentLayoutActivity.actionStart(getActivity());
                 break;
             default:
                 break;

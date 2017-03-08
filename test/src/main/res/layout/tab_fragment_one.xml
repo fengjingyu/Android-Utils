@@ -16,14 +16,6 @@
             android:orientation="vertical">
             <!-- @c -->
             <Button
-                android:id="@+id/percentLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="百分比布局"
-                android:textAllCaps="false" />
-
-            <!-- @c -->
-            <Button
                 android:id="@+id/propertyAnim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

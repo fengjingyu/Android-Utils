@@ -44,8 +44,8 @@
         </activity>
         <activity android:name=".TimerActivity" />
         <activity android:name=".DestroyGCActivity" />
-        <activity android:name=".recyclerview.RecycleViewActivity" />
-        <activity android:name=".recyclerview.WaterFallActivity" />
+        <activity android:name=".material.recyclerview.RecycleViewActivity" />
+        <activity android:name=".material.recyclerview.WaterFallActivity" />
         <activity android:name=".PropertyAnimActivity" />
         <activity android:name=".LeakCanaryActivity" />
         <activity android:name=".HandlerActivity" />
@@ -72,7 +72,7 @@
             android:name="MULTI_CHANNEL"
             android:value="${MULTI_CHANNEL_VALUE}" />
 
-        <activity android:name=".PercentLayoutActivity" />
+        <activity android:name=".material.PercentLayoutActivity" />
         <activity android:name=".fragmentlife.FragmentLifeActivity" />
 
         <receiver
@@ -106,7 +106,10 @@
         <activity android:name=".service.AIDLServiceActivity" />
         <activity android:name=".download.DownloadActivity" />
         <activity
-            android:name=".material.ToolBarActivity"
+            android:name=".material.MaterialActivity"
+            android:theme="@style/AppThemeNoActionBar" />
+        <activity
+            android:name=".material.CollapsingToolbarLayoutActivity"
             android:theme="@style/AppThemeNoActionBar" />
     </application>
 

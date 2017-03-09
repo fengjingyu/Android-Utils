@@ -35,6 +35,8 @@ public class CollapsingToolbarLayoutActivity extends BaseActivity {
         }
         collapsingToolbarLayout.setTitle("android");
         textView.setText(getContent());
+
+        imageView.setImageResource(R.mipmap.ic_launcher);
     }
 
     public String getContent() {

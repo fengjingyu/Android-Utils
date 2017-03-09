@@ -110,7 +110,7 @@
             android:theme="@style/AppThemeNoActionBar" />
         <activity
             android:name=".material.CollapsingToolbarLayoutActivity"
-            android:theme="@style/AppThemeNoActionBar" />
+            android:theme="@style/CollapsingLayoutActivityTheme" />
     </application>
 
 </manifest>

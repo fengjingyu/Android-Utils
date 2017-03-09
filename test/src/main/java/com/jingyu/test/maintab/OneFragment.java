@@ -10,21 +10,18 @@ import android.widget.Button;
 import com.jingyu.middle.base.BaseFragment;
 import com.jingyu.test.ContactsActivity;
 import com.jingyu.test.DestroyGCActivity;
-import com.jingyu.test.NotifyActivity;
-import com.jingyu.test.RequestPermissionActivity;
-import com.jingyu.test.download.DownloadActivity;
-import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.HandlerActivity;
 import com.jingyu.test.LeakCanaryActivity;
-import com.jingyu.test.material.PercentLayoutActivity;
+import com.jingyu.test.NotifyActivity;
 import com.jingyu.test.PropertyAnimActivity;
 import com.jingyu.test.R;
+import com.jingyu.test.RequestPermissionActivity;
 import com.jingyu.test.SystemDialogActivity;
 import com.jingyu.test.TimerActivity;
-import com.jingyu.test.service.LocalServiceActivity;
+import com.jingyu.test.download.DownloadActivity;
+import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.service.AIDLServiceActivity;
-
-import static com.jingyu.test.R.id.percentLayout;
+import com.jingyu.test.service.LocalServiceActivity;
 
 public class OneFragment extends BaseFragment implements View.OnClickListener {
 

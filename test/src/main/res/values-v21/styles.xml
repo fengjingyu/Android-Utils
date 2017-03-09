@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 5.0以上的版本才可设置状态栏透明 -->
+    <style name="CollapsingLayoutActivityTheme" parent="AppThemeNoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>

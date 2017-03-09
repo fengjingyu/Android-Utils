@@ -7,7 +7,6 @@ import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 
-import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
 
 /**
  * @author fengjingyu@foxmail.com

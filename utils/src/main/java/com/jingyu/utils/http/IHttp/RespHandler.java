@@ -8,6 +8,10 @@ import com.jingyu.utils.http.RespInfo;
  * @description http回调接口
  */
 public interface RespHandler<T> {
+    /**
+     * 可查看http里每个方法的调用顺序
+     */
+    String TAG_RESP_HANDLER = "respHandler";
 
     /**
      * 发送请求之前

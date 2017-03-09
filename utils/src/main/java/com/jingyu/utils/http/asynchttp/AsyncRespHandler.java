@@ -21,14 +21,15 @@ import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.jingyu.utils.function.Logger.TAG_HTTP;
-
-
 /**
  * @author fengjingyu@foxmail.com
  * @description 该库的回调是在主线程中的，这里开启了一个子线程解析,解析完成后回调到主线程中
  */
 public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
+    /**
+     * 可查看如url 返回的json等
+     */
+    public static final String TAG_HTTP = "http";
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -197,7 +198,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     }
 
     protected void printHeaderInfo(Map<String, List<String>> headers) {
-        if (Logger.getOptions().isLog2Console && headers != null) {
+        if (Logger.getOptions().consoleLogLevel <= Logger.INFO && headers != null) {
             for (Map.Entry<String, List<String>> header : headers.entrySet()) {
 
                 List<String> values = header.getValue();

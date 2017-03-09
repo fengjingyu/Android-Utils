@@ -3,6 +3,7 @@ package com.jingyu.middle.config;
 import android.content.Context;
 
 import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.Logger;
 
 import java.io.File;
 
@@ -27,9 +28,9 @@ public class Config {
     // 是否弹出调试的土司
     public final static boolean IS_SHOW_DEBUG_TOAST;
     // 是否打印日志到控制台
-    public final static boolean IS_LOG_2_CONSOLE;
+    public final static int CONSOLE_LOG_LEVEL;
     // 错误信息日志信息是否写到文件里
-    public final static boolean IS_ERROR_INFO_2_FILE;
+    public final static boolean IS_ERROR_LOG_2_FILE;
     // 是否启用内存泄漏检测库
     public final static boolean IS_INIT_LEAK_CANARY;
     // 是否初始化crashHandler
@@ -50,8 +51,8 @@ public class Config {
     static {
         if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.DEV) {
             IS_SHOW_DEBUG_TOAST = true;
-            IS_LOG_2_CONSOLE = true;
-            IS_ERROR_INFO_2_FILE = true;
+            CONSOLE_LOG_LEVEL = Logger.ALL;
+            IS_ERROR_LOG_2_FILE = true;
             IS_INIT_LEAK_CANARY = true;
             IS_INIT_CRASH_HANDLER = true;
             IS_SHOW_EXCEPTION_ACTIVITY = true;
@@ -60,8 +61,8 @@ public class Config {
             HTML = "http://html/dev";
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.TEST) {
             IS_SHOW_DEBUG_TOAST = false;
-            IS_LOG_2_CONSOLE = true;
-            IS_ERROR_INFO_2_FILE = true;
+            CONSOLE_LOG_LEVEL = Logger.ALL;
+            IS_ERROR_LOG_2_FILE = true;
             IS_INIT_LEAK_CANARY = true;
             IS_INIT_CRASH_HANDLER = true;
             IS_SHOW_EXCEPTION_ACTIVITY = true;
@@ -70,8 +71,8 @@ public class Config {
             HTML = "http://html/test";
         } else if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.RELEASE) {
             IS_SHOW_DEBUG_TOAST = false;
-            IS_LOG_2_CONSOLE = false;
-            IS_ERROR_INFO_2_FILE = true;
+            CONSOLE_LOG_LEVEL = Logger.NOTHING;
+            IS_ERROR_LOG_2_FILE = true;
             IS_INIT_LEAK_CANARY = false;
             IS_INIT_CRASH_HANDLER = false;
             IS_SHOW_EXCEPTION_ACTIVITY = false;

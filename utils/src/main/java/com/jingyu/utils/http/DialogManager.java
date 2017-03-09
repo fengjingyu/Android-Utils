@@ -8,7 +8,8 @@ import com.jingyu.utils.function.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
+import static com.jingyu.utils.http.IHttp.RespHandler.TAG_RESP_HANDLER;
+
 
 /**
  * @author fengjingyu@foxmail.com

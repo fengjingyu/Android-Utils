@@ -22,13 +22,15 @@ import okhttp3.Callback;
 import okhttp3.Headers;
 import okhttp3.Response;
 
-import static com.jingyu.utils.function.Logger.TAG_HTTP;
-
 /**
  * @author fengjingyu@foxmail.com
  * @description 该库的回调在子线程中的
  */
 public class OkRespHandler<T> implements Callback {
+    /**
+     * 可查看如url 返回的json等
+     */
+    public static final String TAG_HTTP = "http";
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
@@ -168,7 +170,7 @@ public class OkRespHandler<T> implements Callback {
     }
 
     protected void printHeaderInfo(Map<String, List<String>> headers) {
-        if (Logger.getOptions().isLog2Console && headers != null) {
+        if (Logger.getOptions().consoleLogLevel <= Logger.INFO && headers != null) {
             for (Map.Entry<String, List<String>> header : headers.entrySet()) {
 
                 List<String> values = header.getValue();

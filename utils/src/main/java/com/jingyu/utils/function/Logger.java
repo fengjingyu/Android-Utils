@@ -25,22 +25,12 @@ import java.util.Date;
 public class Logger {
 
     public static final String TAG_SYSTEM_OUT = "System.out";
-    /**
-     * 可查看如url 返回的json等
-     */
-    public static final String TAG_HTTP = "http";
-    /**
-     * 可查看http里每个方法的调用顺序
-     */
-    public static final String TAG_RESP_HANDLER = "respHandler";
-    /**
-     * DB的相关操作记录
-     */
-    public static final String TAG_DB = "db";
-    /**
-     * 如异常、重要的日志
-     */
-    public static final String TAG_ALERT = "alert";
+
+    public static final int ALL = 0;
+    public static final int DEBUG = 2;
+    public static final int INFO = 3;
+    public static final int ERROR = 5;
+    public static final int NOTHING = 7;
 
     private static Options options = new Options();
     /**
@@ -54,15 +44,15 @@ public class Logger {
         /**
          * 调试土司是否显示
          */
-        public boolean isShowDebugToast = false;
+        public boolean isShowDebugToast = true;
         /**
-         * 日志是否输出到控制台
+         * 日志是否输出到控制台 NOTHING(控制台不输出),ALL(控制台全部输出),DEBUG,INFO,ERROR
          */
-        public boolean isLog2Console = true;
+        public int consoleLogLevel = ALL;
         /**
          * e类型的日志是否写到日志文件中
          */
-        public boolean isErrorInfo2File = true;
+        public boolean isErrorLog2File = true;
         /**
          * 毫秒内的连续toast不显示
          */
@@ -145,11 +135,6 @@ public class Logger {
         }
     }
 
-    /**
-     * @param isShowImmediately true为立即显示
-     * @param msg               消息，可以object null
-     * @param showtType         土司的类型 如 long short
-     */
     private static void toast(boolean isShowImmediately, Object msg, int showtType) {
         if (application != null) {
             if (isShowImmediately || System.currentTimeMillis() - recordLastToastTime > options.toastTimeGap) {
@@ -159,37 +144,45 @@ public class Logger {
         }
     }
 
-    private static final String LINE = "--";
-    private static final String ERROR = ">>";
+    public static void d(String tag, Object msg) {
+        if (options.consoleLogLevel <= DEBUG) {
+            Log.d(tag, msg + "");
+        }
+    }
+
+    public static void d(Object msg) {
+        d(TAG_SYSTEM_OUT, msg);
+    }
 
     public static void i(String tag, Object msg) {
-        if (options.isLog2Console) {
+        if (options.consoleLogLevel <= INFO) {
             Log.i(tag, msg + "");
         }
     }
 
     public static void i(Object msg) {
-        if (options.isLog2Console) {
-            Log.i(TAG_SYSTEM_OUT, msg + "");
-        }
+        i(TAG_SYSTEM_OUT, msg);
     }
 
     public static void e(Object msg) {
         e(msg, null);
     }
 
+    private static final String LINE = "--";
+    private static final String ARROW = ">>";
+
     public static void e(Object msg, Exception e) {
         if (e != null) {
             e.printStackTrace();
         }
-        String content = ERROR + msg + LINE + e;
+        String content = ARROW + msg + LINE + e;
         if (options.isShowDebugToast) {
             longToast(true, content);
         }
-        if (options.isLog2Console) {
-            Log.e(TAG_ALERT, content);
+        if (options.consoleLogLevel <= ERROR) {
+            Log.e(TAG_SYSTEM_OUT, content);
         }
-        if (options.isErrorInfo2File) {
+        if (options.isErrorLog2File) {
             write(content, true);
         }
     }
@@ -236,7 +229,7 @@ public class Logger {
      * 格式化打印json到控制台
      */
     public static void logFormatContent(boolean addLine, String tag, String hint, String str) {
-        if (options.isLog2Console) {
+        if (options.consoleLogLevel <= INFO) {
             String content = JsonParse.format(str);
             try {
                 Log.i(tag, "－－－－－－－－－－－－－－－－－－  " + hint + " MSG BEGIN －－－－－－－－－－－－－－－－－－");
@@ -255,7 +248,7 @@ public class Logger {
                 Log.i(tag, "－－－－－－－－－－－－－－－－－－  " + hint + "  MSG END －－－－－－－－－－－－－－－－－－");
             } catch (Exception ex) {
                 ex.printStackTrace();
-                Log.e(TAG_ALERT, "logFormatContent----" + content, ex);
+                Log.e(TAG_SYSTEM_OUT, "logFormatContent----" + content, ex);
             }
         }
     }

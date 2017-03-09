@@ -13,13 +13,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jingyu.utils.function.Logger.TAG_DB;
 
 /**
  * @author fengjingyu@foxmail.com
  * @description
  */
 public class ExceptionDb extends SQLiteOpenHelper {
+    public static final String TAG = "ExceptionDb";
 
     public static String mDefaultDbName = "exception.db";
     public static int mVersion = 1;
@@ -135,7 +135,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         long id = db.insert(mOperatorTableName, _ID, values);
-        Logger.i(TAG_DB, "insert()插入的记录的id是: " + id);
+        Logger.i(TAG, "insert()插入的记录的id是: " + id);
         db.close();
         return id;
     }
@@ -146,7 +146,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
         for (ExceptionInfo model : list) {
             ContentValues values = createContentValue(model);
             long id = db.insert(mOperatorTableName, _ID, values);
-            Logger.i(TAG_DB, "insert()插入的记录的id是: " + id);
+            Logger.i(TAG, "insert()插入的记录的id是: " + id);
             count++;
         }
         db.close();
@@ -166,7 +166,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
     public synchronized int deleteByUniqueId(String value) {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, UNIQUE_ID + "=?", new String[]{value + ""});
-        Logger.i(TAG_DB, "delete-->" + rows + "行");
+        Logger.i(TAG, "delete-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -188,7 +188,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
     public synchronized int deleteUploadSuccess() {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, UPLOAD_SUCCESS + "=?", new String[]{ExceptionInfo.UPLOAD_YES});
-        Logger.i(TAG_DB, "delete_uploadSuccess-->" + rows + "行");
+        Logger.i(TAG, "delete_uploadSuccess-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -199,7 +199,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
     public synchronized int deleteUploadFail() {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, UPLOAD_SUCCESS + "=?", new String[]{ExceptionInfo.UPLOAD_NO});
-        Logger.i(TAG_DB, "delete_uploadFail-->" + rows + "行");
+        Logger.i(TAG, "delete_uploadFail-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -336,7 +336,7 @@ public class ExceptionDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         int rows = db.update(mOperatorTableName, values, UNIQUE_ID + "=?", new String[]{value + ""});
-        Logger.i(TAG_DB, "更新了" + rows + "行");
+        Logger.i(TAG, "更新了" + rows + "行");
         db.close();
         return rows;
     }

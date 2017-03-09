@@ -1,13 +1,19 @@
 package com.jingyu.test;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
+import android.view.View;
+import android.widget.Button;
 
 import com.jingyu.middle.base.BaseActivity;
+import com.jingyu.test.material.PercentLayoutActivity;
 import com.jingyu.utils.function.Logger;
 
 import java.util.Timer;
@@ -20,35 +26,45 @@ import java.util.concurrent.TimeUnit;
  * @author fengjingyu@foxmail.com
  * @description 几种计时方式
  */
-public class TimerActivity extends BaseActivity {
+public class TimerActivity extends BaseActivity implements View.OnClickListener {
+    private Button countTimer;
+    private Button timerTask;
+    private Button scheduledExecutorService;
+    private Button alarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-        countDownTimer();
-        timerTask();
-        scheduledExecutorService();
+        countTimer = getViewById(R.id.countTimer);
+        timerTask = getViewById(R.id.timerTask);
+        scheduledExecutorService = getViewById(R.id.scheduledExecutorService);
+        alarm = getViewById(R.id.alarm);
+
+        countTimer.setOnClickListener(this);
+        timerTask.setOnClickListener(this);
+        scheduledExecutorService.setOnClickListener(this);
+        alarm.setOnClickListener(this);
     }
 
-    //---------------------CountDownTimer-------------------
-    int count = 0;
 
+    //---------------------CountDownTimer-------------------
     private void countDownTimer() {
+
         // 这个是在ui线程里回调
-        CountDownTimer timer = new CountDownTimer(5000, 1000) {
+        final CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                Logger.i(count++);
+                Logger.i(millisUntilFinished);
             }
 
             @Override
             public void onFinish() {
-                Logger.i(count + "--onEnd");
+                Logger.i("countDownTimer--onEnd");
             }
         };
-        timer.start();
+        countDownTimer.start();
     }
 
     //------------------------TimerTask-----------------------
@@ -96,13 +112,51 @@ public class TimerActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        timer.cancel();
-        timer.purge();
-        scheduled.shutdown();
+
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+
+        if (scheduled != null) {
+            scheduled.shutdown();
+        }
     }
 
     public static void actionStart(Context activityContext) {
         activityContext.startActivity(new Intent(activityContext, TimerActivity.class));
     }
 
+    public void alarm() {
+        AlarmManager systemService = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, new Intent(getActivity(), PercentLayoutActivity.class), 0);
+        long triggerAtTime = SystemClock.elapsedRealtime() + 10 * 1000;
+        systemService.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pendingIntent);
+
+//        long triggerAtTime = System.currentTimeMillis() + 10 * 1000;
+//        systemService.set(AlarmManager.RTC_WAKEUP, triggerAtTime, pendingIntent);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.countTimer:
+                countDownTimer();
+                break;
+            case R.id.timerTask:
+                timer.cancel();
+                timerTask();
+                break;
+            case R.id.scheduledExecutorService:
+                scheduled.shutdown();
+                scheduledExecutorService();
+                break;
+            case R.id.alarm:
+                alarm();
+                break;
+            default:
+                break;
+        }
+    }
 }

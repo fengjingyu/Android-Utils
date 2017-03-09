@@ -5,8 +5,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
-import com.jingyu.test.maintab.MainActivity;
 import com.jingyu.middle.App;
+import com.jingyu.test.maintab.MainActivity;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.DialogManager;
@@ -22,8 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
 
 /**
  * @author fengjingyu@foxmail.com

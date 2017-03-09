@@ -8,8 +8,6 @@ import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.json.JsonParse;
 
-import static com.jingyu.utils.function.Logger.TAG_RESP_HANDLER;
-
 /**
  * @author fengjingyu@foxmail.com
  * @description jsonparse解析的http回调类

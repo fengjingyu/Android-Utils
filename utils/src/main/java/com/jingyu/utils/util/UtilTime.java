@@ -52,8 +52,8 @@ public class UtilTime {
         try {
             String str_timePoint = timePoint;
             String str_timeQuantum = timeQuantum;
-            Logger.i("当前时间点：" + timePoint);
-            Logger.i("当前时间段：" + timeQuantum);
+            Logger.d("当前时间点：" + timePoint);
+            Logger.d("当前时间段：" + timeQuantum);
 
             String[] ss = str_timeQuantum.split("-");
             int length = ss.length;

@@ -325,9 +325,9 @@ public class UtilDate {
         long curTime = System.currentTimeMillis() / (long) 1000;
         long time = curTime - timeStamp;
 
-        Logger.i(time + "---时间差");
-        Logger.i(curTime + "---当前时间");
-        Logger.i(timeStamp + "---timeStamp");
+        Logger.d(time + "---时间差");
+        Logger.d(curTime + "---当前时间");
+        Logger.d(timeStamp + "---timeStamp");
 
         if (time < 60 && time >= 0) {
             return "刚刚";
@@ -377,7 +377,7 @@ public class UtilDate {
         //时间值
         String mayTime_FORMAT_SHORT = format(mayTime, FORMAT_SHORT);
         String mayTime_FORMAT_SHORT_YEAR = getYear(mayTime);
-        Logger.i(TIME_FLAG, "时间为：" + UtilDate.format(mayTime, UtilDate.FORMAT_FULL));
+        Logger.d(TIME_FLAG, "时间为：" + UtilDate.format(mayTime, UtilDate.FORMAT_FULL));
         if (mayTime_FORMAT_SHORT != null && !mayTime_FORMAT_SHORT.trim().toString().equals("")) {
             //今天的时间yyyy-MM-dd
             String today_str = format(today, FORMAT_SHORT);
@@ -418,14 +418,14 @@ public class UtilDate {
             } else if (mayTime_FORMAT_SHORT.equals(previousDay)) {
                 //昨天
                 showTimeFormat = "前天 " + format(mayTime, FORMAT_HH_MM);
-                Logger.i(TIME_FLAG, "前天:" + showTimeFormat);
+                Logger.d(TIME_FLAG, "前天:" + showTimeFormat);
             } else if (mayTime_FORMAT_SHORT_YEAR.equals(thisYear_str)) {
                 //今年
                 showTimeFormat = format(mayTime, FORMAT_MM_DD_HH_MM);
             } else if (mayTime_FORMAT_SHORT_YEAR.equals(lastYear)) {
                 //去年
                 showTimeFormat = "去年  " + format(mayTime, FORMAT_MM_DD_HH_MM);
-                Logger.i(TIME_FLAG, "去年:" + showTimeFormat);
+                Logger.d(TIME_FLAG, "去年:" + showTimeFormat);
 
             } else if (mayTime_FORMAT_SHORT_YEAR.equals(previousYear)) {
                 //前年

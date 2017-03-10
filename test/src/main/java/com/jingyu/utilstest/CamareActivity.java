@@ -75,9 +75,9 @@ public class CamareActivity extends BaseActivity {
         ablumPhotoFragment.setOnAblumListener(new AblumPhotoFragment.OnAblumListener() {
             @Override
             public void onPhotoSuccess(File originPhoto, File smallPhoto) {
-                Logger.i(Uri.fromFile(smallPhoto));
-                Logger.i(smallPhoto.getAbsolutePath());
-                Logger.i(smallPhoto.toURI());
+                Logger.d(Uri.fromFile(smallPhoto));
+                Logger.d(smallPhoto.getAbsolutePath());
+                Logger.d(smallPhoto.toURI());
                 imageview.setImageURI(Uri.fromFile(smallPhoto));
 
                 imageview_small.setImageURI(Uri.fromFile(originPhoto));
@@ -103,9 +103,9 @@ public class CamareActivity extends BaseActivity {
         cameraPhotoFragment.setOnCameraListener(new CameraPhotoFragment.OnCameraListener() {
             @Override
             public void onPhotoSuccess(File originPhoto, File smallPhoto) {
-                Logger.i(Uri.fromFile(smallPhoto));
-                Logger.i(smallPhoto.getAbsolutePath());
-                Logger.i(smallPhoto.toURI());
+                Logger.d(Uri.fromFile(smallPhoto));
+                Logger.d(smallPhoto.getAbsolutePath());
+                Logger.d(smallPhoto.toURI());
                 imageview.setImageURI(Uri.fromFile(smallPhoto));
                 imageview_small.setImageURI(Uri.fromFile(originPhoto));
 

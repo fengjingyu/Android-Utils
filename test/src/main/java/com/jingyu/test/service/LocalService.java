@@ -24,25 +24,25 @@ public class LocalService extends Service {
 
     @Override
     public void onCreate() {
-        Logger.i(this + "--onCreate()");
+        Logger.d(this + "--onCreate()");
         super.onCreate();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Logger.i(this + "--onStartCommand()");
+        Logger.d(this + "--onStartCommand()");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Logger.i(this + "--onBind()");
+        Logger.d(this + "--onBind()");
         return mBinder;
     }
 
     @Override
     public void onDestroy() {
-        Logger.i(this + "--onDestroy()");
+        Logger.d(this + "--onDestroy()");
         super.onDestroy();
     }
 

@@ -26,9 +26,9 @@ public class CloneActivity extends BaseActivity {
         TestModel simple = (TestModel) testModel.simpleClone();
         TestModel deep = (TestModel) testModel.deepClone();
 
-        Logger.i("原始数据---" + testModel);
-        Logger.i("浅克隆---" + simple);
-        Logger.i("深克隆---" + deep);
+        Logger.d("原始数据---" + testModel);
+        Logger.d("浅克隆---" + simple);
+        Logger.d("深克隆---" + deep);
 
         TestModel simple2 = (TestModel) testModel.simpleClone();
         simple2.setMsg("123");
@@ -38,9 +38,9 @@ public class CloneActivity extends BaseActivity {
         deep2.setMsg("123123");
         deep2.setCode("302");
 
-        Logger.i("原始数据---" + testModel);
-        Logger.i("浅克隆---" + simple2);
-        Logger.i("深克隆---" + deep2);
+        Logger.d("原始数据---" + testModel);
+        Logger.d("浅克隆---" + simple2);
+        Logger.d("深克隆---" + deep2);
     }
 
     public static void actionStart(Context activityContext) {

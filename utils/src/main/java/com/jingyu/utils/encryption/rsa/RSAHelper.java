@@ -35,7 +35,7 @@ public class RSAHelper {
                 // 传入编码数据并返回编码结果
                 byte[] result = cipher.doFinal(data.getBytes());
                 String resultStr = (new Base64Helper()).encode(result);
-                Logger.i("myy", resultStr);
+                Logger.d("myy", resultStr);
                 return resultStr;
 
         } catch (Exception e){

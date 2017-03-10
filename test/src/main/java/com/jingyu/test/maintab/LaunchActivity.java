@@ -131,26 +131,26 @@ public class LaunchActivity extends BaseActivity {
 
     // 设备启动时，输出设备与app的基本信息
     public void simpleDeviceInfo() {
-        Logger.i("域名环境--" + Config.CURRENT_RUN_ENVIRONMENT);
+        Logger.d("域名环境--" + Config.CURRENT_RUN_ENVIRONMENT);
 
-        Logger.i("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
-        Logger.i("model--" + UtilSystem.getModel());
-        Logger.i("operatorName--" + UtilSystem.getOperatorName(getApplicationContext()));
-        Logger.i("osversion--" + UtilSystem.getOSVersion());
-        Logger.i("osversionsdkint--" + UtilSystem.getOSVersionSDKINT());
-        Logger.i("phonebrand--" + UtilSystem.getPhoneBrand());
-        Logger.i("simNum--" + UtilSystem.getSimSerialNum(getApplicationContext()));
-        Logger.i("language--" + UtilSystem.getSysLanguage());
-        Logger.i("versionCode--" + UtilSystem.getVersionCode(getApplicationContext()));
-        Logger.i("versionName--" + UtilSystem.getVersionName(getApplicationContext()));
+        Logger.d("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
+        Logger.d("model--" + UtilSystem.getModel());
+        Logger.d("operatorName--" + UtilSystem.getOperatorName(getApplicationContext()));
+        Logger.d("osversion--" + UtilSystem.getOSVersion());
+        Logger.d("osversionsdkint--" + UtilSystem.getOSVersionSDKINT());
+        Logger.d("phonebrand--" + UtilSystem.getPhoneBrand());
+        Logger.d("simNum--" + UtilSystem.getSimSerialNum(getApplicationContext()));
+        Logger.d("language--" + UtilSystem.getSysLanguage());
+        Logger.d("versionCode--" + UtilSystem.getVersionCode(getApplicationContext()));
+        Logger.d("versionName--" + UtilSystem.getVersionName(getApplicationContext()));
 
-        Logger.i("screenHeightPx--" + UtilScreen.getScreenHeightPx(getApplicationContext()));
-        Logger.i("screenWidthPx--" + UtilScreen.getScreenWidthPx(getApplicationContext()));
-        Logger.i("getDensity--" + UtilScreen.getDensity(getApplicationContext()));
-        Logger.i("getDensityDpi--" + UtilScreen.getDensityDpi(getApplicationContext()));
-        Logger.i("screenHeightDP--" + UtilScreen.getScreenHeightDP(getApplicationContext()));
-        Logger.i("screenWidthDP--" + UtilScreen.getScreenWidthDP(getApplicationContext()));
-        Logger.i("statusBarHeightPx--" + UtilScreen.getStatusBarHeight(getApplicationContext()));
+        Logger.d("screenHeightPx--" + UtilScreen.getScreenHeightPx(getApplicationContext()));
+        Logger.d("screenWidthPx--" + UtilScreen.getScreenWidthPx(getApplicationContext()));
+        Logger.d("getDensity--" + UtilScreen.getDensity(getApplicationContext()));
+        Logger.d("getDensityDpi--" + UtilScreen.getDensityDpi(getApplicationContext()));
+        Logger.d("screenHeightDP--" + UtilScreen.getScreenHeightDP(getApplicationContext()));
+        Logger.d("screenWidthDP--" + UtilScreen.getScreenWidthDP(getApplicationContext()));
+        Logger.d("statusBarHeightPx--" + UtilScreen.getStatusBarHeight(getApplicationContext()));
     }
 
     // 测试用

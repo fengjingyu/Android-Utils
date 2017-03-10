@@ -363,7 +363,7 @@ public class DbGenerator {
         }
         sb.append("SQLiteDatabase db = getWritableDatabase();\n");
         sb.append("int rows = db.delete(mOperatorTableName, " + where + " ," + whereArgs + ");\n");
-        sb.append("	//Logger.i(\"" + methodName + "()-->\" + rows + \"行\");\n");
+        sb.append("	//Logger.d(\"" + methodName + "()-->\" + rows + \"行\");\n");
         sb.append("db.close();\n");
         sb.append("return rows;\n}\n");
         return sb.toString();
@@ -383,7 +383,7 @@ public class DbGenerator {
         sb.append("SQLiteDatabase db = getWritableDatabase();\n");
         sb.append("ContentValues values = createContentValue(model);\n");
         sb.append("int rows = db.update(mOperatorTableName, values, " + where + " , " + whereArgs + ");\n");
-        sb.append("	//Logger.i(\"" + methodName + "()更新了\" + rows + \"行\");\n");
+        sb.append("	//Logger.d(\"" + methodName + "()更新了\" + rows + \"行\");\n");
         sb.append("db.close();\n");
         sb.append("return rows;\n}\n");
         return sb.toString();
@@ -436,7 +436,7 @@ public class DbGenerator {
                 "                                           ) {\n"
                 + "        try {\n"
                 +
-                "            // Logger.i(\"dbClazz----instanceDb()\");\n"
+                "            // Logger.d(\"dbClazz----instanceDb()\");\n"
                 +
                 "            Constructor constructor = dbClazz.getConstructor(Context.class, String.class);\n"
                 +
@@ -666,7 +666,7 @@ public class DbGenerator {
         sb.append("SQLiteDatabase db = getWritableDatabase();\n");
         sb.append("ContentValues values = createContentValue(model);\n");
         sb.append("long id = db.insert(mOperatorTableName, _ID, values);\n");
-        sb.append("	//Logger.i(\"insert()插入的记录的id是: \" + id);\n");
+        sb.append("	//Logger.d(\"insert()插入的记录的id是: \" + id);\n");
         sb.append("db.close();\n");
         sb.append("return id;\n}\n");
         return sb.toString();
@@ -683,7 +683,7 @@ public class DbGenerator {
 
         sb.append("ContentValues values = createContentValue(model);\n");
         sb.append("long id = db.insert(mOperatorTableName, _ID, values);\n");
-        sb.append("	//Logger.i(\"insert()插入的记录的id是: \" + id);\n");
+        sb.append("	//Logger.d(\"insert()插入的记录的id是: \" + id);\n");
         sb.append("	count++;\n");
         sb.append("}\n");
         sb.append("db.close();\n");

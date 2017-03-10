@@ -27,7 +27,7 @@ public class JsonRespHandler extends BaseRespHandler<JsonModel> {
     @Override
     public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
         return JsonParse.getJsonParseData(respInfo.getDataString(), JsonModel.class);
     }

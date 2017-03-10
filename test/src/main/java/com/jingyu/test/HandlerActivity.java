@@ -89,7 +89,7 @@ public class HandlerActivity extends BaseActivity {
                 mHandler = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
-                        Logger.i(msg.what + this.toString());
+                        Logger.d(msg.what + this.toString());
                         // content.setText("button3 update");// 会crash，ui只能在主线程里更新，这个mHandler不是主线程的
                     }
                 };

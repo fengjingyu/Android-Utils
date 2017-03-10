@@ -50,71 +50,71 @@ public class AIDLService extends Service {
 
         @Override
         public AIDLBean getBeanIn(AIDLBean bean) throws RemoteException {
-            Logger.i("getBeanIn(),in修饰符,服务端接收到" + bean);
+            Logger.d("getBeanIn(),in修饰符,服务端接收到" + bean);
             if (bean == null) {
                 bean = new AIDLBean();
-                Logger.i("getBeanIn(),in修饰符,服务端接收到null,new AIDLBean()");
+                Logger.d("getBeanIn(),in修饰符,服务端接收到null,new AIDLBean()");
             }
             bean.setName("service_in");
-            Logger.i("getBeanIn(),in修饰符,服务端修改返回" + bean);
+            Logger.d("getBeanIn(),in修饰符,服务端修改返回" + bean);
             return bean;
         }
 
         @Override
         public AIDLBean getBeanOut(AIDLBean bean) throws RemoteException {
-            Logger.i("getBeanOut(),out修饰符,服务端接收到" + bean);
+            Logger.d("getBeanOut(),out修饰符,服务端接收到" + bean);
             if (bean == null) {
                 bean = new AIDLBean();
-                Logger.i("getBeanOut(),out修饰符,服务端接收到null,new AIDLBean()");
+                Logger.d("getBeanOut(),out修饰符,服务端接收到null,new AIDLBean()");
             }
             bean.setName("service_out");
-            Logger.i("getBeanOut(),out修饰符,服务端修改返回" + bean);
+            Logger.d("getBeanOut(),out修饰符,服务端修改返回" + bean);
             return bean;
         }
 
         @Override
         public AIDLBean getBeanInOut(AIDLBean bean) throws RemoteException {
-            Logger.i("getBeanInOut(),inout修饰符,服务端接收到" + bean);
+            Logger.d("getBeanInOut(),inout修饰符,服务端接收到" + bean);
             if (bean == null) {
                 bean = new AIDLBean();
-                Logger.i("getBeanInOut(),inout修饰符,服务端接收到null,new AIDLBean()");
+                Logger.d("getBeanInOut(),inout修饰符,服务端接收到null,new AIDLBean()");
             }
             bean.setName("service_inout");
-            Logger.i("getBeanInOut(),inout修饰符,服务端修改返回" + bean);
+            Logger.d("getBeanInOut(),inout修饰符,服务端修改返回" + bean);
             return bean;
         }
 
         @Override
         public void getBeanIn2(AIDLBean bean) throws RemoteException {
-            Logger.i("getBeanIn()2,in修饰符,服务端接收到" + bean);
+            Logger.d("getBeanIn()2,in修饰符,服务端接收到" + bean);
             if (bean == null) {
                 bean = new AIDLBean();
-                Logger.i("getBeanIn()2,in修饰符,服务端接收到null,new AIDLBean()");
+                Logger.d("getBeanIn2(),in修饰符,服务端接收到null,new AIDLBean()");
             }
             bean.setName("service_in2");
-            Logger.i("getBeanIn2(),in修饰符,服务端修改不返回" + bean);
+            Logger.d("getBeanIn2(),in修饰符,服务端修改不返回" + bean);
         }
 
         @Override
         public void getBeanOut2(AIDLBean bean) throws RemoteException {
-            Logger.i("getBeanOut()2,out修饰符,服务端接收到" + bean);
+            Logger.d("getBeanOut()2,out修饰符,服务端接收到" + bean);
             if (bean == null) {
                 bean = new AIDLBean();
-                Logger.i("getBeanOut()2,out修饰符,服务端接收到null,new AIDLBean()");
+                Logger.d("getBeanOut()2,out修饰符,服务端接收到null,new AIDLBean()");
             }
             bean.setName("service_out2");
-            Logger.i("getBeanOut2(),out修饰符,服务端修改不返回" + bean);
+            Logger.d("getBeanOut2(),out修饰符,服务端修改不返回" + bean);
         }
 
         @Override
         public void getBeanInOut2(AIDLBean bean) throws RemoteException {
-            Logger.i("getBeanInOut()2,inout修饰符,服务端接收到" + bean);
+            Logger.d("getBeanInOut()2,inout修饰符,服务端接收到" + bean);
             if (bean == null) {
                 bean = new AIDLBean();
-                Logger.i("getBeanInOut2(),inout修饰符,服务端接收到null,new AIDLBean()");
+                Logger.d("getBeanInOut2(),inout修饰符,服务端接收到null,new AIDLBean()");
             }
             bean.setName("service_inout2");
-            Logger.i("getBeanInOut2(),inout修饰符,服务端修改不返回" + bean);
+            Logger.d("getBeanInOut2(),inout修饰符,服务端修改不返回" + bean);
         }
 
         @Override
@@ -128,7 +128,7 @@ public class AIDLService extends Service {
 
     @Override
     public void onCreate() {
-        Logger.i(this + "--onCreate()");
+        Logger.d(this + "--onCreate()");
         super.onCreate();
 
         list.add("a");
@@ -138,19 +138,19 @@ public class AIDLService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Logger.i(this + "--onStartCommand()");
+        Logger.d(this + "--onStartCommand()");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Logger.i(this + "--onBind()");
+        Logger.d(this + "--onBind()");
         return aidlBinder;
     }
 
     @Override
     public void onDestroy() {
-        Logger.i(this + "--onDestroy()");
+        Logger.d(this + "--onDestroy()");
         super.onDestroy();
     }
 

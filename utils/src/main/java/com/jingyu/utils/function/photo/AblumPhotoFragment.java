@@ -67,7 +67,7 @@ public class AblumPhotoFragment extends PlusFragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Logger.i(this + "--onRequestPermissionsResult");
+        Logger.d(this + "--onRequestPermissionsResult");
         switch (requestCode) {
             case REQUEST_CODE_ABLUM_PERMISSIONS: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -121,7 +121,7 @@ public class AblumPhotoFragment extends PlusFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Logger.i(this + "--onActivityResult--" + (data == null ? "data为null" : ""));
+        Logger.d(this + "--onActivityResult--" + (data == null ? "data为null" : ""));
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case ABLUM_REQUEST_CODE:

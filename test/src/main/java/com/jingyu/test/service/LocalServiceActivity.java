@@ -28,7 +28,7 @@ public class LocalServiceActivity extends BaseActivity implements View.OnClickLi
         public void onServiceConnected(ComponentName name, IBinder service) {
             myServiceBinder = (LocalService.LocalBinder) service;
             mBound = true;
-            Logger.i(this + "--onServiceConnected--" + myServiceBinder.getService().getInfo());
+            Logger.d(this + "--onServiceConnected--" + myServiceBinder.getService().getInfo());
         }
 
         // 这个如果是系统kill才会调用
@@ -36,7 +36,7 @@ public class LocalServiceActivity extends BaseActivity implements View.OnClickLi
         public void onServiceDisconnected(ComponentName name) {
             myServiceBinder = null;
             mBound = false;
-            Logger.i(this + "--onServiceDisconnected--" + name);
+            Logger.d(this + "--onServiceDisconnected--" + name);
         }
     };
 

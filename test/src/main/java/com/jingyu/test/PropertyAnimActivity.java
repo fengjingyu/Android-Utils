@@ -239,7 +239,7 @@ public class PropertyAnimActivity extends BaseActivity {
         final float b = (y1 - y2) / (x1 - x2) - a * (x1 + x2);
         final float c = y1 - (x1 * x1) * a - x1 * b;
 
-        Logger.i("-a->" + a + " b->" + b + " c->" + c);
+        Logger.d("-a->" + a + " b->" + b + " c->" + c);
     }
 
     public static void actionStart(Context activityContext) {

@@ -41,7 +41,7 @@ public abstract class PlusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            Logger.i(this + "回收后重新创建了");
+            Logger.d(this + "回收后重新创建了");
         }
 
         ActivityCollector.addActivityToStack(this);

@@ -45,10 +45,10 @@ public class SPActivity extends BaseActivity {
     private void save() {
 
         Sp.setUserName("小明");
-        Logger.i(Sp.getUserName());
+        Logger.d(Sp.getUserName());
 
         Sp.setUserPhoneNum("1234567");
-        Logger.i(Sp.getUserPhoneNum());
+        Logger.d(Sp.getUserPhoneNum());
 
 
         Set<String> set = new HashSet<>();

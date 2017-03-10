@@ -41,7 +41,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onReadySendRequest(ReqInfo reqInfo) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
 
         setHttpHeaders(reqInfo);
         setSendTime(reqInfo);
@@ -74,7 +74,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
      */
     @Override
     public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
 
         //TODO 解析规则
         if (resultBean instanceof IHttpRespInfo) {
@@ -99,29 +99,29 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onSuccessButParseWrong(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "--onSuccessButParseWrong()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onSuccessButParseWrong()");
     }
 
     @Override
     public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "--onSuccessButCodeWrong()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onSuccessButCodeWrong()");
     }
 
     @Override
     public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "--onSuccessAll()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onSuccessAll()");
     }
 
     @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "--onFailure()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onFailure()");
 
         Logger.shortToast("网络有误");
     }
 
     @Override
     public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "--onEnd()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onEnd()");
         closeDialog(reqInfo.isShowDialog());
     }
 
@@ -180,6 +180,6 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onProgressing(ReqInfo reqInfo, long bytesWritten, long totalSize, double percent) {
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "--onProgressing()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onProgressing()");
     }
 }

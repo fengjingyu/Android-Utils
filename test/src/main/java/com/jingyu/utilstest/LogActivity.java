@@ -31,17 +31,17 @@ public class LogActivity extends BaseActivity {
         getViewById(R.id.loggeri).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logger.i(1);
-                Logger.i(null);
-                Logger.i(true);
-                Logger.i(false);
-                Logger.i("demo");
-                Logger.i(new Object());
+                Logger.d(1);
+                Logger.d(null);
+                Logger.d(true);
+                Logger.d(false);
+                Logger.d("demo");
+                Logger.d(new Object());
                 Object obj = null;
-                Logger.i(obj);
+                Logger.d(obj);
 
-                Logger.i(IOHelper.getAllFilesByDirQueue(Config.getAppDir(getApplicationContext())));
-                Logger.i(IOHelper.getFilterFiles(Config.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
+                Logger.d(IOHelper.getAllFilesByDirQueue(Config.getAppDir(getApplicationContext())));
+                Logger.d(IOHelper.getFilterFiles(Config.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
             }
         });
 

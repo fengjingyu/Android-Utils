@@ -144,7 +144,7 @@ public class ModelDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         long id = db.insert(mOperatorTableName, _ID, values);
-        //Logger.i(XCConfig.TAG_DB, "insert()插入的记录的id是: " + id);
+        //Logger.d(XCConfig.TAG_DB, "insert()插入的记录的id是: " + id);
         db.close();
         return id;
     }
@@ -155,7 +155,7 @@ public class ModelDb extends SQLiteOpenHelper {
         for (Model model : list) {
             ContentValues values = createContentValue(model);
             long id = db.insert(mOperatorTableName, _ID, values);
-            //Logger.i( "insert()插入的记录的id是: " + id);
+            //Logger.d( "insert()插入的记录的id是: " + id);
             count++;
         }
         db.close();
@@ -256,7 +256,7 @@ public class ModelDb extends SQLiteOpenHelper {
     public synchronized int deleteOne() {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, NAME + " = 123", null);
-        //Logger.i( "deleteOne()-->" + rows + "行");
+        //Logger.d( "deleteOne()-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -264,7 +264,7 @@ public class ModelDb extends SQLiteOpenHelper {
     public synchronized int deleteTwo(String value1) {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, NAME + " = ?", new String[]{value1});
-        //Logger.i( "deleteTwo()-->" + rows + "行");
+        //Logger.d( "deleteTwo()-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -272,7 +272,7 @@ public class ModelDb extends SQLiteOpenHelper {
     public synchronized int deleteThree() {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, GENDER + " = 1", null);
-        //Logger.i( "deleteThree()-->" + rows + "行");
+        //Logger.d( "deleteThree()-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -280,7 +280,7 @@ public class ModelDb extends SQLiteOpenHelper {
     public synchronized int deleteFour(String value1, String value2) {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, GENDER + " = ? and " + AGE + " = ?", new String[]{value1, value2});
-        //Logger.i( "deleteFour()-->" + rows + "行");
+        //Logger.d( "deleteFour()-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -288,7 +288,7 @@ public class ModelDb extends SQLiteOpenHelper {
     public synchronized int deleteFive() {
         SQLiteDatabase db = getWritableDatabase();
         int rows = db.delete(mOperatorTableName, null, null);
-        //Logger.i( "deleteFive()-->" + rows + "行");
+        //Logger.d( "deleteFive()-->" + rows + "行");
         db.close();
         return rows;
     }
@@ -297,7 +297,7 @@ public class ModelDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         int rows = db.update(mOperatorTableName, values, UNIQUE_ID + " = 123", null);
-        //Logger.i("updateOne()更新了" + rows + "行");
+        //Logger.d("updateOne()更新了" + rows + "行");
         db.close();
         return rows;
     }
@@ -306,7 +306,7 @@ public class ModelDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         int rows = db.update(mOperatorTableName, values, UNIQUE_ID + " = ?", new String[]{value1});
-        //Logger.i("updateTwo()更新了" + rows + "行");
+        //Logger.d("updateTwo()更新了" + rows + "行");
         db.close();
         return rows;
     }
@@ -315,7 +315,7 @@ public class ModelDb extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = createContentValue(model);
         int rows = db.update(mOperatorTableName, values, NAME + " = ?", new String[]{value1});
-        //Logger.i("updateThree()更新了" + rows + "行");
+        //Logger.d("updateThree()更新了" + rows + "行");
         db.close();
         return rows;
     }

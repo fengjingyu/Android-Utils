@@ -67,7 +67,7 @@ public class HttpActivity extends BaseActivity {
             @Override
             public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
                 super.onFailure(reqInfo, respInfo);
-                Logger.i("onFailure");
+                Logger.d("onFailure");
             }
         });
 

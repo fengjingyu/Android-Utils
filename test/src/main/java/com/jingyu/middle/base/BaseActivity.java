@@ -19,7 +19,7 @@ public abstract class BaseActivity extends PlusActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Logger.i(this + "---onCreate");
+        Logger.d(this + "---onCreate");
         super.onCreate(savedInstanceState);
         initReceiver();
     }
@@ -63,61 +63,61 @@ public abstract class BaseActivity extends PlusActivity {
     @Override
     protected void onDestroy() {
         unbindReceiver();
-        Logger.i(this + "---onDestroy");
+        Logger.d(this + "---onDestroy");
         super.onDestroy();
     }
 
     @Override
     protected void onStart() {
-        Logger.i(this + "---onStart");
+        Logger.d(this + "---onStart");
         super.onStart();
     }
 
     @Override
     protected void onResume() {
-        Logger.i(this + "---onResume");
+        Logger.d(this + "---onResume");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        Logger.i(this + "---onPause");
+        Logger.d(this + "---onPause");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        Logger.i(this + "---onStop");
+        Logger.d(this + "---onStop");
         super.onStop();
     }
 
     @Override
     protected void onRestart() {
-        Logger.i(this + "---onRestart");
+        Logger.d(this + "---onRestart");
         super.onRestart();
     }
 
     @Override
     public void finish() {
-        Logger.i(this + "---finish");
+        Logger.d(this + "---finish");
         super.finish();
     }
 
     @Override
     public void onBackPressed() {
-        Logger.i(this + "---onBackPressed");
+        Logger.d(this + "---onBackPressed");
         super.onBackPressed();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        Logger.i(this + "---onNewIntent");
+        Logger.d(this + "---onNewIntent");
         super.onNewIntent(intent);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Logger.i(this + "---onSaveInstanceState");
+        Logger.d(this + "---onSaveInstanceState");
         super.onSaveInstanceState(outState);
     }
 }

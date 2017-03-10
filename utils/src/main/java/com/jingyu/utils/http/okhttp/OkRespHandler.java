@@ -56,7 +56,7 @@ public class OkRespHandler<T> implements Callback {
             respInfo.setRespType(RespType.FAILURE);
             respInfo.setThrowable(e);
 
-            Logger.i(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
+            Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
             respInfo.getThrowable().printStackTrace();
             printHeaderInfo(respInfo.getRespHeaders());
 
@@ -67,7 +67,7 @@ public class OkRespHandler<T> implements Callback {
             // 回调到uithread
             handleFailOnUiThread(respInfo);
         } else {
-            Logger.i(TAG_HTTP, "onFailure--->respHandler" + LINE + reqInfo);
+            Logger.d(TAG_HTTP, "onFailure--->respHandler" + LINE + reqInfo);
         }
 
     }
@@ -88,7 +88,7 @@ public class OkRespHandler<T> implements Callback {
             respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
             respInfo.setThrowable(null);
 
-            Logger.i(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
+            Logger.d(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
             // 打印头信息
             printHeaderInfo(respInfo.getRespHeaders());
             // 是否拦截或修改原始的resp
@@ -100,7 +100,7 @@ public class OkRespHandler<T> implements Callback {
             // 回调到uithread
             handleSuccessOnUiThread(resultBean, respInfo);
         } else {
-            Logger.i(TAG_HTTP, "onSuccess--->respHandler为空" + LINE + reqInfo);
+            Logger.d(TAG_HTTP, "onSuccess--->respHandler为空" + LINE + reqInfo);
         }
 
     }
@@ -176,7 +176,7 @@ public class OkRespHandler<T> implements Callback {
                 List<String> values = header.getValue();
 
                 if (UtilCollections.isListAvaliable(values)) {
-                    Logger.i(TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
+                    Logger.d(TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
         }
@@ -195,7 +195,7 @@ public class OkRespHandler<T> implements Callback {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            Logger.i(TAG_HTTP, this + IOHelper.LINE_SEPARATOR + reqInfo + IOHelper.LINE_SEPARATOR);
+            Logger.d(TAG_HTTP, this + IOHelper.LINE_SEPARATOR + reqInfo + IOHelper.LINE_SEPARATOR);
 
             Logger.logFormatContent(TAG_HTTP, "", respInfo.getDataString());
 

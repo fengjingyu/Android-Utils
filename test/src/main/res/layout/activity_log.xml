@@ -21,7 +21,7 @@
         android:id="@+id/loggeri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logger.i"
+        android:text="Logger.d"
         android:textAllCaps="false" />
 
     <Button

@@ -27,42 +27,42 @@ public class MyTextView extends TextView {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        Logger.i(this + "--onFinishInflate");
+        Logger.d(this + "--onFinishInflate");
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        Logger.i(this + "--onAttachedToWindow");
+        Logger.d(this + "--onAttachedToWindow");
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        Logger.i(this + "--onMeasure");
+        Logger.d(this + "--onMeasure");
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        Logger.i(this + "--onLayout");
+        Logger.d(this + "--onLayout");
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Logger.i(this + "--onDraw");
+        Logger.d(this + "--onDraw");
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Logger.i(this + "--onSizeChanged");
+        Logger.d(this + "--onSizeChanged");
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
-        Logger.i(this + "--onWindowFocusChanged");
+        Logger.d(this + "--onWindowFocusChanged");
     }
 }

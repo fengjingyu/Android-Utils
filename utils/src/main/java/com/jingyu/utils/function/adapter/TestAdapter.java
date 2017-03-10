@@ -36,9 +36,9 @@ public class TestAdapter extends PlusAdapter<String> {
         }
         String bean = list.get(position);
         if (convertView == null) {
-            Logger.i("convertView==null?--true" + position);
+            Logger.d("convertView==null?--true" + position);
         } else {
-            Logger.i("convertView==null?--false" + position + convertView.toString());
+            Logger.d("convertView==null?--false" + position + convertView.toString());
         }
         if (convertView == null) {
             TextView textView = new TextView(context);

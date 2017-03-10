@@ -136,7 +136,7 @@ public class ContactsActivity extends BaseActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Logger.i(list);
+                        Logger.d(list);
 
                         // 创建adapter
                         ContactsAdapter adpater = new ContactsAdapter(getActivity(), list);

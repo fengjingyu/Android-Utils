@@ -62,7 +62,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respInfo.setDataBytes(bytes);
                     respInfo.setDataString(bytes);
 
-                    Logger.i(TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
+                    Logger.d(TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
                     // 打印头信息
                     printHeaderInfo(respInfo.getRespHeaders());
                     // 是否拦截或修改原始的resp
@@ -77,7 +77,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
             });
 
         } else {
-            Logger.i(TAG_HTTP, "onSuccess--->respHandler为null" + LINE + reqInfo);
+            Logger.d(TAG_HTTP, "onSuccess--->respHandler为null" + LINE + reqInfo);
         }
 
     }
@@ -99,7 +99,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respInfo.setRespType(RespType.FAILURE);
                     respInfo.setThrowable(throwable);
 
-                    Logger.i(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + LINE + respInfo.getThrowable());
+                    Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + LINE + respInfo.getThrowable());
                     respInfo.getThrowable().printStackTrace();
                     printHeaderInfo(respInfo.getRespHeaders());
 
@@ -112,7 +112,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                 }
             });
         } else {
-            Logger.i(TAG_HTTP, "onFailure--->respHandler为null" + LINE + reqInfo);
+            Logger.d(TAG_HTTP, "onFailure--->respHandler为null" + LINE + reqInfo);
         }
     }
 
@@ -204,7 +204,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                 List<String> values = header.getValue();
 
                 if (UtilCollections.isListAvaliable(values)) {
-                    Logger.i(TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
+                    Logger.d(TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
         }
@@ -223,7 +223,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            Logger.i(TAG_HTTP, this + LINE + IOHelper.LINE_SEPARATOR + reqInfo + IOHelper.LINE_SEPARATOR);
+            Logger.d(TAG_HTTP, this + LINE + IOHelper.LINE_SEPARATOR + reqInfo + IOHelper.LINE_SEPARATOR);
 
             Logger.logFormatContent(TAG_HTTP, "", respInfo.getDataString());
 

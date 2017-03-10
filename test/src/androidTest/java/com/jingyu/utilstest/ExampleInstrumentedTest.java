@@ -43,13 +43,13 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testRuntime() {
-        Logger.i("Runtime.getRuntime().availableProcessors()--" + Runtime.getRuntime().availableProcessors());
-        Logger.i("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory() / Math.pow(2, 30));
+        Logger.d("Runtime.getRuntime().availableProcessors()--" + Runtime.getRuntime().availableProcessors());
+        Logger.d("Runtime.getRuntime().maxMemory()--" + Runtime.getRuntime().maxMemory() / Math.pow(2, 30));
     }
 
     @Test
     public void testUUID() {
-        Logger.i("UUID----" + UUID.randomUUID() + "----" + UUID.randomUUID().toString().length());
+        Logger.d("UUID----" + UUID.randomUUID() + "----" + UUID.randomUUID().toString().length());
     }
 
     @Test
@@ -59,19 +59,19 @@ public class ExampleInstrumentedTest {
         queue.add("b");
         queue.add("c");
         queue.add("d");
-        //Logger.i(queue.take()); // a  //take 类似 poll remove
-        //Logger.i(queue.take()); // b
-        //Logger.i(queue.take()); // c
-        //Logger.i(queue.take()); // d
+        //Logger.d(queue.take()); // a  //take 类似 poll remove
+        //Logger.d(queue.take()); // b
+        //Logger.d(queue.take()); // c
+        //Logger.d(queue.take()); // d
 
-        Logger.i(queue.peek()); //a  // peek 类似 element
-        Logger.i(queue.peek()); //a
-        Logger.i(queue.peek()); //a
-        Logger.i(queue.peek()); //a
+        Logger.d(queue.peek()); //a  // peek 类似 element
+        Logger.d(queue.peek()); //a
+        Logger.d(queue.peek()); //a
+        Logger.d(queue.peek()); //a
         queue.remove("a");
-        Logger.i(queue.peek()); //b
-        Logger.i(queue.peek()); //b
-        Logger.i(queue.peek()); //b
+        Logger.d(queue.peek()); //b
+        Logger.d(queue.peek()); //b
+        Logger.d(queue.peek()); //b
     }
 
     @Test
@@ -82,19 +82,19 @@ public class ExampleInstrumentedTest {
         List beans = bean.getListList("data", new ArrayList<ArrayList>());
 
         try {
-            Logger.i(beans.toString());
-            Logger.i(beans.get(0).toString());
+            Logger.d(beans.toString());
+            Logger.d(beans.get(0).toString());
             if (beans.get(0) instanceof List) {
-                Logger.i("List");
+                Logger.d("List");
             } else if (beans.get(0) instanceof String[]) {
-                Logger.i("string[]");
+                Logger.d("string[]");
             } else {
-                Logger.i(beans.get(0).getClass().toString());
+                Logger.d(beans.get(0).getClass().toString());
 
                 JSONArray array = (JSONArray) beans.get(0);
                 int count = array.length();
                 for (int i = 0; i < count; i++) {
-                    Logger.i(array.get(i));
+                    Logger.d(array.get(i));
                 }
             }
         } catch (Exception e) {
@@ -117,12 +117,12 @@ public class ExampleInstrumentedTest {
 
         List<TestModel> sub = list.subList(0, 2);
 
-        Logger.i("list", list.size());//4
-        Logger.i("list", sub.size());//2
-        Logger.i("list", list.get(0));//相同@1234567
-        Logger.i("list", sub.get(0));//相同@1234567
-        Logger.i("list", list.get(1));//相同@0123456
-        Logger.i("list", sub.get(1));//相同@0123456
+        Logger.d("list", list.size());//4
+        Logger.d("list", sub.size());//2
+        Logger.d("list", list.get(0));//相同@1234567
+        Logger.d("list", sub.get(0));//相同@1234567
+        Logger.d("list", list.get(1));//相同@0123456
+        Logger.d("list", sub.get(1));//相同@0123456
     }
 
     @Test

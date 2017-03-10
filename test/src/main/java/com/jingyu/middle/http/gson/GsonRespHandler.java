@@ -31,7 +31,7 @@ public class GsonRespHandler<T> extends BaseRespHandler<T> {
     @Override
     public T onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
 
-        Logger.i(TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
+        Logger.d(TAG_RESP_HANDLER, this.toString() + "-----parseWay()");
 
         return GsonParse.fromJson(respInfo.getDataString(), clazz);
     }

@@ -91,7 +91,7 @@ public class DialogManager {
         if (isAllRequestEnd()) {
             // 没有正在进行的请求 或 所有已发出的请求都已返回
             mHttpDialog.show();
-            Logger.i(TAG_RESP_HANDLER, this.toString() + "---showHttpDialog()");
+            Logger.d(TAG_RESP_HANDLER, this.toString() + "---showHttpDialog()");
         } else {
             // 有转dialog的请求未返回,页面正在转dialog
         }
@@ -117,7 +117,7 @@ public class DialogManager {
     private void closeHttpDialog() {
         if (mHttpDialog != null && mHttpDialog.isShowing()) {
             mHttpDialog.cancel();
-            Logger.i(TAG_RESP_HANDLER, this.toString() + "---closeHttpDialog()");
+            Logger.d(TAG_RESP_HANDLER, this.toString() + "---closeHttpDialog()");
         }
     }
 

@@ -98,28 +98,28 @@ public class UtilNet {
             int currentNetWork = ni.getType();
             if (currentNetWork == ConnectivityManager.TYPE_MOBILE) {
                 if (ni.getExtraInfo() != null && ni.getExtraInfo().equals("cmwap")) {
-                    Logger.i("", "当前网络为:cmwap网络");
+                    Logger.d("", "当前网络为:cmwap网络");
                     return TYPE_MOBILE_CMWAP;
                 } else if (ni.getExtraInfo() != null && ni.getExtraInfo().equals("uniwap")) {
-                    Logger.i("", "当前网络为:uniwap网络");
+                    Logger.d("", "当前网络为:uniwap网络");
                     return TYPE_MOBILE_CMWAP;
                 } else if (ni.getExtraInfo() != null && ni.getExtraInfo().equals("3gwap")) {
-                    Logger.i("", "当前网络为:3gwap网络");
+                    Logger.d("", "当前网络为:3gwap网络");
                     return TYPE_MOBILE_CMWAP;
                 } else if (ni.getExtraInfo() != null && ni.getExtraInfo().contains("ctwap")) {
-                    Logger.i("", "当前网络为:" + ni.getExtraInfo() + "网络");
+                    Logger.d("", "当前网络为:" + ni.getExtraInfo() + "网络");
                     return TYPE_MOBILE_CTWAP;
                 } else {
-                    Logger.i("", "当前网络为:net网络");
+                    Logger.d("", "当前网络为:net网络");
                     return TYPE_MOBILE_CMNET;
                 }
 
             } else if (currentNetWork == ConnectivityManager.TYPE_WIFI) {
-                Logger.i("", "当前网络为:WIFI网络");
+                Logger.d("", "当前网络为:WIFI网络");
                 return TYPE_WIFI;
             }
         }
-        Logger.i("", "当前网络为:不是我们考虑的网络");
+        Logger.d("", "当前网络为:不是我们考虑的网络");
         return TYPE_NO;
     }
 

@@ -37,22 +37,22 @@ public class DestroyGCActivity extends BaseActivity {
                     e.printStackTrace();
                 }
 
-                Logger.i(imageView);
-                Logger.i(i);
+                Logger.d(imageView);
+                Logger.d(i);
 
                 System.gc();
                 System.gc();
 
-                Logger.i(ablumPhotoFragment.toString());
-                Logger.i(ablumPhotoFragment.getActivity());
+                Logger.d(ablumPhotoFragment.toString());
+                Logger.d(ablumPhotoFragment.getActivity());
 
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Logger.i("handler --" + imageView); // 不为空
-                        Logger.i("handler --" + i);// 不为空
-                        Logger.i("handler --" + ablumPhotoFragment.toString()); // 不为空
-                        Logger.i("handler --" + ablumPhotoFragment.getActivity()); // 空
+                        Logger.d("handler --" + imageView); // 不为空
+                        Logger.d("handler --" + i);// 不为空
+                        Logger.d("handler --" + ablumPhotoFragment.toString()); // 不为空
+                        Logger.d("handler --" + ablumPhotoFragment.getActivity()); // 空
                     }
                 }, 10000);
 
@@ -63,7 +63,7 @@ public class DestroyGCActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Logger.i(this + "--onDestroy()");
+        Logger.d(this + "--onDestroy()");
     }
 
     public static void actionStart(Context activityContext) {

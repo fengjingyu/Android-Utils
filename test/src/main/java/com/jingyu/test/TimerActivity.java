@@ -56,12 +56,12 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
         final CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                Logger.i(millisUntilFinished);
+                Logger.d(millisUntilFinished);
             }
 
             @Override
             public void onFinish() {
-                Logger.i("countDownTimer--onEnd");
+                Logger.d("countDownTimer--onEnd");
             }
         };
         countDownTimer.start();
@@ -97,14 +97,14 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
         scheduled.schedule(new Runnable() {
             @Override
             public void run() {
-                Logger.i("5秒后执行一次");
+                Logger.d("5秒后执行一次");
             }
         }, 5, TimeUnit.SECONDS);
 
         scheduled.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
-                Logger.i("2秒后开始执行，每隔6秒执行一次");
+                Logger.d("2秒后开始执行，每隔6秒执行一次");
             }
         }, 2, 6, TimeUnit.SECONDS);
     }

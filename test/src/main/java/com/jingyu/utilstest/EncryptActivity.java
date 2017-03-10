@@ -27,25 +27,25 @@ public class EncryptActivity extends BaseActivity {
     private void testEncrypt() {
         String one = Md5Helper.MD5Encode("123456abc");
         String two = Md5Helper.MD5Encode2("123456abc");
-        Logger.i(one);
-        Logger.i(two);
-        Logger.i(UtilString.equals(one, two)); // true
+        Logger.d(one);
+        Logger.d(two);
+        Logger.d(UtilString.equals(one, two)); // true
 
         String des_close = DesEncryptAndDecrypt.encodeRequestStr("today is haha 123");
         String des_open = DesEncryptAndDecrypt.decodeResponseStr(des_close);
-        Logger.i(des_close);
-        Logger.i(des_open);
+        Logger.d(des_close);
+        Logger.d(des_open);
 
         String aes_close = AesEncryptAndDecrypt.encodeRequestStr("computer 123 macpro");
         String aes_open = AesEncryptAndDecrypt.decodeResponseStr(aes_close);
-        Logger.i(aes_close);
-        Logger.i(aes_open);
+        Logger.d(aes_close);
+        Logger.d(aes_open);
 
         try {
             String base64_e = Base64Helper.encode("123  HEHE".getBytes());
             String base64_d = new String(Base64Helper.decode(base64_e), "utf-8");
-            Logger.i(base64_e);
-            Logger.i(base64_d);
+            Logger.d(base64_e);
+            Logger.d(base64_d);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,8 +53,8 @@ public class EncryptActivity extends BaseActivity {
         try {
             String base64_e = new String(Base64.encode("123  HEHE".getBytes(), Base64.DEFAULT), "utf-8");
             String base64_d = new String(Base64.decode(base64_e.getBytes(), Base64.DEFAULT), "utf-8");
-            Logger.i(base64_e);
-            Logger.i(base64_d);
+            Logger.d(base64_e);
+            Logger.d(base64_d);
         } catch (Exception e) {
             e.printStackTrace();
         }

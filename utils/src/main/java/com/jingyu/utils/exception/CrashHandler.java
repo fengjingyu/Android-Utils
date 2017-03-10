@@ -83,13 +83,15 @@ public class CrashHandler implements UncaughtExceptionHandler {
     }
 
     public CrashHandler init(Application app, boolean isShowExceptionActivity, File crashDir) {
+        if (app == null) {
+            throw new RuntimeException(CrashHandler.class.getSimpleName() + "初始化的参数为null");
+        }
         application = app;
         mIsShowExceptionActivity = isShowExceptionActivity;
         mCrashDir = crashDir;
         exceptionDb = ExceptionDb.getInstance(application);
         defaultUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(this);
-
         return INSTANCE;
     }
 

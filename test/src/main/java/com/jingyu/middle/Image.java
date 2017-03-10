@@ -66,7 +66,7 @@ public class Image {
             //.displayer(new RoundedBitmapDisplayer(50))//圆形图片,这个不要与RoundImageView同时使用
             .displayer(new SimpleBitmapDisplayer())
 
-            .build();// 构建完成
+            .build();
 
     public static void initImage(Application application) {
         ImageLoader.getInstance().init(new ImageLoaderConfiguration.Builder(application)

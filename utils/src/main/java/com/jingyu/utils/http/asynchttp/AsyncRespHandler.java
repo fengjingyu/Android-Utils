@@ -3,16 +3,16 @@ package com.jingyu.utils.http.asynchttp;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.jingyu.utils.function.ExecutorManager;
-import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.IOHelper;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.function.ThreadHelper;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.http.RespType;
 import com.jingyu.utils.util.UtilCollections;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
 
         if (respHandler != null) {
             // 子线程中解析
-            ExecutorManager.getFix().execute(new Runnable() {
+            ThreadHelper.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
                     RespInfo respInfo = new RespInfo();
@@ -87,7 +87,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
 
         if (respHandler != null) {
             // 在子线程中执行
-            ExecutorManager.getFix().execute(new Runnable() {
+            ThreadHelper.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
                     RespInfo respInfo = new RespInfo();

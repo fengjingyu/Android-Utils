@@ -20,8 +20,8 @@ import android.widget.TextView;
 
 import com.jingyu.middle.Image;
 import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.utils.function.ExecutorManager;
 import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.function.ThreadHelper;
 import com.jingyu.utils.function.adapter.PlusAdapter;
 import com.jingyu.utils.util.UtilView;
 
@@ -117,7 +117,7 @@ public class ContactsActivity extends BaseActivity {
         dialog.setCancelable(false);
         dialog.show();
 
-        ExecutorManager.getCache().execute(new Runnable() {
+        ThreadHelper.getCache().execute(new Runnable() {
             @Override
             public void run() {
                 Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);

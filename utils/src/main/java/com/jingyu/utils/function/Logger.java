@@ -27,16 +27,15 @@ public class Logger {
     public static final String TAG_SYSTEM_OUT = "System.out";
 
     public static final int ALL = 0;
-    public static final int DEBUG = 2;
-    public static final int INFO = 3;
-    public static final int ERROR = 5;
-    public static final int NOTHING = 7;
+    public static final int DEBUG = 3;
+    public static final int INFO = 4;
+    public static final int ERROR = 6;
+    public static final int NOTHING = 9;
+
+    private Logger() {
+    }
 
     private static Options options = new Options();
-    /**
-     * 记录上一次吐司的时间,屏蔽连续吐司
-     */
-    private static long recordLastToastTime;
 
     private static Application application;
 
@@ -93,11 +92,17 @@ public class Logger {
     }
 
     public static void initLog(Application application, Options options) {
-        Logger.application = application;
-        if (options != null) {
-            Logger.options = options;
+        if (application == null || options == null) {
+            throw new RuntimeException("Logger初始化的参数不能为null");
         }
+        Logger.application = application;
+        Logger.options = options;
     }
+
+    /**
+     * 记录上一次吐司的时间,屏蔽连续吐司
+     */
+    private static long recordLastToastTime;
 
     public static void longToast(Object msg) {
         longToast(false, msg);
@@ -172,18 +177,22 @@ public class Logger {
     private static final String ARROW = ">>";
 
     public static void e(Object msg, Exception e) {
+        String result = "";
+
         if (e != null) {
             e.printStackTrace();
+            result = Log.getStackTraceString(e);
         }
-        String content = ARROW + msg + LINE + e;
+
+        result = ARROW + msg + LINE + e + LINE + result;
         if (options.isShowDebugToast) {
-            longToast(true, content);
+            longToast(true, result);
         }
         if (options.consoleLogLevel <= ERROR) {
-            Log.e(TAG_SYSTEM_OUT, content);
+            Log.e(TAG_SYSTEM_OUT, result);
         }
         if (options.isErrorLog2File) {
-            write(content, true);
+            write(result, true);
         }
     }
 

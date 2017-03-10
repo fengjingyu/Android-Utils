@@ -19,7 +19,7 @@ import java.util.Map;
  * @description
  */
 public class ExceptionDb extends SQLiteOpenHelper {
-    public static final String TAG = "ExceptionDb";
+    public static final String TAG = ExceptionDb.class.getSimpleName();
 
     public static String mDefaultDbName = "exception.db";
     public static int mVersion = 1;

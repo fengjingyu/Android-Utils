@@ -54,7 +54,7 @@ public class DirActivity extends AppCompatActivity {
         log("DirHelper.Internal.getCacheDir(this)", DirHelper.Internal.getCacheDir(this), true);
         log("DirHelper.Internal.getFilesDir(this)", DirHelper.Internal.getFilesDir(this), true);
         log("DirHelper.Internal.getPackageDir(this)", DirHelper.Internal.getDir(this, ""), true);
-        log("DirHelper.Internal.getAppDir(this, \"dir_05\")", DirHelper.Internal.getAppDir(this, "dir_05"), true);
+        //log("DirHelper.Internal.getAppDir(this, \"dir_05\")", DirHelper.Internal.getAppDir(this, "dir_05"), true);
         log("DirHelper.Internal.getFile(this, \"dir_06\", \"file_01\")", DirHelper.Internal.getFile(this, "dir_06", "file_01"), false);
         log("DirHelper.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", DirHelper.Internal.getFile(this, "dir_07/dir_08", "file_02"), false);
         log("DirHelper.Internal.getFile(this, \"lib\", \"file_03\")", DirHelper.Internal.getFile(this, "lib/dir_09/dir_10", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了

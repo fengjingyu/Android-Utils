@@ -196,11 +196,12 @@ public class Logger {
         }
     }
 
-    public static synchronized void deleteLogFile() {
+    public static synchronized boolean deleteLogFile() {
         File file = options.getErrorLogFile();
         if (file != null && file.exists()) {
-            file.delete();
+            return file.delete();
         }
+        return false;
     }
 
     private static synchronized void write(String content, boolean is_append) {

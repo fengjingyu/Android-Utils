@@ -14,7 +14,7 @@ import android.support.annotation.NonNull;
 import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
-import com.jingyu.utils.function.IOHelper;
+import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilBitmap;
 import com.jingyu.utils.util.UtilDate;
@@ -147,7 +147,7 @@ public class AblumPhotoFragment extends PlusFragment {
     private boolean uri2AblumOutputFile(Uri uri) {
         if (uri != null) {
             if ((ablumOutputFile = createAblumOutputFile()) != null && ablumOutputFile.exists()) {
-                return IOHelper.inputStream2File(IOHelper.getUriInputStream(getActivity(), uri), ablumOutputFile);
+                return UtilIo.inputStream2File(UtilIo.getUriInputStream(getActivity(), uri), ablumOutputFile);
             }
         }
         return false;
@@ -169,8 +169,8 @@ public class AblumPhotoFragment extends PlusFragment {
         try {
             Uri uri = isResizeImage ? Uri.fromFile(cropOutputFile) : Uri.fromFile(ablumOutputFile);
             // 像素尺寸压缩
-            int sampleSize = UtilBitmap.calculateInSampleSize(IOHelper.getUriInputStream(getActivity(), uri), 300, 300);
-            bitmap = UtilBitmap.decodeStream(IOHelper.getUriInputStream(getActivity(), uri), Bitmap.Config.RGB_565, sampleSize);
+            int sampleSize = UtilBitmap.calculateInSampleSize(UtilIo.getUriInputStream(getActivity(), uri), 300, 300);
+            bitmap = UtilBitmap.decodeStream(UtilIo.getUriInputStream(getActivity(), uri), Bitmap.Config.RGB_565, sampleSize);
             // 占用磁盘空间压缩
             result = UtilBitmap.compressBitmap(bitmap, smallOutputFile, 60);
 

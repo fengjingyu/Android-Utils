@@ -1,4 +1,4 @@
-package com.jingyu.utils.function;
+package com.jingyu.utils.util;
 
 import android.content.Context;
 import android.net.Uri;
@@ -30,7 +30,7 @@ import java.util.Properties;
  * @author fengjingyu@foxmail.com
  * @description
  */
-public class IOHelper {
+public class UtilIo {
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");// （windows:"\r\n"；unix:"\n"）； System.out.println()
     //public static final String PATH_SEPARATOR = System.getProperty("path.separator");// （windows:";"；unix:":"）；File.pathSeparator 环境变量
@@ -260,7 +260,8 @@ public class IOHelper {
             for (String line; (line = reader.readLine()) != null; ) {
                 writer.println(line);
             }
-            return true;
+
+            return !writer.checkError();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -517,9 +518,9 @@ public class IOHelper {
     }
 
     /**
-     * 从内部存储读文件,文件在/data/data/"PACKAGE_NAME"/files/filename
+     * 从内部存的files文件夹里读取文件 即 /data/data/"PACKAGE_NAME"/files/filename
      *
-     * @param fileName 文件名 如 "android.txt" 不可以是"aa/bb.txt",系统只提供了"android.txt"方式的api
+     * @param fileName 文件名 如 "aa.txt" 不可以是"aa/bb.txt",这个openFileInput方法只提供了"aa.txt"方式,即不含文件分隔符
      */
     @Nullable
     public static String getInternalFilesString(Context context, String fileName) {

@@ -207,15 +207,15 @@ public class DirHelper {
             return null;
         }
 
-        /**
-         * @return Android/data/<package>/files/DCIM
-         */
-        public static File getDCIMDir(Context context) {
-            if (isSDcardExist()) {
-                return context.getExternalFilesDir(Environment.DIRECTORY_DCIM);
-            }
-            return null;
-        }
+//        /**
+//         * @return Android/data/<package>/files/DCIM
+//         */
+//        public static File getDCIMDir(Context context) {
+//            if (isSDcardExist()) {
+//                return context.getExternalFilesDir(Environment.DIRECTORY_DCIM);
+//            }
+//            return null;
+//        }
 
     }
 
@@ -310,16 +310,16 @@ public class DirHelper {
             return null;
         }
 
-        /**
-         * @param dirName 这个系统api只提供"aa" 或"bb"的目录
-         *                ,不可以是"aa/bb"带有分隔符的,否则非法参数异常
-         * @return dirName为"" 返回/data/data/<package>/app_ ,这个app_是系统创建目录的时候自带的
-         * dirName为null 返回/data/data/<package>/app_null,这个app_是系统创建目录的时候自带的
-         * dirName非空 返回/data/data/<package>/app_+dirName,这个app_是系统创建目录的时候自带的
-         */
-        public static File getAppDir(Context context, String dirName) {
-            return context.getDir(dirName, Context.MODE_PRIVATE);
-        }
+//        /**
+//         * @param dirName 这个系统api只提供"aa" 或"bb"的目录
+//         *                ,不可以是"aa/bb"带有分隔符的,否则非法参数异常
+//         * @return dirName为"" ,则返回/data/data/<package>/app_ ,这个app_是系统创建目录的时候自带的
+//         * dirName为null ,则返回/data/data/<package>/app_null,这个app_是系统创建目录的时候自带的
+//         * dirName非空,则返回/data/data/<package>/app_+dirName,这个app_是系统创建目录的时候自带的
+//         */
+//        public static File getAppDir(Context context, String dirName) {
+//            return context.getDir(dirName, Context.MODE_PRIVATE);
+//        }
 
         /**
          * @return /data/data/<package>/cache
@@ -335,26 +335,26 @@ public class DirHelper {
             return context.getFilesDir();
         }
 
-        /**
-         * @return /system
-         */
-        public static File getSystemDir() {
-            return Environment.getRootDirectory();
-        }
+//        /**
+//         * @return /system
+//         */
+//        public static File getSystemDir() {
+//            return Environment.getRootDirectory();
+//        }
 
-        /**
-         * @return /data
-         */
-        public static File getDataDir() {
-            return Environment.getDataDirectory();
-        }
+//        /**
+//         * @return /data
+//         */
+//        public static File getDataDir() {
+//            return Environment.getDataDirectory();
+//        }
 
-        /**
-         * @return /cache
-         */
-        public static File getCacheDir() {
-            return Environment.getDownloadCacheDirectory();
-        }
+//        /**
+//         * @return /cache
+//         */
+//        public static File getCacheDir() {
+//            return Environment.getDownloadCacheDirectory();
+//        }
     }
 
     /**

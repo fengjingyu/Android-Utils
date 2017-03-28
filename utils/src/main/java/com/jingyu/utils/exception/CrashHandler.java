@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
-import com.jingyu.utils.function.IOHelper;
+import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilSystem;
 
@@ -235,10 +235,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
     private String getCrashInfo(Throwable ex) {
         StringBuffer sb = new StringBuffer();
 
-        sb.append(UtilSystem.getProcessName(application) + IOHelper.LINE_SEPARATOR);
+        sb.append(UtilSystem.getProcessName(application) + UtilIo.LINE_SEPARATOR);
 
         tempTime = System.currentTimeMillis();
-        sb.append("crash=" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + IOHelper.LINE_SEPARATOR);
+        sb.append("crash=" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_LONG) + "-" + tempTime + UtilIo.LINE_SEPARATOR);
 
         for (Map.Entry<String, String> entry : mInfos.entrySet()) {
             String key = entry.getKey();

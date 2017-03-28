@@ -5,7 +5,7 @@ import android.os.Looper;
 
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
-import com.jingyu.utils.function.IOHelper;
+import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.IHttp.RespHandler;
@@ -195,7 +195,7 @@ public class OkRespHandler<T> implements Callback {
     protected T parse(final RespInfo respInfo) {
         try {
 
-            Logger.d(TAG_HTTP, this + IOHelper.LINE_SEPARATOR + reqInfo + IOHelper.LINE_SEPARATOR);
+            Logger.d(TAG_HTTP, this + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
 
             Logger.logFormatContent(TAG_HTTP, "", respInfo.getDataString());
 

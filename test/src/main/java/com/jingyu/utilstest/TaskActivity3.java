@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.ActivityCollector;
-import com.jingyu.utils.function.IOHelper;
+import com.jingyu.utils.util.UtilIo;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -54,17 +54,17 @@ public class TaskActivity3 extends BaseActivity {
 
     private void info() {
         info.setText("");
-        info.append(ActivityCollector.getStack().size() + "-----栈的大小---" + IOHelper.LINE_SEPARATOR);
+        info.append(ActivityCollector.getStack().size() + "-----栈的大小---" + UtilIo.LINE_SEPARATOR);
         for (Activity item : ActivityCollector.getStack()) {
-            info.append(item.getClass() + "----" + IOHelper.LINE_SEPARATOR);
+            info.append(item.getClass() + "----" + UtilIo.LINE_SEPARATOR);
         }
-        info.append("TaskActivity0是否存在--" + ActivityCollector.isActivityExist(TaskActivity0.class) + IOHelper.LINE_SEPARATOR);
-        info.append("TaskActivity1是否存在--" + ActivityCollector.isActivityExist(TaskActivity1.class) + IOHelper.LINE_SEPARATOR);
-        info.append("TaskActivity2是否存在--" + ActivityCollector.isActivityExist(TaskActivity2.class) + IOHelper.LINE_SEPARATOR);
-        info.append("TaskActivity3是否存在--" + ActivityCollector.isActivityExist(TaskActivity3.class) + IOHelper.LINE_SEPARATOR);
-        info.append("当前页面--" + ActivityCollector.getCurrentActivity() + IOHelper.LINE_SEPARATOR);
-        info.append("TaskActivity1是否存在--" + ActivityCollector.getActivity(TaskActivity1.class) + IOHelper.LINE_SEPARATOR);
-        info.append("TaskActivity2是否存在--" + ActivityCollector.getActivity(TaskActivity2.class) + IOHelper.LINE_SEPARATOR);
+        info.append("TaskActivity0是否存在--" + ActivityCollector.isActivityExist(TaskActivity0.class) + UtilIo.LINE_SEPARATOR);
+        info.append("TaskActivity1是否存在--" + ActivityCollector.isActivityExist(TaskActivity1.class) + UtilIo.LINE_SEPARATOR);
+        info.append("TaskActivity2是否存在--" + ActivityCollector.isActivityExist(TaskActivity2.class) + UtilIo.LINE_SEPARATOR);
+        info.append("TaskActivity3是否存在--" + ActivityCollector.isActivityExist(TaskActivity3.class) + UtilIo.LINE_SEPARATOR);
+        info.append("当前页面--" + ActivityCollector.getCurrentActivity() + UtilIo.LINE_SEPARATOR);
+        info.append("TaskActivity1是否存在--" + ActivityCollector.getActivity(TaskActivity1.class) + UtilIo.LINE_SEPARATOR);
+        info.append("TaskActivity2是否存在--" + ActivityCollector.getActivity(TaskActivity2.class) + UtilIo.LINE_SEPARATOR);
     }
 
     public void setListeners() {

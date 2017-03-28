@@ -8,7 +8,7 @@ import android.view.View;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
-import com.jingyu.utils.function.IOHelper;
+import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.Logger;
 
 import java.io.File;
@@ -40,8 +40,8 @@ public class LogActivity extends BaseActivity {
                 Object obj = null;
                 Logger.d(obj);
 
-                Logger.d(IOHelper.getAllFilesByDirQueue(Config.getAppDir(getApplicationContext())));
-                Logger.d(IOHelper.getFilterFiles(Config.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
+                Logger.d(UtilIo.getAllFilesByDirQueue(Config.getAppDir(getApplicationContext())));
+                Logger.d(UtilIo.getFilterFiles(Config.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
             }
         });
 

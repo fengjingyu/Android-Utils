@@ -33,41 +33,49 @@ public class Http {
         return reqInfo;
     }
 
-    public static ReqInfo get(String url, Map<String, Object> paramsMap, boolean isSecretParam, boolean isShowDialog, RespHandler respHandler, Interceptor interceptor) {
-        return common(url, ReqType.GET, paramsMap, isSecretParam, isShowDialog, respHandler, interceptor);
+    public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, interceptor);
     }
 
-    public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, Interceptor interceptor) {
-        return common(url, ReqType.GET, paramsMap, true, true, respHandler, interceptor);
+    public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog) {
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, null);
+    }
+
+    public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag) {
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, true, null);
     }
 
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
-        return common(url, ReqType.GET, paramsMap, true, true, respHandler, null);
+        return common(ReqType.GET, url, paramsMap, respHandler, null, true, null);
     }
 
-    public static ReqInfo post(String url, Map<String, Object> paramsMap, boolean isSecretParam, boolean isShowDialog, RespHandler respHandler, Interceptor interceptor) {
-        return common(url, ReqType.POST, paramsMap, isSecretParam, isShowDialog, respHandler, interceptor);
+    public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, interceptor);
     }
 
-    public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, Interceptor interceptor) {
-        return common(url, ReqType.POST, paramsMap, true, true, respHandler, interceptor);
+    public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog) {
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, null);
+    }
+
+    public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag) {
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, true, null);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
-        return common(url, ReqType.POST, paramsMap, true, true, respHandler, null);
+        return common(ReqType.POST, url, paramsMap, respHandler, null, true, null);
     }
 
     /**
      * 封装请求model
      */
-    private static ReqInfo common(String url, ReqType type, Map<String, Object> paramsMap, boolean isSecretParam, boolean isShowDialog, RespHandler respHandler, Interceptor interceptor) {
+    private static ReqInfo common(ReqType type, String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
         ReqInfo reqInfo = new ReqInfo();
-
         reqInfo.setReqType(type);
         reqInfo.setUrl(url);
-        reqInfo.setHeadersMap(getHeaders(reqInfo));
-        reqInfo.setParamsMap(getParams(reqInfo, isSecretParam, paramsMap));
+        reqInfo.setHeadersMap(getHeaders(tag));
+        reqInfo.setParamsMap(getParams(tag, paramsMap));
         reqInfo.setShowDialog(isShowDialog);
+        reqInfo.setTag(tag);
 
         return http(reqInfo, respHandler, interceptor);
     }
@@ -75,9 +83,9 @@ public class Http {
     /**
      * 配置请求头
      *
-     * @param reqInfo 标识,可为null
+     * @param tag 标识
      */
-    public static Map<String, List<String>> getHeaders(ReqInfo reqInfo) {
+    private static Map<String, List<String>> getHeaders(String tag) {
         //TODO 设置请求头
         Map<String, List<String>> map = new HashMap<>();
         map.put("_v", Arrays.asList(UtilSystem.getVersionCode(App.getApplication()) + ""));
@@ -88,19 +96,15 @@ public class Http {
     /**
      * 配置加密规则
      *
-     * @param reqInfo 标识,可为null
+     * @param tag 标识
      */
-    public static Map<String, Object> getParams(ReqInfo reqInfo, boolean isSecretParam, Map<String, Object> paramsMap) {
+    private static Map<String, Object> getParams(String tag, Map<String, Object> paramsMap) {
         //TODO 设置加密参数
-        if (isSecretParam) {
-            Logger.d("加密前参数--" + paramsMap);
-            paramsMap.put("testKey0", "java");
-            paramsMap.put("testKey3", "c");
-            paramsMap.put("testKey6", "c++");
-            Logger.d("加密后参数--" + paramsMap);
-        } else {
-            Logger.d("请求参数未加密--" + paramsMap);
-        }
+        Logger.d("加密前参数--" + paramsMap);
+        paramsMap.put("testKey0", "java");
+        paramsMap.put("testKey3", "c");
+        paramsMap.put("testKey6", "c++");
+        Logger.d("加密后参数--" + paramsMap);
         return paramsMap;
     }
 }

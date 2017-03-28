@@ -41,6 +41,10 @@ public class ReqInfo extends PlusBean {
      * postString的内容
      */
     private String postString = "";
+    /**
+     * 标识
+     */
+    private String tag;
 
     public ReqType getReqType() {
         return reqType;
@@ -100,16 +104,25 @@ public class ReqInfo extends PlusBean {
         isShowDialog = showDialog;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     @Override
     public String toString() {
         return "ReqInfo{" +
-                ", reqType=" + getReqType() +
-                ", url='" + getUrl() + '\'' +
-                ", headersMap=" + getHeadersMap() +
-                ", paramsMap=" + getParamsMap() +
-                ", isShowDialog=" + isShowDialog() +
-                ", postStringContentType=" + getPostStringContentType() +
-                ", postString=" + getPostString() +
+                "reqType=" + reqType +
+                ", url='" + url + '\'' +
+                ", headersMap=" + headersMap +
+                ", paramsMap=" + paramsMap +
+                ", isShowDialog=" + isShowDialog +
+                ", postStringContentType='" + postStringContentType + '\'' +
+                ", postString='" + postString + '\'' +
+                ", tag='" + tag + '\'' +
                 '}';
     }
 
@@ -136,6 +149,14 @@ public class ReqInfo extends PlusBean {
         this.url = url;
         this.headersMap = headersMap;
         this.paramsMap = paramsMap;
+    }
+
+    public ReqInfo(ReqType reqType, String url, Map<String, List<String>> headersMap, Map<String, Object> paramsMap, String tag) {
+        this.reqType = reqType;
+        this.url = url;
+        this.headersMap = headersMap;
+        this.paramsMap = paramsMap;
+        this.tag = tag;
     }
 
     public boolean isGet() {

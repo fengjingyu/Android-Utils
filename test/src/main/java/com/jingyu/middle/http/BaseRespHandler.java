@@ -5,23 +5,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
-import com.jingyu.middle.App;
 import com.jingyu.test.maintab.MainActivity;
-import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.DialogManager;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
-import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilString;
-import com.jingyu.utils.util.UtilSystem;
-
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -42,11 +32,6 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
     @Override
     public void onReadySendRequest(ReqInfo reqInfo) {
         Logger.d(TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
-
-        setHttpHeaders(reqInfo);
-        setSendTime(reqInfo);
-        setHttpSecretParams(reqInfo);
-
         showDialog(reqInfo);
     }
 
@@ -145,37 +130,6 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
                 return false;
             }
         });
-    }
-
-    /**
-     * 配置项目的请求头
-     */
-    public void setHttpHeaders(ReqInfo reqInfo) {
-        //TODO 设置请求头
-        Map<String, List<String>> map = new HashMap<>();
-        map.put("_v", Arrays.asList(UtilSystem.getVersionCode(App.getApplication()) + ""));
-        map.put("_p", Arrays.asList("1"));
-        reqInfo.setHeadersMap(map);
-    }
-
-    /**
-     * 配置项目的加密规则
-     */
-    public void setHttpSecretParams(ReqInfo reqInfo) {
-        //TODO 设置加密
-        if (reqInfo.isSecretParam()) {
-            reqInfo.getFinalRequestParamsMap().put("testKey0", "java");
-            reqInfo.getFinalRequestParamsMap().put("testKey3", "c");
-            reqInfo.getFinalRequestParamsMap().put("testKey6", "c++");
-        }
-    }
-
-    /**
-     * 设置请求对象的生成时间
-     */
-    public void setSendTime(ReqInfo reqInfo) {
-        long time = System.currentTimeMillis();
-        reqInfo.setSendTime(time + Constants.COMMA_EN + UtilDate.format(new Date(time)));
     }
 
     @Override

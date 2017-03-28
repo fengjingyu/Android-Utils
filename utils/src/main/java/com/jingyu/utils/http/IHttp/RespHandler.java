@@ -16,7 +16,7 @@ public interface RespHandler<T> {
     /**
      * 发送请求之前
      * <p/>
-     * 可以showdialog,加密等
+     * 可以showdialog等
      */
     void onReadySendRequest(ReqInfo reqInfo);
 

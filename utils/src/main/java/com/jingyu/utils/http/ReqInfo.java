@@ -14,17 +14,13 @@ import java.util.Map;
  */
 public class ReqInfo extends PlusBean {
     /**
-     * 原始的发送的时间  “时间戳”+“_”+格式化
-     */
-    private String sendTime;
-    /**
      * POST  GET
      */
-    private ReqType reqType;
+    private ReqType reqType = ReqType.GET;
     /**
      * 接口地址
      */
-    private String url;
+    private String url = "";
     /**
      * http的请求头
      */
@@ -32,15 +28,7 @@ public class ReqInfo extends PlusBean {
     /**
      * http的原始请求参数，未加密
      */
-    private Map<String, Object> originParamsMap;
-    /**
-     * 该次http请求是否加密，不会影响别的http请求
-     */
-    private boolean isSecretParam;
-    /**
-     * http请求发给服务器的参数（如果加密了，就是加密后的；如果不加密，则和originParamsMap的内容相等）
-     */
-    private Map<String, Object> finalRequestParamsMap;
+    private Map<String, Object> paramsMap;
     /**
      * 是否显示加载dialog
      */
@@ -53,20 +41,6 @@ public class ReqInfo extends PlusBean {
      * postString的内容
      */
     private String postString = "";
-
-    public String getSendTime() {
-        if (sendTime == null || sendTime.trim().length() == 0) {
-            sendTime = "";
-        }
-        return sendTime;
-    }
-
-    public void setSendTime(String sendTime) {
-        if (sendTime == null || sendTime.trim().length() == 0) {
-            sendTime = "";
-        }
-        this.sendTime = sendTime;
-    }
 
     public ReqType getReqType() {
         return reqType;
@@ -104,41 +78,18 @@ public class ReqInfo extends PlusBean {
         this.headersMap = headersMap;
     }
 
-    public Map<String, Object> getOriginParamsMap() {
-        if (originParamsMap == null) {
-            originParamsMap = new HashMap<>();
+    public Map<String, Object> getParamsMap() {
+        if (paramsMap == null) {
+            paramsMap = new HashMap<>();
         }
-        return originParamsMap;
+        return paramsMap;
     }
 
-    public void setOriginParamsMap(Map<String, Object> originParamsMap) {
-        if (originParamsMap == null) {
-            originParamsMap = new HashMap<>();
+    public void setParamsMap(Map<String, Object> paramsMap) {
+        if (paramsMap == null) {
+            paramsMap = new HashMap<>();
         }
-        this.originParamsMap = originParamsMap;
-    }
-
-    public boolean isSecretParam() {
-        return isSecretParam;
-    }
-
-    public void setSecretParam(boolean secretParam) {
-        isSecretParam = secretParam;
-    }
-
-    public Map<String, Object> getFinalRequestParamsMap() {
-
-
-        if (finalRequestParamsMap == null) {
-            finalRequestParamsMap = new HashMap<>();
-        }
-
-        if (finalRequestParamsMap.isEmpty()) {
-            // 克隆一份originParams
-            finalRequestParamsMap.putAll(getOriginParamsMap());
-        }
-
-        return finalRequestParamsMap;
+        this.paramsMap = paramsMap;
     }
 
     public boolean isShowDialog() {
@@ -149,19 +100,13 @@ public class ReqInfo extends PlusBean {
         isShowDialog = showDialog;
     }
 
-    public static final String HINT_AFTER_SECRET = "发给服务器的参数-->";
-    public static final String HINT_NO_SECRET = "原始参数-->";
-
     @Override
     public String toString() {
         return "ReqInfo{" +
-                "sendTime='" + getSendTime() + '\'' +
                 ", reqType=" + getReqType() +
                 ", url='" + getUrl() + '\'' +
                 ", headersMap=" + getHeadersMap() +
-                ", " + HINT_NO_SECRET + " originParamsMap=" + getOriginParamsMap() +
-                ", isSecretParam=" + isSecretParam() +
-                ", " + HINT_AFTER_SECRET + " finalRequestParamsMap=" + getFinalRequestParamsMap() +
+                ", paramsMap=" + getParamsMap() +
                 ", isShowDialog=" + isShowDialog() +
                 ", postStringContentType=" + getPostStringContentType() +
                 ", postString=" + getPostString() +
@@ -171,10 +116,26 @@ public class ReqInfo extends PlusBean {
     public ReqInfo() {
     }
 
-    public ReqInfo(ReqType reqType, String url, Map<String, Object> originParamsMap) {
+    public ReqInfo(String url) {
+        this.url = url;
+    }
+
+    public ReqInfo(String url, Map<String, Object> paramsMap) {
+        this.url = url;
+        this.paramsMap = paramsMap;
+    }
+
+    public ReqInfo(ReqType reqType, String url, Map<String, Object> paramsMap) {
         this.reqType = reqType;
         this.url = url;
-        this.originParamsMap = originParamsMap;
+        this.paramsMap = paramsMap;
+    }
+
+    public ReqInfo(ReqType reqType, String url, Map<String, List<String>> headersMap, Map<String, Object> paramsMap) {
+        this.reqType = reqType;
+        this.url = url;
+        this.headersMap = headersMap;
+        this.paramsMap = paramsMap;
     }
 
     public boolean isGet() {

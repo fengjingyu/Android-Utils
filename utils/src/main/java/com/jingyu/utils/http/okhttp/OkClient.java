@@ -104,12 +104,12 @@ public class OkClient implements HttpClient {
             return false;
         }
 
-        Map<String, Object> secretParamsMap = reqInfo.getFinalRequestParamsMap();
+        Map<String, Object> paramsMap = reqInfo.getParamsMap();
 
-        if (UtilCollections.isMapAvaliable(secretParamsMap)) {
+        if (UtilCollections.isMapAvaliable(paramsMap)) {
             FormBody.Builder formBodyBuilder = new FormBody.Builder();
 
-            for (Map.Entry<String, Object> entry : secretParamsMap.entrySet()) {
+            for (Map.Entry<String, Object> entry : paramsMap.entrySet()) {
                 formBodyBuilder.add(entry.getKey(), String.valueOf(entry.getValue()));
             }
             requestBuilder.post(formBodyBuilder.build());
@@ -120,14 +120,14 @@ public class OkClient implements HttpClient {
 
     private boolean isPostMultiForm(ReqInfo reqInfo, Request.Builder requestBuilder) {
 
-        Map<String, Object> secretParamsMap = reqInfo.getFinalRequestParamsMap();
+        Map<String, Object> paramsMap = reqInfo.getParamsMap();
 
-        if (UtilCollections.isMapAvaliable(secretParamsMap)) {
+        if (UtilCollections.isMapAvaliable(paramsMap)) {
 
             MultipartBody.Builder multiBuilder = new MultipartBody.Builder();
             multiBuilder.setType(MultipartBody.FORM);
 
-            for (Map.Entry<String, Object> entry : secretParamsMap.entrySet()) {
+            for (Map.Entry<String, Object> entry : paramsMap.entrySet()) {
 
                 if (entry.getValue() == null) {
                     continue;
@@ -156,10 +156,10 @@ public class OkClient implements HttpClient {
 
     private boolean isIncludeFile(ReqInfo reqInfo) {
 
-        Map<String, Object> secretParamsMap = reqInfo.getFinalRequestParamsMap();
+        Map<String, Object> paramsMap = reqInfo.getParamsMap();
 
-        if (UtilCollections.isMapAvaliable(secretParamsMap)) {
-            for (Map.Entry<String, Object> entry : secretParamsMap.entrySet()) {
+        if (UtilCollections.isMapAvaliable(paramsMap)) {
+            for (Map.Entry<String, Object> entry : paramsMap.entrySet()) {
                 if (entry.getValue() instanceof File) {
                     return true;
                 }
@@ -171,7 +171,7 @@ public class OkClient implements HttpClient {
     private boolean isGet(ReqInfo reqInfo, Request.Builder builder) {
         if (reqInfo.isGet()) {
 
-            builder.get().url(reqInfo.getUrl() + reqInfo.buildGetParams(reqInfo.getFinalRequestParamsMap()));
+            builder.get().url(reqInfo.getUrl() + reqInfo.buildGetParams(reqInfo.getParamsMap()));
 
             return true;
         }

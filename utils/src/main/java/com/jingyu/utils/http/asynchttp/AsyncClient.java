@@ -52,11 +52,11 @@ public class AsyncClient implements HttpClient {
 
         if (reqInfo.isGet()) {
 
-            httpClient.get(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(reqInfo, respHandler, interceptor));
+            httpClient.get(reqInfo.getUrl(), getRequestParams(reqInfo.getParamsMap()), new AsyncRespHandler(reqInfo, respHandler, interceptor));
 
         } else if (reqInfo.isPost()) {
 
-            httpClient.post(reqInfo.getUrl(), getRequestParams(reqInfo.getFinalRequestParamsMap()), new AsyncRespHandler(reqInfo, respHandler, interceptor));
+            httpClient.post(reqInfo.getUrl(), getRequestParams(reqInfo.getParamsMap()), new AsyncRespHandler(reqInfo, respHandler, interceptor));
 
         } else {
             throw new RuntimeException("AsyncClient---请求类型不匹配");

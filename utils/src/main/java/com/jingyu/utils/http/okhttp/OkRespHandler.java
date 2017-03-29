@@ -5,14 +5,15 @@ import android.os.Looper;
 
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
-import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.util.UtilCollections;
-import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.IHttp.RespHandler;
+import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.http.RespType;
+import com.jingyu.utils.util.UtilCollections;
+import com.jingyu.utils.util.UtilIo;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class OkRespHandler<T> implements Callback {
     public static final String TAG_HTTP = "http";
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
-
+    private RespInfo respInfo = new RespInfo();
     private ReqInfo reqInfo;
     private RespHandler<T> respHandler;
     private Interceptor interceptor;
@@ -48,69 +49,64 @@ public class OkRespHandler<T> implements Callback {
 
     @Override
     public void onFailure(Call call, IOException e) {
+        respInfo.setRespType(RespType.FAILURE);
+        respInfo.setThrowable(e);
+        respInfo.setHttpCode(0);
 
-        if (respHandler != null) {
+        Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
+        e.printStackTrace();
 
-            RespInfo respInfo = new RespInfo();
-
-            respInfo.setRespType(RespType.FAILURE);
-            respInfo.setThrowable(e);
-
-            Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
-            respInfo.getThrowable().printStackTrace();
-            printHeaderInfo(respInfo.getRespHeaders());
-
-            // 是否拦截resp
-            if (interceptRespCome(respInfo)) {
-                return;
-            }
-            // 回调到uithread
-            handleFailOnUiThread(respInfo);
+        if (respHandler == null || respHandler.isDownload(reqInfo, null)) {
+            handleEndOnUiThread();
         } else {
-            Logger.d(TAG_HTTP, "onFailure--->respHandler" + LINE + reqInfo);
+            handleFailOnUiThread();
         }
-
     }
 
     @Override
     public void onResponse(Call call, final Response response) throws IOException {
-        if (respHandler != null) {
+        respInfo.setHttpCode(response.code());
+        respInfo.setRespHeaders(headers2Map(response.headers()));
+        respInfo.setThrowable(null);
 
-            RespInfo respInfo = new RespInfo();
-            respInfo.setHttpCode(response.code());
-            respInfo.setRespHeaders(headers2Map(response.headers()));
+        Logger.d(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
+        printHeaderInfo(respInfo.getRespHeaders());
 
+        InputStream inputStream = response.body().byteStream();
+        if (respHandler == null || respHandler.isDownload(reqInfo, inputStream)) {
+            handleEndOnUiThread();
+        } else {
             // 只能读一次，否则异常
-            byte[] bytes = response.body().bytes();
+            // byte[] bytes = response.body().bytes();
+            byte[] bytes = UtilIo.getBytes(inputStream);
             respInfo.setDataBytes(bytes);
             respInfo.setDataString(bytes);
-
             respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
-            respInfo.setThrowable(null);
-
-            Logger.d(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
-            // 打印头信息
-            printHeaderInfo(respInfo.getRespHeaders());
-            // 是否拦截或修改原始的resp
-            if (interceptRespCome(respInfo)) {
-                return;
-            }
             // 解析数据
-            T resultBean = parse(respInfo);
-            // 回调到uithread
-            handleSuccessOnUiThread(resultBean, respInfo);
-        } else {
-            Logger.d(TAG_HTTP, "onSuccess--->respHandler为空" + LINE + reqInfo);
+            T resultBean = parse();
+            handleSuccessOnUiThread(resultBean);
         }
-
     }
 
     private Map<String, List<String>> headers2Map(Headers headers) {
         return headers.toMultimap();
     }
 
-    protected void handleFailOnUiThread(final RespInfo respInfo) {
+    protected void handleEndOnUiThread() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    end();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Logger.e(reqInfo.getUrl() + LINE + "handleEndOnUiThread--end（） 异常了", e);
+                }
+            }
+        });
+    }
 
+    protected void handleFailOnUiThread() {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +117,7 @@ public class OkRespHandler<T> implements Callback {
                     Logger.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
                 } finally {
                     try {
-                        end(respInfo);
+                        end();
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         Logger.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
@@ -131,7 +127,7 @@ public class OkRespHandler<T> implements Callback {
         });
     }
 
-    protected void handleSuccessOnUiThread(final T resultBean, final RespInfo respInfo) {
+    protected void handleSuccessOnUiThread(final T resultBean) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -153,13 +149,12 @@ public class OkRespHandler<T> implements Callback {
                         respInfo.setRespType(RespType.SUCCESS_BUT_PARSE_WRONG);
                         respHandler.onSuccessButParseWrong(reqInfo, respInfo);
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Logger.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
                 } finally {
                     try {
-                        end(respInfo);
+                        end();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Logger.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
@@ -182,21 +177,20 @@ public class OkRespHandler<T> implements Callback {
         }
     }
 
-    protected void end(RespInfo respInfo) {
+    protected void end() {
         if (respHandler != null) {
             respHandler.onEnd(reqInfo, respInfo);
         }
 
         if (interceptor != null) {
-            interceptor.interceptRespDone(reqInfo, respInfo);
+            interceptor.interceptRespEnd(reqInfo, respInfo);
         }
     }
 
-    protected T parse(final RespInfo respInfo) {
+    protected T parse() {
         try {
 
             Logger.d(TAG_HTTP, this + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
-
             Logger.logFormatContent(TAG_HTTP, "", respInfo.getDataString());
 
             // 如果解析失败一定得返回null或者crash
@@ -229,12 +223,5 @@ public class OkRespHandler<T> implements Callback {
         if (respHandler != null) {
             respHandler.onProgressing(reqInfo, bytesWritten, totalSize, percent);
         }
-    }
-
-    private boolean interceptRespCome(RespInfo respInfo) {
-        if (interceptor != null && interceptor.interceptRespCome(reqInfo, respInfo)) {
-            return true;
-        }
-        return false;
     }
 }

@@ -5,7 +5,7 @@ import com.jingyu.utils.http.RespInfo;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ * @description 主线程回调
  */
 public interface Interceptor {
     /**
@@ -16,17 +16,8 @@ public interface Interceptor {
     boolean interceptReqSend(ReqInfo reqInfo);
 
     /**
-     * 响应刚刚返回的时候,这里可以添加或修改或拦截响应的内容
-     *
-     * @return false RespHandler继续回调, true 为RespHandler不回调了
+     * 一个请求完全结束后，即调用完RespHandler的end()之后,可以监听串行的请求
      */
-    boolean interceptRespCome(ReqInfo reqInfo, RespInfo respInfo);
-
-    /**
-     * 可以监听串行的请求
-     * <p/>
-     * 一个请求完全结束后，即调用完RespHandler的end()之后
-     */
-    void interceptRespDone(ReqInfo reqInfo, RespInfo respInfo);
+    void interceptRespEnd(ReqInfo reqInfo, RespInfo respInfo);
 
 }

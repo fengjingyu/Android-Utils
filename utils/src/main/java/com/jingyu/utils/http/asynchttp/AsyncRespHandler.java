@@ -3,7 +3,6 @@ package com.jingyu.utils.http.asynchttp;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.ThreadHelper;
 import com.jingyu.utils.http.IHttp.Interceptor;
@@ -12,6 +11,7 @@ import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.http.RespType;
 import com.jingyu.utils.util.UtilCollections;
+import com.jingyu.utils.util.UtilIo;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.util.Arrays;
@@ -34,6 +34,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     private ReqInfo reqInfo;
+    private RespInfo respInfo = new RespInfo();
     private RespHandler<T> respHandler;
     private Interceptor interceptor;
 
@@ -53,7 +54,6 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
             ThreadHelper.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
-                    RespInfo respInfo = new RespInfo();
                     respInfo.setHttpCode(httpCode);
                     respInfo.setRespHeaders(headers2Map(headers));
                     respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
@@ -65,14 +65,10 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     Logger.d(TAG_HTTP, this + LINE + "onSuccess()--->status code " + respInfo.getHttpCode());
                     // 打印头信息
                     printHeaderInfo(respInfo.getRespHeaders());
-                    // 是否拦截或修改原始的resp
-                    if (interceptRespCome(respInfo)) {
-                        return;
-                    }
                     // 解析数据
-                    final T resultBean = parse(respInfo);
+                    final T resultBean = parse();
                     // 回调到uithread
-                    handleSuccessOnUiThread(resultBean, respInfo);
+                    handleSuccessOnUiThread(resultBean);
                 }
             });
 
@@ -90,7 +86,6 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
             ThreadHelper.getFix().execute(new Runnable() {
                 @Override
                 public void run() {
-                    RespInfo respInfo = new RespInfo();
                     respInfo.setHttpCode(httpCode);
                     respInfo.setRespHeaders(headers2Map(headers));
                     respInfo.setDataBytes(bytes);
@@ -103,12 +98,8 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     respInfo.getThrowable().printStackTrace();
                     printHeaderInfo(respInfo.getRespHeaders());
 
-                    // 是否拦截resp
-                    if (interceptRespCome(respInfo)) {
-                        return;
-                    }
                     // 回调到uithread
-                    handleFailOnUiThread(respInfo);
+                    handleFailOnUiThread();
                 }
             });
         } else {
@@ -125,6 +116,20 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
         }
     }
 
+    protected void handleEndOnUiThread() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    end();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Logger.e(reqInfo.getUrl() + LINE + "handleEndOnUiThread--end（） 异常了", e);
+                }
+            }
+        });
+    }
+
     private Map<String, List<String>> headers2Map(Header[] headers) {
         Map<String, List<String>> headersMap = new HashMap<>();
 
@@ -138,7 +143,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
         return headersMap;
     }
 
-    protected void handleFailOnUiThread(final RespInfo respInfo) {
+    protected void handleFailOnUiThread() {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -149,7 +154,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     Logger.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
                 } finally {
                     try {
-                        end(respInfo);
+                        end();
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         Logger.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
@@ -159,7 +164,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
         });
     }
 
-    protected void handleSuccessOnUiThread(final T resultBean, final RespInfo respInfo) {
+    protected void handleSuccessOnUiThread(final T resultBean) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -187,7 +192,7 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
                     Logger.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
                 } finally {
                     try {
-                        end(respInfo);
+                        end();
                     } catch (Exception e) {
                         e.printStackTrace();
                         Logger.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
@@ -210,17 +215,17 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
         }
     }
 
-    protected void end(RespInfo respInfo) {
+    protected void end() {
         if (respHandler != null) {
             respHandler.onEnd(reqInfo, respInfo);
         }
 
         if (interceptor != null) {
-            interceptor.interceptRespDone(reqInfo, respInfo);
+            interceptor.interceptRespEnd(reqInfo, respInfo);
         }
     }
 
-    protected T parse(final RespInfo respInfo) {
+    protected T parse() {
         try {
 
             Logger.d(TAG_HTTP, this + LINE + UtilIo.LINE_SEPARATOR + reqInfo + UtilIo.LINE_SEPARATOR);
@@ -257,12 +262,5 @@ public class AsyncRespHandler<T> extends AsyncHttpResponseHandler {
         if (respHandler != null) {
             respHandler.onProgressing(reqInfo, bytesWritten, totalSize, percent);
         }
-    }
-
-    private boolean interceptRespCome(RespInfo respInfo) {
-        if (interceptor != null && interceptor.interceptRespCome(reqInfo, respInfo)) {
-            return true;
-        }
-        return false;
     }
 }

@@ -1,7 +1,12 @@
 package com.jingyu.utils.http.IHttp;
 
+import com.jingyu.utils.R;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -21,9 +26,17 @@ public interface RespHandler<T> {
     void onReadySendRequest(ReqInfo reqInfo);
 
     /**
+     * 回调刚刚返回来,还未处理流信息
+     * 子线程
+     *
+     * @return false 继续执行回调, true为不执行后面的回调
+     */
+    boolean isDownload(ReqInfo reqInfo, InputStream inputStream);
+
+    /**
      * 如果解析失败：一定得返回null,回调onSuccessButParseWrong()
      * 如果解析成功: 继续回调onMatchAppStatusCode()
-     * 最好放在子线程
+     * 子线程
      */
     T onParse2Model(ReqInfo reqInfo, RespInfo respInfo);
 

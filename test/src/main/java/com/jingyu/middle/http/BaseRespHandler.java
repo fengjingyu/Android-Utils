@@ -37,11 +37,6 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
         showDialog(reqInfo);
     }
 
-    @Override
-    public boolean onSuccess(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
-        return false;
-    }
-
     /**
      * 如果显示dialog，则isShowDialog为true 且 activityContext非空
      */
@@ -54,6 +49,16 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
             dialogManager.setDialog(dialog);
             dialogManager.mayShow(toString());
         }
+    }
+
+    @Override
+    public boolean isDownload() {
+        return false;
+    }
+
+    @Override
+    public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
+        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessForDownload()");
     }
 
     /**
@@ -91,29 +96,29 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onSuccessButParseWrong(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onSuccessButParseWrong()");
+        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessButParseWrong()");
     }
 
     @Override
     public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onSuccessButCodeWrong()");
+        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessButCodeWrong()");
     }
 
     @Override
     public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onSuccessAll()");
+        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessAll()");
     }
 
     @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onFailure()");
+        Logger.d(TAG_RESP_HANDLER, this + "--onFailure()");
 
         Logger.shortToast("网络有误");
     }
 
     @Override
     public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onEnd()");
+        Logger.d(TAG_RESP_HANDLER, this + "--onEnd()");
         closeDialog(reqInfo.isShowDialog());
     }
 
@@ -141,6 +146,6 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onProgressing(ReqInfo reqInfo, long bytesWritten, long totalSize, double percent) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onProgressing()");
+        Logger.d(TAG_RESP_HANDLER, this + "--onProgressing()");
     }
 }

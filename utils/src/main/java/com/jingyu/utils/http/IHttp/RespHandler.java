@@ -23,12 +23,17 @@ public interface RespHandler<T> {
     void onReadySendRequest(ReqInfo reqInfo);
 
     /**
-     * 回调刚刚返回来,还未处理流信息
-     * 子线程
+     * 默认不是下载
      *
-     * @return false 为不继续执行回调, true为执行后面的回调
+     * @return true 下载,false 不是下载
      */
-    boolean onSuccess(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream);
+    boolean isDownload();
+
+    /**
+     * 下载的回调
+     * 子线程
+     */
+    void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream);
 
     /**
      * 如果解析失败：一定得返回null,回调onSuccessButParseWrong()

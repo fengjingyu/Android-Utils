@@ -56,11 +56,7 @@ public class OkRespHandler<T> implements Callback {
         Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
         e.printStackTrace();
 
-        if (respHandler == null) {
-            handleEndOnUiThread();
-        } else {
-            handleFailOnUiThread();
-        }
+        handleFailOnUiThread();
     }
 
     @Override
@@ -68,22 +64,26 @@ public class OkRespHandler<T> implements Callback {
         respInfo.setHttpCode(response.code());
         respInfo.setRespHeaders(headers2Map(response.headers()));
         respInfo.setThrowable(null);
+        respInfo.setRespType(RespType.SUCCESS);
 
         Logger.d(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
         printHeaderInfo(respInfo.getRespHeaders());
 
-        InputStream inputStream = response.body().byteStream();
-        if (respHandler == null || respHandler.onSuccess(reqInfo, respInfo, inputStream)) {
-            handleEndOnUiThread();
+        if (respHandler != null) {
+            InputStream inputStream = response.body().byteStream();
+            if (respHandler.isDownload()) {
+                respHandler.onSuccessForDownload(reqInfo, respInfo, inputStream);
+                handleSuccessOnUiThread(null, true);
+            } else {
+                // 只能读一次，否则异常
+                // byte[] bytes = response.body().bytes();
+                byte[] bytes = UtilIo.getBytes(inputStream);
+                respInfo.setDataBytes(bytes);
+                respInfo.setDataString(bytes);
+                handleSuccessOnUiThread(parse(), false);
+            }
         } else {
-            // 只能读一次，否则异常
-            // byte[] bytes = response.body().bytes();
-            byte[] bytes = UtilIo.getBytes(inputStream);
-            respInfo.setDataBytes(bytes);
-            respInfo.setDataString(bytes);
-            respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
-
-            handleSuccessOnUiThread(parse());
+            handleSuccessOnUiThread(null, false);
         }
     }
 
@@ -91,26 +91,14 @@ public class OkRespHandler<T> implements Callback {
         return headers.toMultimap();
     }
 
-    protected void handleEndOnUiThread() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    end();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Logger.e(reqInfo.getUrl() + LINE + "handleEndOnUiThread--end（） 异常了", e);
-                }
-            }
-        });
-    }
-
     protected void handleFailOnUiThread() {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    respHandler.onFailure(reqInfo, respInfo);
+                    if (respHandler != null) {
+                        respHandler.onFailure(reqInfo, respInfo);
+                    }
                 } catch (Exception e1) {
                     e1.printStackTrace();
                     Logger.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
@@ -126,27 +114,29 @@ public class OkRespHandler<T> implements Callback {
         });
     }
 
-    protected void handleSuccessOnUiThread(final T resultBean) {
+    protected void handleSuccessOnUiThread(final T resultBean, final boolean isDownload) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (resultBean != null) {
+                    if (respHandler != null && !isDownload) {
+                        if (resultBean != null) {
 
-                        // http请求成功，解析成功，接下来判断状态码
-                        if (respHandler.onMatchAppStatusCode(reqInfo, respInfo, resultBean)) {
-                            respInfo.setRespType(RespType.SUCCESS_ALL);
-                            // 项目的该接口的状态码正确
-                            respHandler.onSuccessAll(reqInfo, respInfo, resultBean);
+                            // http请求成功，解析成功，接下来判断状态码
+                            if (respHandler.onMatchAppStatusCode(reqInfo, respInfo, resultBean)) {
+                                respInfo.setRespType(RespType.SUCCESS_ALL);
+                                // 项目的该接口的状态码正确
+                                respHandler.onSuccessAll(reqInfo, respInfo, resultBean);
+                            } else {
+                                // http请求成功，解析成功，项目的该接口的状态码有误
+                                respInfo.setRespType(RespType.SUCCESS_BUT_CODE_WRONG);
+                                respHandler.onSuccessButCodeWrong(reqInfo, respInfo, resultBean);
+                            }
                         } else {
-                            // http请求成功，解析成功，项目的该接口的状态码有误
-                            respInfo.setRespType(RespType.SUCCESS_BUT_CODE_WRONG);
-                            respHandler.onSuccessButCodeWrong(reqInfo, respInfo, resultBean);
+                            // http请求成功，但是解析失败或者没解析
+                            respInfo.setRespType(RespType.SUCCESS_BUT_PARSE_WRONG);
+                            respHandler.onSuccessButParseWrong(reqInfo, respInfo);
                         }
-                    } else {
-                        // http请求成功，但是解析失败或者没解析
-                        respInfo.setRespType(RespType.SUCCESS_BUT_PARSE_WRONG);
-                        respHandler.onSuccessButParseWrong(reqInfo, respInfo);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

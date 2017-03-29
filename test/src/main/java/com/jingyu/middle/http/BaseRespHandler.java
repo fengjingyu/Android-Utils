@@ -13,6 +13,8 @@ import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.util.UtilString;
 
+import java.io.InputStream;
+
 /**
  * @author fengjingyu@foxmail.com
  * @description
@@ -33,6 +35,11 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
     public void onReadySendRequest(ReqInfo reqInfo) {
         Logger.d(TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
         showDialog(reqInfo);
+    }
+
+    @Override
+    public boolean onSuccess(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
+        return false;
     }
 
     /**

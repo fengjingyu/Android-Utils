@@ -14,7 +14,7 @@ import com.jingyu.middle.config.Config;
 import com.jingyu.test.R;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.http.asynchttp.AsyncClient;
+import com.jingyu.utils.http.okhttp.OkClient;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
 import com.squareup.leakcanary.LeakCanary;
@@ -110,7 +110,7 @@ public class LaunchActivity extends BaseActivity {
     }
 
     private void initHttp() {
-        Http.initHttp(new AsyncClient());
+        Http.initHttp(new OkClient());
     }
 
     private void initImageLoader() {

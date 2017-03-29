@@ -1,12 +1,9 @@
 package com.jingyu.utils.http.IHttp;
 
-import com.jingyu.utils.R;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 
 import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -29,9 +26,9 @@ public interface RespHandler<T> {
      * 回调刚刚返回来,还未处理流信息
      * 子线程
      *
-     * @return false 继续执行回调, true为不执行后面的回调
+     * @return false 为不继续执行回调, true为执行后面的回调
      */
-    boolean isDownload(ReqInfo reqInfo, InputStream inputStream);
+    boolean onSuccess(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream);
 
     /**
      * 如果解析失败：一定得返回null,回调onSuccessButParseWrong()
@@ -70,7 +67,7 @@ public interface RespHandler<T> {
     void onFailure(ReqInfo reqInfo, RespInfo respInfo);
 
     /**
-     * onSuccess%或 onFailure 的逻辑调用完后回调该方法
+     * onSuccess  或 onFailure 的逻辑调用完后回调该方法
      * <p/>
      * 可以关闭dialog
      */

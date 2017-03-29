@@ -56,7 +56,7 @@ public class OkRespHandler<T> implements Callback {
         Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
         e.printStackTrace();
 
-        if (respHandler == null || respHandler.isDownload(reqInfo, null)) {
+        if (respHandler == null) {
             handleEndOnUiThread();
         } else {
             handleFailOnUiThread();
@@ -73,7 +73,7 @@ public class OkRespHandler<T> implements Callback {
         printHeaderInfo(respInfo.getRespHeaders());
 
         InputStream inputStream = response.body().byteStream();
-        if (respHandler == null || respHandler.isDownload(reqInfo, inputStream)) {
+        if (respHandler == null || respHandler.onSuccess(reqInfo, respInfo, inputStream)) {
             handleEndOnUiThread();
         } else {
             // 只能读一次，否则异常
@@ -82,9 +82,8 @@ public class OkRespHandler<T> implements Callback {
             respInfo.setDataBytes(bytes);
             respInfo.setDataString(bytes);
             respInfo.setRespType(RespType.SUCCESS_WAIT_TO_PARSE);
-            // 解析数据
-            T resultBean = parse();
-            handleSuccessOnUiThread(resultBean);
+
+            handleSuccessOnUiThread(parse());
         }
     }
 

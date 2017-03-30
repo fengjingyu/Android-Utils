@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Constants;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.util.UtilIo;
@@ -139,7 +140,14 @@ public class CrashHandler implements UncaughtExceptionHandler {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
+            try {
+                // 即时编译再次启动的时候,如果还是上次的错误页面可能会crash
+                ActivityCollector.finishAllActivity();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                defaultUncaughtExceptionHandler.uncaughtException(thread, ex);
+            }
         }
     }
 

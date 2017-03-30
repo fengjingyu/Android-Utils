@@ -99,6 +99,9 @@ public class Http {
      * @param tag 标识
      */
     private static Map<String, Object> getParams(String tag, Map<String, Object> paramsMap) {
+        if (paramsMap == null) {
+            paramsMap = new HashMap<>();
+        }
         //TODO 设置加密参数
         Logger.d("加密前参数--" + paramsMap);
         paramsMap.put("testKey0", "java");

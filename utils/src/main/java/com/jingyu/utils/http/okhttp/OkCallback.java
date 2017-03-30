@@ -25,9 +25,8 @@ import okhttp3.Response;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 该库的回调在子线程中的
  */
-public class OkRespHandler<T> implements Callback {
+public class OkCallback<T> implements Callback {
     /**
      * 可查看如url 返回的json等
      */
@@ -41,7 +40,7 @@ public class OkRespHandler<T> implements Callback {
 
     public static final String LINE = "---";
 
-    public OkRespHandler(ReqInfo reqInfo, RespHandler<T> respHandler, Interceptor interceptor) {
+    public OkCallback(ReqInfo reqInfo, RespHandler<T> respHandler, Interceptor interceptor) {
         this.reqInfo = reqInfo;
         this.respHandler = respHandler;
         this.interceptor = interceptor;
@@ -53,7 +52,7 @@ public class OkRespHandler<T> implements Callback {
         respInfo.setThrowable(e);
         respInfo.setHttpCode(0);
 
-        Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + "----e.toString()" + respInfo.getThrowable());
+        Logger.d(TAG_HTTP, this + LINE + "onFailure--->status code " + respInfo.getHttpCode() + ",e--->" + respInfo.getThrowable());
         e.printStackTrace();
 
         handleFailOnUiThread();

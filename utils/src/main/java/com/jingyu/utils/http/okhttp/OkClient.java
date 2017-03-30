@@ -42,7 +42,7 @@ public class OkClient implements HttpClient {
         // 创建请求
         Request request = createRequest(reqInfo);
 
-        httpClient.newCall(request).enqueue(new OkRespHandler(reqInfo, respHandler, interceptor));
+        httpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
     }
 
     private Request createRequest(ReqInfo reqInfo) {

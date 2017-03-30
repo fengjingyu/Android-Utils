@@ -7,15 +7,22 @@ import android.os.Bundle;
 
 import com.jingyu.middle.Http;
 import com.jingyu.middle.base.BaseActivity;
+import com.jingyu.middle.config.Config;
 import com.jingyu.middle.http.BaseRespHandler;
 import com.jingyu.middle.http.json.JsonModel;
 import com.jingyu.middle.http.json.JsonRespHandler;
+import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.ReqInfo;
+import com.jingyu.utils.http.RespHandlerAdapter;
 import com.jingyu.utils.http.RespInfo;
+import com.jingyu.utils.http.okhttp.OkClient;
+import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utilstest.model.TestModel;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 
 public class HttpActivity extends BaseActivity {
@@ -23,7 +30,77 @@ public class HttpActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        request3();
     }
+
+
+    public void request2() {
+        Http.get("http://10.0.2.2:8080/android/test.apk", null, new BaseRespHandler() {
+            @Override
+            public boolean isDownload() {
+                return true;
+            }
+
+            @Override
+            public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
+                super.onSuccessForDownload(reqInfo, respInfo, inputStream);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Logger.shortToast("onSuccessForDownload");
+                    }
+                });
+                File file = DirHelper.createFile(Config.getAppDir(getApplicationContext()), "1.apk");
+                UtilIo.inputStream2File(inputStream, file);
+            }
+
+            @Override
+            public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
+                super.onFailure(reqInfo, respInfo);
+                Logger.shortToast("onFailure");
+            }
+        });
+    }
+
+    public void request3() {
+        new OkClient().http(new ReqInfo("http://10.0.2.2:8080/android/test.apk"), new RespHandlerAdapter() {
+            @Override
+            public boolean isDownload() {
+                return true;
+            }
+
+            @Override
+            public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
+                super.onSuccessForDownload(reqInfo, respInfo, inputStream);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Logger.shortToast("onSuccessForDownload");
+                    }
+                });
+                File file = DirHelper.createFile(Config.getAppDir(getApplicationContext()), "3.apk");
+                UtilIo.inputStream2File(inputStream, file);
+            }
+
+            @Override
+            public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
+                super.onFailure(reqInfo, respInfo);
+                Logger.shortToast("onFailure");
+            }
+        }, new Interceptor() {
+            @Override
+            public boolean interceptReqSend(ReqInfo reqInfo) {
+                Logger.shortToast("interceptReqSend --false");
+                return false;
+            }
+
+            @Override
+            public void interceptRespEnd(ReqInfo reqInfo, RespInfo respInfo) {
+                Logger.shortToast(true, "interceptReqSend--interceptRespEnd");
+            }
+        });
+    }
+
 
     public void request() {
 

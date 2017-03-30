@@ -8,20 +8,23 @@ import android.view.KeyEvent;
 import com.jingyu.test.maintab.MainActivity;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.DialogManager;
-import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
+import com.jingyu.utils.http.RespHandlerAdapter;
 import com.jingyu.utils.util.UtilString;
-
-import java.io.InputStream;
 
 /**
  * @author fengjingyu@foxmail.com
  * @description
  */
-public abstract class BaseRespHandler<T> implements RespHandler<T> {
+public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
 
     private Activity activityContext;
+
+    /**
+     * 服务端定义的成功状态码
+     **/
+    public static final String REQ_SUCCESS = "1";
 
     public BaseRespHandler(Activity activityContext) {
         super();
@@ -33,7 +36,7 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
 
     @Override
     public void onReadySendRequest(ReqInfo reqInfo) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "--onReadySendRequest()");
+        super.onReadySendRequest(reqInfo);
         showDialog(reqInfo);
     }
 
@@ -51,43 +54,24 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
         }
     }
 
-    @Override
-    public boolean isDownload() {
-        return false;
-    }
-
-    @Override
-    public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessForDownload()");
-    }
-
-    /**
-     * 服务端定义的成功状态码
-     **/
-    public static final String REQ_SUCCESS = "1";
-
     /**
      * 解析是否成功的规则，根据项目的json而定
      */
     @Override
     public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this.toString() + "---onMatchAppStatusCode()");
-
+        super.onMatchAppStatusCode(reqInfo, respInfo, resultBean);
         //TODO 解析规则
         if (resultBean instanceof IHttpRespInfo) {
-
             if (UtilString.equals(((IHttpRespInfo) resultBean).getCode(), REQ_SUCCESS)) {
                 return true;
             } else {
                 statusCodeWrongLogic(resultBean);
                 return false;
             }
-
         } else {
             Logger.e("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
             throw new RuntimeException("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
         }
-
     }
 
     public void statusCodeWrongLogic(T resultBean) {
@@ -95,30 +79,14 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
     }
 
     @Override
-    public void onSuccessButParseWrong(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessButParseWrong()");
-    }
-
-    @Override
-    public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessButCodeWrong()");
-    }
-
-    @Override
-    public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessAll()");
-    }
-
-    @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onFailure()");
-
+        super.onFailure(reqInfo, respInfo);
         Logger.shortToast("网络有误");
     }
 
     @Override
     public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onEnd()");
+        super.onEnd(reqInfo, respInfo);
         closeDialog(reqInfo.isShowDialog());
     }
 
@@ -144,8 +112,4 @@ public abstract class BaseRespHandler<T> implements RespHandler<T> {
         });
     }
 
-    @Override
-    public void onProgressing(ReqInfo reqInfo, long bytesWritten, long totalSize, double percent) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onProgressing()");
-    }
 }

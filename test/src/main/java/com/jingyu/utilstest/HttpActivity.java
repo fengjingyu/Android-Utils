@@ -90,13 +90,13 @@ public class HttpActivity extends BaseActivity {
         }, new Interceptor() {
             @Override
             public boolean interceptReqSend(ReqInfo reqInfo) {
-                Logger.shortToast("interceptReqSend --false");
+                Logger.d("interceptReqSend --false");
                 return false;
             }
 
             @Override
             public void interceptRespEnd(ReqInfo reqInfo, RespInfo respInfo) {
-                Logger.shortToast(true, "interceptReqSend--interceptRespEnd");
+                Logger.d("interceptReqSend--interceptRespEnd");
             }
         });
     }

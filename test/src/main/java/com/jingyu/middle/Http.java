@@ -49,6 +49,14 @@ public class Http {
         return common(ReqType.GET, url, paramsMap, respHandler, null, true, null);
     }
 
+    public static ReqInfo get(String url, RespHandler respHandler) {
+        return common(ReqType.GET, url, null, respHandler, null, true, null);
+    }
+
+    public static ReqInfo get(String url) {
+        return common(ReqType.GET, url, null, null, null, true, null);
+    }
+
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
         return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, interceptor);
     }
@@ -72,10 +80,11 @@ public class Http {
         ReqInfo reqInfo = new ReqInfo();
         reqInfo.setReqType(type);
         reqInfo.setUrl(url);
-        reqInfo.setHeadersMap(getHeaders(tag));
-        reqInfo.setParamsMap(getParams(tag, paramsMap));
         reqInfo.setShowDialog(isShowDialog);
         reqInfo.setTag(tag);
+
+        reqInfo.setHeadersMap(getHeaders(tag));
+        reqInfo.setParamsMap(getParams(tag, paramsMap));
 
         return http(reqInfo, respHandler, interceptor);
     }

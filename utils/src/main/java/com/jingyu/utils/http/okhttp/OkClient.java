@@ -28,6 +28,16 @@ public class OkClient implements HttpClient {
     private OkHttpClient httpClient = new OkHttpClient();
 
     @Override
+    public void http(ReqInfo reqInfo) {
+        http(reqInfo, null, null);
+    }
+
+    @Override
+    public void http(ReqInfo reqInfo, RespHandler respHandler) {
+        http(reqInfo, respHandler, null);
+    }
+
+    @Override
     public void http(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
 
         // 是否拦截请求

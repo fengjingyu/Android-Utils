@@ -71,6 +71,7 @@ public class OkCallback<T> implements Callback {
         if (respHandler != null) {
             InputStream inputStream = response.body().byteStream();
             if (respHandler.isDownload()) {
+                // 子线程下载
                 respHandler.onSuccessForDownload(reqInfo, respInfo, inputStream);
                 handleSuccessOnUiThread(null, true);
             } else {
@@ -79,6 +80,7 @@ public class OkCallback<T> implements Callback {
                 byte[] bytes = UtilIo.getBytes(inputStream);
                 respInfo.setDataBytes(bytes);
                 respInfo.setDataString(bytes);
+                // 子线程解析
                 handleSuccessOnUiThread(parse(), false);
             }
         } else {

@@ -10,6 +10,10 @@ public interface HttpClient {
 
     void http(ReqInfo reqInfo, RespHandler resphandler, Interceptor interceptor);
 
+    void http(ReqInfo reqInfo, RespHandler resphandler);
+
+    void http(ReqInfo reqInfo);
+
     //todo
     //void https(ReqInfo reqInfo, RespHandler resphandler, Interceptor interceptor);
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.google.gson.Gson;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.ThreadHelper;
 import com.jingyu.utils.json.JsonBean;
@@ -15,7 +16,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -139,6 +142,33 @@ public class ExampleInstrumentedTest {
     @Test
     public void testExecutorManager() {
         assertSame(ThreadHelper.getCache(), ThreadHelper.getCache());
+    }
+
+    @Test
+    public void testGson(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        Logger.i(new Gson().toJson(list));
+
+        ArrayList<Map<String,Object>> list2 = new ArrayList<>();
+        Map<String ,Object> map = new HashMap<>();
+        map.put("1","a");
+        map.put("2","b");
+        Map<String ,Object> map2 = new HashMap<>();
+        map2.put("11",22);
+        map2.put("22","bb");
+        Map<String ,Object> map3 = new HashMap<>();
+        map3.put("111",11);
+        map3.put("222","bbb");
+        list2.add(map);
+        list2.add(map2);
+        list2.add(map3);
+        Logger.i(new Gson().toJson(list2));
+
+
+
     }
 
 }

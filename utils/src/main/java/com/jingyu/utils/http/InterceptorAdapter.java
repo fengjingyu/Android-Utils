@@ -16,6 +16,6 @@ public abstract class InterceptorAdapter implements Interceptor {
 
     @Override
     public void interceptRespEnd(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(this + "interceptReqSend()");
+        Logger.d(this + "interceptRespEnd()");
     }
 }

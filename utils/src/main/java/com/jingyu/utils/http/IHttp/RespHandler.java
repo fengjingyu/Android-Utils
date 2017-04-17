@@ -30,7 +30,7 @@ public interface RespHandler<T> {
     boolean isDownload();
 
     /**
-     * 下载的回调
+     * 下载的回调,如果isDownload是true,则回调 onSuccessForDownload/onFailure , onEnd
      * 子线程
      */
     void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream);

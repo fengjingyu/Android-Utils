@@ -26,27 +26,27 @@ public class Config {
      * 调试设置
      */
     // 是否弹出调试的土司
-    public final static boolean IS_SHOW_DEBUG_TOAST;
+    private final static boolean IS_SHOW_DEBUG_TOAST;
     // 是否打印日志到控制台
-    public final static int CONSOLE_LOG_LEVEL;
+    private final static int CONSOLE_LOG_LEVEL;
     // 错误信息日志信息是否写到文件里
-    public final static boolean IS_ERROR_LOG_2_FILE;
+    private final static boolean IS_ERROR_LOG_2_FILE;
     // 是否启用内存泄漏检测库
-    public final static boolean IS_INIT_LEAK_CANARY;
+    private final static boolean IS_INIT_LEAK_CANARY;
     // 是否初始化crashHandler
-    public final static boolean IS_INIT_CRASH_HANDLER;
+    private final static boolean IS_INIT_CRASH_HANDLER;
     // 是否打印异常的日志到屏幕（只有在IS_INIT_CRASH_HANDLER为true时，该设置才有效）
-    public final static boolean IS_SHOW_EXCEPTION_ACTIVITY;
+    private final static boolean IS_SHOW_EXCEPTION_ACTIVITY;
 
     /**
      * 域名设置
      */
     // 通用
-    public final static String HOST;
+    private final static String HOST;
     // 通知
-    public final static String PUSH;
+    private final static String PUSH;
     // html
-    public final static String HTML;
+    private final static String HTML;
 
     static {
         if (CURRENT_RUN_ENVIRONMENT == RunEnvironment.DEV) {
@@ -126,5 +126,29 @@ public class Config {
 
     public static File getCrashDir(Context context) {
         return DirHelper.getAndroidDir(context, CRASH_LOG_DIR_NAME);
+    }
+
+    public static boolean isShowDebugToast() {
+        return IS_SHOW_DEBUG_TOAST;
+    }
+
+    public static int getConsoleLogLevel() {
+        return CONSOLE_LOG_LEVEL;
+    }
+
+    public static boolean isErrorLog2File() {
+        return IS_ERROR_LOG_2_FILE;
+    }
+
+    public static boolean isInitLeakCanary() {
+        return IS_INIT_LEAK_CANARY;
+    }
+
+    public static boolean isInitCrashHandler() {
+        return IS_INIT_CRASH_HANDLER;
+    }
+
+    public static boolean isShowExceptionActivity() {
+        return IS_SHOW_EXCEPTION_ACTIVITY;
     }
 }

@@ -98,9 +98,9 @@ public class LaunchActivity extends BaseActivity {
 
     private void initLog() {
         Logger.Options options = new Logger.Options();
-        options.consoleLogLevel = Config.CONSOLE_LOG_LEVEL;
-        options.isErrorLog2File = Config.IS_ERROR_LOG_2_FILE;
-        options.isShowDebugToast = Config.IS_SHOW_DEBUG_TOAST;
+        options.consoleLogLevel = Config.getConsoleLogLevel();
+        options.isErrorLog2File = Config.isErrorLog2File();
+        options.isShowDebugToast = Config.isShowDebugToast();
         options.logDir = Config.getLogDir(getApplicationContext());
         Logger.initLog(getApplication(), options);
     }
@@ -118,13 +118,13 @@ public class LaunchActivity extends BaseActivity {
     }
 
     private void initCrashHandler() {
-        if (Config.IS_INIT_CRASH_HANDLER) {
-            CrashHandler.getInstance().init(getApplication(), Config.IS_SHOW_EXCEPTION_ACTIVITY, Config.getCrashDir(getApplicationContext()));
+        if (Config.isInitCrashHandler()) {
+            CrashHandler.getInstance().init(getApplication(), Config.isShowExceptionActivity(), Config.getCrashDir(getApplicationContext()));
         }
     }
 
     private void initLeakCanary() {
-        if (Config.IS_INIT_LEAK_CANARY) {
+        if (Config.isInitLeakCanary()) {
             LeakCanary.install(getApplication());
         }
     }

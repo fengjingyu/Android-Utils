@@ -18,9 +18,9 @@ import com.jingyu.utils.function.Logger;
  */
 public class MainActivity extends BaseActivity {
 
-    public static final int CLICK_QUICK_GAP = 1000;
+    public static final int CLICK_QUIT_INTERVAL = 1000;
     //双击两次返回键退出应用
-    private long back_quit_time;
+    private long lastClickQuitTime;
     private RadioGroup tab_group;
 
     @Override
@@ -74,10 +74,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         long this_quit_time = System.currentTimeMillis();
-        if (this_quit_time - back_quit_time <= CLICK_QUICK_GAP) {
+        if (this_quit_time - lastClickQuitTime <= CLICK_QUIT_INTERVAL) {
             ActivityCollector.appExit();
         } else {
-            back_quit_time = this_quit_time;
+            lastClickQuitTime = this_quit_time;
             Logger.shortToast("快速再按一次退出");
         }
     }

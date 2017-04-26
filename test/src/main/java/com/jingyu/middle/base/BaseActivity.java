@@ -15,6 +15,7 @@ import com.jingyu.middle.Http;
 import com.jingyu.test.R;
 import com.jingyu.utils.application.PlusActivity;
 import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.util.UtilBroadcast;
@@ -131,7 +132,7 @@ public abstract class BaseActivity extends PlusActivity {
 
     private View nonet;
 
-    public void netFailChangeBg(String title, final ReqInfo reqInfo, final RespHandler respHandler) {
+    public void netFailChangeBg(String title, final ReqInfo reqInfo, final RespHandler respHandler, final Interceptor interceptor) {
         if (nonet != null) {
             return;
         }
@@ -162,7 +163,7 @@ public abstract class BaseActivity extends PlusActivity {
         nonet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Http.http(reqInfo, respHandler, null);
+                Http.http(reqInfo, respHandler, interceptor);
             }
         });
     }

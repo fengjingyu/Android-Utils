@@ -57,10 +57,17 @@ public class CameraPhotoFragment extends PlusFragment {
     }
 
     public void start() {
-        if (isPermissionGranted(Manifest.permission.CAMERA)) {
+        if (isPermissionGranted(Manifest.permission.CAMERA) && isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             openCamera();
-        } else {
+        } else if (isPermissionGranted(Manifest.permission.CAMERA) && !isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // 有相机权限,没有写的权限
+            permissionRequest(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_CAMERA_PERMISSIONS);
+        } else if (!isPermissionGranted(Manifest.permission.CAMERA) && isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // 没有相机权限,有写的权限
             permissionRequest(new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_CAMERA_PERMISSIONS);
+        } else if (!isPermissionGranted(Manifest.permission.CAMERA) && !isPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            // 没有相机权限,没有写的权限
+            permissionRequest(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_CAMERA_PERMISSIONS);
         }
     }
 
@@ -69,10 +76,18 @@ public class CameraPhotoFragment extends PlusFragment {
         Logger.d(this + "--onRequestPermissionsResult");
         switch (requestCode) {
             case REQUEST_CODE_CAMERA_PERMISSIONS: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                boolean isAllSuccess = true;
+                for (int grantResult : grantResults) {
+                    if (grantResult == PackageManager.PERMISSION_DENIED) {
+                        isAllSuccess = false;
+                        break;
+                    }
+                }
+
+                if (isAllSuccess) {
                     openCamera();
                 } else {
-                    Logger.shortToast("请到设置界面打开拍照权限");
+                    Logger.shortToast("请到设置界面打开权限");
                 }
             }
             break;

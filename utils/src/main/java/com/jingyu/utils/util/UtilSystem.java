@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
 import com.jingyu.utils.function.Logger;
@@ -346,6 +347,18 @@ public class UtilSystem {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void toSetting(Context context) {
+        try {
+            Uri packageURI = Uri.parse("package:" + context.getPackageName());
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.shortToast("打开设置界面失败");
+        }
+
     }
 
 }

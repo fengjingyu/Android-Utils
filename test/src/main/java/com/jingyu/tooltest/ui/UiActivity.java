@@ -10,7 +10,7 @@ import com.jingyu.test.R;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 以下的getVIewById、注释、成员变量字段、设置监听、switch等代码是用UiGenerator.jar 生成的
+ *  以下的getVIewById、注释、成员变量字段、设置监听、switch等代码是用UiGenerator.jar 生成的
  * <p>
  */
 public class UiActivity extends AppCompatActivity implements View.OnClickListener {

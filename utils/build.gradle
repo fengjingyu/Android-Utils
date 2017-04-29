@@ -50,10 +50,10 @@ ext {
     bintrayName = 'android-utils'
 
     publishedGroupId = 'com.jingyu.android'
-    libraryName = 'AndroidUtils'
-    artifact = 'android-utils'
+    libraryName = 'utils'
+    artifact = 'utils'
 
-    libraryDescription = 'Android Utils'
+    libraryDescription = 'Android Utils Library'
 
     siteUrl = 'https://github.com/fengjingyu/Android-Utils'
     gitUrl = 'https://github.com/fengjingyu/Android-Utils.git'
@@ -69,8 +69,9 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-// apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle' //相当于以下代码
 apply plugin: 'com.github.dcendents.android-maven'
+
+group = publishedGroupId
 
 install {
     repositories.mavenInstaller {
@@ -111,7 +112,6 @@ install {
     }
 }
 
-// apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle' //相当于以下代码
 apply plugin: 'com.jfrog.bintray'
 
 version = libraryVersion
@@ -126,6 +126,17 @@ if (project.hasProperty("android")) { // Android libraries
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
+
+    javadoc {
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            author true
+            version true
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+
 } else { // Java libraries
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'

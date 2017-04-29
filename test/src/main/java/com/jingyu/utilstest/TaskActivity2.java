@@ -11,7 +11,6 @@ import com.jingyu.test.R;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class TaskActivity2 extends BaseActivity {
 

@@ -4,7 +4,7 @@ import java.io.Closeable;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilClose {
 

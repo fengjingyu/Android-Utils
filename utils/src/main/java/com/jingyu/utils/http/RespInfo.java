@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description http返回的信息
+ *  http返回的信息
  */
 public class RespInfo extends PlusBean {
 

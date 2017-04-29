@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * @author  fengjingyu@foxmail.com
- * @description
  */
 public abstract class PlusAdapter<T> extends BaseAdapter {
 

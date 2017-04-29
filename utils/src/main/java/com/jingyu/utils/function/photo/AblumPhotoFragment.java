@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 从相册获取图片
+ *  从相册获取图片
  */
 public class AblumPhotoFragment extends PlusFragment {
     // 打开相册的请求码

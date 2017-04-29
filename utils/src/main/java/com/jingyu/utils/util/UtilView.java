@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilView {
 

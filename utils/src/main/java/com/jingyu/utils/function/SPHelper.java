@@ -10,9 +10,7 @@ import java.util.Set;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
-
 public class SPHelper {
 
     private SharedPreferences sharedPreferences;

@@ -7,7 +7,7 @@ import com.jingyu.utils.function.SPHelper;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 以下代码可以通过 SpGenerator.jar 生成
+ *  以下代码可以通过 SpGenerator.jar 生成
  */
 public class Sp {
     private Sp() {

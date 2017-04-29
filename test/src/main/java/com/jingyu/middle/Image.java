@@ -19,7 +19,6 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class Image {
 

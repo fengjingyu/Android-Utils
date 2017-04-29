@@ -6,7 +6,7 @@ import okhttp3.MediaType;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 未写完，暂不可用
+ *  未写完，暂不可用
  */
 public class FileWrapper {
 

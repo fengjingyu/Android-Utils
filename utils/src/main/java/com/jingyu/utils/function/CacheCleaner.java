@@ -8,7 +8,7 @@ import java.io.File;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 删除缓存是在子线程运行的（文件或文件夹）
+ *  删除缓存是在子线程运行的（文件或文件夹）
  */
 public class CacheCleaner {
 
@@ -18,16 +18,16 @@ public class CacheCleaner {
 
         /**
          * 即将要删除的文件
-         * <p/>
+         *
          * 这个方法是在子线程中运行的
-         * <p/>
+         *
          * 是否删除这个文件，true删除(即removing()返回true后，该类执行file.delete的代码)，false不删除
          */
         boolean onRemoving(File file);
 
         /**
          * 子线程的删除文件代码执行完成，handler到主线程
-         * <p/>
+         *
          * 这个方法是在主线程中运行的
          */
         void onFinish();

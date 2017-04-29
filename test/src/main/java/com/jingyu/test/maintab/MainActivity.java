@@ -14,7 +14,6 @@ import com.jingyu.utils.function.Logger;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class MainActivity extends BaseActivity {
 

@@ -13,7 +13,7 @@ import static com.jingyu.utils.http.IHttp.RespHandler.TAG_RESP_HANDLER;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 管理需要显示加载dialog的http请求
+ *  管理需要显示加载dialog的http请求
  * 当有多个并发请求都需要显示dialog时，只显示一个，且多个请求都返回后，才关闭dialog
  */
 public class DialogManager {
@@ -23,7 +23,7 @@ public class DialogManager {
     private static DialogManager instance;
     /**
      * 记录需要加载dialog的网络请求
-     * <p/>
+     *
      * String:哪一个网络请求tag
      * Boolean:为null或false表示还没发请求或请求完成了，为true表示请求未返回
      */

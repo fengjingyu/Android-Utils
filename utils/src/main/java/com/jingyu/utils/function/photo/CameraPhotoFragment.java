@@ -26,7 +26,7 @@ import java.util.concurrent.Executors;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 从摄像头获取图片
+ *  从摄像头获取图片
  */
 public class CameraPhotoFragment extends PlusFragment {
     // 打开摄像头的请求码

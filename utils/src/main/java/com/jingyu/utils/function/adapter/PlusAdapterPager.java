@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 不会回收的viewpager
+ *  不会回收的viewpager
  */
 public class PlusAdapterPager extends PagerAdapter {
     private List<? extends View> viewList;

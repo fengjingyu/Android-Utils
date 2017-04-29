@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilString {
 
@@ -157,7 +157,7 @@ public class UtilString {
 
     /**
      * 删除最后一个指定的字符串，该字符串必须出现在最后尾，否则不会删除
-     * <p/>
+     *
      * 123abcdefgABC ,比如justDeleteLastSymbol（"123abcdefg,"，","）可以， 返回 123abcdefg
      * 123abcdefgABC ,,比如justDeleteLastSymbol（"123abcdefg,h"，","）不可以，返回 123abcdefg,h
      *

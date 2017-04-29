@@ -15,11 +15,11 @@ import java.util.Date;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 1 可以控制频率的吐司
+ *  1 可以控制频率的吐司
  * 2 输出log到控制台
  * 3 输出log到文件
  * 4 日志的清空
- * <p/>
+ *
  * 使用前初始化initLog方法
  */
 public class Logger {

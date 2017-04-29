@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public abstract class PlusAdapterExpand<E, T> extends BaseExpandableListAdapter {
     /**

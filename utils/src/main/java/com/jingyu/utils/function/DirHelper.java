@@ -38,7 +38,7 @@ public class DirHelper {
     }
 
     /**
-     * "e:/haha/enen.o/hexx.&...we/android.txt") 这创建出来的是文件夹
+     * "e:/haha/enen.o/hexx...we/android.txt" 这创建出来的是文件夹
      *
      * @return fail 返回null
      * success 返回 file
@@ -126,8 +126,8 @@ public class DirHelper {
 
     /**
      * 外部存储--之android文件夹,会随app的删除而删除
-     * storage/emulated/0/Android/data/<package>/files or cache
-     * storage/sdcard/Android/data/<package>/files or cache
+     * storage/emulated/0/Android/data/package/files or cache
+     * storage/sdcard/Android/data/package/files or cache
      */
     public static class ExternalAndroid {
 
@@ -143,14 +143,14 @@ public class DirHelper {
         }
 
         /**
-         * Android/data/<package>/cache/fileName
+         * Android/data/package/cache/fileName
          */
         public static File getCacheFile(Context context, String fileName) {
             return createFile(getCacheDir(context), fileName);
         }
 
         /**
-         * Android/data/<package>/files/fileName
+         * Android/data/package/files/fileName
          */
         public static File getFilesFile(Context context, String fileName) {
             return createFile(getFilesDir(context), fileName);
@@ -158,9 +158,9 @@ public class DirHelper {
 
         /**
          * @return 如果sd卡可用
-         * dirName=null / "" / "  ",返回Android/data/<package>/
-         * dirName="cc" 返回Android/data/<package>/cc
-         * dirName="aa/bb" 返回Android/data/<package>/aa/bb
+         * dirName=null / "" / "  ",返回Android/data/package/
+         * dirName="cc" 返回Android/data/package/cc
+         * dirName="aa/bb" 返回Android/data/package/aa/bb
          */
         public static File getDir(Context context, String dirName) {
             if (isSDcardExist()) {
@@ -180,7 +180,7 @@ public class DirHelper {
         }
 
         /**
-         * @return Android/data/<package>/cache
+         * @return Android/data/package/cache
          */
         public static File getCacheDir(Context context) {
             if (isSDcardExist()) {
@@ -190,7 +190,7 @@ public class DirHelper {
         }
 
         /**
-         * @return Android/data/<package>/files
+         * @return Android/data/package/files
          */
         public static File getFilesDir(Context context) {
             return getFilesDir(context, "");
@@ -198,7 +198,7 @@ public class DirHelper {
 
         /**
          * @param dirName "aa","aa/bb"
-         * @return Android/data/<package>/files/aa/bb
+         * @return Android/data/package/files/aa/bb
          */
         public static File getFilesDir(Context context, String dirName) {
             if (isSDcardExist()) {
@@ -208,7 +208,7 @@ public class DirHelper {
         }
 
 //        /**
-//         * @return Android/data/<package>/files/DCIM
+//         * @return Android/data/package/files/DCIM
 //         */
 //        public static File getDCIMDir(Context context) {
 //            if (isSDcardExist()) {
@@ -277,23 +277,23 @@ public class DirHelper {
         }
 
         /**
-         * data/data/<package>/cache/fileName
+         * data/data/package/cache/fileName
          */
         public static File getCacheFile(Context context, String fileName) {
             return createFile(getCacheDir(context), fileName);
         }
 
         /**
-         * data/data//<package>/files/fileName
+         * data/data//package/files/fileName
          */
         public static File getFilesFile(Context context, String fileName) {
             return createFile(getFilesDir(context), fileName);
         }
 
         /**
-         * @return dirName=null / "" / "  ",返回/data/data/<package>/
-         * dirName="cc" 返回/data/data/<package>/cc
-         * dirName="aa/bb" 返回/data/data/<package>/aa/bb
+         * @return dirName=null / "" / "  ",返回/data/data/package/
+         * dirName="cc" 返回/data/data/package/cc
+         * dirName="aa/bb" 返回/data/data/package/aa/bb
          */
         public static File getDir(Context context, String dirName) {
             File cacheDir = context.getCacheDir();
@@ -313,23 +313,23 @@ public class DirHelper {
 //        /**
 //         * @param dirName 这个系统api只提供"aa" 或"bb"的目录
 //         *                ,不可以是"aa/bb"带有分隔符的,否则非法参数异常
-//         * @return dirName为"" ,则返回/data/data/<package>/app_ ,这个app_是系统创建目录的时候自带的
-//         * dirName为null ,则返回/data/data/<package>/app_null,这个app_是系统创建目录的时候自带的
-//         * dirName非空,则返回/data/data/<package>/app_+dirName,这个app_是系统创建目录的时候自带的
+//         * @return dirName为"" ,则返回/data/data/package/app_ ,这个app_是系统创建目录的时候自带的
+//         * dirName为null ,则返回/data/data/package/app_null,这个app_是系统创建目录的时候自带的
+//         * dirName非空,则返回/data/data/package/app_+dirName,这个app_是系统创建目录的时候自带的
 //         */
 //        public static File getAppDir(Context context, String dirName) {
 //            return context.getDir(dirName, Context.MODE_PRIVATE);
 //        }
 
         /**
-         * @return /data/data/<package>/cache
+         * @return /data/data/package/cache
          */
         public static File getCacheDir(Context context) {
             return context.getCacheDir();
         }
 
         /**
-         * @return /data/data/<package>/files
+         * @return /data/data/package/files
          */
         public static File getFilesDir(Context context) {
             return context.getFilesDir();
@@ -358,8 +358,8 @@ public class DirHelper {
     }
 
     /**
-     * 先在ExternalAndroid取(Android/data/<package>/dirName),如果sd卡不存在
-     * 再到Internal取(data/data/<package>/dirName)
+     * 先在ExternalAndroid取Android/data/package/dirName,如果sd卡不存在
+     * 再到Internal取data/data/package/dirName
      *
      * @param dirName "aa" , "aa/bb"
      */

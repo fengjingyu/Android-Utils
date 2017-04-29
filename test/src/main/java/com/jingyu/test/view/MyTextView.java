@@ -9,7 +9,6 @@ import com.jingyu.utils.function.Logger;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class MyTextView extends TextView {
     public MyTextView(Context context) {

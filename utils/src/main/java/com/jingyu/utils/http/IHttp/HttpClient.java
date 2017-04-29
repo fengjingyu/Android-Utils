@@ -4,7 +4,6 @@ import com.jingyu.utils.http.ReqInfo;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public interface HttpClient {
 

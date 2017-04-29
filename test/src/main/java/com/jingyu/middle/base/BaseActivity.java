@@ -22,7 +22,6 @@ import com.jingyu.utils.util.UtilBroadcast;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public abstract class BaseActivity extends PlusActivity {
 

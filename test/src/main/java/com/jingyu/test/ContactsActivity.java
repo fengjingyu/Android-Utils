@@ -30,7 +30,6 @@ import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class ContactsActivity extends BaseActivity {
     private ListView contacts_listview;

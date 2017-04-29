@@ -15,13 +15,12 @@ import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class JsonParse {
 
     /**
      * { } 解析json对象
-     * <p/>
+     *
      * 注：解析失败一定得返回null
      */
     public static <T extends JsonBean> T getJsonParseData(String json, Class<T> beanClass) {

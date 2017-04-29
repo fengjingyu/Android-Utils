@@ -5,7 +5,7 @@ import com.jingyu.utils.http.RespInfo;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 该类的方法都是在主线程回调
+ *  该类的方法都是在主线程回调
  */
 public interface Interceptor {
     /**

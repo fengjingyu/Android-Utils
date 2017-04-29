@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilBroadcast {
 

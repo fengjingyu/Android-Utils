@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description http回调接口
+ *  http回调接口
  */
 public interface RespHandler<T> {
     /**
@@ -17,7 +17,7 @@ public interface RespHandler<T> {
 
     /**
      * 发送请求之前
-     * <p/>
+     *
      * 可以showdialog等
      */
     void onReadySendRequest(ReqInfo reqInfo);
@@ -44,7 +44,7 @@ public interface RespHandler<T> {
 
     /**
      * 对返回状态码的一个判断，每个项目的认定操作成功的状态码或结构可能不同，在这里统一判断
-     * <p/>
+     *
      * 如果调用到这个方法，表示解析一定是成功的；如果解析失败，是不会调用这个方法的
      * false:回调onSuccessButCodeWrong()
      * true: 回调onSuccessAll()
@@ -73,7 +73,7 @@ public interface RespHandler<T> {
 
     /**
      * onSuccess  或 onFailure 的逻辑调用完后回调该方法
-     * <p/>
+     *
      * 可以关闭dialog
      */
     void onEnd(ReqInfo reqInfo, RespInfo respInfo);

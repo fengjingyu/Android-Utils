@@ -25,7 +25,7 @@ import java.util.Locale;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilSystem {
 

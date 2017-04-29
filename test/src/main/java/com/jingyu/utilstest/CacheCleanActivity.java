@@ -16,7 +16,6 @@ import java.io.File;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class CacheCleanActivity extends BaseActivity implements View.OnClickListener {
 

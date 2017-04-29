@@ -34,7 +34,6 @@ import java.util.UUID;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class CrashHandler implements UncaughtExceptionHandler {
 
@@ -98,7 +97,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     /**
      * 当 UncaughtException 发生时会转入该函数来处理
-     * <p/>
+     *
      * 1 try catch的异常是不会回调这个方法的
      * 2 uncaughtException方法内如果出现异常,不会回调这个方法,且会无响应黑屏,所以该方法内trycatch
      */

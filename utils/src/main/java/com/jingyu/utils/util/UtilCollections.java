@@ -8,7 +8,7 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilCollections {
 

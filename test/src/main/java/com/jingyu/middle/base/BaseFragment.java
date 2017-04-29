@@ -12,7 +12,6 @@ import com.jingyu.utils.function.Logger;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public abstract class BaseFragment extends PlusFragment {
     @Override

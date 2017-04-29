@@ -19,7 +19,6 @@ import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public abstract class PlusActivity extends AppCompatActivity {
 

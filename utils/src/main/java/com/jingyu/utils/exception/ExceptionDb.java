@@ -16,7 +16,6 @@ import java.util.Map;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class ExceptionDb extends SQLiteOpenHelper {
     public static final String TAG = ExceptionDb.class.getSimpleName();

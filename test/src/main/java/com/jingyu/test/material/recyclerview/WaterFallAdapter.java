@@ -15,7 +15,7 @@ import java.util.Random;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.MyViewHolder> {
 

@@ -21,7 +21,6 @@ import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class RecycleViewActivity extends BaseActivity implements View.OnClickListener {
 

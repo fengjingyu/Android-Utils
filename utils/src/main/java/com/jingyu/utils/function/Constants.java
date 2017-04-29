@@ -2,7 +2,6 @@ package com.jingyu.utils.function;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class Constants {
     /**

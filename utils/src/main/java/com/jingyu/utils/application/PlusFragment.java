@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public abstract class PlusFragment extends Fragment {
 

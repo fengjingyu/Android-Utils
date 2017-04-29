@@ -3,8 +3,7 @@ package com.jingyu.utils.encryption.rsa;
 import java.io.UnsupportedEncodingException;
 
 /**
- * @author Mr.Zheng
- * @date 2014年8月22日 下午9:50:28
+ * 2014年8月22日 下午9:50:28
  */
 public class Base64Helper
 {

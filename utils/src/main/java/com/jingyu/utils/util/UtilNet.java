@@ -15,7 +15,7 @@ import java.util.Enumeration;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilNet {
 

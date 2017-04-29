@@ -13,7 +13,7 @@ import com.jingyu.utils.function.Logger;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class WaterFallActivity extends BaseActivity {
 

@@ -13,7 +13,6 @@ import com.jingyu.test.R;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class ProgressBarDialog extends Dialog {
 

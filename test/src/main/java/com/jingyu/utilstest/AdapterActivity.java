@@ -13,14 +13,12 @@ import android.widget.TextView;
 import com.jingyu.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.adapter.PlusAdapter;
-import com.jingyu.utils.function.adapter.TestAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class AdapterActivity extends BaseActivity {
 

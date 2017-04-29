@@ -21,7 +21,7 @@ import okhttp3.RequestBody;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 用的是okhttp库
+ *  用的是okhttp库
  */
 public class OkClient implements HttpClient {
 

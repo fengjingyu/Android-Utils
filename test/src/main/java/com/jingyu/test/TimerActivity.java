@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 几种计时方式
+ *  几种计时方式
  */
 public class TimerActivity extends BaseActivity implements View.OnClickListener {
     private Button countTimer;

@@ -9,7 +9,7 @@ import com.jingyu.utils.http.RespInfo;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description gson解析的http回调类
+ *  gson解析的http回调类
  */
 public class GsonRespHandler<T> extends BaseRespHandler<T> {
 

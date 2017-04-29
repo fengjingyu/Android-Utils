@@ -5,7 +5,6 @@ import com.jingyu.utils.json.JsonBean;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class JsonModel extends JsonBean implements IHttpRespInfo {
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author  fengjingyu@foxmail.com
- * @description 不会回收的viewpagerfragment
+ *  不会回收的viewpagerfragment
  */
 public class PlusAdapterPagerFragment extends FragmentPagerAdapter {
     private List<Fragment> fragments;

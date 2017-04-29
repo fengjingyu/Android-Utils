@@ -9,7 +9,6 @@ import com.jingyu.middle.base.BaseActivity;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class ExceptionActivity extends BaseActivity {
 

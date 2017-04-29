@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author  fengjingyu@foxmail.com
- * @description 会回收的viewpager
+ *  会回收的viewpager
  */
 public class PlusAdapterPagerRecyle extends PagerAdapter {
     private List<? extends View> viewList;

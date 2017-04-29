@@ -15,7 +15,6 @@ import com.jingyu.utils.util.UtilString;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
 

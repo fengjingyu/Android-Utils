@@ -12,7 +12,6 @@ import com.jingyu.utils.function.photo.AblumPhotoFragment;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class DestroyGCActivity extends BaseActivity {
     private int i = 10;

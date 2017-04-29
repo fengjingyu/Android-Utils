@@ -15,7 +15,6 @@ import com.jingyu.utils.util.UtilIo;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class TaskActivity3 extends BaseActivity {
 

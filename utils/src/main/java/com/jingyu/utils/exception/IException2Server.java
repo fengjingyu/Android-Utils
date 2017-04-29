@@ -2,7 +2,6 @@ package com.jingyu.utils.exception;
 
 /**
  * @author  fengjingyu@foxmail.com
- * @description
  */
 public interface IException2Server {
     /**

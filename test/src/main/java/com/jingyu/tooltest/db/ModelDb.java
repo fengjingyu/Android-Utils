@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  * 1 model中的static的字段不会生成在db类中
  * 2 @ignore可以忽略model的某一个字段不生成在db类中
  * 3 默认会生成 insert（存入一个） inserts(批量存入) deleteAll(删除所有) queryCount(查询所有数量) queryAll（查询所有） queryPage（分页）方法

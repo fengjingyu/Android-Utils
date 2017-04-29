@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
 
 /**
  * @author  fengjingyu@foxmail.com
- * @description
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.FIELD)

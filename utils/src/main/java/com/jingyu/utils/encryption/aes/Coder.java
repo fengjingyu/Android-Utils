@@ -25,7 +25,7 @@ public abstract class Coder {
 
 	/**
 	 * BASE64加密
-	 * @throws Exception
+	 * @throws UnsupportedEncodingException
 	 */
 	public static String encryptBASE64(byte[] data) throws UnsupportedEncodingException {
 		return new String(Base64.encode(data, Base64.DEFAULT), "UTF-8");

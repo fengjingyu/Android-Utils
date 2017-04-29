@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description DbGenerator.jar可以生成该model对应的sqlite数据库的常用方法
+ *  DbGenerator.jar可以生成该model对应的sqlite数据库的常用方法
  */
 @Updates({
         @Update(methodName = "updateOne", where = "uniqueId = 123"),

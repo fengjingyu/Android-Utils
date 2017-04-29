@@ -12,7 +12,7 @@ import com.jingyu.utils.function.Logger;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 测试用的 , 直接创建一个listview , 然后 listview.setAdapter(new TestAdapter(context,null);
+ *  测试用的 , 直接创建一个listview , 然后 listview.setAdapter(new TestAdapter(context,null);
  */
 public class TestAdapter extends PlusAdapter<String> {
 

@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * @author xujinshan
- * @description
+ *
  */
 public class UtilTime {
     public static void main(String[] args) {

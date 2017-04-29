@@ -7,7 +7,7 @@ import com.jingyu.middle.base.BaseActivity;
 import java.util.ArrayList;
 
 /**
- * @description 测试
+ *  测试
  */
 public class DbActivity extends BaseActivity {
 

@@ -5,7 +5,6 @@ import com.jingyu.utils.application.PlusBean;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class TestModel extends PlusBean implements IHttpRespInfo {
 

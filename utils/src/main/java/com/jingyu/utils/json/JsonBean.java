@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  * int类型的字段可以getString获取String
  * String类型的字段可以getInt获取int
  */

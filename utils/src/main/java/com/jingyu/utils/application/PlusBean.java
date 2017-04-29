@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author  fengjingyu@foxmail.com
- * @description 1 提供了序列化id 2 浅克隆的方法 3 深克隆的方法
+ *  1 提供了序列化id 2 浅克隆的方法 3 深克隆的方法
  */
 public abstract class PlusBean implements Serializable, Cloneable {
 

@@ -28,7 +28,7 @@ import java.util.Properties;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
+ *
  */
 public class UtilIo {
 

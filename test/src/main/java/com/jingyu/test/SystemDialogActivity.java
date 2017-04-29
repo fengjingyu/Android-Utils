@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import com.jingyu.middle.base.BaseActivity;
 
 /**
- * @description 看看不同版本系统上的dialog显示效果
+ *  看看不同版本系统上的dialog显示效果
  */
 public class SystemDialogActivity extends BaseActivity {
 

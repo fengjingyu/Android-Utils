@@ -11,20 +11,19 @@ import android.view.View;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 
 /**
  * <style name="AppTheme" parent="AppBaseTheme">
  * <item name="android:listDivider">@drawable/divider_bg</item>
  * </style>
- * <p/>
+ *
  * 然后自己写个drawable即可，下面我们换一种分隔符：
- * <p/>
+ *
  * <?xml version="1.0" encoding="utf-8"?>
  * <shape xmlns:android="http://schemas.android.com/apk/res/android"
  * android:shape="rectangle" >
- * <p/>
+ *
  * <gradient
  * android:centerColor="#ff00ff00"
  * android:endColor="#ff0000ff"

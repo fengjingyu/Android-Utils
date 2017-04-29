@@ -9,7 +9,7 @@ import java.util.Stack;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 管理activity
+ *  管理activity
  */
 public class ActivityCollector {
 
@@ -124,7 +124,7 @@ public class ActivityCollector {
 
     /**
      * 去到指定的activity，该activity之上的activitys将销毁
-     * <p/>
+     *
      * 如果该activity不存在，则一个也不删除
      */
     public static Activity toActivity(Class<? extends Activity> activity_class) {

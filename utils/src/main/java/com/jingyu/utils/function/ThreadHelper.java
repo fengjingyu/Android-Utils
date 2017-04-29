@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description 获取单例的线程池
+ *  获取单例的线程池
  */
 public class ThreadHelper {
 

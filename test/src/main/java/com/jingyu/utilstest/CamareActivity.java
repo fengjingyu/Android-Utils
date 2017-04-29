@@ -19,7 +19,6 @@ import java.io.File;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class CamareActivity extends BaseActivity {
     private CameraPhotoFragment cameraPhotoFragment;

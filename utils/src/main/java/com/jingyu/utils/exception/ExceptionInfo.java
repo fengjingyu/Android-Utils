@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * @author  fengjingyu@foxmail.com
- * @description
  */
 public class ExceptionInfo implements Serializable {
 

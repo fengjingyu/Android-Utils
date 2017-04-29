@@ -20,7 +20,6 @@ import com.jingyu.utils.util.UtilScreen;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class PropertyAnimActivity extends BaseActivity {
 

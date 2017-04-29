@@ -9,7 +9,6 @@ import java.io.File;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class Config {
 

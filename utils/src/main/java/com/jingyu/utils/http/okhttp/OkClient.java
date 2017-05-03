@@ -3,7 +3,7 @@ package com.jingyu.utils.http.okhttp;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilString;
-import com.jingyu.utils.http.FileWrapper;
+import com.jingyu.utils.http.UploadFileWrapper;
 import com.jingyu.utils.http.IHttp.HttpClient;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.IHttp.RespHandler;
@@ -145,10 +145,10 @@ public class OkClient implements HttpClient {
 
                 if (entry.getValue() instanceof File) {
 
-                    FileWrapper fileWrapper = new FileWrapper((File) entry.getValue());
+                    UploadFileWrapper uploadFileWrapper = new UploadFileWrapper((File) entry.getValue());
 
-                    if (fileWrapper.isExist()) {
-                        multiBuilder.addFormDataPart(entry.getKey(), fileWrapper.getName(), RequestBody.create(fileWrapper.getMediaType(), fileWrapper.getFile()));
+                    if (uploadFileWrapper.isExist()) {
+                        multiBuilder.addFormDataPart(entry.getKey(), uploadFileWrapper.getName(), RequestBody.create(uploadFileWrapper.getMediaType(), uploadFileWrapper.getFile()));
                     } else {
                         continue;
                     }

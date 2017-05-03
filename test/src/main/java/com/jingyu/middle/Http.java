@@ -32,55 +32,64 @@ public class Http {
         return reqInfo;
     }
 
+    public static ReqInfo download(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, interceptor, true);
+    }
+
+    public static ReqInfo download(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
+        return common(ReqType.GET, url, paramsMap, respHandler, null, true, null, true);
+    }
+
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
-        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, interceptor);
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, interceptor, false);
     }
 
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog) {
-        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, null);
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, null, false);
     }
 
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag) {
-        return common(ReqType.GET, url, paramsMap, respHandler, tag, true, null);
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, true, null, false);
     }
 
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
-        return common(ReqType.GET, url, paramsMap, respHandler, null, true, null);
+        return common(ReqType.GET, url, paramsMap, respHandler, null, true, null, false);
     }
 
     public static ReqInfo get(String url, RespHandler respHandler) {
-        return common(ReqType.GET, url, null, respHandler, null, true, null);
+        return common(ReqType.GET, url, null, respHandler, null, true, null, false);
     }
 
     public static ReqInfo get(String url) {
-        return common(ReqType.GET, url, null, null, null, true, null);
+        return common(ReqType.GET, url, null, null, null, true, null, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
-        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, interceptor);
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, interceptor, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog) {
-        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, null);
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, null, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag) {
-        return common(ReqType.POST, url, paramsMap, respHandler, tag, true, null);
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, true, null, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
-        return common(ReqType.POST, url, paramsMap, respHandler, null, true, null);
+        return common(ReqType.POST, url, paramsMap, respHandler, null, true, null, false);
     }
 
     /**
      * 封装请求model
      */
-    private static ReqInfo common(ReqType type, String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+    private static ReqInfo common(ReqType type, String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor, boolean isDownload) {
         ReqInfo reqInfo = new ReqInfo();
         reqInfo.setReqType(type);
         reqInfo.setUrl(url);
         reqInfo.setShowDialog(isShowDialog);
         reqInfo.setTag(tag);
+        reqInfo.setDownload(isDownload);
 
         reqInfo.setHeadersMap(getHeaders(tag));
         reqInfo.setParamsMap(getParams(tag, paramsMap));

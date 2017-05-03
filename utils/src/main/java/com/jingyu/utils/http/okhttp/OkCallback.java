@@ -70,7 +70,7 @@ public class OkCallback<T> implements Callback {
 
         if (respHandler != null) {
             InputStream inputStream = response.body().byteStream();
-            if (respHandler.isDownload()) {
+            if (reqInfo.isDownload()) {
                 // 子线程下载
                 respHandler.onSuccessForDownload(reqInfo, respInfo, inputStream);
                 handleSuccessOnUiThread(null, true);

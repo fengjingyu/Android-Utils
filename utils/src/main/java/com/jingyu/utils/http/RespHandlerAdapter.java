@@ -17,11 +17,6 @@ public class RespHandlerAdapter<T> implements RespHandler<T> {
     }
 
     @Override
-    public boolean isDownload() {
-        return false;
-    }
-
-    @Override
     public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
         Logger.d(TAG_RESP_HANDLER, this + "--onSuccessForDownload()");
     }

@@ -35,12 +35,7 @@ public class HttpActivity extends BaseActivity {
 
 
     public void request2() {
-        Http.get("http://10.0.2.2:8080/android/test.apk", null, new BaseRespHandler() {
-            @Override
-            public boolean isDownload() {
-                return true;
-            }
-
+        Http.download("http://10.0.2.2:8080/android/test.apk", null, new BaseRespHandler() {
             @Override
             public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
                 super.onSuccessForDownload(reqInfo, respInfo, inputStream);
@@ -63,11 +58,7 @@ public class HttpActivity extends BaseActivity {
     }
 
     public void request3() {
-        new OkClient().http(new ReqInfo("http://10.0.2.2:8080/android/test.apk"), new RespHandlerAdapter() {
-            @Override
-            public boolean isDownload() {
-                return true;
-            }
+        new OkClient().http(new ReqInfo("http://10.0.2.2:8080/android/test.apk", true), new RespHandlerAdapter() {
 
             @Override
             public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {

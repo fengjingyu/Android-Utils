@@ -1,6 +1,6 @@
 # Android-Utils
 
-## Gradle Dependency (only 18.8KB)
+## Gradle Dependency
 
 Add the library to your project `build.gradle`
 ```gradle

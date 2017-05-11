@@ -36,16 +36,6 @@ public class UploadFileWrapper {
     }
 
     private MediaType getFileContentType() {
-
-//        if (file.getName().lastIndexOf("png") > 0 || file.getName().lastIndexOf("PNG") > 0) {
-//            return MediaType.parse("image/png; charset=UTF-8");
-//        }
-//
-//        if (file.getName().lastIndexOf("jpg") > 0 || file.getName().lastIndexOf("JPG") > 0
-//                || file.getName().lastIndexOf("jpeg") > 0 || file.getName().lastIndexOf("JPEG") > 0) {
-//            return MediaType.parse("image/jpeg; charset=UTF-8");
-//        }
-
         return MediaType.parse("application/octet-stream");
     }
 

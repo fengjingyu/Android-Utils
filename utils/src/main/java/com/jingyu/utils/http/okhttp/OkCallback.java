@@ -63,7 +63,7 @@ public class OkCallback<T> implements Callback {
         respInfo.setHttpCode(response.code());
         respInfo.setRespHeaders(headers2Map(response.headers()));
         respInfo.setThrowable(null);
-        respInfo.setRespType(RespType.SUCCESS);
+        respInfo.setRespType(RespType.SUCCESS_WAITING_PARSE);
 
         Logger.d(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
         printHeaderInfo(respInfo.getRespHeaders());

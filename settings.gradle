@@ -1,1 +1,1 @@
-include ':test', ':utils'
+include ':test', ':utils', ':kotlin'

@@ -25,7 +25,6 @@ import java.util.Locale;
 
 /**
  * @author fengjingyu@foxmail.com
- *
  */
 public class UtilSystem {
 
@@ -359,6 +358,20 @@ public class UtilSystem {
             Logger.shortToast("打开设置界面失败");
         }
 
+    }
+
+    public static boolean toTencentMarket(Context context, String packageName) {
+        Uri uri = Uri.parse("market://details?id=" + packageName);
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        boolean result = true;
+        try {
+            goToMarket.setClassName("com.tencent.android.qqdownloader", "com.tencent.pangu.link.LinkProxyActivity");
+            context.startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
     }
 
 }

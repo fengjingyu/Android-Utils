@@ -9,6 +9,9 @@ import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.ReqType;
 import com.jingyu.utils.util.UtilSystem;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -95,6 +98,38 @@ public class Http {
         reqInfo.setParamsMap(getParams(tag, paramsMap));
 
         return http(reqInfo, respHandler, interceptor);
+    }
+
+    /**
+     * postString
+     */
+    private static ReqInfo postJson(String url, String json, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+        ReqInfo reqInfo = new ReqInfo();
+        reqInfo.setReqType(ReqType.POST);
+        reqInfo.setUrl(url);
+        reqInfo.setShowDialog(isShowDialog);
+        reqInfo.setTag(tag);
+        reqInfo.setHeadersMap(getHeaders(tag));
+        reqInfo.setPostString(json);
+        reqInfo.setPostStringContentType("application/json");
+        return http(reqInfo, respHandler, interceptor);
+    }
+
+    public static void postJson(String url, String json, RespHandler respHandler) {
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            jsonObject.put("userToken", Sp.getUserToken());
+            //todo
+            jsonObject.put("authcode", "123456");
+            jsonObject.put("plateform", "Android");
+            postJson(url, jsonObject.toString(), respHandler, "", true, null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void postJsonNoCommonField(String url, String json, RespHandler respHandler) {
+        postJson(url, json, respHandler, "", true, null);
     }
 
     /**

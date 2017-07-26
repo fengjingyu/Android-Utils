@@ -23,6 +23,7 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
     /**
      * 服务端定义的成功状态码
      **/
+    //todo
     public static final String REQ_SUCCESS = "1";
 
     public BaseRespHandler(Activity activityContext) {
@@ -46,7 +47,7 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
         if (activityContext != null && reqInfo.isShowDialog()) {
             DialogManager dialogManager = DialogManager.getInstance(activityContext);
             // TODO 设置dialog
-            Dialog dialog = new ProgressBarDialog(activityContext);
+            Dialog dialog = new HttpLoadingDialog(activityContext);
             addDialogListener(dialog);
             dialogManager.setDialog(dialog);
             dialogManager.mayShow(toString());
@@ -102,6 +103,7 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     closeDialog(true);
+                    //todo
                     if (activityContext != null && !(activityContext instanceof MainActivity)) {
                         activityContext.finish();
                     }

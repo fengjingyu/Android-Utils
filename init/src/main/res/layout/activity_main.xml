@@ -91,6 +91,6 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_above="@+id/main_bottombar"
-        android:background="@color/jjtx_line" />
+        android:background="@color/c_gray_f9f9f9" />
 
 </RelativeLayout>

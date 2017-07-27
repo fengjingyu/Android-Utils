@@ -1,11 +1,12 @@
-apply plugin: 'com.android.application'
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
 
     defaultConfig {
-        applicationId "com.demo.init"
+        //applicationId "com.demo.init"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
@@ -14,6 +15,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -34,6 +36,10 @@ android {
         }
     }
 
+    dexOptions {
+        maxProcessCount 4
+        javaMaxHeapSize "3g"
+    }
 }
 
 dependencies {
@@ -43,8 +49,6 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:25.3.1'
@@ -52,15 +56,14 @@ dependencies {
     compile 'com.android.support:percent:25.3.1'
     compile 'com.android.support:design:25.3.1'
 
-
-
     /** gson */
     compile 'com.google.code.gson:gson:2.7'
     /** imageloader */
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.1'
-    /** okhttp */
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+
     /** 框架库 */
-    compile 'com.jingyu.android:utils:1.0.1'
+    compile project(':utils')
+    //compile 'com.jingyu.android:utils:1.0.1' //仓库的地址
+    //compile 'com.squareup.okhttp3:okhttp:3.4.1'//utils里用到了okhttp
 
 }

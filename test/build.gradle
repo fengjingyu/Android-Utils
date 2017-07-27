@@ -29,7 +29,7 @@ android {
     /** aar */
     repositories {
         flatDir {
-            dirs 'aars'
+            dirs 'libs'
         }
     }
 

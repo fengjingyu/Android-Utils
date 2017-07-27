@@ -32,6 +32,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testCompile 'junit:junit:4.12'
 
     testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"//kotlin
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"//kotlin
@@ -40,6 +41,6 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    // compile project(':test')
+
+    compile project(':init') // init如果改为了phone module,gradle时会报错
 }

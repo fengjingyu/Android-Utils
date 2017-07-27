@@ -18,8 +18,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jingyu.middle.Image;
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.Image;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.ThreadHelper;
 import com.jingyu.utils.function.adapter.PlusAdapter;

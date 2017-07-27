@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
 

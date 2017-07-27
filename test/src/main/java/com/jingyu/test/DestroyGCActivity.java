@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.photo.AblumPhotoFragment;
 

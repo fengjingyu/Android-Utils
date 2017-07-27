@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
+
 
 /**
  *  看看不同版本系统上的dialog显示效果
@@ -21,11 +21,10 @@ public class SystemDialogActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_dialog);
+    }
 
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            //supportActionBar.hide();
-        }
+    @Override
+    public void hiddenTitleActionBar() {
     }
 
     @Override

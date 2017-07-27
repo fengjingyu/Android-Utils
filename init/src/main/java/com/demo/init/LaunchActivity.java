@@ -94,9 +94,13 @@ public class LaunchActivity extends BaseActivity {
 
         simpleDeviceInfo();
 
-        MainActivity.actionStart(getActivity());
+        action();
 
         finish();
+    }
+
+    protected void action() {
+        MainActivity.actionStart(getActivity());
     }
 
     private void initLog() {

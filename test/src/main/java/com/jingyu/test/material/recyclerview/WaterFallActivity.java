@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
 

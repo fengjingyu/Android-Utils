@@ -38,13 +38,13 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 hideAllFragment();
                 if (checkedId == R.id.tab_item1) {
-                    showFragmentByClass(TabFragmentOne.class, R.id.main_content);
+                    showFragmentByClass(TabFragmentOne.class, R.id.content);
                 } else if (checkedId == R.id.tab_item2) {
-                    showFragmentByClass(TabFragmentTwo.class, R.id.main_content);
+                    showFragmentByClass(TabFragmentTwo.class, R.id.content);
                 } else if (checkedId == R.id.tab_item3) {
-                    showFragmentByClass(TabFragmentThree.class, R.id.main_content);
+                    showFragmentByClass(TabFragmentThree.class, R.id.content);
                 } else if (checkedId == R.id.tab_item4) {
-                    showFragmentByClass(TabFragmentFour.class, R.id.main_content);
+                    showFragmentByClass(TabFragmentFour.class, R.id.content);
                 }
             }
         });

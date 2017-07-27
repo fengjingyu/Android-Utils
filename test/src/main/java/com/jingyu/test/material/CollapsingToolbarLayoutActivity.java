@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.R;
 
 import static android.R.attr.value;

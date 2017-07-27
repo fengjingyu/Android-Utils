@@ -21,13 +21,13 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-        android:name="com.jingyu.middle.App"
+        android:name="com.demo.middle.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".maintab.LaunchActivity">
+        <activity android:name=".tab.TestLaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".maintab.MainActivity"
+            android:name=".tab.TestMainActivity"
             android:launchMode="singleTask">
 
             <!-- <intent-filter> -->

@@ -72,7 +72,7 @@ dependencies {
 
     /** aar方式引入 */
     // compile(name: 'utils-release', ext: 'aar')
-    compile project(':utils')
+    compile project(':init')
 
     /** 内存泄露的依赖 */
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'

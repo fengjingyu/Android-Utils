@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.jingyu.middle.Http;
-import com.jingyu.middle.base.BaseActivity;
-import com.jingyu.middle.config.Config;
-import com.jingyu.middle.http.BaseRespHandler;
-import com.jingyu.middle.http.json.JsonModel;
-import com.jingyu.middle.http.json.JsonRespHandler;
+import com.demo.middle.Http;
+import com.demo.middle.base.BaseActivity;
+import com.demo.middle.config.Config;
+import com.demo.middle.http.BaseRespHandler;
+import com.demo.middle.http.json.JsonModel;
+import com.demo.middle.http.json.JsonRespHandler;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;

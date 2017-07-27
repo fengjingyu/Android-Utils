@@ -7,7 +7,6 @@ import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.ReqType;
-import com.jingyu.utils.util.UtilSystem;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +18,6 @@ import java.util.Map;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class Http {
     private Http() {
@@ -36,55 +34,64 @@ public class Http {
         return reqInfo;
     }
 
+    public static ReqInfo download(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, interceptor, true);
+    }
+
+    public static ReqInfo download(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
+        return common(ReqType.GET, url, paramsMap, respHandler, null, true, null, true);
+    }
+
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
-        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, interceptor);
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, interceptor, false);
     }
 
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog) {
-        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, null);
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, isShowDialog, null, false);
     }
 
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag) {
-        return common(ReqType.GET, url, paramsMap, respHandler, tag, true, null);
+        return common(ReqType.GET, url, paramsMap, respHandler, tag, true, null, false);
     }
 
     public static ReqInfo get(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
-        return common(ReqType.GET, url, paramsMap, respHandler, null, true, null);
+        return common(ReqType.GET, url, paramsMap, respHandler, null, true, null, false);
     }
 
     public static ReqInfo get(String url, RespHandler respHandler) {
-        return common(ReqType.GET, url, null, respHandler, null, true, null);
+        return common(ReqType.GET, url, null, respHandler, null, true, null, false);
     }
 
     public static ReqInfo get(String url) {
-        return common(ReqType.GET, url, null, null, null, true, null);
+        return common(ReqType.GET, url, null, null, null, true, null, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
-        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, interceptor);
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, interceptor, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog) {
-        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, null);
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, isShowDialog, null, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag) {
-        return common(ReqType.POST, url, paramsMap, respHandler, tag, true, null);
+        return common(ReqType.POST, url, paramsMap, respHandler, tag, true, null, false);
     }
 
     public static ReqInfo post(String url, Map<String, Object> paramsMap, RespHandler respHandler) {
-        return common(ReqType.POST, url, paramsMap, respHandler, null, true, null);
+        return common(ReqType.POST, url, paramsMap, respHandler, null, true, null, false);
     }
 
     /**
      * 封装请求model
      */
-    private static ReqInfo common(ReqType type, String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+    private static ReqInfo common(ReqType type, String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor, boolean isDownload) {
         ReqInfo reqInfo = new ReqInfo();
         reqInfo.setReqType(type);
         reqInfo.setUrl(url);
         reqInfo.setShowDialog(isShowDialog);
         reqInfo.setTag(tag);
+        reqInfo.setDownload(isDownload);
 
         reqInfo.setHeadersMap(getHeaders(tag));
         reqInfo.setParamsMap(getParams(tag, paramsMap));
@@ -92,9 +99,6 @@ public class Http {
         return http(reqInfo, respHandler, interceptor);
     }
 
-    /**
-     * 新增postString的请求方式
-     */
     private static ReqInfo postJson(String url, String json, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
         ReqInfo reqInfo = new ReqInfo();
         reqInfo.setReqType(ReqType.POST);
@@ -110,8 +114,7 @@ public class Http {
     public static void postJson(String url, String json, RespHandler respHandler) {
         try {
             JSONObject jsonObject = new JSONObject(json);
-            jsonObject.put("userToken", Sp.getUserToken());
-            //todo 打包前需要修改authcode
+            //todo
             jsonObject.put("authcode", "123456");
             jsonObject.put("plateform", "Android");
             postJson(url, jsonObject.toString(), respHandler, "", true, null);
@@ -132,7 +135,6 @@ public class Http {
     private static Map<String, List<String>> getHeaders(String tag) {
         //TODO 设置请求头
         Map<String, List<String>> map = new HashMap<>();
-        map.put("_v", Arrays.asList(UtilSystem.getVersionCode(App.getApplication()) + ""));
         map.put("_p", Arrays.asList("1"));
         return map;
     }

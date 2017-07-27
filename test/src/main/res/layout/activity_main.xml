@@ -26,7 +26,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:background="@color/c_white_ffffff"
-                android:checked="true"
                 android:drawableTop="@mipmap/ic_launcher"
                 android:text="one" />
 

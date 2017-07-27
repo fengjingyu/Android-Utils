@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ImageView;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.Logger;

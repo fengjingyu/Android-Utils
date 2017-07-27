@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilSystem;
 

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.encryption.aes.AesEncryptAndDecrypt;
 import com.jingyu.utils.encryption.des.DesEncryptAndDecrypt;

@@ -12,7 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.material.PercentLayoutActivity;
 
 import java.io.File;

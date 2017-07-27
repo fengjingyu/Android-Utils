@@ -15,7 +15,6 @@ import com.jingyu.utils.util.UtilString;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
 
@@ -24,6 +23,7 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
     /**
      * 服务端定义的成功状态码
      **/
+    //todo
     public static final String REQ_SUCCESS = "1";
 
     public BaseRespHandler(Activity activityContext) {
@@ -103,6 +103,7 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     closeDialog(true);
+                    //todo
                     if (activityContext != null && !(activityContext instanceof MainActivity)) {
                         activityContext.finish();
                     }

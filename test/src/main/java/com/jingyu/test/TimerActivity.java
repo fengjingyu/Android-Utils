@@ -12,7 +12,7 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 
-import com.jingyu.middle.base.BaseActivity;
+import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.material.PercentLayoutActivity;
 import com.jingyu.utils.function.Logger;
 

@@ -128,7 +128,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
 
     public void alarm() {
         AlarmManager systemService = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, new Intent(getActivity(), SystemDialogActivity.class), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, new Intent(getActivity(), RequestPermissionActivity.class), 0);
         long triggerAtTime = SystemClock.elapsedRealtime() + 10 * 1000;
         systemService.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pendingIntent);
 

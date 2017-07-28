@@ -7,7 +7,6 @@ public class AppLaunchActivity extends LaunchActivity {
 
     @Override
     protected void action() {
-        super.action();
         AppMainActivity.actionStart(getActivity());
     }
 }

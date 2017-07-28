@@ -10,13 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AppMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".AppMainActivity" />
         <activity
             android:name=".MaterialActivity"
             android:theme="@style/AppThemeNoActionBar" />
@@ -27,7 +21,13 @@
         <activity android:name=".recyclerview.RecycleViewActivity" />
         <activity android:name=".recyclerview.WaterFallActivity" />
         <activity android:name=".PercentLayoutActivity" />
-        <activity android:name=".AppLaunchActivity" />
+        <activity android:name=".AppLaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

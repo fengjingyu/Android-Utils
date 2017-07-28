@@ -1,4 +1,4 @@
-package com.jingyu.test;
+package com.jingyu.android.anim;
 
 import android.animation.AnimatorSet;
 import android.animation.Keyframe;

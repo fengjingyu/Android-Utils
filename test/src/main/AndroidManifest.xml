@@ -46,10 +46,8 @@
         <activity android:name=".TimerActivity" />
         <activity android:name=".DestroyGCActivity" />
 
-        <activity android:name=".PropertyAnimActivity" />
         <activity android:name=".LeakCanaryActivity" />
         <activity android:name=".HandlerActivity" />
-        <activity android:name=".SystemDialogActivity" />
         <activity android:name=".ContactsActivity" />
         <activity android:name=".RequestPermissionActivity" />
         <activity android:name=".utilstest.CacheCleanActivity" />

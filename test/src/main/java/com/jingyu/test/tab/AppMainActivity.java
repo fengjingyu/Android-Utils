@@ -12,10 +12,8 @@ import com.jingyu.test.DestroyGCActivity;
 import com.jingyu.test.HandlerActivity;
 import com.jingyu.test.LeakCanaryActivity;
 import com.jingyu.test.NotifyActivity;
-import com.jingyu.test.PropertyAnimActivity;
 import com.jingyu.test.R;
 import com.jingyu.test.RequestPermissionActivity;
-import com.jingyu.test.SystemDialogActivity;
 import com.jingyu.test.TimerActivity;
 import com.jingyu.test.download.DownloadActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
@@ -38,16 +36,16 @@ import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
 
+import static com.jingyu.test.R.id.systemDialog;
+
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int CLICK_QUIT_INTERVAL = 1000;
     private long lastClickQuitTime;
 
     //scrollview1
-    private Button propertyAnim;
     private Button leakCanary;
     private Button timer;
-    private Button systemDialog;
     private Button destroygc;
     private Button handler;
     private Button fragmentLife;
@@ -86,10 +84,8 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void setListener() {
-        propertyAnim.setOnClickListener(this);
         leakCanary.setOnClickListener(this);
         timer.setOnClickListener(this);
-        systemDialog.setOnClickListener(this);
         destroygc.setOnClickListener(this);
         handler.setOnClickListener(this);
         fragmentLife.setOnClickListener(this);
@@ -102,10 +98,8 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initWidget() {
-        propertyAnim = getViewById(R.id.propertyAnim);
         leakCanary = getViewById(R.id.leakCanary);
         timer = getViewById(R.id.timer);
-        systemDialog = getViewById(R.id.systemDialog);
         destroygc = getViewById(R.id.destroygc);
         handler = getViewById(R.id.handler);
         fragmentLife = getViewById(R.id.fragmentLife);
@@ -119,17 +113,11 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
 
     private void onClickAction(View v) {
         switch (v.getId()) {
-            case R.id.propertyAnim:
-                PropertyAnimActivity.actionStart(getActivity());
-                break;
             case R.id.leakCanary:
                 LeakCanaryActivity.actionStart(getActivity());
                 break;
             case R.id.timer:
                 TimerActivity.actionStart(getActivity());
-                break;
-            case R.id.systemDialog:
-                SystemDialogActivity.actionStart(getActivity());
                 break;
             case R.id.destroygc:
                 DestroyGCActivity.actionStart(getActivity());

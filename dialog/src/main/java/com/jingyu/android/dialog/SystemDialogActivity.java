@@ -1,4 +1,4 @@
-package com.jingyu.test;
+package com.jingyu.android.dialog;
 
 import android.app.ProgressDialog;
 import android.content.Context;

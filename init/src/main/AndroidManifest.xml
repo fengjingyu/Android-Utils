@@ -12,12 +12,12 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<!--    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />-->
+    <!--    <uses-permission android:name="android.permission.READ_CONTACTS" />
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-permission android:name="android.permission.FLASHLIGHT" />
+        <uses-permission android:name="android.permission.VIBRATE" />
+        <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />-->
 
     <application
         android:name="com.jingyu.android.middle.App"
@@ -27,14 +27,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LaunchActivity">
+            <!--  <intent-filter>
+                             <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                             <category android:name="android.intent.category.LAUNCHER" />
+                         </intent-filter>-->
         </activity>
-        <activity android:name=".LaunchActivity" />
         <activity android:name=".WebViewActivity" />
     </application>
 

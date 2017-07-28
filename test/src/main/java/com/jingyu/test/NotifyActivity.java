@@ -40,7 +40,7 @@ public class NotifyActivity extends BaseActivity {
         if (content % 2 == 0)
             intent = new Intent(getActivity(), NotifyActivity.class);
         else
-            intent = new Intent(getActivity(), SystemDialogActivity.class);
+            intent = new Intent(getActivity(), RequestPermissionActivity.class);
 
         content++;
         Notification notification = new NotificationCompat.Builder(getApplicationContext())

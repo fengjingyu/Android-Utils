@@ -39,8 +39,5 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"//kotlin
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"//kotlin
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
     compile project(':init') // init如果改为了phone module,gradle时会报错
 }

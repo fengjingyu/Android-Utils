@@ -7,7 +7,7 @@ import com.squareup.leakcanary.LeakCanary;
 /**
  * 动态权限的问题:初始化从application放到了LaunchActiity
  */
-public class TestLaunchActivity extends LaunchActivity {
+public class AppLaunchActivity extends LaunchActivity {
 
     @Override
     protected void action() {
@@ -15,7 +15,7 @@ public class TestLaunchActivity extends LaunchActivity {
 
         initTestService();
 
-        TestMainActivity.actionStart(getActivity());
+        AppMainActivity.actionStart(getActivity());
     }
 
     private void initTestService() {

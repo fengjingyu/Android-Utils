@@ -1,4 +1,4 @@
-package com.jingyu.test.material.recyclerview;
+package com.jingyu.android.material.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.jingyu.android.material.R;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
 
 /**
@@ -24,7 +24,7 @@ public class WaterFallActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycle_water_view);
+        setContentView(R.layout.activity_water_fall);
 
         recyclerView = getViewById(R.id.id_recyclerView);
 

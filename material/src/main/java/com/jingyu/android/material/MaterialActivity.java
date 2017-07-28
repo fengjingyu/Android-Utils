@@ -1,4 +1,4 @@
-package com.jingyu.test.material;
+package com.jingyu.android.material;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,8 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.R;
-import com.jingyu.test.material.recyclerview.WaterFallAdapter;
+import com.jingyu.android.material.recyclerview.WaterFallAdapter;
 import com.jingyu.utils.function.Logger;
 
 public class MaterialActivity extends BaseActivity {

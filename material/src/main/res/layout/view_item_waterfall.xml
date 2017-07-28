@@ -8,7 +8,7 @@
     app:elevation="5dp">
 
     <TextView
-        android:id="@+id/id_content"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/c_blue_20aae0"

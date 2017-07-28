@@ -1,4 +1,4 @@
-package com.jingyu.test.material;
+package com.jingyu.android.material;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.R;
 
 import static android.R.attr.value;
 

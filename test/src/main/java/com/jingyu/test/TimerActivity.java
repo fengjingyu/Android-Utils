@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.material.PercentLayoutActivity;
 import com.jingyu.utils.function.Logger;
 
 import java.util.Timer;
@@ -129,7 +128,7 @@ public class TimerActivity extends BaseActivity implements View.OnClickListener 
 
     public void alarm() {
         AlarmManager systemService = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, new Intent(getActivity(), PercentLayoutActivity.class), 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, new Intent(getActivity(), SystemDialogActivity.class), 0);
         long triggerAtTime = SystemClock.elapsedRealtime() + 10 * 1000;
         systemService.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pendingIntent);
 

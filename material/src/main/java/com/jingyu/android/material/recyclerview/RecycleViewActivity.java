@@ -1,4 +1,4 @@
-package com.jingyu.test.material.recyclerview;
+package com.jingyu.android.material.recyclerview;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jingyu.android.material.R;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +101,7 @@ public class RecycleViewActivity extends BaseActivity implements View.OnClickLis
 
             public MyViewHolder(View view) {
                 super(view);
-                tv = (TextView) view.findViewById(R.id.id_content);
+                tv = (TextView) view.findViewById(R.id.content);
             }
         }
     }

@@ -63,7 +63,7 @@ public class AdapterActivity extends BaseActivity {
             TextView textview;
 
             public ViewHolder(View view) {
-                this.textview = (TextView) view.findViewById(R.id.id_content);
+                this.textview = (TextView) view.findViewById(R.id.content);
             }
         }
     }

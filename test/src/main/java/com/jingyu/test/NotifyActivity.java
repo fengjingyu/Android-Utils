@@ -13,7 +13,6 @@ import android.support.v4.app.NotificationCompat;
 import android.view.View;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.material.PercentLayoutActivity;
 
 import java.io.File;
 
@@ -41,7 +40,7 @@ public class NotifyActivity extends BaseActivity {
         if (content % 2 == 0)
             intent = new Intent(getActivity(), NotifyActivity.class);
         else
-            intent = new Intent(getActivity(), PercentLayoutActivity.class);
+            intent = new Intent(getActivity(), SystemDialogActivity.class);
 
         content++;
         Notification notification = new NotificationCompat.Builder(getApplicationContext())

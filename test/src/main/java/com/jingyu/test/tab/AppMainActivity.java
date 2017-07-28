@@ -19,8 +19,6 @@ import com.jingyu.test.SystemDialogActivity;
 import com.jingyu.test.TimerActivity;
 import com.jingyu.test.download.DownloadActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
-import com.jingyu.test.material.MaterialActivity;
-import com.jingyu.test.material.PercentLayoutActivity;
 import com.jingyu.test.service.AIDLServiceActivity;
 import com.jingyu.test.service.LocalServiceActivity;
 import com.jingyu.test.utilstest.AdapterActivity;
@@ -40,7 +38,7 @@ import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
 
-public class TestMainActivity extends BaseActivity implements View.OnClickListener {
+public class AppMainActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int CLICK_QUIT_INTERVAL = 1000;
     private long lastClickQuitTime;
@@ -74,14 +72,10 @@ public class TestMainActivity extends BaseActivity implements View.OnClickListen
     private Button dir;
     private Button bitmap;
 
-    //scrollview3
-    private Button material;
-    private Button percentLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_app_main);
 
         initWidget();
         setListener();
@@ -89,8 +83,6 @@ public class TestMainActivity extends BaseActivity implements View.OnClickListen
         initWidget2();
         setListener2();
 
-        initWidget3();
-        setListener3();
     }
 
     private void setListener() {
@@ -244,35 +236,11 @@ public class TestMainActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    private void setListener3() {
-        material.setOnClickListener(this);
-        percentLayout.setOnClickListener(this);
-    }
-
-    public void initWidget3() {
-        material = getViewById(R.id.material);
-        percentLayout = getViewById(R.id.percentLayout);
-    }
-
-    private void onClickAction3(View v) {
-        switch (v.getId()) {
-            case R.id.material:
-                MaterialActivity.actionStart(getActivity());
-                break;
-            case R.id.percentLayout:
-                PercentLayoutActivity.actionStart(getActivity());
-                break;
-            default:
-                break;
-        }
-    }
-
 
     @Override
     public void onClick(View v) {
         onClickAction(v);
         onClickAction2(v);
-        onClickAction3(v);
     }
 
     @Override
@@ -298,6 +266,6 @@ public class TestMainActivity extends BaseActivity implements View.OnClickListen
     }
 
     public static void actionStart(Context activityContext) {
-        activityContext.startActivity(new Intent(activityContext, TestMainActivity.class));
+        activityContext.startActivity(new Intent(activityContext, AppMainActivity.class));
     }
 }

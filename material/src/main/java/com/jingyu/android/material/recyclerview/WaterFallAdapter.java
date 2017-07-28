@@ -1,4 +1,4 @@
-package com.jingyu.test.material.recyclerview;
+package com.jingyu.android.material.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.jingyu.test.R;
+import com.jingyu.android.material.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,6 @@ import java.util.Random;
 
 /**
  * @author fengjingyu@foxmail.com
- *
  */
 public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.MyViewHolder> {
 
@@ -88,7 +87,7 @@ public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.MyVi
 
         public MyViewHolder(View view) {
             super(view);
-            tv = (TextView) view.findViewById(R.id.id_content);
+            tv = (TextView) view.findViewById(R.id.content);
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

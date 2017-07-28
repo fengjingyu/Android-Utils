@@ -1,11 +1,10 @@
-package com.jingyu.test.material;
+package com.jingyu.android.material;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.R;
 
 public class PercentLayoutActivity extends BaseActivity {
 

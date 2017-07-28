@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".tab.TestLaunchActivity">
+        <activity android:name=".tab.AppLaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".tab.TestMainActivity"
+            android:name=".tab.AppMainActivity"
             android:launchMode="singleTask">
 
             <!-- <intent-filter> -->
@@ -45,8 +45,7 @@
         </activity>
         <activity android:name=".TimerActivity" />
         <activity android:name=".DestroyGCActivity" />
-        <activity android:name=".material.recyclerview.RecycleViewActivity" />
-        <activity android:name=".material.recyclerview.WaterFallActivity" />
+
         <activity android:name=".PropertyAnimActivity" />
         <activity android:name=".LeakCanaryActivity" />
         <activity android:name=".HandlerActivity" />
@@ -73,7 +72,6 @@
             android:name="MULTI_CHANNEL"
             android:value="${MULTI_CHANNEL_VALUE}" />
 
-        <activity android:name=".material.PercentLayoutActivity" />
         <activity android:name=".fragmentlife.FragmentLifeActivity" />
 
         <receiver
@@ -106,12 +104,6 @@
         <activity android:name=".service.LocalServiceActivity" />
         <activity android:name=".service.AIDLServiceActivity" />
         <activity android:name=".download.DownloadActivity" />
-        <activity
-            android:name=".material.MaterialActivity"
-            android:theme="@style/AppThemeNoActionBar" />
-        <activity
-            android:name=".material.CollapsingToolbarLayoutActivity"
-            android:theme="@style/CollapsingLayoutActivityTheme" />
         <activity android:name=".MotionEventActivity"/>
     </application>
 

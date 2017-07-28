@@ -1,4 +1,4 @@
-package com.jingyu.test.material.recyclerview;
+package com.jingyu.android.material.recyclerview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

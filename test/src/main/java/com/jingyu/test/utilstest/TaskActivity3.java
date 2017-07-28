@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.util.UtilIo;

@@ -1,7 +1,7 @@
 package com.jingyu.test.tab;
 
-import com.demo.init.LaunchActivity;
-import com.demo.middle.config.Config;
+import com.jingyu.android.init.LaunchActivity;
+import com.jingyu.android.middle.config.Config;
 import com.squareup.leakcanary.LeakCanary;
 
 /**

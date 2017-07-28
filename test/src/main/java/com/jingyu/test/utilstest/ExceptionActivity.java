@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 
 
 /**

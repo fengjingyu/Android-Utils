@@ -23,7 +23,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 
 
 public class LeakCanaryActivity extends BaseActivity {

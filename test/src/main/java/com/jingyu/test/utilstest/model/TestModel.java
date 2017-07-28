@@ -1,6 +1,6 @@
 package com.jingyu.test.utilstest.model;
 
-import com.demo.middle.http.IHttpRespInfo;
+import com.jingyu.android.middle.http.IHttpRespInfo;
 import com.jingyu.utils.application.PlusBean;
 
 /**

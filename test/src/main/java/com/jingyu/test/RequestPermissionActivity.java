@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilSystem;
 

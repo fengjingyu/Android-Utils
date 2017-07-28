@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.demo.middle.base.BaseFragment;
+import com.jingyu.android.middle.base.BaseFragment;
 import com.jingyu.test.R;
 
 public class LifeFragment extends BaseFragment {

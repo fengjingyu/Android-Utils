@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 
 
 /**

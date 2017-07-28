@@ -18,7 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.test.material.recyclerview.WaterFallAdapter;
 import com.jingyu.utils.function.Logger;

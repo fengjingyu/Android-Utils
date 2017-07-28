@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.test.ContactsActivity;
 import com.jingyu.test.DestroyGCActivity;
 import com.jingyu.test.HandlerActivity;
@@ -81,7 +81,7 @@ public class TestMainActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.demo.init.R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
         initWidget();
         setListener();

@@ -10,7 +10,7 @@ import android.os.RemoteException;
 import android.view.View;
 import android.widget.Button;
 
-import com.demo.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
 

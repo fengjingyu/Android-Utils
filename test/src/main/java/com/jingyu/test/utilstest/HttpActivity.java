@@ -1,4 +1,4 @@
-package com.jingyu.utilstest;
+package com.jingyu.test.utilstest;
 
 
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.jingyu.utils.http.RespHandlerAdapter;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.http.okhttp.OkClient;
 import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utilstest.model.TestModel;
+import com.jingyu.test.utilstest.model.TestModel;
 
 import java.io.File;
 import java.io.InputStream;

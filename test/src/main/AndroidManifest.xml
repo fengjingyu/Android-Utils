@@ -53,21 +53,21 @@
         <activity android:name=".SystemDialogActivity" />
         <activity android:name=".ContactsActivity" />
         <activity android:name=".RequestPermissionActivity" />
-        <activity android:name="com.jingyu.utilstest.CacheCleanActivity" />
-        <activity android:name="com.jingyu.utilstest.LogActivity" />
-        <activity android:name="com.jingyu.utilstest.SPActivity" />
-        <activity android:name="com.jingyu.utilstest.CloneActivity" />
-        <activity android:name="com.jingyu.utilstest.HttpActivity" />
-        <activity android:name="com.jingyu.utilstest.EncryptActivity" />
-        <activity android:name="com.jingyu.utilstest.ExceptionActivity" />
-        <activity android:name="com.jingyu.utilstest.CamareActivity" />
+        <activity android:name=".utilstest.CacheCleanActivity" />
+        <activity android:name=".utilstest.LogActivity" />
+        <activity android:name=".utilstest.SPActivity" />
+        <activity android:name=".utilstest.CloneActivity" />
+        <activity android:name=".utilstest.HttpActivity" />
+        <activity android:name=".utilstest.EncryptActivity" />
+        <activity android:name=".utilstest.ExceptionActivity" />
+        <activity android:name=".utilstest.CamareActivity" />
         <activity
-            android:name="com.jingyu.utilstest.TaskActivity0"
+            android:name=".utilstest.TaskActivity0"
             android:launchMode="singleTask" />
-        <activity android:name="com.jingyu.utilstest.TaskActivity1" />
-        <activity android:name="com.jingyu.utilstest.TaskActivity2" />
-        <activity android:name="com.jingyu.utilstest.TaskActivity3" />
-        <activity android:name="com.jingyu.utilstest.AdapterActivity" />
+        <activity android:name=".utilstest.TaskActivity1" />
+        <activity android:name=".utilstest.TaskActivity2" />
+        <activity android:name=".utilstest.TaskActivity3" />
+        <activity android:name=".utilstest.AdapterActivity" />
 
         <meta-data
             android:name="MULTI_CHANNEL"
@@ -101,8 +101,8 @@
             android:exported="false" />
 
         <activity android:name=".NotifyActivity" />
-        <activity android:name="com.jingyu.utilstest.DirActivity" />
-        <activity android:name="com.jingyu.utilstest.BitmapActivity" />
+        <activity android:name=".utilstest.DirActivity" />
+        <activity android:name=".utilstest.BitmapActivity" />
         <activity android:name=".service.LocalServiceActivity" />
         <activity android:name=".service.AIDLServiceActivity" />
         <activity android:name=".download.DownloadActivity" />

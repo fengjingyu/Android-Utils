@@ -1,4 +1,4 @@
-package com.jingyu.utilstest;
+package com.jingyu.test.utilstest;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.demo.middle.base.BaseActivity;
 import com.jingyu.test.R;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utilstest.model.TestModel;
+import com.jingyu.test.utilstest.model.TestModel;
 
 public class CloneActivity extends BaseActivity {
 

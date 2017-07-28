@@ -1,5 +1,6 @@
 package com.jingyu.test.download;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -91,7 +92,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         unbindService(serviceConnection);
     }
 
-    public static void actionStart(FragmentActivity activity) {
+    public static void actionStart(Activity activity) {
         activity.startActivity(new Intent(activity, DownloadActivity.class));
     }
 }

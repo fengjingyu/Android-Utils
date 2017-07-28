@@ -1,5 +1,6 @@
 package com.jingyu.test.service;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -166,7 +167,7 @@ public class AIDLServiceActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    public static void actionStart(FragmentActivity activity) {
+    public static void actionStart(Activity activity) {
         activity.startActivity(new Intent(activity, AIDLServiceActivity.class));
     }
 }

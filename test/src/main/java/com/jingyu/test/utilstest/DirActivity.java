@@ -1,5 +1,6 @@
-package com.jingyu.utilstest;
+package com.jingyu.test.utilstest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -210,7 +211,7 @@ public class DirActivity extends AppCompatActivity {
         Logger.d(sb.toString());
     }
 
-    public static void actionStart(FragmentActivity activity) {
+    public static void actionStart(Activity activity) {
         activity.startActivity(new Intent(activity, DirActivity.class));
     }
 }

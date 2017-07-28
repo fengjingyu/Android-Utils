@@ -1,5 +1,6 @@
-package com.jingyu.utilstest;
+package com.jingyu.test.utilstest;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -139,7 +140,7 @@ public class BitmapActivity extends BaseActivity {
         }, 1000);
     }
 
-    public static void actionStart(FragmentActivity activity) {
+    public static void actionStart(Activity activity) {
         activity.startActivity(new Intent(activity, BitmapActivity.class));
     }
 }

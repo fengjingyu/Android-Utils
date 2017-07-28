@@ -1,6 +1,5 @@
-package com.jingyu.utilstest;
+package com.jingyu.test.utilstest;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,27 +11,23 @@ import com.jingyu.test.R;
 /**
  * @author fengjingyu@foxmail.com
  */
-public class TaskActivity2 extends BaseActivity {
+public class TaskActivity0 extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task2);
+        setContentView(R.layout.activity_task0);
 
         getViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskActivity3.actionStart(getActivity());
+                TaskActivity1.actionStart(getActivity());
             }
         });
-
-    }
-
-    public static void actionStart(Activity activityContext) {
-        activityContext.startActivity(new Intent(activityContext, TaskActivity2.class));
     }
 
     public static void actionStart(Context activityContext) {
-        activityContext.startActivity(new Intent(activityContext, TaskActivity2.class));
+        activityContext.startActivity(new Intent(activityContext, TaskActivity0.class));
     }
+
 }

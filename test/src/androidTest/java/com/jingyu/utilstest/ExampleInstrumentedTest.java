@@ -9,7 +9,7 @@ import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.ThreadHelper;
 import com.jingyu.utils.json.JsonBean;
 import com.jingyu.utils.json.JsonParse;
-import com.jingyu.utilstest.model.TestModel;
+import com.jingyu.test.utilstest.model.TestModel;
 
 import org.json.JSONArray;
 import org.junit.Test;

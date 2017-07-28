@@ -1,90 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c_white_ffffff">
+    android:background="@color/c_white_ffffff"
+    android:orientation="horizontal">
 
-    <RelativeLayout
-        android:id="@+id/main_bottombar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/c_white_ffffff">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/main_tab_group"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:background="@color/c_trans"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/main_tab_item1"
-                style="@style/TabRadioButton"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/c_white_ffffff"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:text="one" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- @c -->
+                <Button
+                    android:id="@+id/propertyAnim"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="属性动画抛物线"
+                    android:textAllCaps="false" />
 
-            <RadioButton
-                android:id="@+id/main_tab_item2"
-                style="@style/TabRadioButton"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/c_white_ffffff"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:text="two" />
+                <!-- @c -->
+                <Button
+                    android:id="@+id/leakCanary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="leakCanary库"
+                    android:textAllCaps="false" />
 
-            <!-- android:background="@drawable/ic" -->
+                <!-- @c -->
+                <Button
+                    android:id="@+id/timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="几种定时器的实现"
+                    android:textAllCaps="false" />
 
-            <RadioButton
-                android:id="@+id/main_tab_item3"
-                style="@style/TabRadioButton"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/c_white_ffffff"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:text="three" />
+                <!-- @c -->
+                <Button
+                    android:id="@+id/systemDialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="系统的dailog"
+                    android:textAllCaps="false" />
 
-            <RadioButton
-                android:id="@+id/main_tab_item4"
-                style="@style/TabRadioButton"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/c_white_ffffff"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:text="four" />
+                <!-- @c -->
+                <Button
+                    android:id="@+id/destroygc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="activity fragment的destroy之后的引用"
+                    android:textAllCaps="false" />
 
-            <RadioButton
-                android:id="@+id/main_tab_item5"
-                style="@style/TabRadioButton"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:background="@color/c_white_ffffff"
-                android:drawableTop="@mipmap/ic_launcher"
-                android:text="five" />
+                <!-- @c -->
+                <Button
+                    android:id="@+id/handler"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="handler looper thread"
+                    android:textAllCaps="false" />
+                <!-- @c -->
+                <Button
+                    android:id="@+id/fragmentLife"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="fragment周期与返回栈"
+                    android:textAllCaps="false" />
 
-        </RadioGroup>
+                <Button
+                    android:id="@+id/runPermission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运行时权限"
+                    android:textAllCaps="false" />
 
-        <View
+                <Button
+                    android:id="@+id/contacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="通讯录"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="通知"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="service"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/aidl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="aidl"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="download"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:background="#d4d4d4" />
-    </RelativeLayout>
+            android:layout_height="wrap_content">
 
-    <!-- 内容 -->
-    <RelativeLayout
-        android:id="@+id/main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/main_bottombar"
-        android:background="@color/c_white_ffffff">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="测试module(utils)"
+                    android:textSize="20sp" />
 
-</RelativeLayout>
+                <Button
+                    android:id="@+id/log"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="日志输出"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/exception"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="exception"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sp"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/encrypt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="加密"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/activity_collector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="activity管理"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/http"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="http"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/clone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="clone"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/camare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="相册"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/cache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="清理缓存"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/adapter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="adapter"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/dir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="dir"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/bitmap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bitmap"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="material"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/percentLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="percentLayout"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,11 +1,11 @@
 package com.jingyu.test;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.demo.middle.base.BaseActivity;
@@ -50,7 +50,7 @@ public class RequestPermissionActivity extends BaseActivity {
         startActivity(UtilSystem.getCallIntent("10086"));
     }
 
-    public static void actionStart(FragmentActivity activity) {
+    public static void actionStart(Activity activity) {
         activity.startActivity(new Intent(activity, RequestPermissionActivity.class));
     }
 }

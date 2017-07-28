@@ -17,7 +17,7 @@ public class RequestPermissionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_permission_activity);
+        setContentView(R.layout.activity_request_permission);
 
         getViewById(R.id.call).setOnClickListener(new View.OnClickListener() {
             @Override

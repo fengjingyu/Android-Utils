@@ -82,15 +82,7 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".service.LocalService"
-            android:enabled="true"
-            android:exported="false" />
-        <service
-            android:name=".service.AIDLService"
-            android:enabled="true"
-            android:exported="false"
-            android:process=":aidlservice" />
+
         <service
             android:name=".download.DownloadService"
             android:enabled="true"
@@ -99,8 +91,6 @@
         <activity android:name=".NotifyActivity" />
         <activity android:name=".utilstest.DirActivity" />
         <activity android:name=".utilstest.BitmapActivity" />
-        <activity android:name=".service.LocalServiceActivity" />
-        <activity android:name=".service.AIDLServiceActivity" />
         <activity android:name=".download.DownloadActivity" />
         <activity android:name=".MotionEventActivity"/>
     </application>

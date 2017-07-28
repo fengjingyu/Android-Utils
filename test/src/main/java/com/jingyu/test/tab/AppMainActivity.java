@@ -17,8 +17,6 @@ import com.jingyu.test.RequestPermissionActivity;
 import com.jingyu.test.TimerActivity;
 import com.jingyu.test.download.DownloadActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
-import com.jingyu.test.service.AIDLServiceActivity;
-import com.jingyu.test.service.LocalServiceActivity;
 import com.jingyu.test.utilstest.AdapterActivity;
 import com.jingyu.test.utilstest.BitmapActivity;
 import com.jingyu.test.utilstest.CacheCleanActivity;
@@ -36,7 +34,6 @@ import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
 
-import static com.jingyu.test.R.id.systemDialog;
 
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -52,8 +49,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     private Button runPermission;
     private Button contacts;
     private Button notification;
-    private Button service;
-    private Button aidl;
     private Button download;
 
     //scrollview2
@@ -92,8 +87,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         runPermission.setOnClickListener(this);
         contacts.setOnClickListener(this);
         notification.setOnClickListener(this);
-        service.setOnClickListener(this);
-        aidl.setOnClickListener(this);
         download.setOnClickListener(this);
     }
 
@@ -106,8 +99,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         runPermission = getViewById(R.id.runPermission);
         contacts = getViewById(R.id.contacts);
         notification = getViewById(R.id.notification);
-        service = getViewById(R.id.service);
-        aidl = getViewById(R.id.aidl);
         download = getViewById(R.id.download);
     }
 
@@ -136,12 +127,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.notification:
                 NotifyActivity.actionStart(getActivity());
-                break;
-            case R.id.service:
-                LocalServiceActivity.actionStart(getActivity());
-                break;
-            case R.id.aidl:
-                AIDLServiceActivity.actionStart(getActivity());
                 break;
             case R.id.download:
                 DownloadActivity.actionStart(getActivity());

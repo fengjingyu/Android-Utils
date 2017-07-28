@@ -39,14 +39,6 @@
 
                 <!-- @c -->
                 <Button
-                    android:id="@+id/systemDialog"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="系统的dailog"
-                    android:textAllCaps="false" />
-
-                <!-- @c -->
-                <Button
                     android:id="@+id/destroygc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,20 +79,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="通知"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/service"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="service"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/aidl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="aidl"
                     android:textAllCaps="false" />
 
                 <Button

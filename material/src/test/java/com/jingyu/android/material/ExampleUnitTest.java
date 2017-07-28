@@ -1,4 +1,4 @@
-package com.jingyu.kotlin;
+package com.jingyu.android.material;
 
 import org.junit.Test;
 

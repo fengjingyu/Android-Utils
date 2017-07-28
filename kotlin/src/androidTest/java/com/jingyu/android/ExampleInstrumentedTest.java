@@ -1,4 +1,4 @@
-package com.jingyu.kotlin;
+package com.jingyu.android;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

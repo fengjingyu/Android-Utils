@@ -1,4 +1,4 @@
-package com.jingyu.kotlin;
+package com.jingyu.android.material;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

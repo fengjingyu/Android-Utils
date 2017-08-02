@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jingyu.test">
+    package="com.jingyu.android.test">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AppLaunchActivity">
+        <activity android:name="com.jingyu.android.test.AppLaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AppMainActivity"
+            android:name="com.jingyu.android.test.AppMainActivity"
             android:launchMode="singleTask">
 
             <!-- <intent-filter> -->
@@ -43,37 +43,37 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".TimerActivity" />
-        <activity android:name=".DestroyGCActivity" />
+        <activity android:name="com.jingyu.android.test.learn.TimerActivity" />
+        <activity android:name="com.jingyu.android.test.learn.DestroyGCActivity" />
 
-        <activity android:name=".LeakCanaryActivity" />
-        <activity android:name=".HandlerActivity" />
-        <activity android:name=".ContactsActivity" />
-        <activity android:name=".RequestPermissionActivity" />
-        <activity android:name=".utilstest.CacheCleanActivity" />
-        <activity android:name=".utilstest.LogActivity" />
-        <activity android:name=".utilstest.SPActivity" />
-        <activity android:name=".utilstest.CloneActivity" />
-        <activity android:name=".utilstest.HttpActivity" />
-        <activity android:name=".utilstest.EncryptActivity" />
-        <activity android:name=".utilstest.ExceptionActivity" />
-        <activity android:name=".utilstest.CamareActivity" />
+        <activity android:name="com.jingyu.android.test.learn.LeakCanaryActivity" />
+        <activity android:name="com.jingyu.android.test.learn.HandlerActivity" />
+        <activity android:name="com.jingyu.android.test.learn.ContactsActivity" />
+        <activity android:name="com.jingyu.android.test.learn.PermissionActivity" />
+        <activity android:name="com.jingyu.android.test.utils.CacheCleanActivity" />
+        <activity android:name="com.jingyu.android.test.utils.LogActivity" />
+        <activity android:name="com.jingyu.android.test.utils.SPActivity" />
+        <activity android:name="com.jingyu.android.test.utils.CloneActivity" />
+        <activity android:name="com.jingyu.android.test.utils.HttpActivity" />
+        <activity android:name="com.jingyu.android.test.utils.EncryptActivity" />
+        <activity android:name="com.jingyu.android.test.utils.ExceptionActivity" />
+        <activity android:name="com.jingyu.android.test.utils.CamareActivity" />
         <activity
-            android:name=".utilstest.TaskActivity0"
+            android:name="com.jingyu.android.test.utils.TaskActivity0"
             android:launchMode="singleTask" />
-        <activity android:name=".utilstest.TaskActivity1" />
-        <activity android:name=".utilstest.TaskActivity2" />
-        <activity android:name=".utilstest.TaskActivity3" />
-        <activity android:name=".utilstest.AdapterActivity" />
+        <activity android:name="com.jingyu.android.test.utils.TaskActivity1" />
+        <activity android:name="com.jingyu.android.test.utils.TaskActivity2" />
+        <activity android:name="com.jingyu.android.test.utils.TaskActivity3" />
+        <activity android:name="com.jingyu.android.test.utils.AdapterActivity" />
 
         <meta-data
             android:name="MULTI_CHANNEL"
             android:value="${MULTI_CHANNEL_VALUE}" />
 
-        <activity android:name=".fragmentlife.FragmentLifeActivity" />
+        <activity android:name="com.jingyu.android.test.learn.fragmentlife.FragmentLifeActivity" />
 
         <receiver
-            android:name=".receiver.MyReceiver"
+            android:name="com.jingyu.android.test.learn.receiver.MyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -82,10 +82,10 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".NotifyActivity" />
-        <activity android:name=".utilstest.DirActivity" />
-        <activity android:name=".utilstest.BitmapActivity" />
-        <activity android:name=".touch.MotionEventActivity"/>
+        <activity android:name="com.jingyu.android.test.learn.NotifyActivity" />
+        <activity android:name="com.jingyu.android.test.utils.DirActivity" />
+        <activity android:name="com.jingyu.android.test.utils.BitmapActivity" />
+        <activity android:name="com.jingyu.android.test.learn.touch.MotionEventActivity"/>
     </application>
 
 </manifest>

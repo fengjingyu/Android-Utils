@@ -1,4 +1,4 @@
-package com.jingyu.test.tab;
+package com.jingyu.test;
 
 import com.jingyu.android.init.LaunchActivity;
 import com.jingyu.android.middle.config.Config;

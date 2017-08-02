@@ -1,4 +1,4 @@
-package com.jingyu.test.download;
+package com.jingyu.android.download;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,7 +8,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
-import com.jingyu.test.R;
 import com.jingyu.utils.function.download.DownloadListener;
 import com.jingyu.utils.function.download.DownloadOptions;
 import com.jingyu.utils.function.download.DownloadTask;

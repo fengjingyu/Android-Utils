@@ -81,13 +81,6 @@
                     android:text="通知"
                     android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/download"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="download"
-                    android:textAllCaps="false" />
-
             </LinearLayout>
 
         </ScrollView>

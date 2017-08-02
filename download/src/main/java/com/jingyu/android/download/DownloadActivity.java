@@ -1,4 +1,4 @@
-package com.jingyu.test.download;
+package com.jingyu.android.download;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.R;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.download.DownloadOptions;
 

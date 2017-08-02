@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".tab.AppLaunchActivity">
+        <activity android:name=".AppLaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".tab.AppMainActivity"
+            android:name=".AppMainActivity"
             android:launchMode="singleTask">
 
             <!-- <intent-filter> -->
@@ -82,17 +82,10 @@
             </intent-filter>
         </receiver>
 
-
-        <service
-            android:name=".download.DownloadService"
-            android:enabled="true"
-            android:exported="false" />
-
         <activity android:name=".NotifyActivity" />
         <activity android:name=".utilstest.DirActivity" />
         <activity android:name=".utilstest.BitmapActivity" />
-        <activity android:name=".download.DownloadActivity" />
-        <activity android:name=".MotionEventActivity"/>
+        <activity android:name=".touch.MotionEventActivity"/>
     </application>
 
 </manifest>

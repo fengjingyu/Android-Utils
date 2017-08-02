@@ -1,8 +1,10 @@
-package com.jingyu.test;
+package com.jingyu.test.touch;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+
+import com.jingyu.test.R;
 
 public class MotionEventActivity extends AppCompatActivity {
 

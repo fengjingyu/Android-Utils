@@ -1,4 +1,4 @@
-package com.jingyu.test.tab;
+package com.jingyu.test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,15 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.test.ContactsActivity;
-import com.jingyu.test.DestroyGCActivity;
-import com.jingyu.test.HandlerActivity;
-import com.jingyu.test.LeakCanaryActivity;
-import com.jingyu.test.NotifyActivity;
-import com.jingyu.test.R;
-import com.jingyu.test.RequestPermissionActivity;
-import com.jingyu.test.TimerActivity;
-import com.jingyu.test.download.DownloadActivity;
 import com.jingyu.test.fragmentlife.FragmentLifeActivity;
 import com.jingyu.test.utilstest.AdapterActivity;
 import com.jingyu.test.utilstest.BitmapActivity;
@@ -35,6 +26,7 @@ import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
 
 
+
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int CLICK_QUIT_INTERVAL = 1000;
@@ -49,7 +41,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     private Button runPermission;
     private Button contacts;
     private Button notification;
-    private Button download;
 
     //scrollview2
     private Button log;
@@ -87,7 +78,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         runPermission.setOnClickListener(this);
         contacts.setOnClickListener(this);
         notification.setOnClickListener(this);
-        download.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -99,7 +89,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         runPermission = getViewById(R.id.runPermission);
         contacts = getViewById(R.id.contacts);
         notification = getViewById(R.id.notification);
-        download = getViewById(R.id.download);
     }
 
     private void onClickAction(View v) {
@@ -127,9 +116,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.notification:
                 NotifyActivity.actionStart(getActivity());
-                break;
-            case R.id.download:
-                DownloadActivity.actionStart(getActivity());
                 break;
             default:
                 break;

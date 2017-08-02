@@ -1,7 +1,8 @@
-package com.jingyu.test.view;
+package com.jingyu.test.touch;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -10,7 +11,7 @@ import com.jingyu.utils.function.Logger;
 /**
  * @author fengjingyu@foxmail.com
  */
-public class MyTextView extends TextView {
+public class MyTextView extends AppCompatTextView {
     public MyTextView(Context context) {
         super(context);
     }

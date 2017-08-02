@@ -6,49 +6,60 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.jingyu.android.middle.base.BaseActivity;
 
 
 /**
- *  看看不同版本系统上的dialog显示效果
+ * 看看不同版本系统上的dialog显示效果
  */
-public class SystemDialogActivity extends BaseActivity {
+public class DialogActivity extends BaseActivity {
+
+    private Button originAlertDialog;
+    private Button originProgressDialog;
+    private Button originProgressDialog2;
+    private Button originProgressDialog3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_system_dialog);
-    }
+        setContentView(R.layout.activity_dialog);
 
-    @Override
-    public void hiddenTitleActionBar() {
-    }
+        originAlertDialog = getViewById(R.id.originAlertDialog);
+        originProgressDialog = getViewById(R.id.originProgressDialog);
+        originProgressDialog2 = getViewById(R.id.originProgressDialog2);
+        originProgressDialog3 = getViewById(R.id.originProgressDialog3);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_1, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.toolbar_item1:
+        originAlertDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 alertDialog();
-                break;
-            case R.id.toolbar_item2:
+            }
+        });
+
+        originProgressDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 progressDialog();
-                break;
-            case R.id.toolbar_item3:
+            }
+        });
+
+        originProgressDialog2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 progressDialog2();
-                break;
-            case R.id.toolbar_item4:
+            }
+        });
+
+        originProgressDialog3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 progressDialog3();
-        }
-        return true;
+            }
+        });
     }
 
     private void progressDialog3() {
@@ -108,7 +119,7 @@ public class SystemDialogActivity extends BaseActivity {
     }
 
     public static void actionStart(Context context) {
-        context.startActivity(new Intent(context, SystemDialogActivity.class));
+        context.startActivity(new Intent(context, DialogActivity.class));
     }
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jingyu.android.roundimg.MainActivity">
+
+    <com.jingyu.android.roundimg.RoundedImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        app:sriv_left_bottom_corner_radius="5dip"
+        app:sriv_left_top_corner_radius="5dip"
+        app:sriv_right_bottom_corner_radius="5dip"
+        app:sriv_right_top_corner_radius="5dip" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_launcher" />
+
+</LinearLayout>

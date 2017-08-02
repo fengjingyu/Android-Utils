@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/dataZeroImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp" />
+
+    <TextView
+        android:id="@+id/dataZeroTextViewUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="列表是空空的哦"
+        android:textColor="#666666"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/dataZeroTextViewDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="#00000000"
+        android:text="赶快去淘宝贝吧"
+        android:textColor="#666666"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/dataZeroButton"
+        android:layout_width="90dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#37b598"
+        android:textSize="14sp" />
+
+</LinearLayout>

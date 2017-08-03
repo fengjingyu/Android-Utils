@@ -25,8 +25,8 @@ public class ListRefreshLayout extends RefreshLayout {
 
     @Override
     public void initHeadStyle() {
-        PtrUIHandler mPtrClassicHeader = new PtrClassicDefaultHeader(getContext());
-        mPtrRefreshLayout.setHeaderView((PtrClassicDefaultHeader) mPtrClassicHeader);
+        PtrUIHandler mPtrClassicHeader = new ListRefreshHeader(getContext());
+        mPtrRefreshLayout.setHeaderView((ListRefreshHeader) mPtrClassicHeader);
         mPtrRefreshLayout.addPtrUIHandler(mPtrClassicHeader);
     }
 }

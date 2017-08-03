@@ -30,7 +30,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     /** 添加head foot的adapter*/
     compile 'com.songhang:smart-headerfooter-recyclerview:1.0.1'
-    //compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile project(':init')
-    compile project(':ultraptr')
+    //compile project(':ultraptr')
 }

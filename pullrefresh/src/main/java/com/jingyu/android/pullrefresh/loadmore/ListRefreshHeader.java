@@ -1,4 +1,4 @@
-package in.srain.cube.views.ptr;
+package com.jingyu.android.pullrefresh.loadmore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,12 +11,17 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.jingyu.android.pullrefresh.R;
+
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler {
+public class ListRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     private final static String KEY_SharedPreferences = "cube_ptr_classic_last_update";
     private static SimpleDateFormat sDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -33,17 +38,17 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
 
     private LastUpdateTimeUpdater mLastUpdateTimeUpdater = new LastUpdateTimeUpdater();
 
-    public PtrClassicDefaultHeader(Context context) {
+    public ListRefreshHeader(Context context) {
         super(context);
         initViews(null);
     }
 
-    public PtrClassicDefaultHeader(Context context, AttributeSet attrs) {
+    public ListRefreshHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
         initViews(attrs);
     }
 
-    public PtrClassicDefaultHeader(Context context, AttributeSet attrs, int defStyle) {
+    public ListRefreshHeader(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initViews(attrs);
     }
@@ -54,7 +59,7 @@ public class PtrClassicDefaultHeader extends FrameLayout implements PtrUIHandler
             mRotateAniTime = arr.getInt(R.styleable.PtrClassicHeader_ptr_rotate_ani_time, mRotateAniTime);
         }
         buildAnimation();
-        View header = LayoutInflater.from(getContext()).inflate(R.layout.cube_ptr_classic_default_header, this);
+        View header = LayoutInflater.from(getContext()).inflate(R.layout.view_list_refresh_header, this);
 
         mRotateView = header.findViewById(R.id.ptr_classic_header_rotate_view);
 

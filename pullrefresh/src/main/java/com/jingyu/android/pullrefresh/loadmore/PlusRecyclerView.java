@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-
+/**
+ * 监听列表是否到达底部
+ */
 public class PlusRecyclerView extends RecyclerView {
     public PlusRecyclerView(Context context) {
         super(context);

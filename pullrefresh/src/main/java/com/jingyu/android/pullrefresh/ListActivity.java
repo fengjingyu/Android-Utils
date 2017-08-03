@@ -4,15 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.View;
 
+import com.jingyu.android.middle.Http;
 import com.jingyu.android.middle.base.BaseActivity;
+import com.jingyu.android.middle.http.json.JsonModel;
+import com.jingyu.android.middle.http.json.JsonRespHandler;
 import com.jingyu.android.pullrefresh.loadmore.IRefreshHandler;
 import com.jingyu.android.pullrefresh.loadmore.ListRefreshLayout;
+import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.http.ReqInfo;
+import com.jingyu.utils.http.RespInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppMainActivity extends BaseActivity {
+import static com.jingyu.android.pullrefresh.R.id.dataZeroLayout;
+import static com.jingyu.android.pullrefresh.R.id.recyclerView;
+
+public class ListActivity extends BaseActivity {
     ListRefreshLayout refreshView;
 
     @Override
@@ -38,16 +48,15 @@ public class AppMainActivity extends BaseActivity {
             }
 
             @Override
-            public void refresh(int requestPage) {
-                request(requestPage);
+            public void refresh() {
+                request(1);
             }
 
             @Override
-            public void load(int requestPage) {
-                request(requestPage);
+            public void load() {
+                request(2);
             }
         });
-
     }
 
     public List<ItemBean.DataBean> getData(int page) {
@@ -61,14 +70,42 @@ public class AppMainActivity extends BaseActivity {
         return list;
     }
 
-    public void request(int page) {
-        refreshView.setTotalPage(5);
-        refreshView.updateAppend(getData(page));
-        refreshView.completeRefresh(true);
+    public void request(final int page) {
+        Logger.i("requestOldApi--" + page);
+        Http.get("http://www.baidu.com", null, new JsonRespHandler() {
+
+            @Override
+            public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
+                return new JsonModel();
+            }
+
+            @Override
+            public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
+                return true;
+            }
+
+            @Override
+            public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
+                super.onSuccessAll(reqInfo, respInfo, resultBean);
+                refreshView.update(page, getData(page));
+            }
+
+            @Override
+            public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
+                super.onFailure(reqInfo, respInfo);
+
+            }
+
+            @Override
+            public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
+                super.onEnd(reqInfo, respInfo);
+                refreshView.completeRefresh();
+            }
+        });
     }
 
     public static void actionStart(Activity activity) {
-        activity.startActivity(new Intent(activity, AppMainActivity.class));
+        activity.startActivity(new Intent(activity, ListActivity.class));
     }
 
 }

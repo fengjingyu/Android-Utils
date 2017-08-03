@@ -113,6 +113,9 @@ public class Http {
 
     public static void postJson(String url, String json, RespHandler respHandler) {
         try {
+            if (json == null) {
+                json = "";
+            }
             JSONObject jsonObject = new JSONObject(json);
             //todo
             jsonObject.put("authcode", "123456");
@@ -121,10 +124,6 @@ public class Http {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void postJsonNoCommonField(String url, String json, RespHandler respHandler) {
-        postJson(url, json, respHandler, "", true, null);
     }
 
     /**

@@ -48,21 +48,13 @@ abstract public class RefreshLayout extends FrameLayout {
     private boolean autoRefresh;
     private IRefreshHandler mRefreshHandler;
     /**
-     * 数据为0的背景
-     */
-    public LinearLayout dataZeroLayout;
-    /**
-     * 当前页
-     */
-    public int currentPage = 1;
-    /**
-     * 总页数
-     */
-    public int totalPage = -1;
-    /**
      * 是否正在刷新(下拉和上拉)
      */
     public boolean isRequesting;
+    /**
+     * 数据为0的背景
+     */
+    public LinearLayout dataZeroLayout;
     /**
      * 数据为0时，背景上显示的图片
      */
@@ -89,10 +81,6 @@ abstract public class RefreshLayout extends FrameLayout {
      * 0数据图片id
      */
     public int dataZeroImageId;
-    /**
-     * 记录上一次请求是否成功
-     */
-    boolean lastRequestResult;
 
     public RefreshLayout(Context context) {
         super(context);
@@ -261,9 +249,8 @@ abstract public class RefreshLayout extends FrameLayout {
         if (!isRequesting) {
             isRequesting = true;
             hiddenLoadingView();
-            currentPage = 1;
             if (mRefreshHandler != null) {
-                mRefreshHandler.refresh(currentPage);
+                mRefreshHandler.refresh();
             } else {
                 throw new RuntimeException(this + "回调handler为null");
             }
@@ -277,118 +264,93 @@ abstract public class RefreshLayout extends FrameLayout {
         if (!isRequesting) {
             isRequesting = true;
             showLoadingView();
-            if (lastRequestResult) {
-                currentPage = currentPage + 1;
-            }
             if (mRefreshHandler != null) {
-                mRefreshHandler.load(currentPage);
+                mRefreshHandler.load();
             } else {
                 throw new RuntimeException(this + "回调handler为null");
             }
         }
     }
 
-    public void showLoadingView() {
-        loadingLayout.setVisibility(View.VISIBLE);
-        loadingTextview.setText("正在加载..");
-        loadingTextview.setVisibility(View.VISIBLE);
-        loadingProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    public void hiddenLoadingView() {
-        loadingLayout.setVisibility(View.GONE);
-    }
-
-    public void showNoNextPage() {
-        loadingLayout.setVisibility(View.VISIBLE);
-        loadingTextview.setText("已经看到最后啦!");
-        loadingTextview.setVisibility(View.VISIBLE);
-        loadingProgressBar.setVisibility(View.GONE);
-    }
-
-    /**
-     * 刷新完成,需要外部调用
-     */
-    public void completeRefresh(boolean requestSuccess) {
-        this.lastRequestResult = requestSuccess;
-
-        if (requestSuccess) {
-            if (adapter.getList().isEmpty()) {
-                if (dataZeroImageId < 0) {
-                    dataZeroImageView.setVisibility(View.GONE);
-                } else {
-                    dataZeroImageView.setImageResource(dataZeroImageId);
-                    dataZeroImageView.setVisibility(View.VISIBLE);
-                }
-
-                if (UtilString.isBlank(dataZeroTextViewUpHint)) {
-                    dataZeroTextViewUp.setVisibility(View.GONE);
-                } else {
-                    dataZeroTextViewUp.setText(dataZeroTextViewUpHint);
-                    dataZeroTextViewUp.setVisibility(View.VISIBLE);
-                }
-
-                if (UtilString.isBlank(dataZeroTextViewDownHint)) {
-                    dataZeroTextViewDown.setVisibility(View.GONE);
-                } else {
-                    dataZeroTextViewDown.setText(dataZeroTextViewDownHint);
-                    dataZeroTextViewDown.setVisibility(View.VISIBLE);
-                }
-
-                if (UtilString.isBlank(dataZeroButtonHint)) {
-                    dataZeroButton.setVisibility(View.GONE);
-                } else {
-                    dataZeroButton.setText(dataZeroButtonHint);
-                    dataZeroButton.setVisibility(View.VISIBLE);
-                }
-
-                dataZeroLayout.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
-                mPtrRefreshLayout.setVisibility(View.INVISIBLE);
-
-                hiddenLoadingView();
-            } else {
-                dataZeroLayout.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-                mPtrRefreshLayout.setVisibility(View.VISIBLE);
-                if (currentPage >= totalPage) {
-                    if (adapter.getList().size() >= 3) {
-                        showNoNextPage();
-                    } else {
-                        //未满一页
-                        hiddenLoadingView();
-                    }
-                } else {
-                    // 不是最后一页
-                    hiddenLoadingView();
-                }
-            }
-        } else {
-            // 比如刚打开页面访问失败,这时可以刷新,虽然数据是0,但不显示0背景页面
-            // 比如第一页加载成功,第二页失败了,这时不显示0背景页面
+    public void completeRefresh(int currentPage, int totalPage) {
+        if (adapter.getList().isEmpty()) {
+            showEmptyBackground();
             hiddenLoadingView();
+        } else {
+            showRecyclerView();
+            if (currentPage >= totalPage) {
+                showNoNextPage();
+            } else {
+                hiddenLoadingView();
+            }
         }
 
         mPtrRefreshLayout.refreshComplete();
         isRequesting = false;
     }
 
-    public void setTotalPage(int totalPage) {
-        if (totalPage < 1) {
-            totalPage = 1;
+    protected void hiddenLoadingView() {
+        loadingLayout.setVisibility(View.GONE);
+    }
+
+    protected void showLoadingView() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        loadingTextview.setText("正在加载..");
+        loadingTextview.setVisibility(View.VISIBLE);
+        loadingProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    protected void showNoNextPage() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        loadingTextview.setText("已经看到最后啦!");
+        loadingTextview.setVisibility(View.VISIBLE);
+        loadingProgressBar.setVisibility(View.GONE);
+    }
+
+    protected void showEmptyBackground() {
+        if (dataZeroImageId < 0) {
+            dataZeroImageView.setVisibility(View.GONE);
+        } else {
+            dataZeroImageView.setImageResource(dataZeroImageId);
+            dataZeroImageView.setVisibility(View.VISIBLE);
         }
-        this.totalPage = totalPage;
+
+        if (UtilString.isBlank(dataZeroTextViewUpHint)) {
+            dataZeroTextViewUp.setVisibility(View.GONE);
+        } else {
+            dataZeroTextViewUp.setText(dataZeroTextViewUpHint);
+            dataZeroTextViewUp.setVisibility(View.VISIBLE);
+        }
+
+        if (UtilString.isBlank(dataZeroTextViewDownHint)) {
+            dataZeroTextViewDown.setVisibility(View.GONE);
+        } else {
+            dataZeroTextViewDown.setText(dataZeroTextViewDownHint);
+            dataZeroTextViewDown.setVisibility(View.VISIBLE);
+        }
+
+        if (UtilString.isBlank(dataZeroButtonHint)) {
+            dataZeroButton.setVisibility(View.GONE);
+        } else {
+            dataZeroButton.setText(dataZeroButtonHint);
+            dataZeroButton.setVisibility(View.VISIBLE);
+        }
+
+        dataZeroLayout.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.INVISIBLE);
+        mPtrRefreshLayout.setVisibility(View.INVISIBLE);
+    }
+
+    protected void showRecyclerView() {
+        dataZeroLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        mPtrRefreshLayout.setVisibility(View.VISIBLE);
     }
 
     /**
-     * 如果是第一页则需要清空集合
+     * @param append true,  原有的集合上添加
+     *               false, 清空集合后添加
      */
-    protected void clearWhenPageOne() {
-        if (currentPage == 1) {
-            adapter.getList().clear();
-        }
-    }
-
     protected void updateList(boolean append, List list) {
         if (list == null) {
             list = new ArrayList();
@@ -396,20 +358,18 @@ abstract public class RefreshLayout extends FrameLayout {
 
         if (!append) {
             adapter.getList().clear();
-        } else {
-            clearWhenPageOne();
         }
 
         adapter.getList().addAll(list);
         adapter.notifyDataSetChanged();
     }
 
-    public void updateAppend(List list) {
-        updateList(true, list);
-    }
-
-    public void updateClearAndAdd(List list) {
-        updateList(false, list);
+    public void update(int page, List list) {
+        if (page <= 1) {
+            updateList(false, list);
+        } else {
+            updateList(true, list);
+        }
     }
 
     public Button getDataZeroButton() {

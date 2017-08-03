@@ -13,14 +13,12 @@ public interface IRefreshHandler {
 
     /**
      * 下拉刷新
-     * 1 处理获取到的数据
-     * 2 调用refreshComplete()方法
      */
-    void refresh(int requestPage);
+    void refresh();
 
     /**
      * 上拉加载
      */
-    void load(int requestPage);
+    void load();
 
 }

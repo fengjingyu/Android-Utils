@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.view.View;
 
 import com.jingyu.android.middle.Http;
 import com.jingyu.android.middle.base.BaseActivity;
@@ -19,10 +18,8 @@ import com.jingyu.utils.http.RespInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.jingyu.android.pullrefresh.R.id.dataZeroLayout;
-import static com.jingyu.android.pullrefresh.R.id.recyclerView;
-
 public class ListActivity extends BaseActivity {
+
     ListRefreshLayout refreshView;
 
     @Override
@@ -30,12 +27,11 @@ public class ListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_main);
 
-        final int num = 1;
         refreshView = getViewById(R.id.refreshList);
         //列表有多列的时候,这个放在设置adaper的前面,否则footview可能不会match屏幕宽度
         refreshView.setRecyclerLayoutManager(new GridLayoutManager(getActivity(), 2));
         refreshView.setRecyclerAdapter(new ListAdapter(null));
-        refreshView.setDataZeroHint("", "", 0, "");
+        refreshView.setDataZeroHint("", "", R.mipmap.ic_launcher_round, "");
         refreshView.setHandler(new IRefreshHandler() {
             @Override
             public boolean canRefresh() {
@@ -48,13 +44,13 @@ public class ListActivity extends BaseActivity {
             }
 
             @Override
-            public void refresh() {
-                request(1);
+            public void refresh(int page) {
+                request(page);
             }
 
             @Override
-            public void load() {
-                request(2);
+            public void load(int page) {
+                request(page);
             }
         });
     }
@@ -64,14 +60,14 @@ public class ListActivity extends BaseActivity {
         data.setCode("1");
         data.setMessage("msg");
         List<ItemBean.DataBean> list = new ArrayList<>();
-        for (int i = 1; i <= page; i++) {
+        for (int i = 1; i <= page * 5; i++) {
             list.add(new ItemBean.DataBean(page + "-page-" + i));
         }
         return list;
     }
 
-    public void request(final int page) {
-        Logger.i("requestOldApi--" + page);
+    public void request(final int requestPage) {
+        Logger.i("request-page-" + requestPage);
         Http.get("http://www.baidu.com", null, new JsonRespHandler() {
 
             @Override
@@ -87,19 +83,14 @@ public class ListActivity extends BaseActivity {
             @Override
             public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
-                refreshView.update(page, getData(page));
-            }
-
-            @Override
-            public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
-                super.onFailure(reqInfo, respInfo);
-
+                refreshView.notifyChanged(requestPage, getData(requestPage));
+                refreshView.nextPage();
             }
 
             @Override
             public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
                 super.onEnd(reqInfo, respInfo);
-                refreshView.completeRefresh();
+                refreshView.completeRefresh(requestPage, 2);
             }
         });
     }

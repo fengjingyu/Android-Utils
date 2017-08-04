@@ -14,11 +14,11 @@ public interface IRefreshHandler {
     /**
      * 下拉刷新
      */
-    void refresh();
+    void refresh(int page);
 
     /**
      * 上拉加载
      */
-    void load();
+    void load(int page);
 
 }

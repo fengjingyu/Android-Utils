@@ -29,6 +29,8 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * @description 封装了上下拉 ， 分页 ，无数据背景
  */
 abstract public class RefreshLayout extends FrameLayout {
+    int page = 1;
+    boolean isBottom = false;
     /**
      * 上下拉效果的控件
      */
@@ -139,23 +141,9 @@ abstract public class RefreshLayout extends FrameLayout {
             recyclerView.setOnBottomListener(new PlusRecyclerView.OnBottomListener() {
                 @Override
                 public void onBottom() {
-                    checkAndLoad();
+                    loading();
                 }
             });
-        }
-    }
-
-    public void checkAndLoad() {
-        try {
-            if (totalPage > 1 && !isRequesting) { // 必须有多页 && 必须是之前的请求已返回后
-                if (currentPage > 1 || currentPage == 1 && lastRequestResult) { // 不是第一页 或者 是第一页但必须第一页刷新成功后
-                    if (currentPage < totalPage || (currentPage == totalPage && !lastRequestResult)) {//不是最后一页 或者 是最后一页但是最后一页访问失败了
-                        loading();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -213,6 +201,15 @@ abstract public class RefreshLayout extends FrameLayout {
         }, time);
     }
 
+    protected void reset() {
+        page = 1;
+        isBottom = false;
+    }
+
+    public void nextPage() {
+        page++;
+    }
+
     /**
      * 这里没用xml ， 如果是xml则默认的配置
      * xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
@@ -248,9 +245,10 @@ abstract public class RefreshLayout extends FrameLayout {
     protected void refreshing() {
         if (!isRequesting) {
             isRequesting = true;
+            reset();
             hiddenLoadingView();
             if (mRefreshHandler != null) {
-                mRefreshHandler.refresh();
+                mRefreshHandler.refresh(page);
             } else {
                 throw new RuntimeException(this + "回调handler为null");
             }
@@ -261,11 +259,11 @@ abstract public class RefreshLayout extends FrameLayout {
      * 上拉加载
      */
     protected void loading() {
-        if (!isRequesting) {
+        if (!isRequesting && !isBottom) {
             isRequesting = true;
             showLoadingView();
             if (mRefreshHandler != null) {
-                mRefreshHandler.load();
+                mRefreshHandler.load(page);
             } else {
                 throw new RuntimeException(this + "回调handler为null");
             }
@@ -279,6 +277,7 @@ abstract public class RefreshLayout extends FrameLayout {
         } else {
             showRecyclerView();
             if (currentPage >= totalPage) {
+                isBottom = true;
                 showNoNextPage();
             } else {
                 hiddenLoadingView();
@@ -351,7 +350,7 @@ abstract public class RefreshLayout extends FrameLayout {
      * @param append true,  原有的集合上添加
      *               false, 清空集合后添加
      */
-    protected void updateList(boolean append, List list) {
+    protected void notifyChanged(boolean append, List list) {
         if (list == null) {
             list = new ArrayList();
         }
@@ -364,11 +363,15 @@ abstract public class RefreshLayout extends FrameLayout {
         adapter.notifyDataSetChanged();
     }
 
-    public void update(int page, List list) {
-        if (page <= 1) {
-            updateList(false, list);
+    /**
+     * @param requestPage 数据是第几页的
+     * @param list        第几页的数据
+     */
+    public void notifyChanged(int requestPage, List list) {
+        if (requestPage <= 1) {
+            notifyChanged(false, list);
         } else {
-            updateList(true, list);
+            notifyChanged(true, list);
         }
     }
 

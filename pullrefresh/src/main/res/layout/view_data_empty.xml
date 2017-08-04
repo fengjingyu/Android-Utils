@@ -6,13 +6,13 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/dataZeroImageView"
+        android:id="@+id/dataEmptyImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="96dp" />
 
     <TextView
-        android:id="@+id/dataZeroTextViewUp"
+        android:id="@+id/dataEmptyTextViewUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -22,7 +22,7 @@
         android:textSize="17sp" />
 
     <TextView
-        android:id="@+id/dataZeroTextViewDown"
+        android:id="@+id/dataEmptyTextViewDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
@@ -32,7 +32,7 @@
         android:textSize="13sp" />
 
     <Button
-        android:id="@+id/dataZeroButton"
+        android:id="@+id/dataEmptyButton"
         android:layout_width="90dp"
         android:layout_height="35dp"
         android:layout_marginTop="15dp"

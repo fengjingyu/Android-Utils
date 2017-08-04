@@ -3,9 +3,6 @@ package com.jingyu.android.pullrefresh.loadmore;
 import android.content.Context;
 import android.util.AttributeSet;
 
-/**
- * @description 封装了上下拉 ， 分页 ，无数据背景
- */
 public class MaterialPinRefreshLayout extends MaterialRefreshLayout {
 
     public MaterialPinRefreshLayout(Context context) {

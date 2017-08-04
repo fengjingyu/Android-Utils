@@ -56,33 +56,33 @@ abstract public class RefreshLayout extends FrameLayout {
     /**
      * 数据为0的背景
      */
-    public LinearLayout dataZeroLayout;
+    public LinearLayout dataEmptyLayout;
     /**
      * 数据为0时，背景上显示的图片
      */
-    public ImageView dataZeroImageView;
+    public ImageView dataEmptyImageView;
     /**
      * 数据为0时，背景上显示的文字
      */
-    public TextView dataZeroTextViewUp;
+    public TextView dataEmptyTextViewUp;
     /**
      * 数据为0时，背景上显示的文字
      */
-    public TextView dataZeroTextViewDown;
+    public TextView dataEmptyTextViewDown;
     /**
      * 数据为0时的按钮
      */
-    public Button dataZeroButton;
+    public Button dataEmptyButton;
     /**
      * 0数据显示的文本信息
      */
-    public String dataZeroTextViewUpHint = "";
-    public String dataZeroTextViewDownHint = "";
-    public String dataZeroButtonHint = "";
+    public String dataEmptyTextViewUpHint = "";
+    public String dataEmptyTextViewDownHint = "";
+    public String dataEmptyButtonHint = "";
     /**
      * 0数据图片id
      */
-    public int dataZeroImageId;
+    public int dataEmptyImageId;
 
     public RefreshLayout(Context context) {
         super(context);
@@ -112,7 +112,7 @@ abstract public class RefreshLayout extends FrameLayout {
         mPtrRefreshLayout.disableWhenHorizontalMove(true);
         recyclerView = (PlusRecyclerView) findViewById(R.id.recyclerView);
 
-        dataZeroLayout = (LinearLayout) findViewById(R.id.dataZeroLayout);
+        dataEmptyLayout = (LinearLayout) findViewById(R.id.dataEmptyLayout);
 
         initRefreshLayoutParams();
 
@@ -124,10 +124,10 @@ abstract public class RefreshLayout extends FrameLayout {
     }
 
     private void initZeroDataLayout() {
-        dataZeroImageView = (ImageView) dataZeroLayout.findViewById(R.id.dataZeroImageView);
-        dataZeroTextViewUp = (TextView) dataZeroLayout.findViewById(R.id.dataZeroTextViewUp);
-        dataZeroTextViewDown = (TextView) dataZeroLayout.findViewById(R.id.dataZeroTextViewDown);
-        dataZeroButton = (Button) dataZeroLayout.findViewById(R.id.dataZeroButton);
+        dataEmptyImageView = (ImageView) dataEmptyLayout.findViewById(R.id.dataEmptyImageView);
+        dataEmptyTextViewUp = (TextView) dataEmptyLayout.findViewById(R.id.dataEmptyTextViewUp);
+        dataEmptyTextViewDown = (TextView) dataEmptyLayout.findViewById(R.id.dataEmptyTextViewDown);
+        dataEmptyButton = (Button) dataEmptyLayout.findViewById(R.id.dataEmptyButton);
     }
 
     public void setHandler(IRefreshHandler refreshHandler) {
@@ -307,41 +307,41 @@ abstract public class RefreshLayout extends FrameLayout {
     }
 
     protected void showEmptyBackground() {
-        if (dataZeroImageId < 0) {
-            dataZeroImageView.setVisibility(View.GONE);
+        if (dataEmptyImageId < 0) {
+            dataEmptyImageView.setVisibility(View.GONE);
         } else {
-            dataZeroImageView.setImageResource(dataZeroImageId);
-            dataZeroImageView.setVisibility(View.VISIBLE);
+            dataEmptyImageView.setImageResource(dataEmptyImageId);
+            dataEmptyImageView.setVisibility(View.VISIBLE);
         }
 
-        if (UtilString.isBlank(dataZeroTextViewUpHint)) {
-            dataZeroTextViewUp.setVisibility(View.GONE);
+        if (UtilString.isBlank(dataEmptyTextViewUpHint)) {
+            dataEmptyTextViewUp.setVisibility(View.GONE);
         } else {
-            dataZeroTextViewUp.setText(dataZeroTextViewUpHint);
-            dataZeroTextViewUp.setVisibility(View.VISIBLE);
+            dataEmptyTextViewUp.setText(dataEmptyTextViewUpHint);
+            dataEmptyTextViewUp.setVisibility(View.VISIBLE);
         }
 
-        if (UtilString.isBlank(dataZeroTextViewDownHint)) {
-            dataZeroTextViewDown.setVisibility(View.GONE);
+        if (UtilString.isBlank(dataEmptyTextViewDownHint)) {
+            dataEmptyTextViewDown.setVisibility(View.GONE);
         } else {
-            dataZeroTextViewDown.setText(dataZeroTextViewDownHint);
-            dataZeroTextViewDown.setVisibility(View.VISIBLE);
+            dataEmptyTextViewDown.setText(dataEmptyTextViewDownHint);
+            dataEmptyTextViewDown.setVisibility(View.VISIBLE);
         }
 
-        if (UtilString.isBlank(dataZeroButtonHint)) {
-            dataZeroButton.setVisibility(View.GONE);
+        if (UtilString.isBlank(dataEmptyButtonHint)) {
+            dataEmptyButton.setVisibility(View.GONE);
         } else {
-            dataZeroButton.setText(dataZeroButtonHint);
-            dataZeroButton.setVisibility(View.VISIBLE);
+            dataEmptyButton.setText(dataEmptyButtonHint);
+            dataEmptyButton.setVisibility(View.VISIBLE);
         }
 
-        dataZeroLayout.setVisibility(View.VISIBLE);
+        dataEmptyLayout.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
         mPtrRefreshLayout.setVisibility(View.INVISIBLE);
     }
 
     protected void showRecyclerView() {
-        dataZeroLayout.setVisibility(View.GONE);
+        dataEmptyLayout.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         mPtrRefreshLayout.setVisibility(View.VISIBLE);
     }
@@ -375,41 +375,41 @@ abstract public class RefreshLayout extends FrameLayout {
         }
     }
 
-    public Button getDataZeroButton() {
-        return dataZeroButton;
+    public Button getDataEmptyButton() {
+        return dataEmptyButton;
     }
 
     /**
      * 设置数据为零时候的背景
      */
-    public void setDataZeroHint(String dataZeroTextViewUpHint, String dataZeroTextViewDownHint, int dataZeroImageId, String dataZeroButtonHint) {
-        if (dataZeroTextViewUpHint == null) {
-            this.dataZeroTextViewUpHint = "";
+    public void setDataEmptyHint(String dataEmptyTextViewUpHint, String dataEmptyTextViewDownHint, int dataEmptyImageId, String dataEmptyButtonHint) {
+        if (dataEmptyTextViewUpHint == null) {
+            this.dataEmptyTextViewUpHint = "";
         } else {
-            this.dataZeroTextViewUpHint = dataZeroTextViewUpHint;
+            this.dataEmptyTextViewUpHint = dataEmptyTextViewUpHint;
         }
 
-        if (dataZeroTextViewDownHint == null) {
-            this.dataZeroTextViewDownHint = "";
+        if (dataEmptyTextViewDownHint == null) {
+            this.dataEmptyTextViewDownHint = "";
         } else {
-            this.dataZeroTextViewDownHint = dataZeroTextViewDownHint;
+            this.dataEmptyTextViewDownHint = dataEmptyTextViewDownHint;
         }
 
-        this.dataZeroImageId = dataZeroImageId;
-        this.dataZeroButtonHint = dataZeroButtonHint;
+        this.dataEmptyImageId = dataEmptyImageId;
+        this.dataEmptyButtonHint = dataEmptyButtonHint;
     }
 
     public void setRecyclerAdapter(PlusRecyclerAdapter adapter) {
         setRecyclerAdapter(adapter, null);
     }
 
-    public void setRecyclerAdapter(PlusRecyclerAdapter adapter, View headerView) {
-        this.adapter = adapter;
-        this.smartAdapter = new SmartRecyclerAdapter(adapter);
+    public void setRecyclerAdapter(PlusRecyclerAdapter plusRecyclerAdapter, View headerView) {
+        adapter = plusRecyclerAdapter;
+        smartAdapter = new SmartRecyclerAdapter(plusRecyclerAdapter);
         if (headerView != null) {
-            this.smartAdapter.setHeaderView(headerView);
+            smartAdapter.setHeaderView(headerView);
         }
-        this.smartAdapter.setFooterView(loadingLayout);
+        smartAdapter.setFooterView(loadingLayout);
         recyclerView.setAdapter(smartAdapter);
     }
 

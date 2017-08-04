@@ -31,7 +31,7 @@ public class ListActivity extends BaseActivity {
         //列表有多列的时候,这个放在设置adaper的前面,否则footview可能不会match屏幕宽度
         refreshView.setRecyclerLayoutManager(new GridLayoutManager(getActivity(), 2));
         refreshView.setRecyclerAdapter(new ListAdapter(null));
-        refreshView.setDataZeroHint("", "", R.mipmap.ic_launcher_round, "");
+        refreshView.setDataEmptyHint("", "", R.mipmap.ic_launcher_round, "");
         refreshView.setHandler(new IRefreshHandler() {
             @Override
             public boolean canRefresh() {

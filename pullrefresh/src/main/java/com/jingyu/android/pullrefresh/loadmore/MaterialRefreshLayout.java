@@ -10,9 +10,6 @@ import com.jingyu.utils.util.UtilScreen;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 
-/**
- * @description 封装了上下拉 ， 分页 ，无数据背景
- */
 public class MaterialRefreshLayout extends RefreshLayout {
 
     public MaterialRefreshLayout(Context context) {

@@ -17,8 +17,8 @@
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
     <include
-        android:id="@+id/dataZeroLayout"
-        layout="@layout/view_data_zero"
+        android:id="@+id/dataEmptyLayout"
+        layout="@layout/view_data_empty"
         android:visibility="gone" />
 
 </RelativeLayout>

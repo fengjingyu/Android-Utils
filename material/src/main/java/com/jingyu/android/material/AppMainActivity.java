@@ -11,7 +11,6 @@ import com.jingyu.android.middle.base.BaseActivity;
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
 
     private Button material;
-    private Button percentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +23,10 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
 
     private void setListener() {
         material.setOnClickListener(this);
-        percentLayout.setOnClickListener(this);
     }
 
     public void initWidget() {
         material = getViewById(R.id.material);
-        percentLayout = getViewById(R.id.percentLayout);
     }
 
     @Override
@@ -37,9 +34,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.material:
                 MaterialActivity.actionStart(getActivity());
-                break;
-            case R.id.percentLayout:
-                PercentLayoutActivity.actionStart(getActivity());
                 break;
             default:
                 break;

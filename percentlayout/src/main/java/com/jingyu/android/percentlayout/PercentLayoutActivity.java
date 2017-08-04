@@ -1,4 +1,4 @@
-package com.jingyu.android.material;
+package com.jingyu.android.percentlayout;
 
 import android.content.Context;
 import android.content.Intent;

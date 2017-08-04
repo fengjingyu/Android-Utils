@@ -60,7 +60,7 @@ public class ListActivity extends BaseActivity {
         data.setCode("1");
         data.setMessage("msg");
         List<ItemBean.DataBean> list = new ArrayList<>();
-        for (int i = 1; i <= page * 5; i++) {
+        for (int i = 1; i <= page * 20; i++) {
             list.add(new ItemBean.DataBean(page + "-page-" + i));
         }
         return list;

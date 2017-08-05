@@ -6,10 +6,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.jingyu.android.middle.base.BaseActivity;
+import com.jingyu.utils.function.Logger;
+import com.nostra13.universalimageloader.utils.L;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ListHolder;
+import com.orhanobut.dialogplus.OnBackPressListener;
+import com.orhanobut.dialogplus.OnCancelListener;
+import com.orhanobut.dialogplus.OnDismissListener;
+import com.orhanobut.dialogplus.OnItemClickListener;
 
 
 /**
@@ -21,6 +32,11 @@ public class DialogActivity extends BaseActivity {
     private Button originProgressDialog;
     private Button originProgressDialog2;
     private Button originProgressDialog3;
+    private Button rotateImgDialog;
+    private Button sweetDialog;
+    private Button addressDialog;
+    private Button plusHolderDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +47,10 @@ public class DialogActivity extends BaseActivity {
         originProgressDialog = getViewById(R.id.originProgressDialog);
         originProgressDialog2 = getViewById(R.id.originProgressDialog2);
         originProgressDialog3 = getViewById(R.id.originProgressDialog3);
+        rotateImgDialog = getViewById(R.id.rotateImgDialog);
+        sweetDialog = getViewById(R.id.sweetDialog);
+        addressDialog = getViewById(R.id.addressDialog);
+        plusHolderDialog = getViewById(R.id.plusHolderDialog);
 
 
         originAlertDialog.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +78,77 @@ public class DialogActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 progressDialog3();
+            }
+        });
+
+        rotateImgDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RotateDialog dialog = new RotateDialog(getActivity());
+                dialog.show();
+            }
+        });
+
+        sweetDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SweetDialog dialog = new SweetDialog(getActivity());
+                dialog.show();
+            }
+        });
+
+        addressDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddressDialog dialog = new AddressDialog(getActivity());
+                dialog.show();
+            }
+        });
+
+        plusHolderDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://github.com/orhanobut/dialogplus
+                DialogPlus dialogPlus = DialogPlus.newDialog(getActivity())
+                        .setAdapter(new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_list_item_1, new String[]{"asdfa", "123", "234", "345", "abc", "2", "a", "c", "d"}))//如果是listHolder,gridHolder这setAdapter一定要调用
+                        //.setContentHolder(new ListHolder())//默认是ListHolder; 如果是setConentHolder(new ViewHolder()),则setAdapter不需要调用
+                        //.setHeader(View)
+                        //.setFooter(View)
+                        .setContentBackgroundResource(R.color.colorAccent)
+                        //.setOverlayBackgroundResource(android.R.color.transparent)
+                        //.setMargin
+                        //.setContentHeight(300)
+                        .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                        .setCancelable(true)
+                        .setExpanded(false)
+                        .setGravity(Gravity.TOP)
+                        .setOnDismissListener(new OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogPlus dialog) {
+
+                            }
+                        })
+                        .setOnCancelListener(new OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogPlus dialog) {
+
+                            }
+                        })
+                        .setOnBackPressListener(new OnBackPressListener() {
+                            @Override
+                            public void onBackPressed(DialogPlus dialogPlus) {
+
+                            }
+                        }).setOnItemClickListener(new OnItemClickListener() {
+                            @Override
+                            public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                                Logger.shortToast(item);
+                            }
+                        })
+                        .create();
+
+                dialogPlus.show();
             }
         });
     }

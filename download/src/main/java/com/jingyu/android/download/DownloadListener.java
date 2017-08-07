@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.download;
+package com.jingyu.android.download;
 
 import java.io.File;
 

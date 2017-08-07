@@ -8,9 +8,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
-import com.jingyu.utils.function.download.DownloadListener;
-import com.jingyu.utils.function.download.DownloadOptions;
-import com.jingyu.utils.function.download.DownloadTask;
 import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;

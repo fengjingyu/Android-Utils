@@ -11,7 +11,6 @@ import android.widget.Button;
 
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.utils.function.DirHelper;
-import com.jingyu.utils.function.download.DownloadOptions;
 
 public class DownloadActivity extends BaseActivity implements View.OnClickListener {
 

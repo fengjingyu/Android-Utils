@@ -19,21 +19,21 @@
             android:id="@+id/originProgressDialog"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="原生ProgressDialog"
+            android:text="原生ProgressDialog进度圈圈"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/originProgressDialog2"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="原生ProgressDialog2"
+            android:text="原生ProgressDialog进度圈圈2"
             android:textAllCaps="false" />
 
         <Button
             android:id="@+id/originProgressDialog3"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="原生ProgressDialog3"
+            android:text="原生ProgressDialog进度条"
             android:textAllCaps="false" />
 
         <Button
@@ -50,12 +50,12 @@
             android:text="sweetDialog"
             android:textAllCaps="false" />
 
-        <Button
+<!--        <Button
             android:id="@+id/addressDialog"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="addressDialog"
-            android:textAllCaps="false" />
+            android:textAllCaps="false" />-->
 
         <Button
             android:id="@+id/plusHolderDialog"

@@ -56,6 +56,7 @@ public class NotifyActivity extends BaseActivity {
                 .setLights(Color.BLUE,1000,1000)// led
                 .setPriority(NotificationCompat.PRIORITY_MAX)//原生的有效果,小米5没效果需要去设置页面的悬浮通知
                 .setTicker("ticker")
+                //.setProgress()
                 .build();
 
         ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).notify(id, notification);

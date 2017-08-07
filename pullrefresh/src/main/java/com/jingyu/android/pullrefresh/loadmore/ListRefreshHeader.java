@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.jingyu.android.pullrefresh.R;
+import com.jingyu.utils.function.Logger;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
@@ -119,18 +120,20 @@ public class ListRefreshHeader extends FrameLayout implements PtrUIHandler {
         mReverseFlipAnimation.setFillAfter(true);
     }
 
-    private void resetView() {
-        hideRotateView();
-        mProgressBar.setVisibility(INVISIBLE);
-    }
-
     private void hideRotateView() {
         mRotateView.clearAnimation();
         mRotateView.setVisibility(INVISIBLE);
     }
 
+    private void resetView() {
+        hideRotateView();
+        mProgressBar.setVisibility(INVISIBLE);
+    }
+
     @Override
     public void onUIReset(PtrFrameLayout frame) {
+        Logger.d("ptr--onUIReset");
+
         resetView();
         mShouldShowLastUpdate = true;
         tryUpdateLastUpdateTime();
@@ -138,6 +141,7 @@ public class ListRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
+        Logger.d("ptr--onUIRefreshPrepare");
 
         mShouldShowLastUpdate = true;
         tryUpdateLastUpdateTime();
@@ -156,6 +160,8 @@ public class ListRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIRefreshBegin(PtrFrameLayout frame) {
+        Logger.d("ptr--onUIRefreshBegin");
+
         mShouldShowLastUpdate = false;
         hideRotateView();
         mProgressBar.setVisibility(VISIBLE);
@@ -168,6 +174,7 @@ public class ListRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
+        Logger.d("ptr--onUIRefreshComplete");
 
         hideRotateView();
         mProgressBar.setVisibility(INVISIBLE);
@@ -238,6 +245,7 @@ public class ListRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
+        Logger.d("ptr--onUIPositionChange");
 
         final int mOffsetToRefresh = frame.getOffsetToRefresh();
         final int currentPos = ptrIndicator.getCurrentPosY();

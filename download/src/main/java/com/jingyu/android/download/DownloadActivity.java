@@ -99,7 +99,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void request() {
-        Http.get("http://www.baidu.com", null, new JsonRespHandler(getActivity()) {
+        Http.get("http://www.baidu.com", null, new JsonRespHandler() {
             @Override
             public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
                 return new JsonModel();
@@ -117,7 +117,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                 downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
                 downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "upgrade", "upgradeapp.apk"));
                 downloadInfo.setRangeDownload(false);
-                downloadInfo.setForceUpgrade(true);
+                downloadInfo.setForceUpgrade(false);
                 downloadInfo.setContent("修复bug");
                 downloadInfo.setTitle("V2.0.0最新版本升级");
                 UpgradeActivity.actionStart(getActivity(), downloadInfo);

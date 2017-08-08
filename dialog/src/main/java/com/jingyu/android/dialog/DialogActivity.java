@@ -32,7 +32,7 @@ public class DialogActivity extends BaseActivity {
     private Button originProgressDialog3;
     private Button rotateImgDialog;
     private Button sweetDialog;
-    //private Button addressDialog;
+    private Button shareDialog;
     private Button plusHolderDialog;
 
 
@@ -47,7 +47,7 @@ public class DialogActivity extends BaseActivity {
         originProgressDialog3 = getViewById(R.id.originProgressDialog3);
         rotateImgDialog = getViewById(R.id.rotateImgDialog);
         sweetDialog = getViewById(R.id.sweetDialog);
-        //addressDialog = getViewById(R.id.addressDialog);
+        shareDialog = getViewById(R.id.shareDialog);
         plusHolderDialog = getViewById(R.id.plusHolderDialog);
 
 
@@ -95,13 +95,13 @@ public class DialogActivity extends BaseActivity {
             }
         });
 
-//        addressDialog.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AddressDialog dialog = new AddressDialog(getActivity());
-//                dialog.show();
-//            }
-//        });
+        shareDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddressDialog dialog = new AddressDialog(getActivity());
+                dialog.show();
+            }
+        });
 
         plusHolderDialog.setOnClickListener(new View.OnClickListener() {
             @Override

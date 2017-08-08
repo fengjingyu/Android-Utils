@@ -24,7 +24,10 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".UpgradeActivity"/>
+        <activity
+            android:name=".UpgradeActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/TransActivity" />
     </application>
 
 </manifest>

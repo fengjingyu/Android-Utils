@@ -99,6 +99,7 @@ public class DownloadService extends Service {
 
     protected Notification getNotiication(String title, int progress) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setTicker("开始下载");
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle(title);
         if (progress > 0) {

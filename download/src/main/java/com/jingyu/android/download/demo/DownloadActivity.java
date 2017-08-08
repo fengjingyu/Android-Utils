@@ -1,4 +1,4 @@
-package com.jingyu.android.download;
+package com.jingyu.android.download.demo;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -9,13 +9,12 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 
-import com.jingyu.android.middle.Http;
+import com.jingyu.android.download.DownloadInfo;
+import com.jingyu.android.download.DownloadService;
+import com.jingyu.android.download.R;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.middle.http.json.JsonModel;
-import com.jingyu.android.middle.http.json.JsonRespHandler;
 import com.jingyu.utils.function.DirHelper;
-import com.jingyu.utils.http.ReqInfo;
-import com.jingyu.utils.http.RespInfo;
+import com.jingyu.utils.function.Logger;
 
 public class DownloadActivity extends BaseActivity implements View.OnClickListener {
 
@@ -23,7 +22,6 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     Button pauseDownload;
     Button cancelDownload;
     Button startRangeDownload;
-    Button upgrade;
 
     DownloadService.DownloadBinder downloadBinder;
 
@@ -31,6 +29,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             downloadBinder = (DownloadService.DownloadBinder) service;
+            Logger.d(downloadBinder + "--downloadBinder");
         }
 
         @Override
@@ -46,7 +45,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         //启动服务
         Intent intent = new Intent(this, DownloadService.class);
         startService(intent);
-        // 绑定服务
+        //绑定服务
         bindService(intent, serviceConnection, BIND_AUTO_CREATE);
 
         //TODO 权限请求
@@ -55,14 +54,12 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         pauseDownload = getViewById(R.id.pauseDownload);
         cancelDownload = getViewById(R.id.cancelDownload);
         startRangeDownload = getViewById(R.id.startRangeDownload);
-        upgrade = getViewById(R.id.upgrade);
 
 
         startDownload.setOnClickListener(this);
         pauseDownload.setOnClickListener(this);
         cancelDownload.setOnClickListener(this);
         startRangeDownload.setOnClickListener(this);
-        upgrade.setOnClickListener(this);
 
     }
 
@@ -89,40 +86,10 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                     downloadInfo2.setRangeDownload(true);
                     downloadBinder.startDownload(downloadInfo2);
                     break;
-                case R.id.upgrade:
-                    request();
-                    break;
                 default:
                     break;
             }
         }
-    }
-
-    public void request() {
-        Http.get("http://www.baidu.com", null, new JsonRespHandler() {
-            @Override
-            public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
-                return new JsonModel();
-            }
-
-            @Override
-            public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
-                return true;
-            }
-
-            @Override
-            public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
-                super.onSuccessAll(reqInfo, respInfo, resultBean);
-                DownloadInfo downloadInfo = new DownloadInfo();
-                downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
-                downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "upgrade", "upgradeapp.apk"));
-                downloadInfo.setRangeDownload(false);
-                downloadInfo.setForceUpgrade(false);
-                downloadInfo.setContent("修复bug");
-                downloadInfo.setTitle("V2.0.0最新版本升级");
-                UpgradeActivity.actionStart(getActivity(), downloadInfo);
-            }
-        });
     }
 
     @Override

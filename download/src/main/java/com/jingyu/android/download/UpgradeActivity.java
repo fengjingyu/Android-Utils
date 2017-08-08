@@ -77,6 +77,7 @@ public class UpgradeActivity extends BaseActivity {
     }
 
     private void service() {
+        //既开启了全局服务,也绑定了服务
         //启动服务
         Intent intent = new Intent(this, DownloadService.class);
         startService(intent);

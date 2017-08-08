@@ -14,28 +14,38 @@ import java.io.File;
 
 public class DownloadService extends Service {
 
+    public static final String APP = "demoV2.0.1";
+
+    public static final String ACTION_PROGRESS = "ACTION_PROGRESS";
+    public static final String KEY_PROGRESS_PERCENT = "KEY_PROGRESS_PERCENT";
+
     private DownloadListener downloadListener = new DownloadListener() {
         @Override
         public void onPreDownload() {
-            startForeground(1, getNotiication("下载中...", 0));
+            startForeground(1, getNotiication(APP + "下载中...", 0));
         }
 
         @Override
         public void onDownloadSuccess(File file) {
             stopForeground(true);
-            getNotificationManager().notify(1, getNotiication("下载成功", -1));
+            getNotificationManager().notify(1, getNotiication(APP + "下载成功", -1));
             UtilSystem.installApk(getApplicationContext(), file);
         }
 
         @Override
         public void onDownloadProgress(long totalProgress, long contentLength, int progressPercent) {
-            getNotificationManager().notify(1, getNotiication("下载中..", progressPercent));
+            Intent intent = new Intent();
+            intent.setAction(ACTION_PROGRESS);
+            intent.putExtra(KEY_PROGRESS_PERCENT, progressPercent);
+            sendBroadcast(intent);
+
+            getNotificationManager().notify(1, getNotiication(APP + "下载中..", progressPercent));
         }
 
         @Override
         public void onDownloadFail(File file) {
             stopForeground(true);
-            getNotificationManager().notify(1, getNotiication("下载失败", -1));
+            getNotificationManager().notify(1, getNotiication(APP + "下载失败", -1));
         }
 
         @Override
@@ -55,7 +65,7 @@ public class DownloadService extends Service {
 
         DownloadTask downloadTask;
 
-        public void startDownload(DownloadOptions downloadOptions) {
+        public void startDownload(DownloadInfo downloadOptions) {
             if (downloadTask == null || !downloadTask.isRunning()) {
                 downloadTask = new DownloadTask(downloadListener, downloadOptions);
                 downloadTask.execute();
@@ -92,7 +102,7 @@ public class DownloadService extends Service {
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle(title);
         if (progress > 0) {
-            builder.setContentText(progress + "%");
+            builder.setContentText("下载进度" + progress + "%");
             builder.setProgress(100, progress, false);
         }
         return builder.build();

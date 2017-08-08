@@ -302,6 +302,7 @@ public class UtilSystem {
         try {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
             // tomcat的conf的web.xml中有所有的文件类型
             context.startActivity(intent);

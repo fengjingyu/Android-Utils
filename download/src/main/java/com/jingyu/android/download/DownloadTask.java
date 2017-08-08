@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 
 import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -20,10 +21,11 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
     public static final int TYPE_FAILE = 1;
     public static final int TYPE_PAUSED = 2;
     public static final int TYPE_CANCELED = 3;
+    public static final String TAG = "download";
 
     private DownloadListener listener;
 
-    private DownloadOptions options;
+    private DownloadInfo info;
 
     private boolean isPaused = false;
 
@@ -31,15 +33,15 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
 
     private boolean isRunning = false;
 
-    public DownloadTask(DownloadListener downloadListener, DownloadOptions downloadOptions) {
+    public DownloadTask(DownloadListener downloadListener, DownloadInfo downloadInfo) {
         this.listener = downloadListener;
-        this.options = downloadOptions;
+        this.info = downloadInfo;
     }
 
     protected boolean isParamsAvaliable() {
-        if (options != null) {
-            if (options.getUrl() != null && options.getUrl().trim().length() > 0) {
-                if (options.getFile() != null) {
+        if (info != null) {
+            if (info.getUrl() != null && info.getUrl().trim().length() > 0) {
+                if (info.getFile() != null) {
                     return true;
                 }
             }
@@ -58,7 +60,7 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
     protected long requestContentLength() {
         HttpURLConnection urlConnection = null;
         try {
-            urlConnection = (HttpURLConnection) new URL(options.getUrl()).openConnection();
+            urlConnection = (HttpURLConnection) new URL(info.getUrl()).openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setConnectTimeout(10000);
             if (HttpURLConnection.HTTP_OK == urlConnection.getResponseCode()) {
@@ -84,7 +86,7 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
 
     protected InputStream requestInputStream(long rangePosition) {
         try {
-            HttpURLConnection urlConnection = (HttpURLConnection) new URL(options.getUrl()).openConnection();
+            HttpURLConnection urlConnection = (HttpURLConnection) new URL(info.getUrl()).openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setConnectTimeout(10000);
             urlConnection.setRequestProperty("Range", "bytes=" + rangePosition + "-");
@@ -111,24 +113,24 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
                 contentLength = requestContentLength();
                 if (contentLength <= 0) {
                     return TYPE_FAILE;
-                } else if (contentLength == (options.getFile().exists() ? options.getFile().length() : 0)) {
+                } else if (contentLength == (info.getFile().exists() ? info.getFile().length() : 0)) {
                     return TYPE_SUCCESS;
                 } else {
-                    if (options.isRangeDownload()) {
-                        if (DirHelper.createFile(options.getFile()) == null) {
+                    if (info.isRangeDownload()) {
+                        if (DirHelper.createFile(info.getFile()) == null) {
                             return TYPE_FAILE;
                         }
                     } else {
-                        if (DirHelper.deleteAndCreateFile(options.getFile()) == null) {
+                        if (DirHelper.deleteAndCreateFile(info.getFile()) == null) {
                             return TYPE_FAILE;
                         }
                     }
 
-                    rangePosition = options.getFile().length();
+                    rangePosition = info.getFile().length();
                     InputStream inputStream = requestInputStream(rangePosition);
                     if (inputStream != null) {
                         bufferedInputStream = new BufferedInputStream(inputStream);
-                        randomAccessFile = new RandomAccessFile(options.getFile(), "rw");
+                        randomAccessFile = new RandomAccessFile(info.getFile(), "rw");
                         randomAccessFile.seek(rangePosition);
                         byte[] buf = new byte[1024];
                         long totalProgress = rangePosition;
@@ -141,6 +143,9 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
                                 randomAccessFile.write(buf, 0, len);
                                 totalProgress = totalProgress + len;
                                 int progressPercent = (int) (totalProgress * 100 / contentLength);
+                                //todo
+                                Thread.sleep(50);
+                                Logger.d(TAG, "totalProgress = " + totalProgress);
                                 if (progressPercent > beforeProgressPercent) {
                                     publishProgress(totalProgress, contentLength, (long) progressPercent);
                                     beforeProgressPercent = progressPercent;
@@ -191,16 +196,16 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
         if (listener != null) {
             switch (resultType) {
                 case TYPE_SUCCESS:
-                    listener.onDownloadSuccess(options.getFile());
+                    listener.onDownloadSuccess(info.getFile());
                     break;
                 case TYPE_FAILE:
-                    listener.onDownloadFail(options.getFile());
+                    listener.onDownloadFail(info.getFile());
                     break;
                 case TYPE_PAUSED:
-                    listener.onDownloadPaused(options.getFile());
+                    listener.onDownloadPaused(info.getFile());
                     break;
                 case TYPE_CANCELED:
-                    listener.onDownloadCanceled(options.getFile());
+                    listener.onDownloadCanceled(info.getFile());
                     break;
                 default:
                     break;

@@ -9,8 +9,13 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 
+import com.jingyu.android.middle.Http;
 import com.jingyu.android.middle.base.BaseActivity;
+import com.jingyu.android.middle.http.json.JsonModel;
+import com.jingyu.android.middle.http.json.JsonRespHandler;
 import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.http.ReqInfo;
+import com.jingyu.utils.http.RespInfo;
 
 public class DownloadActivity extends BaseActivity implements View.OnClickListener {
 
@@ -18,6 +23,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
     Button pauseDownload;
     Button cancelDownload;
     Button startRangeDownload;
+    Button upgrade;
 
     DownloadService.DownloadBinder downloadBinder;
 
@@ -49,12 +55,14 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         pauseDownload = getViewById(R.id.pauseDownload);
         cancelDownload = getViewById(R.id.cancelDownload);
         startRangeDownload = getViewById(R.id.startRangeDownload);
+        upgrade = getViewById(R.id.upgrade);
 
 
         startDownload.setOnClickListener(this);
         pauseDownload.setOnClickListener(this);
         cancelDownload.setOnClickListener(this);
         startRangeDownload.setOnClickListener(this);
+        upgrade.setOnClickListener(this);
 
     }
 
@@ -63,8 +71,10 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
         if (downloadBinder != null) {
             switch (v.getId()) {
                 case R.id.startDownload:
-                    downloadBinder.startDownload(new DownloadOptions("http://192.168.1.101/android/test.apk",
-                            DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "test.apk")));
+                    DownloadInfo downloadInfo = new DownloadInfo();
+                    downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
+                    downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "test.apk"));
+                    downloadBinder.startDownload(downloadInfo);
                     break;
                 case R.id.pauseDownload:
                     downloadBinder.pauseDownload();
@@ -73,14 +83,46 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                     downloadBinder.cancleDownload();
                     break;
                 case R.id.startRangeDownload:
-                    downloadBinder.startDownload(new DownloadOptions("http://192.168.1.101/android/test_range.apk",
-                            DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "test_range.apk"), true));
+                    DownloadInfo downloadInfo2 = new DownloadInfo();
+                    downloadInfo2.setUrl("http://192.168.0.102/android/appv2.apk");
+                    downloadInfo2.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "est_range.apk"));
+                    downloadInfo2.setRangeDownload(true);
+                    downloadBinder.startDownload(downloadInfo2);
+                    break;
+                case R.id.upgrade:
+                    request();
                     break;
                 default:
                     break;
             }
         }
+    }
 
+    public void request() {
+        Http.get("http://www.baidu.com", null, new JsonRespHandler(getActivity()) {
+            @Override
+            public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
+                return new JsonModel();
+            }
+
+            @Override
+            public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
+                return true;
+            }
+
+            @Override
+            public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
+                super.onSuccessAll(reqInfo, respInfo, resultBean);
+                DownloadInfo downloadInfo = new DownloadInfo();
+                downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
+                downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "upgrade", "upgradeapp.apk"));
+                downloadInfo.setRangeDownload(false);
+                downloadInfo.setForceUpgrade(true);
+                downloadInfo.setContent("修复bug");
+                downloadInfo.setTitle("V2.0.0最新版本升级");
+                UpgradeActivity.actionStart(getActivity(), downloadInfo);
+            }
+        });
     }
 
     @Override

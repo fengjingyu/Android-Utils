@@ -18,12 +18,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".DownloadActivity" />
-        <activity android:name=".AppMainActivity" />
 
         <service
             android:name=".DownloadService"
             android:enabled="true"
             android:exported="false" />
+
+        <activity android:name=".UpgradeActivity"/>
     </application>
 
 </manifest>

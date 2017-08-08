@@ -75,7 +75,7 @@ public class DialogActivity extends BaseActivity {
         originProgressDialog3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog3();
+                progressDialogPercent();
             }
         });
 
@@ -151,7 +151,7 @@ public class DialogActivity extends BaseActivity {
         });
     }
 
-    private void progressDialog3() {
+    private void progressDialogPercent() {
         final ProgressDialog dialog = new ProgressDialog(getActivity());
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         dialog.setMax(100);

@@ -21,6 +21,7 @@ import com.jingyu.android.test.utils.CacheCleanActivity;
 import com.jingyu.android.test.utils.CamareActivity;
 import com.jingyu.android.test.utils.CloneActivity;
 import com.jingyu.android.test.utils.DirActivity;
+import com.jingyu.android.test.utils.DownloadActivity;
 import com.jingyu.android.test.utils.EncryptActivity;
 import com.jingyu.android.test.utils.ExceptionActivity;
 import com.jingyu.android.test.utils.HttpActivity;
@@ -31,7 +32,6 @@ import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
-
 
 
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
@@ -62,6 +62,7 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     private Button adapter;
     private Button dir;
     private Button bitmap;
+    private Button download;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +143,7 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         adapter.setOnClickListener(this);
         dir.setOnClickListener(this);
         bitmap.setOnClickListener(this);
+        download.setOnClickListener(this);
     }
 
     private void initWidget2() {
@@ -157,6 +159,7 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         adapter = getViewById(R.id.adapter);
         dir = getViewById(R.id.dir);
         bitmap = getViewById(R.id.bitmap);
+        download = getViewById(R.id.download);
     }
 
     private void onClickAction2(View v) {
@@ -196,6 +199,9 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.bitmap:
                 BitmapActivity.actionStart(getActivity());
+                break;
+            case R.id.download:
+                DownloadActivity.actionStart(getActivity());
                 break;
             default:
                 break;

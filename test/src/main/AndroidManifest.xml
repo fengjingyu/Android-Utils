@@ -85,7 +85,8 @@
         <activity android:name="com.jingyu.android.test.learn.NotifyActivity" />
         <activity android:name="com.jingyu.android.test.utils.DirActivity" />
         <activity android:name="com.jingyu.android.test.utils.BitmapActivity" />
-        <activity android:name="com.jingyu.android.test.learn.touch.MotionEventActivity"/>
+        <activity android:name="com.jingyu.android.test.learn.touch.MotionEventActivity" />
+        <activity android:name=".utils.DownloadActivity" />
     </application>
 
 </manifest>

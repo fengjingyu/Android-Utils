@@ -13,6 +13,7 @@
         <external-cache-path name="name" path="path" /> 物理路径相当于Context.getExternalCacheDir() + /path/-->
 
     <paths>
+        <!-- name的值仅仅是标识,和文件路径无关 -->
         <external-files-path
             name="test"
             path="download/" />

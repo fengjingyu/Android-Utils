@@ -13,6 +13,7 @@ import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.download.DownloadInfo;
 import com.jingyu.utils.download.DownloadService;
+import com.jingyu.utils.encryption.md5.Md5Helper;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
 
@@ -70,7 +71,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                 case R.id.startDownload:
                     DownloadInfo downloadInfo = new DownloadInfo();
                     downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
-                    downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "test.apk"));
+                    downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", Md5Helper.MD5Encode(downloadInfo.getUrl()) + ".apk"));
                     downloadBinder.startDownload(downloadInfo);
                     break;
                 case R.id.pauseDownload:
@@ -82,7 +83,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                 case R.id.startRangeDownload:
                     DownloadInfo downloadInfo2 = new DownloadInfo();
                     downloadInfo2.setUrl("http://192.168.0.102/android/appv2.apk");
-                    downloadInfo2.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "est_range.apk"));
+                    downloadInfo2.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", Md5Helper.MD5Encode(downloadInfo2.getUrl()) + ".apk"));
                     downloadInfo2.setRange(true);
                     downloadBinder.startDownload(downloadInfo2);
                     break;

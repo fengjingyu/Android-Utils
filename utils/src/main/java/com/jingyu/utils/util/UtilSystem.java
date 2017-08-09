@@ -302,7 +302,8 @@ public class UtilSystem {
 
     public static void installApk(Context context, File file, String apkPackageName) {
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if (Build.VERSION.SDK_INT >= 24) {
                 //Android 7.0 以上不支持 file://协议 需要通过 FileProvider 访问 sd卡 下面的文件，所以 Uri 需要通过 FileProvider 构造，协议为 content://
@@ -313,8 +314,10 @@ public class UtilSystem {
             } else {
                 intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
             }
+            context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.shortToast("安装出错");
         }
     }
 

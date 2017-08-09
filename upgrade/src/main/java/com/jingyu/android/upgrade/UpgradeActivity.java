@@ -11,12 +11,12 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.utils.download.DownloadInfo;
 import com.jingyu.utils.download.DownloadService;
-import com.jingyu.utils.util.UtilSystem;
 
 public class UpgradeActivity extends BaseActivity {
     public static final String KEY = "key_downloadinfo";
@@ -42,10 +42,7 @@ public class UpgradeActivity extends BaseActivity {
                 int percent = intent.getIntExtra(DownloadService.KEY_PROGRESS_PERCENT, 0);
                 if (forceDialog != null) {
                     forceDialog.setProgress(percent);
-                    forceDialog.setSecondaryProgress(percent - 10);
                 }
-            } else if (DownloadService.ACTION_SUCCESS.equals(intent.getAction())) {
-                UtilSystem.installApk(getApplicationContext(), downloadInfo.getFile(), getApplicationContext().getPackageName());
             }
         }
     };
@@ -55,9 +52,9 @@ public class UpgradeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upgrade);
 
-        service();
-
         receiver();
+
+        service();
 
         upgrade();
     }
@@ -78,7 +75,7 @@ public class UpgradeActivity extends BaseActivity {
     private void receiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(DownloadService.ACTION_PROGRESS);
-        registerReceiver(broadcastReceiver, filter);
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(broadcastReceiver, filter);
     }
 
     private void service() {
@@ -106,8 +103,8 @@ public class UpgradeActivity extends BaseActivity {
                     forceDialog.setCancelable(false);
                     forceDialog.show();
                 }
-                download();
                 dialogInterface.dismiss();
+                download();
             }
         });
         builder.show();
@@ -143,7 +140,7 @@ public class UpgradeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(broadcastReceiver);
+        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(broadcastReceiver);
         unbindService(serviceConnection);
     }
 

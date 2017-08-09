@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.jingyu.utils.R;
+import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
 
@@ -17,16 +19,15 @@ public class DownloadService extends Service {
     public static final String APP = "demoV2.0.1";
 
     public static final String ACTION_PROGRESS = "ACTION_PROGRESS";
-    public static final String ACTION_SUCCESS = "ACTION_SUCCESS";
-    public static final String ACTION_FAIL = "ACTION_FAIL";
     public static final String KEY_PROGRESS_PERCENT = "KEY_PROGRESS_PERCENT";
 
     public static final int id = 1;
 
     private DownloadListener downloadListener = new DownloadListener() {
+
         @Override
         public void onPreDownload() {
-            startForeground(id, getNotiication(APP + "下载中...", 0));
+            startForeground(id, getNotiication(APP + "准备下载..", 0));
         }
 
         @Override
@@ -34,10 +35,13 @@ public class DownloadService extends Service {
             stopForeground(true);
 
             Intent intent = new Intent();
-            intent.setAction(ACTION_SUCCESS);
-            sendBroadcast(intent);
+            intent.setAction(ACTION_PROGRESS);
+            intent.putExtra(KEY_PROGRESS_PERCENT, 100);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
             getNotificationManager().notify(id, getNotiication(APP + "下载成功", -1));
+
+            UtilSystem.installApk(getApplicationContext(), file, getApplicationContext().getPackageName());
         }
 
         @Override
@@ -45,7 +49,7 @@ public class DownloadService extends Service {
             Intent intent = new Intent();
             intent.setAction(ACTION_PROGRESS);
             intent.putExtra(KEY_PROGRESS_PERCENT, progressPercent);
-            sendBroadcast(intent);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
 
             getNotificationManager().notify(id, getNotiication(APP + "下载中..", progressPercent));
         }
@@ -53,11 +57,6 @@ public class DownloadService extends Service {
         @Override
         public void onDownloadFail(File file) {
             stopForeground(true);
-
-            Intent intent = new Intent();
-            intent.setAction(ACTION_FAIL);
-            sendBroadcast(intent);
-
             getNotificationManager().notify(id, getNotiication(APP + "下载失败", -1));
         }
 

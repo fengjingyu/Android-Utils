@@ -9,7 +9,6 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
 import com.jingyu.utils.R;
-import com.jingyu.utils.util.UtilSystem;
 
 import java.io.File;
 
@@ -18,19 +17,27 @@ public class DownloadService extends Service {
     public static final String APP = "demoV2.0.1";
 
     public static final String ACTION_PROGRESS = "ACTION_PROGRESS";
+    public static final String ACTION_SUCCESS = "ACTION_SUCCESS";
+    public static final String ACTION_FAIL = "ACTION_FAIL";
     public static final String KEY_PROGRESS_PERCENT = "KEY_PROGRESS_PERCENT";
+
+    public static final int id = 1;
 
     private DownloadListener downloadListener = new DownloadListener() {
         @Override
         public void onPreDownload() {
-            startForeground(1, getNotiication(APP + "下载中...", 0));
+            startForeground(id, getNotiication(APP + "下载中...", 0));
         }
 
         @Override
         public void onDownloadSuccess(File file) {
             stopForeground(true);
-            getNotificationManager().notify(1, getNotiication(APP + "下载成功", -1));
-            UtilSystem.installApk(getApplicationContext(), file);
+
+            Intent intent = new Intent();
+            intent.setAction(ACTION_SUCCESS);
+            sendBroadcast(intent);
+
+            getNotificationManager().notify(id, getNotiication(APP + "下载成功", -1));
         }
 
         @Override
@@ -40,13 +47,18 @@ public class DownloadService extends Service {
             intent.putExtra(KEY_PROGRESS_PERCENT, progressPercent);
             sendBroadcast(intent);
 
-            getNotificationManager().notify(1, getNotiication(APP + "下载中..", progressPercent));
+            getNotificationManager().notify(id, getNotiication(APP + "下载中..", progressPercent));
         }
 
         @Override
         public void onDownloadFail(File file) {
             stopForeground(true);
-            getNotificationManager().notify(1, getNotiication(APP + "下载失败", -1));
+
+            Intent intent = new Intent();
+            intent.setAction(ACTION_FAIL);
+            sendBroadcast(intent);
+
+            getNotificationManager().notify(id, getNotiication(APP + "下载失败", -1));
         }
 
         @Override
@@ -58,6 +70,7 @@ public class DownloadService extends Service {
             if (file != null && file.exists()) {
                 file.delete();
             }
+            getNotificationManager().cancel(id);
             stopForeground(true);
         }
     };
@@ -66,9 +79,9 @@ public class DownloadService extends Service {
 
         DownloadTask downloadTask;
 
-        public void startDownload(DownloadInfo downloadOptions) {
+        public void startDownload(DownloadInfo downloadInfo) {
             if (downloadTask == null || !downloadTask.isRunning()) {
-                downloadTask = new DownloadTask(downloadListener, downloadOptions);
+                downloadTask = new DownloadTask(downloadListener, downloadInfo);
                 downloadTask.execute();
             }
         }

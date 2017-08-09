@@ -116,7 +116,7 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
                 } else if (contentLength == (info.getFile().exists() ? info.getFile().length() : 0)) {
                     return TYPE_SUCCESS;
                 } else {
-                    if (info.isRangeDownload()) {
+                    if (info.isRange()) {
                         if (DirHelper.createFile(info.getFile()) == null) {
                             return TYPE_FAILE;
                         }
@@ -132,7 +132,7 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
                         bufferedInputStream = new BufferedInputStream(inputStream);
                         randomAccessFile = new RandomAccessFile(info.getFile(), "rw");
                         randomAccessFile.seek(rangePosition);
-                        byte[] buf = new byte[1024];
+                        byte[] buf = new byte[1024 * 10];
                         long totalProgress = rangePosition;
                         for (int len; (len = bufferedInputStream.read(buf)) != -1; ) {
                             if (isCanceled) {
@@ -143,9 +143,9 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
                                 randomAccessFile.write(buf, 0, len);
                                 totalProgress = totalProgress + len;
                                 int progressPercent = (int) (totalProgress * 100 / contentLength);
-                                //todo
-                                Thread.sleep(50);
-                                Logger.d(TAG, "totalProgress = " + totalProgress);
+                                Logger.d(TAG, "toalProgress = " + totalProgress);
+                                //// TODO: 2017/8/9
+                                Thread.sleep(10);
                                 if (progressPercent > beforeProgressPercent) {
                                     publishProgress(totalProgress, contentLength, (long) progressPercent);
                                     beforeProgressPercent = progressPercent;

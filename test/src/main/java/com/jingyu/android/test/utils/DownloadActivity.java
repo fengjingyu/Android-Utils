@@ -83,7 +83,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                     DownloadInfo downloadInfo2 = new DownloadInfo();
                     downloadInfo2.setUrl("http://192.168.0.102/android/appv2.apk");
                     downloadInfo2.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "download", "est_range.apk"));
-                    downloadInfo2.setRangeDownload(true);
+                    downloadInfo2.setRange(true);
                     downloadBinder.startDownload(downloadInfo2);
                     break;
                 default:

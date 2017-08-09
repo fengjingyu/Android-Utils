@@ -56,29 +56,6 @@ public class DirHelper {
      * success 返回 file
      */
     @Nullable
-    public static File deleteAndCreateFile(File file) {
-        try {
-            if (file != null) {
-                if (!file.exists() || file.delete()) {
-                    // 文件不存在 或 文件存在且删除成功
-                    if (file.createNewFile()) {
-                        //重新创建成功
-                        return file;
-                    }
-                }
-            }
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /**
-     * @return fail 返回null
-     * success 返回 file
-     */
-    @Nullable
     public static File createFile(File file) {
         try {
             if (file != null) {
@@ -105,13 +82,6 @@ public class DirHelper {
         return null;
     }
 
-    public static File deleteAndCreateFile(File dir, String fileName) {
-        if (dir != null && isStringAvaliable(fileName)) {
-            return deleteAndCreateFile(new File(dir, fileName));
-        }
-        return null;
-    }
-
     /**
      * @return fail 返回 null
      * success 返回 file
@@ -120,6 +90,37 @@ public class DirHelper {
     public static File createFile(File dir, String fileName) {
         if (dir != null && isStringAvaliable(fileName)) {
             return createFile(new File(dir, fileName));
+        }
+        return null;
+    }
+
+    /**
+     * @return fail 返回null
+     * success 返回 file
+     */
+    @Nullable
+    public static File deleteAndCreateFile(File file) {
+        try {
+            if (file != null) {
+                if (!file.exists() || file.delete()) {
+                    // 文件不存在 或 文件存在且删除成功
+                    if (file.createNewFile()) {
+                        //重新创建成功
+                        return file;
+                    }
+                }
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Nullable
+    public static File deleteAndCreateFile(File dir, String fileName) {
+        if (dir != null && isStringAvaliable(fileName)) {
+            return deleteAndCreateFile(new File(dir, fileName));
         }
         return null;
     }

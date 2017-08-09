@@ -43,8 +43,8 @@ public class AppMainActivity extends BaseActivity {
 
                 DownloadInfo downloadInfo = new DownloadInfo();
                 downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
-                downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "upgrade", "upgradeapp.apk"));
-                downloadInfo.setRangeDownload(false);
+                downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "files/download", "appv2.apk"));
+                downloadInfo.setRange(false);
                 downloadInfo.setForceUpgrade(false);
                 downloadInfo.setContent("修复bug");
                 downloadInfo.setTitle("V2.0.0最新版本升级");

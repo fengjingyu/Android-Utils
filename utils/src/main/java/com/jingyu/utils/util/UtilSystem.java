@@ -9,8 +9,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.content.FileProvider;
 import android.telephony.TelephonyManager;
 
 import com.jingyu.utils.function.Logger;
@@ -298,14 +300,19 @@ public class UtilSystem {
         }
     }
 
-    public static void installApk(Context context, File file) {
+    public static void installApk(Context context, File file, String apkPackageName) {
         try {
-            Intent intent = new Intent();
-            intent.setAction(Intent.ACTION_VIEW);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            // tomcat的conf的web.xml中有所有的文件类型
-            context.startActivity(intent);
+            if (Build.VERSION.SDK_INT >= 24) {
+                //Android 7.0 以上不支持 file://协议 需要通过 FileProvider 访问 sd卡 下面的文件，所以 Uri 需要通过 FileProvider 构造，协议为 content://
+                //Android 7.0及以上,这种通过 FileProvider 形式取得的 Uri 只能在 7.0 以上的设备上使用，在以下的系统会报错
+                Uri apkUri = FileProvider.getUriForFile(context, apkPackageName + ".fileprovider", file);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            } else {
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

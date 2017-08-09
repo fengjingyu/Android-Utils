@@ -11,15 +11,17 @@ import java.io.File;
 public class DownloadInfo extends PlusBean {
     // 下载保存到文件
     private File file;
-    // 是否需要断点下载
-    private boolean isRangeDownload = false;
+    // 下载地址
+    private String url = "";
 
     private String title = "";
     private String content = "";
+
     // 是否强制升级
     private boolean isForceUpgrade;
-    // 下载地址
-    private String url = "";
+    // 是否需要断点下载
+    private boolean isRange;
+
 
     public File getFile() {
         return file;
@@ -29,12 +31,12 @@ public class DownloadInfo extends PlusBean {
         this.file = file;
     }
 
-    public boolean isRangeDownload() {
-        return isRangeDownload;
+    public boolean isRange() {
+        return isRange;
     }
 
-    public void setRangeDownload(boolean rangeDownload) {
-        isRangeDownload = rangeDownload;
+    public void setRange(boolean range) {
+        isRange = range;
     }
 
     public String getTitle() {

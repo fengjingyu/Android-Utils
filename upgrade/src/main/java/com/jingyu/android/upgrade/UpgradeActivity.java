@@ -16,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.utils.download.DownloadInfo;
 import com.jingyu.utils.download.DownloadService;
+import com.jingyu.utils.util.UtilSystem;
 
 public class UpgradeActivity extends BaseActivity {
     public static final String KEY = "key_downloadinfo";
@@ -43,6 +44,8 @@ public class UpgradeActivity extends BaseActivity {
                     forceDialog.setProgress(percent);
                     forceDialog.setSecondaryProgress(percent - 10);
                 }
+            } else if (DownloadService.ACTION_SUCCESS.equals(intent.getAction())) {
+                UtilSystem.installApk(getApplicationContext(), downloadInfo.getFile(), getApplicationContext().getPackageName());
             }
         }
     };

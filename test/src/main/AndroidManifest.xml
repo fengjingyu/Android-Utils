@@ -86,6 +86,11 @@
         <activity android:name="com.jingyu.android.test.utils.BitmapActivity" />
         <activity android:name="com.jingyu.android.test.learn.touch.MotionEventActivity" />
         <activity android:name=".utils.DownloadActivity" />
+
+        <service
+            android:name="com.jingyu.utils.download.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

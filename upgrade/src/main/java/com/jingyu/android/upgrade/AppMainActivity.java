@@ -9,6 +9,7 @@ import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.middle.http.json.JsonModel;
 import com.jingyu.android.middle.http.json.JsonRespHandler;
 import com.jingyu.utils.download.DownloadInfo;
+import com.jingyu.utils.encryption.md5.Md5Helper;
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
@@ -42,8 +43,8 @@ public class AppMainActivity extends BaseActivity {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
 
                 DownloadInfo downloadInfo = new DownloadInfo();
-                downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
-                downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "files/download", "appv2.apk"));
+                downloadInfo.setUrl("http://192.168.0.102/android/appv4.apk");
+                downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "files/download", Md5Helper.MD5Encode(downloadInfo.getUrl()) + ".apk"));
                 downloadInfo.setRange(false);
                 downloadInfo.setForceUpgrade(true);
                 downloadInfo.setContent("修复bug");

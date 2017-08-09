@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jingyu.android.test.learn;
+package com.jingyu.android.leakcanary;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +24,6 @@ import android.os.SystemClock;
 import android.view.View;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.test.R;
 
 
 public class LeakCanaryActivity extends BaseActivity {

@@ -23,14 +23,6 @@
 
                 <!-- @c -->
                 <Button
-                    android:id="@+id/leakCanary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="leakCanary库"
-                    android:textAllCaps="false" />
-
-                <!-- @c -->
-                <Button
                     android:id="@+id/timer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

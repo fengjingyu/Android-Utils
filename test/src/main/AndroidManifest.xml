@@ -46,7 +46,6 @@
         <activity android:name="com.jingyu.android.test.learn.TimerActivity" />
         <activity android:name="com.jingyu.android.test.learn.DestroyGCActivity" />
 
-        <activity android:name="com.jingyu.android.test.learn.LeakCanaryActivity" />
         <activity android:name="com.jingyu.android.test.learn.HandlerActivity" />
         <activity android:name="com.jingyu.android.test.learn.ContactsActivity" />
         <activity android:name="com.jingyu.android.test.learn.PermissionActivity" />

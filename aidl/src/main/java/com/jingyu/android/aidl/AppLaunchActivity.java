@@ -8,4 +8,11 @@ public class AppLaunchActivity extends LaunchActivity {
     protected void action() {
         AppMainActivity.actionStart(getActivity());
     }
+
+    private void initTestService() {
+        //LocalService.actionStart(getApplicationContext());
+        //AIDLService.actionStart(getApplicationContext());
+    }
+
+
 }

@@ -10,7 +10,6 @@ import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.learn.ContactsActivity;
 import com.jingyu.android.test.learn.DestroyGCActivity;
 import com.jingyu.android.test.learn.HandlerActivity;
-import com.jingyu.android.test.learn.LeakCanaryActivity;
 import com.jingyu.android.test.learn.NotifyActivity;
 import com.jingyu.android.test.learn.PermissionActivity;
 import com.jingyu.android.test.learn.TimerActivity;
@@ -40,7 +39,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     private long lastClickQuitTime;
 
     //scrollview1
-    private Button leakCanary;
     private Button timer;
     private Button destroygc;
     private Button handler;
@@ -78,7 +76,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void setListener() {
-        leakCanary.setOnClickListener(this);
         timer.setOnClickListener(this);
         destroygc.setOnClickListener(this);
         handler.setOnClickListener(this);
@@ -89,7 +86,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initWidget() {
-        leakCanary = getViewById(R.id.leakCanary);
         timer = getViewById(R.id.timer);
         destroygc = getViewById(R.id.destroygc);
         handler = getViewById(R.id.handler);
@@ -101,9 +97,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
 
     private void onClickAction(View v) {
         switch (v.getId()) {
-            case R.id.leakCanary:
-                LeakCanaryActivity.actionStart(getActivity());
-                break;
             case R.id.timer:
                 TimerActivity.actionStart(getActivity());
                 break;

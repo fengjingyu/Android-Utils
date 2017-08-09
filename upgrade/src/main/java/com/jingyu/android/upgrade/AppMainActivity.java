@@ -15,6 +15,8 @@ import com.jingyu.utils.http.RespInfo;
 
 public class AppMainActivity extends BaseActivity {
 
+    public static boolean isVersionOK = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class AppMainActivity extends BaseActivity {
             @Override
             public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
+
                 DownloadInfo downloadInfo = new DownloadInfo();
                 downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
                 downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "upgrade", "upgradeapp.apk"));
@@ -45,7 +48,23 @@ public class AppMainActivity extends BaseActivity {
                 downloadInfo.setForceUpgrade(false);
                 downloadInfo.setContent("修复bug");
                 downloadInfo.setTitle("V2.0.0最新版本升级");
+
+                // 加入是不存在升级 或 可选升级
+                if (!downloadInfo.isForceUpgrade()) {
+                    isVersionOK = true;
+                }
+
                 UpgradeActivity.actionStart(getActivity(), downloadInfo);
+            }
+
+            @Override
+            public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
+                super.onEnd(reqInfo, respInfo);
+                if (respInfo.isSuccessAll()) {
+                    netSuccessChangeBg();
+                } else {
+                    netFailChangeBg("app", reqInfo, this, null);
+                }
             }
         });
     }

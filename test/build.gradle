@@ -13,13 +13,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -35,11 +28,24 @@ android {
 
     /** 多渠道打包 */
     productFlavors {
-        _qq {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_qq"]
+        // 默认字符串的排序,而不是位置排序
+        _tencent {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_tencent"]
         }
         _360 {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_360"]
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_360"]
+        }
+        _xiaomi {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_xiaomi"]
+        }
+        _baidu {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_baidu"]
+        }
+        _huawei {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_huawei"]
+        }
+        _ali {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_ali"]
         }
     }
 
@@ -47,7 +53,55 @@ android {
         maxProcessCount 4
         javaMaxHeapSize "3g"
     }
+
+    signingConfigs {
+        //开发App时经常遇到Release版和Debug版共存问题，由于默认的签名不同，经常要卸载Debug版安装Release版，这里使用同一个签名
+        config {
+            storeFile file("test.jks")
+            storePassword "your password"
+            keyAlias "your alias"
+            keyPassword "your password"
+        }
+    }
+
+    lintOptions {
+        // checkReleaseBuilds false
+        // disable 'MissingTranslation' //防止在发布的时候出现因 MissingTranslation导致Build Failed!
+        abortOnError false //防止因为没有国际化导致编译失败
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false // 移除不必要的资源
+            zipAlignEnabled false  // zip对齐优化
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //def fileName = "${variant.productFlavors[0].name}-${variant.buildType.name}-v${defaultConfig.versionName}-${releaseTime()}.apk"
+                def fileName = "v${defaultConfig.versionName}-${releaseTime()}-" + outputFile.name
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
 }
+
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+8"))
+}
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')

@@ -18,10 +18,13 @@ public class DownloadInfo extends PlusBean {
     private String content = "";
 
     // 是否强制升级
-    private boolean isForceUpgrade;
+    private Upgrade upgrade;
     // 是否需要断点下载
     private boolean isRange;
 
+    public enum Upgrade {
+        FORCE, CHOICE, NONE
+    }
 
     public File getFile() {
         return file;
@@ -55,14 +58,6 @@ public class DownloadInfo extends PlusBean {
         this.content = content;
     }
 
-    public boolean isForceUpgrade() {
-        return isForceUpgrade;
-    }
-
-    public void setForceUpgrade(boolean forceUpgrade) {
-        isForceUpgrade = forceUpgrade;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -70,4 +65,25 @@ public class DownloadInfo extends PlusBean {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public Upgrade getUpgrade() {
+        return upgrade;
+    }
+
+    public void setUpgrade(Upgrade upgrade) {
+        this.upgrade = upgrade;
+    }
+
+    public boolean isForceUpgrade() {
+        return upgrade == Upgrade.FORCE;
+    }
+
+    public boolean isChoiceUpgrade() {
+        return upgrade == Upgrade.CHOICE;
+    }
+
+    public boolean isNoneUpgrade() {
+        return upgrade == Upgrade.NONE;
+    }
+
 }

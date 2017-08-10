@@ -16,7 +16,7 @@ import com.jingyu.utils.http.RespInfo;
 
 public class AppMainActivity extends BaseActivity {
 
-    public static boolean isVersionOK = false;
+    public static boolean isGoOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +46,20 @@ public class AppMainActivity extends BaseActivity {
                 downloadInfo.setUrl("http://192.168.0.102/android/appv4.apk");
                 downloadInfo.setFile(DirHelper.ExternalAndroid.getFile(getApplicationContext(), "files/download", Md5Helper.MD5Encode(downloadInfo.getUrl()) + ".apk"));
                 downloadInfo.setRange(false);
-                downloadInfo.setForceUpgrade(true);
+                downloadInfo.setUpgrade(DownloadInfo.Upgrade.CHOICE);
                 downloadInfo.setContent("修复bug");
                 downloadInfo.setTitle("V2.0.0最新版本升级");
 
-                // 加入是不存在升级 或 可选升级
-                if (!downloadInfo.isForceUpgrade()) {
-                    isVersionOK = true;
+                // 不存在升级 或 可选升级
+                if (downloadInfo.isNoneUpgrade() || downloadInfo.isChoiceUpgrade()) {
+                    isGoOn = true;
+                    loadData();
                 }
 
-                UpgradeActivity.actionStart(getActivity(), downloadInfo);
+                // 需要升级
+                if (downloadInfo.isChoiceUpgrade() || downloadInfo.isForceUpgrade()) {
+                    UpgradeActivity.actionStart(getActivity(), downloadInfo);
+                }
             }
 
             @Override
@@ -64,10 +68,15 @@ public class AppMainActivity extends BaseActivity {
                 if (respInfo.isSuccessAll()) {
                     netSuccessChangeBg();
                 } else {
-                    netFailChangeBg("app", reqInfo, this, null);
+                    //todo
+                    netFailChangeBg("升级检查失败", reqInfo, this, null);
                 }
             }
         });
+    }
+
+    private void loadData() {
+
     }
 
     public static void actionStart(Activity activity) {

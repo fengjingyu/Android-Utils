@@ -65,7 +65,7 @@ public class UpgradeActivity extends BaseActivity {
             if (downloadInfo.isForceUpgrade()) {
                 // 强制升级
                 forceUpgrade();
-            } else {
+            } else if (downloadInfo.isChoiceUpgrade()) {
                 // 非强制升级
                 choiceUpgrade();
             }

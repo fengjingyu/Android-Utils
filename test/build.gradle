@@ -79,15 +79,16 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false // 移除不必要的资源
-            zipAlignEnabled false  // zip对齐优化
+            minifyEnabled true //混淆 以及 移除没有用到的代码 和 资源文件
+            shrinkResources true // 移除无用的resource文件
+            zipAlignEnabled true  // zip对齐优化
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
 
         debug {
             minifyEnabled false
+            zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }

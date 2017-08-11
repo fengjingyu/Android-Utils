@@ -67,4 +67,8 @@ dependencies {
     //compile 'com.jingyu.android:utils:1.0.1' //仓库的地址
     //compile 'com.squareup.okhttp3:okhttp:3.4.1'//utils里用到了okhttp
 
+    /**dex*/
+    compile 'com.android.support:multidex:1.0.1'
+
+
 }

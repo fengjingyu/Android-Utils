@@ -1,12 +1,12 @@
 package com.jingyu.android.middle;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 /**
  * @author fengjingyu@foxmail.com
  * @description 动态权限的问题:app中的初始化转移到LaunchActivity中
  */
-public class App extends Application {
+public class App extends MultiDexApplication {
 
     private static App instance;
 

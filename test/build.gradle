@@ -30,7 +30,12 @@ android {
 
     /** 多渠道打包 */
     productFlavors {
-        // 默认字符串的排序,而不是位置排序
+        _studio {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_studio"]
+        }
+        _ali {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_ali"]
+        }
         _tencent {
             manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_tencent"]
         }
@@ -46,9 +51,6 @@ android {
         _huawei {
             manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_huawei"]
         }
-        _ali {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_ali"]
-        }
     }
 
     dexOptions {
@@ -60,9 +62,12 @@ android {
         //开发App时经常遇到Release版和Debug版共存问题，由于默认的签名不同，经常要卸载Debug版安装Release版，这里使用同一个签名
         config {
             storeFile file("test.jks")
-            storePassword "your password"
-            keyAlias "your alias"
-            keyPassword "your password"
+            storePassword "123456"
+            keyAlias "androidtest"
+            keyPassword "123456"
+
+            v1SigningEnabled true
+            v2SigningEnabled true
         }
     }
 
@@ -84,16 +89,21 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
     }
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
+            def fileName
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 //def fileName = "${variant.productFlavors[0].name}-${variant.buildType.name}-v${defaultConfig.versionName}-${releaseTime()}.apk"
-                def fileName = "v${defaultConfig.versionName}-${releaseTime()}-" + outputFile.name
+                if (variant.buildType.name == "debug") {
+                    fileName = "v${defaultConfig.versionName}-" + outputFile.name
+                } else {
+                    fileName = "v${defaultConfig.versionName}-${releaseTime()}-" + outputFile.name
+                }
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }

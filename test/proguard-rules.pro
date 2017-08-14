@@ -34,6 +34,9 @@
 }
 
 -keepclassmembers public class * extends android.view.View {
+   public <init>(android.content.Context);
+   public <init>(android.content.Context, android.util.AttributeSet);
+   public <init>(android.content.Context, android.util.AttributeSet, int);
    void set*(***);
    *** get*();
 }
@@ -77,7 +80,8 @@
 
 
 ##################################################↓↓记录日志数据,gradle build时在本项目根目录输出###################################
- #混淆时是否记录日志
+#<module-name>/build/outputs/mapping/release/
+#混淆时是否记录日志
 -verbose
 #apk 包内所有 class 的内部结构
 -dump proguard/class_files.txt
@@ -115,6 +119,7 @@
 -keep public class * extends android.app.Application
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.app.backup.BackupAgent
 
 # 保留support下的所有类及成员
 -keep class android.support.** {*;}
@@ -171,15 +176,15 @@
 
 
 ##################################################↓↓app##############################################################################
-#------------------------------model--------------------------
-#-keep class com.app.model.** { *; }
+#------------------------------序列化 反序列化 gsonmodel--------------------------
+#-keep public class **.*Model*.** {*;}
 
 
-#------------------------------js-----------------------------
+#------------------------------js调用java-----------------------------------------
 
 
 
-#------------------------------反射---------------------------
+#------------------------------反射-----------------------------------------------
 
 
 

@@ -17,7 +17,7 @@
 #}
 
 
-#---------------------------------------------------android studio自带的混淆规则-----start------------------------------------------------
+##################################################↓↓android studio自带的混淆规则####################################################
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
 -verbose
@@ -72,10 +72,11 @@
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <init>(...);
 }
-#---------------------------------------------------android studio自带的混淆规则--------end---------------------------------------------
+##################################################↑↑android studio自带的混淆规则####################################################
 
 
-#--------------------------------------------------记录生成的日志数据,gradle build时在本项目根目录输出---start----------------------
+
+##################################################↓↓记录日志数据,gradle build时在本项目根目录输出###################################
  #混淆时是否记录日志
 -verbose
 #apk 包内所有 class 的内部结构
@@ -86,9 +87,11 @@
 -printusage proguard/unused.txt
 #混淆前后的映射
 -printmapping proguard/mapping.txt
-#--------------------------------------------------记录生成的日志数据，gradle build时 在本项目根目录输出---end-----------------
+##################################################↑↑记录日志数据，gradle build时 在本项目根目录输出#################################
 
-#---------------------------------------------------通用----------start--------------------------------------------------------------------
+
+
+##################################################↓↓通用#############################################################################
 # 混淆时所采用的算法
 #-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
@@ -113,12 +116,13 @@
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.app.backup.BackupAgentHelper
 
-# 保留support下的所有类及其内部类
+# 保留support下的所有类及成员
 -keep class android.support.** {*;}
-# 保留继承的
--keep public class * extends android.support.v4.**
--keep public class * extends android.support.v7.**
--keep public class * extends android.support.annotation.**
+
+-keep public class * extends android.support.**
+#-keep public class * extends android.support.v4.**
+#-keep public class * extends android.support.v7.**
+#-keep public class * extends android.support.annotation.**
 
 -keep class * extends java.lang.annotation.Annotation { *; }
 
@@ -146,15 +150,7 @@
 
 -keep class **.R$* {*;}
 -keep class **.R{*;}
-#---------------------------------------------------通用----------end--------------------------------------------------------------------
 
-
-#------------------------------model--------------------------
-#-keep class com.matrix.app.entity.json.** { *; }
-
-
-
-#------------------------------js----------------------------
 -keepattributes *JavascriptInterface*
 
 -keepclassmembers class fqcn.of.javascript.interface.for.Webview {
@@ -170,14 +166,50 @@
 -keepclassmembers class * {
     @android.webkit.JavascriptInterface <methods>;
 }
-#------------------------------反射-------------------------
+##################################################↑↑通用#############################################################################
 
 
 
-#-----------------------------第三方, 一般只需要添加忽略警告和保持class不被混淆的声明-------------------------
+##################################################↓↓app##############################################################################
+#------------------------------model--------------------------
+#-keep class com.app.model.** { *; }
+
+
+#------------------------------js-----------------------------
+
+
+
+#------------------------------反射---------------------------
+
+
+
+##################################################↑↑app##############################################################################
+
+
+##################################################↓↓第三方###########################################################################
 ##----------------------okhttp-------------------------------
 -dontwarn okio.**
-
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+##----------------------utils--------------------------------
+-dontwarn com.jingyu.utils
+-keep class com.jingyu.utils.** {*;}
+##----------------------gson---------------------------------
+-dontwarn com.google.gson.**
+-keep class com.google.gson.** {*;}
+##----------------------imgaeloader--------------------------
+-dontwarn com.nostra13.universalimageloader.**
+-keep com.nostra13.universalimageloader.** {*;}
+##----------------------glide--v4.0.0------------------------
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.AppGlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+# for DexGuard only
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 ##----------------------Bugly--------------------------------
 -dontwarn com.tencent.bugly.**
 -keep class com.tencent.bugly.** {*;}
+##################################################↑↑第三方###########################################################################

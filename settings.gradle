@@ -1,1 +1,1 @@
-include ':test', ':utils', ':kotlin', ':init', ':material', ':anim', ':dialog', ':aidl', ':upgrade', ':titlebar', ':roundimg', ':pullrefresh', ':banner', ':percentlayout', ':scaleimg', ':leakcanary'
+include ':test', ':utils', ':kotlin', ':init', ':material', ':anim', ':dialog', ':aidl', ':upgrade', ':titlebar', ':roundimg', ':pullrefresh', ':banner', ':percentlayout', ':scaleimg', ':leakcanary', ':glide'

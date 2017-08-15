@@ -2,6 +2,7 @@ package com.jingyu.android.middle;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.jingyu.android.init.R;
@@ -12,6 +13,8 @@ import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
@@ -19,25 +22,22 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
 /**
  * @author fengjingyu@foxmail.com
- * @description
  */
 public class Image {
 
     private Image() {
     }
 
-    public static void displayImage(String url, ImageView imageview, Object... obj) {
-        if (obj != null && obj.length > 0 && obj[0] instanceof DisplayImageOptions) {
-            ImageLoader.getInstance().displayImage(url, imageview, (DisplayImageOptions) obj[0]);
-        }
+    public static void displayImage(String url, ImageView imageview, DisplayImageOptions displayImageOptions, ImageLoadingListener imageLoadingListener) {
+        ImageLoader.getInstance().displayImage(url, imageview, displayImageOptions, imageLoadingListener);
+    }
+
+    public static void displayImage(String url, ImageView imageview, DisplayImageOptions displayImageOptions) {
+        ImageLoader.getInstance().displayImage(url, imageview, displayImageOptions);
     }
 
     public static void displayImage(String url, ImageView imageview) {
-        ImageLoader.getInstance().displayImage(url, imageview, getDefaultDisplayImageOptions());
-    }
-
-    public static DisplayImageOptions getDefaultDisplayImageOptions() {
-        return defaultDisplayImageOptions;
+        ImageLoader.getInstance().displayImage(url, imageview, defaultDisplayImageOptions);
     }
 
     public static ImageLoader getImageLoader() {
@@ -117,10 +117,10 @@ public class Image {
                 .bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型//
 
                 // .displayer(new FadeInBitmapDisplayer(0))// 是否图片加载好后渐入的动画时间
-                .displayer(new SimpleBitmapDisplayer())
                 // .displayer(new RoundedBitmapDisplayer(50)) // 圆形图片
+                .displayer(new SimpleBitmapDisplayer())
 
-                .build();// 构建完成
+                .build();
     }
 
 }

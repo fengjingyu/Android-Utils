@@ -21,7 +21,7 @@ import okhttp3.RequestBody;
 
 /**
  * @author fengjingyu@foxmail.com
- *  用的是okhttp库
+ *         用的是okhttp库
  */
 public class OkClient implements HttpClient {
 
@@ -39,20 +39,23 @@ public class OkClient implements HttpClient {
 
     @Override
     public void http(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
+        try {
+            // 是否拦截请求
+            if (interceptor != null && interceptor.interceptReqSend(reqInfo)) {
+                return;
+            }
 
-        // 是否拦截请求
-        if (interceptor != null && interceptor.interceptReqSend(reqInfo)) {
-            return;
+            if (respHandler != null) {
+                respHandler.onReadySendRequest(reqInfo);
+            }
+
+            // 创建请求
+            Request request = createRequest(reqInfo);
+
+            httpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if (respHandler != null) {
-            respHandler.onReadySendRequest(reqInfo);
-        }
-
-        // 创建请求
-        Request request = createRequest(reqInfo);
-
-        httpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
     }
 
     private Request createRequest(ReqInfo reqInfo) {
@@ -75,7 +78,7 @@ public class OkClient implements HttpClient {
             return;
         }
 
-        throw new RuntimeException("OkClient---请求类型不匹配");
+        throw new RuntimeException("buildeTypeParamsUrl()---请求类型不匹配");
 
     }
 
@@ -101,7 +104,7 @@ public class OkClient implements HttpClient {
     }
 
     public boolean isPostString(ReqInfo reqInfo, Request.Builder requestBuilder) {
-        if (UtilString.isAvaliable(reqInfo.getPostStringContentType()) && UtilString.isAvaliable(reqInfo.getPostString())) {
+        if (UtilString.isAvaliable(reqInfo.getPostStringContentType())) {
             // requestBuilder.post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json));
             requestBuilder.post(RequestBody.create(MediaType.parse(reqInfo.getPostStringContentType()), reqInfo.getPostString()));
             return true;

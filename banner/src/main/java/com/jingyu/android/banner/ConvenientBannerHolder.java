@@ -28,6 +28,6 @@ public class ConvenientBannerHolder implements Holder<String> {
 
     @Override
     public void UpdateUI(Context context, final int position, String url) {
-        Image.displayImage(url, imageView, Image.getOption(imgId));
+        Image.display(context, url, imageView, imgId);
     }
 }

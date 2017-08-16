@@ -25,6 +25,11 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/java' //可以将 Kotlin 类放在 Java 源代码⽬录中，该⽬录通常位于 src/main/java
     }
+
+    dexOptions {
+        maxProcessCount 4
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {

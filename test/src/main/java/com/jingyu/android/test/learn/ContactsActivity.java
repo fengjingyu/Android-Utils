@@ -89,7 +89,7 @@ public class ContactsActivity extends BaseActivity {
             }
 
             holder.textview.setText(bean.name + "@" + bean.phone_number);
-            Image.displayImage("http://www.baidu.com/img/bdlogo.png", holder.imageview);
+            Image.display(getActivity(), "http://www.baidu.com/img/bdlogo.png", holder.imageview);
 
             return convertView;
 

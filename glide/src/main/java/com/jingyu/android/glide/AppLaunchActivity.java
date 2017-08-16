@@ -1,13 +1,11 @@
 package com.jingyu.android.glide;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.jingyu.android.init.*;
 
-public class AppLaunchActivity extends AppCompatActivity {
+public class AppLaunchActivity extends LaunchActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_launch);
+    protected void action() {
+        MainActivity.actionStart(getActivity());
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jingyu.utils.function.DirHelper;
 import com.jingyu.utils.function.Logger;
+import com.meituan.android.walle.WalleChannelReader;
 
 import java.io.File;
 
@@ -81,6 +82,10 @@ public class Config {
         } else {
             throw new RuntimeException("Config-->RunEnvironment的值有误");
         }
+    }
+
+    public static String getChannelFromApk(Context context) {
+        return WalleChannelReader.getChannel(context.getApplicationContext());
     }
 
     // 通用接口

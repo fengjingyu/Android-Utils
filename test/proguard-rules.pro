@@ -204,7 +204,7 @@
 -keep class com.google.gson.** {*;}
 ##----------------------imgaeloader--------------------------
 -dontwarn com.nostra13.universalimageloader.**
--keep com.nostra13.universalimageloader.** {*;}
+-keep class com.nostra13.universalimageloader.** {*;}
 ##----------------------glide--v4.0.0------------------------
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.AppGlideModule
@@ -212,8 +212,6 @@
   **[] $VALUES;
   public *;
 }
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 ##----------------------Bugly--------------------------------
 -dontwarn com.tencent.bugly.**
 -keep class com.tencent.bugly.** {*;}

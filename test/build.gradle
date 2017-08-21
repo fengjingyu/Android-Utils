@@ -31,25 +31,25 @@ android {
     /** 多渠道打包 */
     productFlavors {
         _studio {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_studio"]
+            manifestPlaceholders = [CHANNEL_VALUE: "_studio"]
         }
         _ali {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_ali"]
+            manifestPlaceholders = [CHANNEL_VALUE: "_ali"]
         }
         _tencent {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_tencent"]
+            manifestPlaceholders = [CHANNEL_VALUE: "_tencent"]
         }
         _360 {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_360"]
+            manifestPlaceholders = [CHANNEL_VALUE: "_360"]
         }
         _xiaomi {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_xiaomi"]
+            manifestPlaceholders = [CHANNEL_VALUE: "_xiaomi"]
         }
         _baidu {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_baidu"]
+            manifestPlaceholders = [CHANNEL_VALUE: "_baidu"]
         }
         _huawei {
-            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "_huawei"]
+            manifestPlaceholders = [CHANNEL_VALUE: "_huawei"]
         }
     }
 

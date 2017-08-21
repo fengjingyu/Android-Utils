@@ -66,8 +66,8 @@
         <activity android:name="com.jingyu.android.test.utils.AdapterActivity" />
 
         <meta-data
-            android:name="MULTI_CHANNEL"
-            android:value="${MULTI_CHANNEL_VALUE}" />
+            android:name="CHANNEL"
+            android:value="${CHANNEL_VALUE}" />
 
         <activity android:name="com.jingyu.android.test.learn.fragmentlife.FragmentLifeActivity" />
 

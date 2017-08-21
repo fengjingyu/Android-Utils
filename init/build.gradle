@@ -73,7 +73,4 @@ dependencies {
     /**dex*/
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.meituan.android.walle:library:1.1.3'
-
-
 }

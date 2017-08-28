@@ -7,8 +7,8 @@ import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.IHttp.RespHandler;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.ReqType;
+import com.jingyu.utils.util.UtilSystem;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -92,38 +92,45 @@ public class Http {
         reqInfo.setShowDialog(isShowDialog);
         reqInfo.setTag(tag);
         reqInfo.setDownload(isDownload);
-
         reqInfo.setHeadersMap(getHeaders(tag));
+
         reqInfo.setParamsMap(getParams(tag, paramsMap));
 
         return http(reqInfo, respHandler, interceptor);
     }
 
-    private static ReqInfo postJson(String url, String json, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor) {
+    private static ReqInfo postJson(String url, String json, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor, boolean isDownload) {
         ReqInfo reqInfo = new ReqInfo();
         reqInfo.setReqType(ReqType.POST);
         reqInfo.setUrl(url);
         reqInfo.setShowDialog(isShowDialog);
         reqInfo.setTag(tag);
+        reqInfo.setDownload(isDownload);
         reqInfo.setHeadersMap(getHeaders(tag));
+
         reqInfo.setPostString(json);
         reqInfo.setPostStringContentType("application/json");
+
         return http(reqInfo, respHandler, interceptor);
     }
 
-    public static void postJson(String url, String json, RespHandler respHandler) {
+    public static void postJson(String url, String json, RespHandler respHandler, boolean isShowDialog) {
         try {
             if (json == null) {
                 json = "";
             }
-            JSONObject jsonObject = new JSONObject(json);
-            //todo
-            jsonObject.put("authcode", "123456");
-            jsonObject.put("plateform", "Android");
-            postJson(url, jsonObject.toString(), respHandler, "", true, null);
-        } catch (JSONException e) {
+            JSONObject newJson = new JSONObject(json);
+            newJson.put("terminal", "android");
+            newJson.put("version", UtilSystem.getVersionName(App.getApplication()));
+            newJson.put("token", Sp.getUserToken());
+            postJson(url, newJson.toString(), respHandler, "", isShowDialog, null, false);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void postJson(String url, String json, RespHandler respHandler) {
+        postJson(url, json, respHandler, true);
     }
 
     /**

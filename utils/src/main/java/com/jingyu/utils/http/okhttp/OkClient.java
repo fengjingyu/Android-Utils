@@ -25,7 +25,15 @@ import okhttp3.RequestBody;
  */
 public class OkClient implements HttpClient {
 
-    private OkHttpClient httpClient = new OkHttpClient();
+    private OkHttpClient okHttpClient;
+
+    protected OkHttpClient getOkHttpClient() {
+        return new OkHttpClient();
+    }
+
+    public OkClient() {
+        okHttpClient = getOkHttpClient();
+    }
 
     @Override
     public void http(ReqInfo reqInfo) {
@@ -52,7 +60,7 @@ public class OkClient implements HttpClient {
             // 创建请求
             Request request = createRequest(reqInfo);
 
-            httpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
+            okHttpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
         } catch (Exception e) {
             e.printStackTrace();
         }

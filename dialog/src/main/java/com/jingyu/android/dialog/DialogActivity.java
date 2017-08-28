@@ -24,6 +24,16 @@ import com.orhanobut.dialogplus.OnItemClickListener;
 /**
  * 看看不同版本系统上的dialog显示效果
  */
+/*
+
+ <ProgressBar
+                    android:id="@+id/progress"
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:progressDrawable="@drawable/dd_progressbar" />
+
+ */
 public class DialogActivity extends BaseActivity {
 
     private Button originAlertDialog;

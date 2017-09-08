@@ -2,18 +2,20 @@ package com.jingyu.utils.util;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.text.InputFilter;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 /**
  * @author fengjingyu@foxmail.com
- *
  */
 public class UtilScreen {
 
@@ -122,6 +124,18 @@ public class UtilScreen {
             e1.printStackTrace();
         }
         return statusBarHeight;
+    }
+
+    public static void scrollUp(final ScrollView view) {
+        view.post(new Runnable() {
+            public void run() {
+                view.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
+    }
+
+    public static void setMaxLength(TextView textView, int length) {
+        textView.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
     }
 }
 

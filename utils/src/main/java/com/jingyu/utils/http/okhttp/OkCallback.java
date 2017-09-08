@@ -62,14 +62,14 @@ public class OkCallback<T> implements Callback {
         respInfo.setHttpCode(response.code());
         respInfo.setRespHeaders(headers2Map(response.headers()));
         respInfo.setThrowable(null);
-        respInfo.setRespType(RespType.SUCCESS);
+        respInfo.setRespType(RespType.SUCCESS_WAITING_PARSE);
 
         Logger.d(TAG_HTTP, this + LINE + "onSuccess----->status code " + respInfo.getHttpCode());
         printHeaderInfo(respInfo.getRespHeaders());
 
         if (respHandler != null) {
             InputStream inputStream = response.body().byteStream();
-            if (respHandler.isDownload()) {
+            if (reqInfo.isDownload()) {
                 // 子线程下载
                 respHandler.onSuccessForDownload(reqInfo, respInfo, inputStream);
                 handleSuccessOnUiThread(null, true);

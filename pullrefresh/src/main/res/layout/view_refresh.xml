@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/ptrRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.jingyu.android.pullrefresh.loadmore.PlusRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+    <include
+        android:id="@+id/dataEmptyLayout"
+        layout="@layout/view_data_empty"
+        android:visibility="gone" />
+
+</RelativeLayout>

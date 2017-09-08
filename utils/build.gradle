@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.3"
     }
 
     buildTypes {
@@ -24,9 +24,16 @@ android {
         }
     }
 
+    /** aar */
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
     dexOptions {
         maxProcessCount 4
-        javaMaxHeapSize "3g"
+        javaMaxHeapSize "4g"
     }
 }
 
@@ -36,9 +43,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
 
     /** okhttp */
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+    /** websocket测试*/
+    testCompile 'com.squareup.okhttp3:mockwebserver:3.7.0'
 
-    /** 5.0之后，httpclient包从android删除了 */
+    // /** 5.0之后，httpclient包从android删除了 */
     // compile 'com.loopj.android:android-async-http:1.4.9'
     // compile 'cz.msebera.android:httpclient:4.3.6'
 
@@ -58,7 +67,7 @@ ext {
     siteUrl = 'https://github.com/fengjingyu/Android-Utils'
     gitUrl = 'https://github.com/fengjingyu/Android-Utils.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.3'
 
     developerId = 'jingyu'
     developerName = 'jingyu'
@@ -128,7 +137,7 @@ if (project.hasProperty("android")) { // Android libraries
     }
 
     javadoc {
-        options{
+        options {
             encoding "UTF-8"
             charSet 'UTF-8'
             author true

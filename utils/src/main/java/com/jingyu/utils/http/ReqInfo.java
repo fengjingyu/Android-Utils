@@ -45,6 +45,10 @@ public class ReqInfo extends PlusBean {
      * 标识
      */
     private String tag;
+    /**
+     * 是否是下载
+     */
+    private boolean isDownload;
 
     public ReqType getReqType() {
         return reqType;
@@ -112,6 +116,14 @@ public class ReqInfo extends PlusBean {
         this.tag = tag;
     }
 
+    public boolean isDownload() {
+        return isDownload;
+    }
+
+    public void setDownload(boolean download) {
+        isDownload = download;
+    }
+
     @Override
     public String toString() {
         return "ReqInfo{" +
@@ -123,6 +135,7 @@ public class ReqInfo extends PlusBean {
                 ", postStringContentType='" + postStringContentType + '\'' +
                 ", postString='" + postString + '\'' +
                 ", tag='" + tag + '\'' +
+                ", isDownload=" + isDownload +
                 '}';
     }
 
@@ -131,6 +144,11 @@ public class ReqInfo extends PlusBean {
 
     public ReqInfo(String url) {
         this.url = url;
+    }
+
+    public ReqInfo(String url, boolean isDownload) {
+        this.url = url;
+        this.isDownload = isDownload;
     }
 
     public ReqInfo(String url, Map<String, Object> paramsMap) {
@@ -157,6 +175,18 @@ public class ReqInfo extends PlusBean {
         this.headersMap = headersMap;
         this.paramsMap = paramsMap;
         this.tag = tag;
+    }
+
+    public ReqInfo(ReqType reqType, String url, Map<String, List<String>> headersMap, Map<String, Object> paramsMap, boolean isShowDialog, String postStringContentType, String postString, String tag, boolean isDownload) {
+        this.reqType = reqType;
+        this.url = url;
+        this.headersMap = headersMap;
+        this.paramsMap = paramsMap;
+        this.isShowDialog = isShowDialog;
+        this.postStringContentType = postStringContentType;
+        this.postString = postString;
+        this.tag = tag;
+        this.isDownload = isDownload;
     }
 
     public boolean isGet() {

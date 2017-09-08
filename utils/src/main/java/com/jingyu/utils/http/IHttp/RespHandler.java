@@ -18,13 +18,6 @@ public interface RespHandler<T> {
     void onReadySendRequest(ReqInfo reqInfo);
 
     /**
-     * 默认不是下载
-     *
-     * @return true 下载,false 不是下载
-     */
-    boolean isDownload();
-
-    /**
      * 下载的回调,如果isDownload是true,则回调 onSuccessForDownload/onFailure , onEnd
      * 子线程
      */

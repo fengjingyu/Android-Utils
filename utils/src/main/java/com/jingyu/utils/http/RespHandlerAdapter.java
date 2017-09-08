@@ -18,11 +18,6 @@ public class RespHandlerAdapter<T> implements RespHandler<T> {
     }
 
     @Override
-    public boolean isDownload() {
-        return false;
-    }
-
-    @Override
     public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
         Logger.d(OkCallback.TAG_HTTP, this + "--onSuccessForDownload()");
     }

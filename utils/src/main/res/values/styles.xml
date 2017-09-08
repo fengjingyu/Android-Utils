@@ -1,6 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="TransTheme" parent="android:Theme.Holo.Light">
+    <style name="TransActivity" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -9,13 +9,6 @@
              animations) because we really have no idea how this kind of
              activity will be used. -->
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
-
-    <style name="DialogAtivity" parent="@android:style/Theme.Dialog">
-        <!-- 更换背景图片实现全透明 -->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 屏幕背景不变暗 -->
-        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
     <!-- 透明的dialog背景-->
@@ -48,11 +41,6 @@
         <item name="android:button">@null</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
-    </style>
-
-    <style name="pop">
-        <item name="android:windowEnterAnimation">@anim/anim_pop_enter</item>
-        <item name="android:windowExitAnimation">@anim/anim_pop_exit</item>
     </style>
 
 </resources>

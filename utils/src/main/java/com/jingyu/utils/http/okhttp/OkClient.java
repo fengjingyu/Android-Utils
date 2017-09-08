@@ -4,7 +4,7 @@ import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilString;
-import com.jingyu.utils.http.FileWrapper;
+import com.jingyu.utils.http.UploadFileWrapper;
 import com.jingyu.utils.http.IHttp.HttpClient;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.IHttp.RespHandler;
@@ -26,7 +26,15 @@ import okhttp3.RequestBody;
  */
 public class OkClient implements HttpClient {
 
-    private OkHttpClient httpClient = new OkHttpClient();
+    private OkHttpClient okHttpClient;
+
+    protected OkHttpClient getOkHttpClient() {
+        return new OkHttpClient();
+    }
+
+    public OkClient() {
+        okHttpClient = getOkHttpClient();
+    }
 
     @Override
     public void http(ReqInfo reqInfo) {
@@ -40,20 +48,23 @@ public class OkClient implements HttpClient {
 
     @Override
     public void http(ReqInfo reqInfo, RespHandler respHandler, Interceptor interceptor) {
+        try {
+            // 是否拦截请求
+            if (interceptor != null && interceptor.interceptReqSend(reqInfo)) {
+                return;
+            }
 
-        // 是否拦截请求
-        if (interceptor != null && interceptor.interceptReqSend(reqInfo)) {
-            return;
+            if (respHandler != null) {
+                respHandler.onReadySendRequest(reqInfo);
+            }
+
+            // 创建请求
+            Request request = createRequest(reqInfo);
+
+            okHttpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if (respHandler != null) {
-            respHandler.onReadySendRequest(reqInfo);
-        }
-
-        // 创建请求
-        Request request = createRequest(reqInfo);
-        Logger.d(OkCallback.TAG_HTTP, "请求发出: "+reqInfo.toString());
-        httpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
     }
 
     private Request createRequest(ReqInfo reqInfo) {
@@ -76,7 +87,7 @@ public class OkClient implements HttpClient {
             return;
         }
 
-        throw new RuntimeException("OkClient---请求类型不匹配");
+        throw new RuntimeException("buildeTypeParamsUrl()---请求类型不匹配");
 
     }
 
@@ -102,7 +113,7 @@ public class OkClient implements HttpClient {
     }
 
     public boolean isPostString(ReqInfo reqInfo, Request.Builder requestBuilder) {
-        if (UtilString.isAvaliable(reqInfo.getPostStringContentType()) && UtilString.isAvaliable(reqInfo.getPostString())) {
+        if (UtilString.isAvaliable(reqInfo.getPostStringContentType())) {
             // requestBuilder.post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json));
             requestBuilder.post(RequestBody.create(MediaType.parse(reqInfo.getPostStringContentType()), reqInfo.getPostString()));
             return true;
@@ -146,10 +157,10 @@ public class OkClient implements HttpClient {
 
                 if (entry.getValue() instanceof File) {
 
-                    FileWrapper fileWrapper = new FileWrapper((File) entry.getValue());
+                    UploadFileWrapper uploadFileWrapper = new UploadFileWrapper((File) entry.getValue());
 
-                    if (fileWrapper.isExist()) {
-                        multiBuilder.addFormDataPart(entry.getKey(), fileWrapper.getName(), RequestBody.create(fileWrapper.getMediaType(), fileWrapper.getFile()));
+                    if (uploadFileWrapper.isExist()) {
+                        multiBuilder.addFormDataPart(entry.getKey(), uploadFileWrapper.getName(), RequestBody.create(uploadFileWrapper.getMediaType(), uploadFileWrapper.getFile()));
                     } else {
                         continue;
                     }

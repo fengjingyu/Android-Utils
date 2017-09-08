@@ -4,62 +4,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.InputFilter;
-import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
-/**
- * @author fengjingyu@foxmail.com
- *
- */
 public class UtilView {
-
-    public static void setGone(boolean isShow, View view) {
-        if (isShow) {
-            view.setVisibility(View.VISIBLE);
-        } else {
-            view.setVisibility(View.GONE);
-        }
-    }
-
-    public static void setVisible(boolean isShow, View view) {
-        if (isShow) {
-            view.setVisibility(View.VISIBLE);
-        } else {
-            view.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    /**
-     * 是否列表处于顶部
-     */
-    public static boolean isListViewInTop(AbsListView listView) {
-        if (null == listView)
-            return true;
-
-        View firstVisibleItemView = listView.getChildAt(0);
-        if (null == firstVisibleItemView) {
-            return true;
-        }
-        return listView.getFirstVisiblePosition() == 0 && firstVisibleItemView.getTop() == 0;
-    }
-
-    public static void scrollUp(final ScrollView view) {
-        view.post(new Runnable() {
-            public void run() {
-                view.fullScroll(ScrollView.FOCUS_UP);
-            }
-        });
-    }
-
-    public static void setMaxLength(TextView textView, int length) {
-        textView.setFilters(new InputFilter[]{new InputFilter.LengthFilter(length)});
-    }
 
     @Deprecated
     public static void setGridViewStyle(GridView view, boolean show_bar, int num) {

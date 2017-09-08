@@ -5,13 +5,17 @@ import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.content.FileProvider;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import com.jingyu.utils.function.Logger;
 
@@ -25,7 +29,6 @@ import java.util.Locale;
 
 /**
  * @author fengjingyu@foxmail.com
- *
  */
 public class UtilSystem {
 
@@ -299,15 +302,24 @@ public class UtilSystem {
         }
     }
 
-    public static void installApk(Context context, File file) {
+    public static void installApk(Context context, File file, String apkPackageName) {
         try {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            // tomcat的conf的web.xml中有所有的文件类型
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (Build.VERSION.SDK_INT >= 24) {
+                //Android 7.0 以上不支持 file://协议 需要通过 FileProvider 访问 sd卡 下面的文件，所以 Uri 需要通过 FileProvider 构造，协议为 content://
+                //Android 7.0及以上,这种通过 FileProvider 形式取得的 Uri 只能在 7.0 以上的设备上使用，在以下的系统会报错
+                Uri apkUri = FileProvider.getUriForFile(context, apkPackageName + ".fileprovider", file);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            } else {
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            }
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
+            Logger.shortToast("安装出错");
         }
     }
 
@@ -359,6 +371,48 @@ public class UtilSystem {
             Logger.shortToast("打开设置界面失败");
         }
 
+    }
+
+    public static boolean toTencentMarket(Context context, String packageName) {
+        Uri uri = Uri.parse("market://details?id=" + packageName);
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        boolean result = true;
+        try {
+            goToMarket.setClassName("com.tencent.android.qqdownloader", "com.tencent.pangu.link.LinkProxyActivity");
+            context.startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
+    }
+
+    /**
+     * 获取application中指定的meta-data
+     *
+     * @return 如果没有获取成功(没有对应值，或者异常)，则返回值为空
+     */
+    public static String getAppMetaData(Context ctx, String key) {
+        if (ctx == null || TextUtils.isEmpty(key)) {
+            return null;
+        }
+        String resultData = null;
+        try {
+            PackageManager packageManager = ctx.getPackageManager();
+            if (packageManager != null) {
+                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(ctx.getPackageName(), PackageManager.GET_META_DATA);
+                if (applicationInfo != null) {
+                    if (applicationInfo.metaData != null) {
+                        resultData = applicationInfo.metaData.get(key) + "";
+                    }
+                }
+
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return resultData;
     }
 
 }

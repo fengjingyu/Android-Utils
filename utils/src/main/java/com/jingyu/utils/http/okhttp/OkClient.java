@@ -1,5 +1,6 @@
 package com.jingyu.utils.http.okhttp;
 
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilString;
@@ -21,7 +22,7 @@ import okhttp3.RequestBody;
 
 /**
  * @author fengjingyu@foxmail.com
- *  用的是okhttp库
+ *         用的是okhttp库
  */
 public class OkClient implements HttpClient {
 
@@ -51,7 +52,7 @@ public class OkClient implements HttpClient {
 
         // 创建请求
         Request request = createRequest(reqInfo);
-
+        Logger.d(OkCallback.TAG_HTTP, "请求发出: "+reqInfo.toString());
         httpClient.newCall(request).enqueue(new OkCallback(reqInfo, respHandler, interceptor));
     }
 

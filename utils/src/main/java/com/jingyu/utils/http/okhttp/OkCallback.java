@@ -31,14 +31,13 @@ public class OkCallback<T> implements Callback {
      * 可查看如url 返回的json等
      */
     public static final String TAG_HTTP = "http";
+    public static final String LINE = "@@@@@@";
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private RespInfo respInfo = new RespInfo();
     private ReqInfo reqInfo;
     private RespHandler<T> respHandler;
     private Interceptor interceptor;
-
-    public static final String LINE = "---";
 
     public OkCallback(ReqInfo reqInfo, RespHandler<T> respHandler, Interceptor interceptor) {
         this.reqInfo = reqInfo;
@@ -102,13 +101,13 @@ public class OkCallback<T> implements Callback {
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    Logger.e(reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
+                    Logger.e(TAG_HTTP, reqInfo.getUrl() + LINE + "failure（） 异常了", e1);
                 } finally {
                     try {
                         end();
                     } catch (Exception e1) {
                         e1.printStackTrace();
-                        Logger.e(reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
+                        Logger.e(TAG_HTTP, reqInfo.getUrl() + LINE + "failure--->end（） 异常了", e1);
                     }
                 }
             }
@@ -141,13 +140,13 @@ public class OkCallback<T> implements Callback {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Logger.e(reqInfo.getUrl() + LINE + "success（） 异常了", e);
+                    Logger.e(TAG_HTTP, reqInfo.getUrl() + LINE + "success（） 异常了", e);
                 } finally {
                     try {
                         end();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Logger.e(reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
+                        Logger.e(TAG_HTTP, reqInfo.getUrl() + LINE + "success--->end（） 异常了", e);
                     }
                 }
             }
@@ -190,7 +189,7 @@ public class OkCallback<T> implements Callback {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Logger.e("解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString());
+                        Logger.e(TAG_HTTP, "解析数据失败" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString(), null);
                     }
                 });
             }
@@ -202,7 +201,7 @@ public class OkCallback<T> implements Callback {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Logger.e("解析数据异常" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString(), e);
+                    Logger.e(TAG_HTTP, "解析数据异常" + LINE + this + LINE + reqInfo + LINE + respInfo.getDataString(), e);
                 }
             });
             return null;

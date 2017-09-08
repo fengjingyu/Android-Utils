@@ -201,6 +201,7 @@ public class JsonParse {
             return sb.toString();
 
         } catch (Exception e) {
+            e.printStackTrace();
             Logger.e("格式化json异常----jsonformat---" + jsonString, e);
             return jsonString;
         }

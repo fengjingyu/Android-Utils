@@ -15,12 +15,12 @@ import java.util.Date;
 
 /**
  * @author fengjingyu@foxmail.com
- *  1 可以控制频率的吐司
- * 2 输出log到控制台
- * 3 输出log到文件
- * 4 日志的清空
- *
- * 使用前初始化initLog方法
+ *         1 可以控制频率的吐司
+ *         2 输出log到控制台
+ *         3 输出log到文件
+ *         4 日志的清空
+ *         <p>
+ *         使用前初始化initLog方法
  */
 public class Logger {
 
@@ -177,19 +177,22 @@ public class Logger {
     private static final String ARROW = ">>";
 
     public static void e(Object msg, Exception e) {
+        e(TAG_SYSTEM_OUT, msg, e);
+    }
+
+    public static void e(String tag, Object msg, Exception e) {
         String result = "";
 
         if (e != null) {
-            e.printStackTrace();
             result = Log.getStackTraceString(e);
         }
 
-        result = ARROW + msg + LINE + e + LINE + result;
+        result = ARROW + msg + LINE + result;
         if (options.isShowDebugToast) {
             longToast(true, result);
         }
         if (options.consoleLogLevel <= ERROR) {
-            Log.e(TAG_SYSTEM_OUT, result);
+            Log.e(tag, result);
         }
         if (options.isErrorLog2File) {
             write(result, true);

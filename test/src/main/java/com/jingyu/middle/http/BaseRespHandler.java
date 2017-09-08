@@ -11,6 +11,7 @@ import com.jingyu.utils.http.DialogManager;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespInfo;
 import com.jingyu.utils.http.RespHandlerAdapter;
+import com.jingyu.utils.http.okhttp.OkCallback;
 import com.jingyu.utils.util.UtilString;
 
 /**
@@ -68,7 +69,7 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
                 return false;
             }
         } else {
-            Logger.e("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
+            Logger.e(OkCallback.TAG_HTTP, "onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型", null);
             throw new RuntimeException("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
         }
     }

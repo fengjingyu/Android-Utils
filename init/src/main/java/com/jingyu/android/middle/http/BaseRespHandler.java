@@ -66,7 +66,7 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
             if (UtilString.equals(((IHttpRespInfo) resultBean).getCode(), REQ_SUCCESS)) {
                 return true;
             } else {
-                statusCodeWrongLogic(resultBean);
+                statusCodeWrongToast(resultBean);
                 return false;
             }
         } else {
@@ -75,13 +75,17 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
         }
     }
 
-    public void statusCodeWrongLogic(T resultBean) {
+    public void statusCodeWrongToast(T resultBean) {
         Logger.shortToast(((IHttpRespInfo) resultBean).getMsg());
     }
 
     @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
         super.onFailure(reqInfo, respInfo);
+        failureToast();
+    }
+
+    private void failureToast() {
         Logger.shortToast("网络出错啦");
     }
 

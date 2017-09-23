@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.learn.ContactsActivity;
 import com.jingyu.android.test.learn.DestroyGCActivity;
@@ -31,6 +32,12 @@ import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
+
+import org.json.JSONObject;
+
+import static android.R.attr.key;
+import static android.R.attr.value;
+import static java.sql.DriverManager.println;
 
 
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
@@ -66,6 +73,44 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_main);
+
+        String JSON = "json";
+        try {
+            String json =  "{\"key\":\"value\"}";
+
+            JSONObject jsonObject = new JSONObject(json);
+            Logger.i(JSON,jsonObject.toString());
+            Logger.i(JSON,jsonObject.getString("key"));
+            Logger.i(JSON,"---------------1----------------");
+
+            String json2 = "{\"key\":{\"key1\":\"value1\"}}";
+            JSONObject jsonObject2 = new JSONObject(json2);
+            Logger.i(JSON,jsonObject2.toString());
+            Logger.i(JSON,jsonObject2.getString("key"));
+            Logger.i(JSON,jsonObject2.getJSONObject("key"));
+
+            Logger.i(JSON,"---------------2----------------");
+//            String json3 = "{\"key\":\"{\"name:xioaming\"}\"}";
+//            String json3 = "{\"key\":\"name:xioaming\"}";
+            String json3 = "{\"key\":\"{key:value}\"}";
+//            String json3 = "{\"key\":\"[\"key1\":\"value1\"]\"}";
+            Logger.i(JSON,json3);
+            JSONObject jsonObject3 = new JSONObject(json3);
+            Logger.i(JSON,jsonObject3.toString());
+            Logger.i(JSON,jsonObject3.getString("key"));
+            Logger.i(JSON,jsonObject3.getJSONObject("key"));
+            Logger.i(JSON,"--------------3-----------------");
+
+
+            //json的value有三种形式 ""  {}  []
+            // key 与 value的内容内,不能再次嵌套双引号,否则构建json失败
+            //"{\"key\":\"[]\"}",取出该value值无法构建jsonArray,是String
+            //"{\"key\":\"{}\"}",取出该value值无法构建jsonObject,是String
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         initWidget();
         setListener();

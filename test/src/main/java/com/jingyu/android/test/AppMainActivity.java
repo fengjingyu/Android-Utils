@@ -92,7 +92,8 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
             Logger.i(JSON,"---------------2----------------");
 //            String json3 = "{\"key\":\"{\"name:xioaming\"}\"}";
 //            String json3 = "{\"key\":\"name:xioaming\"}";
-            String json3 = "{\"key\":\"{key:value}\"}";
+            String json3 = "{\"key\":\"{\"key\":value}\"}";
+//            String json3 = "{\"\"key\":\"{\"key\":value}\"}";
 //            String json3 = "{\"key\":\"[\"key1\":\"value1\"]\"}";
             Logger.i(JSON,json3);
             JSONObject jsonObject3 = new JSONObject(json3);
@@ -102,8 +103,11 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
             Logger.i(JSON,"--------------3-----------------");
 
 
-            //json的value有三种形式 ""  {}  []
-            // key 与 value的内容内,不能再次嵌套双引号,否则构建json失败
+            //*json的value有三种形式
+            //      ""(这是string,通过getString(key)无法构建JsonObject和JsonArray)
+            //      {}(这是JsonObject,也可以通过getString(key)获取后再次构建JsonObject)
+            //      [](这是JsonArray,也可以通过getString(key)获取后再次构建JsonAarray)
+            // ***key 与 value的内容内,不能再次嵌套双引号,否则构建json失败
             //"{\"key\":\"[]\"}",取出该value值无法构建jsonArray,是String
             //"{\"key\":\"{}\"}",取出该value值无法构建jsonObject,是String
 

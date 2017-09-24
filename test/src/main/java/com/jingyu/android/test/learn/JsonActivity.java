@@ -34,14 +34,14 @@ public class JsonActivity extends AppCompatActivity {
 
 //            String json3 = "{\"key\":\"{\"name:xioaming\"}\"}";// 构建json异常
 //            String json3 = "{\"key\":\"name:xioaming\"}";//可以构建json,取出的value是String
-//            String json3 = "{\"key\":\"\"}"; // 可以构建json,但getString(key)会异常
-//            String json3 = "{\"key\":\"{\"key\":value}\"}";//构建json异常
-//            String json3 = "{\"\"key\":\"{\"key\":value}\"}";//构建json异常
+//            String json3 = "{\"key\":\"{\"key\":\"value\"}\"}";//构建json异常
+//            String json3 = "{\"\"key\":\"{\"key\":\"value\"}\"}";//构建json异常
 //            String json3 = "{\"key\":\"[\"key1\":\"value1\"]\"}";//构建json异常
 //            String json3 = "";//构建json异常
 //            String json3 = "{}"; // 可以构建json,但getString(key)异常
 //            String json3 = "{\"key\":\"\"}"; // 可以构建json,但是getString(key)异常--无法构建JsonObject,optString(key)返回""
-            String json3 = "{\"key\":null}"; // 可以构建json,getString(key),optString(key)都返回null
+//            String json3 = "{\"key\":null}"; // 可以构建json,getString(key),optString(key)都返回null
+            String json3 = "{\"key\":{\"key\":\"value\"}}";//可以构建json,getString(key)取出的string,可以继续构建JsonObject
             Logger.i(JSON, "--" + json3);
             JSONObject jsonObject3 = new JSONObject(json3);
             Logger.i(JSON, jsonObject3.toString());

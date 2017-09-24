@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -82,9 +83,6 @@ public class Http {
         return common(ReqType.POST, url, paramsMap, respHandler, null, true, null, false);
     }
 
-    /**
-     * 封装请求model
-     */
     private static ReqInfo common(ReqType type, String url, Map<String, Object> paramsMap, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor, boolean isDownload) {
         ReqInfo reqInfo = new ReqInfo();
         reqInfo.setReqType(type);
@@ -93,13 +91,12 @@ public class Http {
         reqInfo.setTag(tag);
         reqInfo.setDownload(isDownload);
         reqInfo.setHeadersMap(getHeaders(tag));
-
-        reqInfo.setParamsMap(getParams(tag, paramsMap));
-
+        reqInfo.setParamsMap(encryptForm(tag, paramsMap));
         return http(reqInfo, respHandler, interceptor);
     }
 
-    private static ReqInfo postJson(String url, String json, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor, boolean isDownload) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------
+    private static ReqInfo postJson(String url, Map<String, Object> map, RespHandler respHandler, String tag, boolean isShowDialog, Interceptor interceptor, boolean isDownload) {
         ReqInfo reqInfo = new ReqInfo();
         reqInfo.setReqType(ReqType.POST);
         reqInfo.setUrl(url);
@@ -107,30 +104,13 @@ public class Http {
         reqInfo.setTag(tag);
         reqInfo.setDownload(isDownload);
         reqInfo.setHeadersMap(getHeaders(tag));
-
-        reqInfo.setPostString(json);
+        reqInfo.setPostString(encrypeJson(tag, map));
         reqInfo.setPostStringContentType("application/json");
-
         return http(reqInfo, respHandler, interceptor);
     }
 
-    public static void postJson(String url, String json, RespHandler respHandler, boolean isShowDialog) {
-        try {
-            if (json == null) {
-                json = "";
-            }
-            JSONObject newJson = new JSONObject(json);
-            newJson.put("terminal", "android");
-            newJson.put("version", UtilSystem.getVersionName(App.getApplication()));
-            newJson.put("token", Sp.getUserToken());
-            postJson(url, newJson.toString(), respHandler, "", isShowDialog, null, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void postJson(String url, String json, RespHandler respHandler) {
-        postJson(url, json, respHandler, true);
+    public static void postJson(String url, Map<String, Object> map, RespHandler respHandler) {
+        postJson(url, map, respHandler, "", true, null, false);
     }
 
     /**
@@ -150,7 +130,7 @@ public class Http {
      *
      * @param tag 标识
      */
-    private static Map<String, Object> getParams(String tag, Map<String, Object> paramsMap) {
+    private static Map<String, Object> encryptForm(String tag, Map<String, Object> paramsMap) {
         if (paramsMap == null) {
             paramsMap = new HashMap<>();
         }
@@ -161,6 +141,22 @@ public class Http {
         paramsMap.put("testKey6", "c++");
         Logger.d("加密后参数--" + paramsMap);
         return paramsMap;
+    }
+
+    private static String encrypeJson(String tag, Map<String, Object> paramsMap) {
+//        try {
+//            if (paramsMap == null) {
+//                return "";
+//            }
+//            JSONObject newJson = new JSONObject(json);
+//            newJson.put("terminal", "android");
+//            newJson.put("version", UtilSystem.getVersionName(App.getApplication()));
+//            newJson.put("token", Sp.getUserToken());
+//            postJson(url, newJson.toString(), respHandler, "", isShowDialog, null, false);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        return "";
     }
 }
 

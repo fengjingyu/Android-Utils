@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.gson.Gson;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.learn.ContactsActivity;
 import com.jingyu.android.test.learn.DestroyGCActivity;
 import com.jingyu.android.test.learn.HandlerActivity;
+import com.jingyu.android.test.learn.JsonActivity;
 import com.jingyu.android.test.learn.NotifyActivity;
 import com.jingyu.android.test.learn.PermissionActivity;
 import com.jingyu.android.test.learn.TimerActivity;
@@ -33,12 +33,6 @@ import com.jingyu.utils.exception.ExceptionDb;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
 
-import org.json.JSONObject;
-
-import static android.R.attr.key;
-import static android.R.attr.value;
-import static java.sql.DriverManager.println;
-
 
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -53,6 +47,7 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     private Button runPermission;
     private Button contacts;
     private Button notification;
+    private Button json;
 
     //scrollview2
     private Button log;
@@ -74,48 +69,6 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_main);
 
-        String JSON = "json";
-        try {
-            String json =  "{\"key\":\"value\"}";
-
-            JSONObject jsonObject = new JSONObject(json);
-            Logger.i(JSON,jsonObject.toString());
-            Logger.i(JSON,jsonObject.getString("key"));
-            Logger.i(JSON,"---------------1----------------");
-
-            String json2 = "{\"key\":{\"key1\":\"value1\"}}";
-            JSONObject jsonObject2 = new JSONObject(json2);
-            Logger.i(JSON,jsonObject2.toString());
-            Logger.i(JSON,jsonObject2.getString("key"));
-            Logger.i(JSON,jsonObject2.getJSONObject("key"));
-
-            Logger.i(JSON,"---------------2----------------");
-//            String json3 = "{\"key\":\"{\"name:xioaming\"}\"}";
-//            String json3 = "{\"key\":\"name:xioaming\"}";
-            String json3 = "{\"key\":\"{\"key\":value}\"}";
-//            String json3 = "{\"\"key\":\"{\"key\":value}\"}";
-//            String json3 = "{\"key\":\"[\"key1\":\"value1\"]\"}";
-            Logger.i(JSON,json3);
-            JSONObject jsonObject3 = new JSONObject(json3);
-            Logger.i(JSON,jsonObject3.toString());
-            Logger.i(JSON,jsonObject3.getString("key"));
-            Logger.i(JSON,jsonObject3.getJSONObject("key"));
-            Logger.i(JSON,"--------------3-----------------");
-
-
-            //*json的value有三种形式
-            //      ""(这是string,通过getString(key)无法构建JsonObject和JsonArray)
-            //      {}(这是JsonObject,也可以通过getString(key)获取后再次构建JsonObject)
-            //      [](这是JsonArray,也可以通过getString(key)获取后再次构建JsonAarray)
-            // ***key 与 value的内容内,不能再次嵌套双引号,否则构建json失败
-            //"{\"key\":\"[]\"}",取出该value值无法构建jsonArray,是String
-            //"{\"key\":\"{}\"}",取出该value值无法构建jsonObject,是String
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
         initWidget();
         setListener();
 
@@ -132,6 +85,7 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         runPermission.setOnClickListener(this);
         contacts.setOnClickListener(this);
         notification.setOnClickListener(this);
+        json.setOnClickListener(this);
     }
 
     private void initWidget() {
@@ -142,6 +96,7 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
         runPermission = getViewById(R.id.runPermission);
         contacts = getViewById(R.id.contacts);
         notification = getViewById(R.id.notification);
+        json = getViewById(R.id.json);
     }
 
     private void onClickAction(View v) {
@@ -166,6 +121,9 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.notification:
                 NotifyActivity.actionStart(getActivity());
+                break;
+            case R.id.json:
+                JsonActivity.actionStart(getActivity());
                 break;
             default:
                 break;

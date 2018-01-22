@@ -70,6 +70,7 @@ public class UtilReflect {
             Field[] fields = cls.getDeclaredFields();
             return fields;
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.e(target + "getFields---", ex);
             return null;
         }
@@ -89,6 +90,7 @@ public class UtilReflect {
             return result;
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.e(target + "getPropertyNames---", ex);
             return null;
         }
@@ -113,6 +115,7 @@ public class UtilReflect {
             return values;
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.e(target + "getValues---", ex);
             return null;
         }
@@ -127,6 +130,7 @@ public class UtilReflect {
             return obj;
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.e(target + "getValueByName---", ex);
             return null;
         }

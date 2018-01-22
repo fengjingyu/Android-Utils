@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.scut.pictureprogressbar.MainActivity">
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start"
+        android:id="@+id/btn_start"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ANIM_NULL:"
+        android:textColor="#000000"
+        android:textSize="16sp"/>
+    <com.yanzhikai.pictureprogressbar.PictureProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:drawable="@drawable/b333"
+        app:max="1000"
+        app:roundY="15dp"
+        app:roundX="15dp"
+        app:halfDrawableHeight="20dp"
+        app:halfDrawableWidth="20dp"
+        app:animMode="ANIM_NULL"
+        app:isGradient="false"
+        app:gradientStartColor="@color/colorPrimary"
+        app:gradientEndColor="@color/colorPrimary"
+        android:id="@+id/pb_2"
+        />
+</LinearLayout>

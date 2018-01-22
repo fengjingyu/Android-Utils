@@ -101,6 +101,7 @@ public class ExampleInstrumentedTest {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Logger.e(this, e);
         }
     }

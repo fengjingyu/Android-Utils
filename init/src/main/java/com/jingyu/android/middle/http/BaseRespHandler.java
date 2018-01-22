@@ -11,6 +11,7 @@ import com.jingyu.utils.http.DialogManager;
 import com.jingyu.utils.http.ReqInfo;
 import com.jingyu.utils.http.RespHandlerAdapter;
 import com.jingyu.utils.http.RespInfo;
+import com.jingyu.utils.http.okhttp.OkCallback;
 import com.jingyu.utils.util.UtilString;
 
 /**
@@ -65,22 +66,26 @@ public abstract class BaseRespHandler<T> extends RespHandlerAdapter<T> {
             if (UtilString.equals(((IHttpRespInfo) resultBean).getCode(), REQ_SUCCESS)) {
                 return true;
             } else {
-                statusCodeWrongLogic(resultBean);
+                statusCodeWrongToast(resultBean);
                 return false;
             }
         } else {
-            Logger.e("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
+            Logger.e(OkCallback.TAG_HTTP, "onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型", null);
             throw new RuntimeException("onMatchAppStatusCode()中的返回结果不是IHttpRespInfo类型");
         }
     }
 
-    public void statusCodeWrongLogic(T resultBean) {
+    public void statusCodeWrongToast(T resultBean) {
         Logger.shortToast(((IHttpRespInfo) resultBean).getMsg());
     }
 
     @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
         super.onFailure(reqInfo, respInfo);
+        failureToast();
+    }
+
+    private void failureToast() {
         Logger.shortToast("网络出错啦");
     }
 

@@ -4,17 +4,15 @@ import android.app.Activity;
 import android.app.Dialog;
 
 import com.jingyu.utils.function.Logger;
+import com.jingyu.utils.http.okhttp.OkCallback;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.jingyu.utils.http.IHttp.RespHandler.TAG_RESP_HANDLER;
-
-
 /**
  * @author fengjingyu@foxmail.com
- *  管理需要显示加载dialog的http请求
- * 当有多个并发请求都需要显示dialog时，只显示一个，且多个请求都返回后，才关闭dialog
+ *         管理需要显示加载dialog的http请求
+ *         当有多个并发请求都需要显示dialog时，只显示一个，且多个请求都返回后，才关闭dialog
  */
 public class DialogManager {
     /**
@@ -23,7 +21,7 @@ public class DialogManager {
     private static DialogManager instance;
     /**
      * 记录需要加载dialog的网络请求
-     *
+     * <p>
      * String:哪一个网络请求tag
      * Boolean:为null或false表示还没发请求或请求完成了，为true表示请求未返回
      */
@@ -91,7 +89,7 @@ public class DialogManager {
         if (isAllRequestEnd()) {
             // 没有正在进行的请求 或 所有已发出的请求都已返回
             mHttpDialog.show();
-            Logger.d(TAG_RESP_HANDLER, this.toString() + "---showHttpDialog()");
+            Logger.d(OkCallback.TAG_HTTP, this.toString() + "---showHttpDialog()");
         } else {
             // 有转dialog的请求未返回,页面正在转dialog
         }
@@ -117,7 +115,7 @@ public class DialogManager {
     private void closeHttpDialog() {
         if (mHttpDialog != null && mHttpDialog.isShowing()) {
             mHttpDialog.cancel();
-            Logger.d(TAG_RESP_HANDLER, this.toString() + "---closeHttpDialog()");
+            Logger.d(OkCallback.TAG_HTTP, this.toString() + "---closeHttpDialog()");
         }
     }
 

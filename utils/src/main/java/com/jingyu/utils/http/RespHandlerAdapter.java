@@ -2,6 +2,7 @@ package com.jingyu.utils.http;
 
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.RespHandler;
+import com.jingyu.utils.http.okhttp.OkCallback;
 
 import java.io.InputStream;
 
@@ -13,53 +14,53 @@ public class RespHandlerAdapter<T> implements RespHandler<T> {
 
     @Override
     public void onReadySendRequest(ReqInfo reqInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onReadySendRequest()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onReadySendRequest()");
     }
 
     @Override
     public void onSuccessForDownload(ReqInfo reqInfo, RespInfo respInfo, InputStream inputStream) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessForDownload()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onSuccessForDownload()");
     }
 
     @Override
     public T onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "-----onParse2Model()");
+        Logger.d(OkCallback.TAG_HTTP, this + "-----onParse2Model()");
         return null;
     }
 
     @Override
     public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this + "---onMatchAppStatusCode()");
+        Logger.d(OkCallback.TAG_HTTP, this + "---onMatchAppStatusCode()");
         return false;
     }
 
     @Override
     public void onSuccessButParseWrong(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessButParseWrong()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onSuccessButParseWrong()");
     }
 
     @Override
     public void onSuccessButCodeWrong(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessButCodeWrong()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onSuccessButCodeWrong()");
     }
 
     @Override
     public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, T resultBean) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onSuccessAll()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onSuccessAll()");
     }
 
     @Override
     public void onFailure(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onFailure()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onFailure()");
     }
 
     @Override
     public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onEnd()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onEnd()");
     }
 
     @Override
     public void onProgressing(ReqInfo reqInfo, long bytesWritten, long totalSize, double percent) {
-        Logger.d(TAG_RESP_HANDLER, this + "--onProgressing()");
+        Logger.d(OkCallback.TAG_HTTP, this + "--onProgressing()");
     }
 }

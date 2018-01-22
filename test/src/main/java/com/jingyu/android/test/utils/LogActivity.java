@@ -54,6 +54,7 @@ public class LogActivity extends BaseActivity {
                     Logger.e("678");
                     int i = 1 / 0;
                 } catch (Exception e) {
+                    e.printStackTrace();
                     Logger.e(getActivity() + "--oncreate()--", e);
                 }
                 Logger.e("1234567890");

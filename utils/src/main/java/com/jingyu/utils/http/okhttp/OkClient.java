@@ -1,5 +1,6 @@
 package com.jingyu.utils.http.okhttp;
 
+import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilString;

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.jingyu.android.test"
@@ -13,19 +13,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
-    }
 
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-
-    /** aar */
-    repositories {
-        flatDir {
-            dirs 'libs'
-        }
+        //studio 3.0.0 开始，如果 build.gradle 文件自定义有 productFlavors 配置的话，需要添加定义 flavorDimensions（风味维度）。否则，编译会报错
+        flavorDimensions "defaultFlavor"
+        // 默认的渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "_studio"]
     }
 
     /** 多渠道打包 */
@@ -53,11 +45,6 @@ android {
         }
     }
 
-    dexOptions {
-        maxProcessCount 4
-        javaMaxHeapSize "4g"
-    }
-
     signingConfigs {
         //开发App时经常遇到Release版和Debug版共存问题，由于默认的签名不同，经常要卸载Debug版安装Release版，这里使用同一个签名
         config {
@@ -79,6 +66,8 @@ android {
 
     buildTypes {
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"// 不显示Log
+
             minifyEnabled true //混淆 以及 移除没有用到的代码 和 资源文件
             shrinkResources true // 移除无用的resource文件
             zipAlignEnabled true  // zip对齐优化
@@ -87,7 +76,10 @@ android {
         }
 
         debug {
-            minifyEnabled true
+            buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
+
+            minifyEnabled false
+            shrinkResources false
             zipAlignEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -95,20 +87,53 @@ android {
     }
 
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            def fileName
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                //def fileName = "${variant.productFlavors[0].name}-${variant.buildType.name}-v${defaultConfig.versionName}-${releaseTime()}.apk"
-                if (variant.buildType.name == "debug") {
-                    fileName = "v${defaultConfig.versionName}-" + outputFile.name
-                } else {
-                    fileName = "v${defaultConfig.versionName}-${releaseTime()}-" + outputFile.name
-                }
-                output.outputFile = new File(outputFile.parent, fileName)
-            }
+        variant.outputs.all {
+            outputFileName = "${variant.productFlavors[0].name}-"+rootProject.getName()+
+                    "-${variant.buildType.name}" +
+                    "-${releaseTime()}" +
+                    "-v${defaultConfig.versionName}" +
+                    "-${defaultConfig.versionCode}"+
+                    ".apk"
+        }
+//从 studio 3.0.0 开始，移除了一些用于编译配置的 API，其中比较常见的就是 each() 和 outputFile()
+//        variant.outputs.each { output ->
+//            def outputFile = output.outputFile
+//            def fileName
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                //def fileName = "${variant.productFlavors[0].name}-${variant.buildType.name}-v${defaultConfig.versionName}-${releaseTime()}.apk"
+//                if (variant.buildType.name == "debug") {
+//                    fileName = "v${defaultConfig.versionName}-" + outputFile.name
+//                } else {
+//                    fileName = "v${defaultConfig.versionName}-${releaseTime()}-" + outputFile.name
+//                }
+//                output.outputFile = new File(outputFile.parent, fileName)
+//
+//            }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
+
+    /** aar */
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        maxProcessCount 4
+        javaMaxHeapSize "4g"
+    }
+
 }
 
 def releaseTime() {
@@ -118,13 +143,10 @@ def releaseTime() {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile project(':init')
-
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }

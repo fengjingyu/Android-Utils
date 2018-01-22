@@ -91,7 +91,7 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".learn.JsonActivity"></activity>
+        <activity android:name=".learn.JsonActivity"/>
     </application>
 
 </manifest>

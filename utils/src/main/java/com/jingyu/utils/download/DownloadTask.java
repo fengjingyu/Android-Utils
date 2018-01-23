@@ -3,7 +3,7 @@ package com.jingyu.utils.download;
 import android.os.AsyncTask;
 import android.os.Build;
 
-import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.FileHelper;
 import com.jingyu.utils.function.Logger;
 
 import java.io.BufferedInputStream;
@@ -117,11 +117,11 @@ public class DownloadTask extends AsyncTask<Void, Long, Integer> {
                     return TYPE_SUCCESS;
                 } else {
                     if (info.isRange()) {
-                        if (DirHelper.createFile(info.getFile()) == null) {
+                        if (FileHelper.createFile(info.getFile()) == null) {
                             return TYPE_FAILE;
                         }
                     } else {
-                        if (DirHelper.deleteAndCreateFile(info.getFile()) == null) {
+                        if (FileHelper.deleteAndCreateFile(info.getFile()) == null) {
                             return TYPE_FAILE;
                         }
                     }

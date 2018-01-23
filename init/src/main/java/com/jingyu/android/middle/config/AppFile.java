@@ -2,7 +2,7 @@ package com.jingyu.android.middle.config;
 
 import android.content.Context;
 
-import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.FileHelper;
 
 import java.io.File;
 
@@ -22,28 +22,28 @@ public class AppFile {
      * app目录
      */
     public static File getAppDir(Context context) {
-        return DirHelper.getAndroidDir(context, Config.getAppDirName());
+        return FileHelper.getAndroidDir(context, Config.getAppDirName());
     }
 
     /**
      * 图片目录
      */
     public static File getImageDir(Context context) {
-        return DirHelper.getAndroidDir(context, Config.getAppDirName() + File.separator + IMAGE_DIR_NAME);
+        return FileHelper.getAndroidDir(context, Config.getAppDirName() + File.separator + IMAGE_DIR_NAME);
     }
 
     /**
      * 日志目录
      */
     public static File getLogDir(Context context) {
-        return DirHelper.getAndroidDir(context, Config.getAppDirName() + File.separator + LOG_DIR_NAME);
+        return FileHelper.getAndroidDir(context, Config.getAppDirName() + File.separator + LOG_DIR_NAME);
     }
 
     /**
      * crash目录
      */
     public static File getCrashDir(Context context) {
-        return DirHelper.getAndroidDir(context, Config.getAppDirName() + File.separator + CRASH_DIR_NAME);
+        return FileHelper.getAndroidDir(context, Config.getAppDirName() + File.separator + CRASH_DIR_NAME);
     }
 
 }

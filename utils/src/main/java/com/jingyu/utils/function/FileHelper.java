@@ -9,7 +9,7 @@ import java.io.File;
 /**
  * @author fengjingyu@foxmail.com
  */
-public class DirHelper {
+public class FileHelper {
 
     public static boolean isSDcardExist() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);

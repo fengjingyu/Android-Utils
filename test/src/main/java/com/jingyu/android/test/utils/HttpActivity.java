@@ -11,7 +11,7 @@ import com.jingyu.android.middle.config.AppFile;
 import com.jingyu.android.middle.http.BaseRespHandler;
 import com.jingyu.android.middle.http.json.JsonModel;
 import com.jingyu.android.middle.http.json.JsonRespHandler;
-import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.FileHelper;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.http.IHttp.Interceptor;
 import com.jingyu.utils.http.ReqInfo;
@@ -45,7 +45,7 @@ public class HttpActivity extends BaseActivity {
                         Logger.shortToast("onSuccessForDownload");
                     }
                 });
-                File file = DirHelper.createFile(AppFile.getAppDir(getApplicationContext()), "1.apk");
+                File file = FileHelper.createFile(AppFile.getAppDir(getApplicationContext()), "1.apk");
                 UtilIo.inputStream2File(inputStream, file);
             }
 
@@ -69,7 +69,7 @@ public class HttpActivity extends BaseActivity {
                         Logger.shortToast("onSuccessForDownload");
                     }
                 });
-                File file = DirHelper.createFile(AppFile.getAppDir(getApplicationContext()), "3.apk");
+                File file = FileHelper.createFile(AppFile.getAppDir(getApplicationContext()), "3.apk");
                 UtilIo.inputStream2File(inputStream, file);
             }
 

@@ -74,15 +74,15 @@ public class Logger {
         private String errorLogFileName = "error_log.txt";
 
         private File getErrorLogFile() {
-            return DirHelper.createFile(getLogDir(), errorLogFileName);
+            return FileHelper.createFile(getLogDir(), errorLogFileName);
         }
 
         public File getLogDir() {
-            File dir = DirHelper.createDir(logDir);
+            File dir = FileHelper.createDir(logDir);
             if (dir != null) {
                 return dir;
             } else {
-                return logDir = DirHelper.getAndroidDir(application, Constants.DEFAULT_LOG_DIR_NAME);
+                return logDir = FileHelper.getAndroidDir(application, Constants.DEFAULT_LOG_DIR_NAME);
             }
         }
     }

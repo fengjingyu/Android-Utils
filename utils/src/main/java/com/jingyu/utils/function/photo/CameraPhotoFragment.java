@@ -13,7 +13,7 @@ import android.support.annotation.NonNull;
 
 import com.jingyu.utils.application.PlusFragment;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.FileHelper;
 import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilBitmap;
@@ -218,28 +218,28 @@ public class CameraPhotoFragment extends PlusFragment {
     }
 
     private File createCameraOutputFile() {
-        return DirHelper.createFile(getPhotoDir(), "camera_" + getTime() + ".jpg");
+        return FileHelper.createFile(getPhotoDir(), "camera_" + getTime() + ".jpg");
     }
 
     private File createCropOutputFile() {
-        return DirHelper.createFile(getPhotoDir(), "camera_crop_" + getTime() + ".jpg");
+        return FileHelper.createFile(getPhotoDir(), "camera_crop_" + getTime() + ".jpg");
     }
 
     private File createSmallOutputFile(File originOutputFile) {
         if (originOutputFile != null && originOutputFile.exists()) {
-            return DirHelper.createFile(getPhotoDir(), "small_" + originOutputFile.getName());
+            return FileHelper.createFile(getPhotoDir(), "small_" + originOutputFile.getName());
         }
         return null;
     }
 
     public File getPhotoDir() {
-        File dir = DirHelper.createDir(savePhotoDir);
+        File dir = FileHelper.createDir(savePhotoDir);
         if (dir != null) {
             return dir;
         } else {
             if (getActivity() != null) {
                 // 相机无法进入内部存储
-                return savePhotoDir = DirHelper.ExternalAndroid.getDir(getActivity(), Constants.DEFAULT_PHOTO_DIR_NAME);
+                return savePhotoDir = FileHelper.ExternalAndroid.getDir(getActivity(), Constants.DEFAULT_PHOTO_DIR_NAME);
             }
             return null;
         }

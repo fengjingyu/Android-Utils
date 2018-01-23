@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Constants;
-import com.jingyu.utils.function.DirHelper;
+import com.jingyu.utils.function.FileHelper;
 import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.util.UtilDate;
 import com.jingyu.utils.util.UtilSystem;
@@ -151,11 +151,11 @@ public class CrashHandler implements UncaughtExceptionHandler {
     }
 
     public File getCrashDir() {
-        File dir = DirHelper.createDir(mCrashDir);
+        File dir = FileHelper.createDir(mCrashDir);
         if (dir != null) {
             return dir;
         } else {
-            return mCrashDir = DirHelper.getAndroidDir(application, Constants.DEFAULT_CRASH_DIR_NAME);
+            return mCrashDir = FileHelper.getAndroidDir(application, Constants.DEFAULT_CRASH_DIR_NAME);
         }
     }
 
@@ -165,7 +165,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         try {
             String fileName = "crash_" + UtilDate.format(new Date(tempTime), UtilDate.FORMAT_CREATE_FILE);
 
-            crashFile = DirHelper.createFile(getCrashDir(), fileName);
+            crashFile = FileHelper.createFile(getCrashDir(), fileName);
             if (crashFile != null && crashFile.exists()) {
                 fos = new FileOutputStream(crashFile);
                 fos.write(info.getBytes());

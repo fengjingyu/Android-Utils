@@ -8,7 +8,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 2
-        versionName "1.0.5"
+        versionName "1.0.6"
     }
 
     buildTypes {
@@ -40,7 +40,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.4.0'
 
     /** okhttp */
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
@@ -67,7 +67,7 @@ ext {
     siteUrl = 'https://github.com/fengjingyu/Android-Utils'
     gitUrl = 'https://github.com/fengjingyu/Android-Utils.git'
 
-    libraryVersion = '1.0.5'
+    libraryVersion = '1.0.6'
 
     developerId = 'jingyu'
     developerName = 'jingyu'
@@ -185,8 +185,7 @@ bintray {
             desc = libraryDescription
             gpg {
                 sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password")
-                //Optional. The passphrase for GPG signing'
+                passphrase = properties.getProperty("bintray.gpg.password")//Optional. The passphrase for GPG signing'
             }
         }
     }

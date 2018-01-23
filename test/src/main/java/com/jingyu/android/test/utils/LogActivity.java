@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.middle.config.Config;
+import com.jingyu.android.middle.config.AppFile;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.Logger;
@@ -40,8 +40,8 @@ public class LogActivity extends BaseActivity {
                 Object obj = null;
                 Logger.d(obj);
 
-                Logger.d(UtilIo.getAllFilesByDirQueue(Config.getAppDir(getApplicationContext())));
-                Logger.d(UtilIo.getFilterFiles(Config.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
+                Logger.d(UtilIo.getAllFilesByDirQueue(AppFile.getAppDir(getApplicationContext())));
+                Logger.d(UtilIo.getFilterFiles(AppFile.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
             }
         });
 

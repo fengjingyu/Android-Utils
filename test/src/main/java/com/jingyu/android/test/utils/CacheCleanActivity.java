@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.middle.config.Config;
+import com.jingyu.android.middle.config.AppFile;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.function.CacheCleaner;
 
@@ -38,7 +38,7 @@ public class CacheCleanActivity extends BaseActivity implements View.OnClickList
     }
 
     private void logic() {
-        dir = Config.getAppDir(getApplicationContext());
+        dir = AppFile.getAppDir(getApplicationContext());
 
         ProgressDialog dialog = new ProgressDialog(this);
         dialog.setTitle("测试");

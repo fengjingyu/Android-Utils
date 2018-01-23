@@ -10,6 +10,7 @@ import com.jingyu.android.middle.Http;
 import com.jingyu.android.middle.Image;
 import com.jingyu.android.middle.Sp;
 import com.jingyu.android.middle.base.BaseActivity;
+import com.jingyu.android.middle.config.AppFile;
 import com.jingyu.android.middle.config.Config;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.function.Logger;
@@ -108,7 +109,7 @@ public class LaunchActivity extends BaseActivity {
         options.consoleLogLevel = Config.getConsoleLogLevel();
         options.isErrorLog2File = Config.isErrorLog2File();
         options.isShowDebugToast = Config.isShowDebugToast();
-        options.logDir = Config.getLogDir(getApplicationContext());
+        options.logDir = AppFile.getLogDir(getApplicationContext());
         Logger.initLog(getApplication(), options);
     }
 
@@ -126,7 +127,7 @@ public class LaunchActivity extends BaseActivity {
 
     private void initCrashHandler() {
         if (Config.isInitCrashHandler()) {
-            CrashHandler.getInstance().init(getApplication(), Config.isShowExceptionActivity(), Config.getCrashDir(getApplicationContext()));
+            CrashHandler.getInstance().init(getApplication(), Config.isShowExceptionActivity(), AppFile.getCrashDir(getApplicationContext()));
         }
     }
 

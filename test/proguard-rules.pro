@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
-# in E:\xiaocoder\androidstudiosdk/tools/proguard/proguard-android.txt
+# in F:\jingyu\local\androidstudiosdkndk/tools/proguard/proguard-android.txt
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
@@ -16,6 +16,13 @@
 #   public *;
 #}
 
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
 
 ##################################################↓↓android studio自带的混淆规则####################################################
 -dontusemixedcaseclassnames
@@ -131,7 +138,6 @@
 
 -keep class * extends java.lang.annotation.Annotation { *; }
 
-
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
@@ -177,9 +183,7 @@
 
 ##################################################↓↓app##############################################################################
 #------------------------------序列化 反序列化 gsonmodel--------------------------
-#-keep public class **.*Model*.** {*;}
-
-
+-keep class **.*model*.** {*;}
 #------------------------------js调用java-----------------------------------------
 
 
@@ -193,9 +197,11 @@
 
 ##################################################↓↓第三方###########################################################################
 ##----------------------okhttp-------------------------------
+-dontwarn okhttp3.**
 -dontwarn okio.**
--dontwarn javax.annotation.Nullable
--dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn javax.annotation.**
+-keep class okio.**{*;}
+-keep class okhttp3.**{*;}
 ##----------------------utils--------------------------------
 -dontwarn com.jingyu.utils
 -keep class com.jingyu.utils.** {*;}
@@ -215,4 +221,21 @@
 ##----------------------Bugly--------------------------------
 -dontwarn com.tencent.bugly.**
 -keep class com.tencent.bugly.** {*;}
+##----------------------scancode--------------------------------
+-dontwarn com.google.zxing.**
+-keep class com.google.zxing.**{*;}
+##-----------------------eventbus-------------------------------
+-dontwarn org.greenrobot.eventbus.**
+-keep class org.greenrobot.eventbus.**{*;}
+
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
 ##################################################↑↑第三方###########################################################################

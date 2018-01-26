@@ -1,16 +1,17 @@
 package com.jingyu.android.init;
 
+import android.widget.RadioGroup;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
-import com.jingyu.android.init.tab.TabFragmentFour;
-import com.jingyu.android.init.tab.TabFragmentOne;
-import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.init.tab.TabFragmentThree;
-import com.jingyu.android.init.tab.TabFragmentTwo;
+import com.jingyu.android.init.fragment.tab.TabFragmentFour;
+import com.jingyu.android.init.fragment.tab.TabFragmentOne;
+import com.jingyu.android.init.fragment.tab.TabFragmentThree;
+import com.jingyu.android.init.fragment.tab.TabFragmentTwo;
+import com.jingyu.android.init.middle.base.BaseActivity;
 import com.jingyu.utils.function.ActivityCollector;
 import com.jingyu.utils.function.Logger;
 

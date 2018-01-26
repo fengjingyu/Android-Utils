@@ -184,7 +184,7 @@
 ##################################################↓↓app##############################################################################
 #------------------------------序列化 反序列化 gsonmodel--------------------------
 -keep class **.*model*.** {*;}
-#------------------------------js调用java-----------------------------------------
+#------------------------------js交互-----------------------------------------
 
 
 
@@ -211,9 +211,8 @@
 ##----------------------imgaeloader--------------------------
 -dontwarn com.nostra13.universalimageloader.**
 -keep class com.nostra13.universalimageloader.** {*;}
-##----------------------glide--v4.0.0------------------------
+##----------------------glide3.7-----------------------------
 -keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.AppGlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;
   public *;

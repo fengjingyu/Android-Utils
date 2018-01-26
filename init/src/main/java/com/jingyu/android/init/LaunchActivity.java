@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.jingyu.android.middle.Http;
-import com.jingyu.android.middle.Image;
-import com.jingyu.android.middle.Sp;
-import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.middle.config.AppFile;
-import com.jingyu.android.middle.config.Config;
+import com.jingyu.android.init.middle.AppFile;
+import com.jingyu.android.init.middle.AppHttp;
+import com.jingyu.android.init.middle.AppImg;
+import com.jingyu.android.init.middle.AppSp;
+import com.jingyu.android.init.middle.base.BaseActivity;
+import com.jingyu.android.init.middle.config.MyEnv;
+import com.jingyu.android.init.middle.config.okhttp.MyHttpClient;
 import com.jingyu.utils.exception.CrashHandler;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.http.okhttp.OkClient;
 import com.jingyu.utils.util.UtilScreen;
 import com.jingyu.utils.util.UtilSystem;
 
@@ -106,34 +106,34 @@ public class LaunchActivity extends BaseActivity {
 
     private void initLog() {
         Logger.Options options = new Logger.Options();
-        options.consoleLogLevel = Config.getConsoleLogLevel();
-        options.isErrorLog2File = Config.isErrorLog2File();
-        options.isShowDebugToast = Config.isShowDebugToast();
+        options.consoleLogLevel = MyEnv.getConsoleLogLevel();
+        options.isErrorLog2File = MyEnv.isErrorLog2File();
+        options.isShowDebugToast = MyEnv.isShowDebugToast();
         options.logDir = AppFile.getLogDir(getApplicationContext());
         Logger.initLog(getApplication(), options);
     }
 
     private void initSp() {
-        Sp.initSP(getApplication());
+        AppSp.initSP(getApplication());
     }
 
     private void initHttp() {
-        Http.initHttp(new OkClient());
+        AppHttp.initHttp(new MyHttpClient());
     }
 
     private void initImageLoader() {
-        Image.initImage(getApplication());
+        AppImg.initImg(getApplication());
     }
 
     private void initCrashHandler() {
-        if (Config.isInitCrashHandler()) {
-            CrashHandler.getInstance().init(getApplication(), Config.isShowExceptionActivity(), AppFile.getCrashDir(getApplicationContext()));
+        if (MyEnv.isInitCrashHandler()) {
+            CrashHandler.getInstance().init(getApplication(), MyEnv.isShowExceptionActivity(), AppFile.getCrashDir(getApplicationContext()));
         }
     }
 
     // 设备启动时，输出设备与app的基本信息
     public void simpleDeviceInfo() {
-        Logger.d("域名环境--" + Config.CURRENT_RUN_ENVIRONMENT);
+        Logger.d("域名环境--" + MyEnv.CURRENT_RUN_ENVIRONMENT);
         Logger.d("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
         Logger.d("model--" + UtilSystem.getModel());
         Logger.d("operatorName--" + UtilSystem.getOperatorName(getApplicationContext()));

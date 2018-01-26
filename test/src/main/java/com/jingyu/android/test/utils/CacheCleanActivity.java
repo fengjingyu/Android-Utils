@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.middle.config.AppFile;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.function.CacheCleaner;
 

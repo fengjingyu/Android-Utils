@@ -1,7 +1,7 @@
 package com.jingyu.android.leakcanary;
 
 import com.jingyu.android.init.LaunchActivity;
-import com.jingyu.android.middle.config.Config;
+import com.jingyu.android.middle.config.MyEnv;
 import com.squareup.leakcanary.LeakCanary;
 
 public class AppLaunchActivity extends LaunchActivity {
@@ -13,7 +13,7 @@ public class AppLaunchActivity extends LaunchActivity {
     }
 
     private void initLeakCanary() {
-        if (Config.isInitLeakCanary()) {
+        if (MyEnv.isInitLeakCanary()) {
             LeakCanary.install(getApplication());
         }
     }

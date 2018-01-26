@@ -3,16 +3,12 @@ package com.jingyu.android.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationSet;
-
-import com.jingyu.android.middle.App;
-import com.jingyu.utils.util.UtilScreen;
 
 import cn.pedant.SweetAlert.OptAnimationLoader;
 

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jingyu.android.init.R;
-import com.jingyu.android.init.middle.base.BaseFragment;
+import com.jingyu.android.middle.base.BaseFragment;
 
 
 public class TabFragmentFour extends BaseFragment {

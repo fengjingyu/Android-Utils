@@ -7,7 +7,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.jingyu.android.init.R;
-import com.jingyu.android.init.middle.base.BaseActivity;
+import com.jingyu.android.middle.base.BaseActivity;
 
 public class WebViewActivity extends BaseActivity {
 

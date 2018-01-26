@@ -1,14 +1,11 @@
 package com.app.hubert.newbieguide;
 
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.app.hubert.library.Controller;
 import com.app.hubert.library.HighLight;
 import com.app.hubert.library.NewbieGuide;
-import com.app.hubert.library.OnGuideChangedListener;
 
 public class MainActivity extends AppCompatActivity {
 

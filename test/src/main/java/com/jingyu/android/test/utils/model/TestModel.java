@@ -1,12 +1,12 @@
 package com.jingyu.android.test.utils.model;
 
-import com.jingyu.android.middle.http.IHttpRespInfo;
+import com.jingyu.android.middle.config.okhttp.resp.IRespMsgCode;
 import com.jingyu.utils.application.PlusBean;
 
 /**
  * @author fengjingyu@foxmail.com
  */
-public class TestModel extends PlusBean implements IHttpRespInfo {
+public class TestModel extends PlusBean implements IRespMsgCode {
 
     private String msg;
 

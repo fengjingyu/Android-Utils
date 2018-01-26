@@ -5,15 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
-import com.jingyu.android.middle.Http;
+import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.middle.http.json.JsonModel;
-import com.jingyu.android.middle.http.json.JsonRespHandler;
+import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
+import com.jingyu.android.middle.config.okhttp.resp.JsonRespHandler;
+import com.jingyu.android.middle.config.okhttp.resp.MyRespInfo;
 import com.jingyu.android.pullrefresh.loadmore.IRefreshHandler;
 import com.jingyu.android.pullrefresh.loadmore.ListRefreshLayout;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.http.ReqInfo;
-import com.jingyu.utils.http.RespInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,27 +67,27 @@ public class ListActivity extends BaseActivity {
 
     public void request(final int requestPage) {
         Logger.i("request-page-" + requestPage);
-        Http.get("http://www.baidu.com", null, new JsonRespHandler() {
+        AppHttp.get("http://www.baidu.com", null, new JsonRespHandler() {
 
             @Override
-            public JsonModel onParse2Model(ReqInfo reqInfo, RespInfo respInfo) {
-                return new JsonModel();
+            public MyJsonBean onParse2Model(MyReqInfo reqInfo, MyRespInfo respInfo) {
+                return new MyJsonBean();
             }
 
             @Override
-            public boolean onMatchAppStatusCode(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
+            public boolean onMatchAppStatusCode(MyReqInfo reqInfo, MyRespInfo respInfo, MyJsonBean resultBean) {
                 return true;
             }
 
             @Override
-            public void onSuccessAll(ReqInfo reqInfo, RespInfo respInfo, JsonModel resultBean) {
+            public void onSuccessAll(MyReqInfo reqInfo, MyRespInfo respInfo, MyJsonBean resultBean) {
                 super.onSuccessAll(reqInfo, respInfo, resultBean);
                 refreshView.notifyChanged(requestPage, getData(requestPage));
                 refreshView.nextPage();
             }
 
             @Override
-            public void onEnd(ReqInfo reqInfo, RespInfo respInfo) {
+            public void onEnd(MyReqInfo reqInfo, MyRespInfo respInfo) {
                 super.onEnd(reqInfo, respInfo);
                 refreshView.completeRefresh(requestPage, 2);
             }

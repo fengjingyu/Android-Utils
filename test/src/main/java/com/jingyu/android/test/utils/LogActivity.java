@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.android.middle.config.AppFile;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.util.UtilIo;
 import com.jingyu.utils.function.Logger;

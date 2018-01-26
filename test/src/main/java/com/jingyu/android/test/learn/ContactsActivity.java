@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jingyu.android.middle.Image;
+import com.jingyu.android.middle.AppImg;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.function.Logger;
@@ -89,7 +89,7 @@ public class ContactsActivity extends BaseActivity {
             }
 
             holder.textview.setText(bean.name + "@" + bean.phone_number);
-            Image.display(getActivity(), "http://www.baidu.com/img/bdlogo.png", holder.imageview);
+            AppImg.display("http://www.baidu.com/img/bdlogo.png", holder.imageview);
 
             return convertView;
 

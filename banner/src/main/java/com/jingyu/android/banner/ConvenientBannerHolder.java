@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
-import com.jingyu.android.middle.Image;
+import com.jingyu.android.middle.AppImg;
 
 /**
  * Created by xtyx_jy on 2017/4/1.
@@ -28,6 +28,6 @@ public class ConvenientBannerHolder implements Holder<String> {
 
     @Override
     public void UpdateUI(Context context, final int position, String url) {
-        Image.display(context, url, imageView, imgId);
+        AppImg.display(url, imageView, imgId, imgId);
     }
 }

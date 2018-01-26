@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jingyu.android.middle.Sp;
+import com.jingyu.android.middle.AppSp;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.function.Logger;
@@ -44,11 +44,11 @@ public class SPActivity extends BaseActivity {
 
     private void save() {
 
-        Sp.setUserName("小明");
-        Logger.d(Sp.getUserName());
+        AppSp.setUserName("小明");
+        Logger.d(AppSp.getUserName());
 
-        Sp.setUserPhoneNum("1234567");
-        Logger.d(Sp.getUserPhoneNum());
+        AppSp.setUserPhone("1234567");
+        Logger.d(AppSp.getUserPhone());
 
 
         Set<String> set = new HashSet<>();

@@ -13,6 +13,14 @@ import org.json.JSONObject;
 public class JsonActivity extends AppCompatActivity {
     String JSON = "json";
 
+    String json = "{\"msg\":\"msg\",\"code\":\"code\",\"data\":[{\"name\":\"name\",\"age\":\"age\",\"address\":\"address\"},\n" +
+            "{\"name\":\"name2\",\"age\":\"age2\",\"address\":\"address2\"}\n" +
+            "]}";
+
+    String json2 = "[{\"name\":\"name\",\"age\":\"age\",\"address\":\"address\"},\n" +
+            "{\"name\":\"name2\",\"age\":\"age2\",\"address\":\"address2\"}\n" +
+            "]";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

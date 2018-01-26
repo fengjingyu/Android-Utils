@@ -10,8 +10,8 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
         //studio 3.0.0 开始，如果 build.gradle 文件自定义有 productFlavors 配置的话，需要添加定义 flavorDimensions（风味维度）。否则，编译会报错
@@ -76,9 +76,9 @@ android {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"// 显示Log
 
-            minifyEnabled false
-            shrinkResources false
-            zipAlignEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }

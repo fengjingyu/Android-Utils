@@ -1,6 +1,5 @@
-package com.jingyu.utils.json;
+package com.jingyu.utils.function;
 
-import com.jingyu.utils.function.CloneBean;
 import com.jingyu.utils.util.UtilString;
 
 import org.json.JSONObject;

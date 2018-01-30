@@ -3,8 +3,8 @@ package com.jingyu.android.middle.config.okhttp.resp;
 import android.app.Activity;
 
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
-import com.jingyu.utils.json.JsonBean;
-import com.jingyu.utils.json.JsonParse;
+import com.jingyu.utils.function.JsonBean;
+import com.jingyu.utils.function.JsonParse;
 
 /**
  * @author fengjingyu@foxmail.com

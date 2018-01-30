@@ -7,8 +7,8 @@ import android.support.test.runner.AndroidJUnit4;
 import com.google.gson.Gson;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.ThreadHelper;
-import com.jingyu.utils.json.JsonBean;
-import com.jingyu.utils.json.JsonParse;
+import com.jingyu.utils.function.JsonBean;
+import com.jingyu.utils.function.JsonParse;
 import com.jingyu.android.test.utils.model.TestModel;
 
 import org.json.JSONArray;

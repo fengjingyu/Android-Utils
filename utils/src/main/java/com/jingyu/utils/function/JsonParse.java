@@ -1,5 +1,6 @@
-package com.jingyu.utils.json;
+package com.jingyu.utils.function;
 
+import com.jingyu.utils.function.JsonBean;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.util.UtilString;
 

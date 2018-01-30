@@ -23,7 +23,7 @@ import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.function.Logger;
 import com.jingyu.utils.function.ThreadHelper;
-import com.jingyu.utils.function.adapter.PlusAdapter;
+import com.jingyu.utils.adapter.PlusAdapter;
 import com.jingyu.utils.util.UtilView;
 
 import java.util.LinkedList;

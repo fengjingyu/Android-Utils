@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.adapter.PlusAdapter;
+import com.jingyu.utils.adapter.PlusAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

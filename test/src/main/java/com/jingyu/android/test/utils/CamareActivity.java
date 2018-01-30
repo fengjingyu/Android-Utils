@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.function.photo.AblumPhotoFragment;
-import com.jingyu.utils.function.photo.CameraPhotoFragment;
+import com.jingyu.utils.photo.AblumPhotoFragment;
+import com.jingyu.utils.photo.CameraPhotoFragment;
 
 import java.io.File;
 

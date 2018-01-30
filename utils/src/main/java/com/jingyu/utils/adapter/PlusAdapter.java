@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.adapter;
+package com.jingyu.utils.adapter;
 
 import android.content.Context;
 import android.widget.BaseAdapter;

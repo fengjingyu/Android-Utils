@@ -1,6 +1,6 @@
 package com.jingyu.android.middle.config.okhttp.req;
 
-import com.jingyu.utils.application.PlusBean;
+import com.jingyu.utils.function.CloneBean;
 import com.jingyu.utils.util.UtilCollections;
 import com.jingyu.utils.util.UtilString;
 
@@ -12,7 +12,7 @@ import java.util.Map;
  * @author fengjingyu@foxmail.com
  *  http请求的信息
  */
-public class MyReqInfo extends PlusBean {
+public class MyReqInfo extends CloneBean {
     /**
      * POST  GET
      */

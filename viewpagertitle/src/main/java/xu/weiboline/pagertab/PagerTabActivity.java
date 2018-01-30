@@ -10,7 +10,7 @@ import android.util.TypedValue;
 import com.jingyu.android.init.fragment.tab.TabFragmentOne;
 import com.jingyu.android.init.fragment.tab.TabFragmentTwo;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.utils.function.adapter.PlusAdapterPagerFragment;
+import com.jingyu.utils.adapter.PlusAdapterPagerFragment;
 
 import java.util.ArrayList;
 import java.util.List;

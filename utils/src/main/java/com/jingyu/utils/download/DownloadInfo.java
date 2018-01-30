@@ -1,6 +1,6 @@
 package com.jingyu.utils.download;
 
-import com.jingyu.utils.application.PlusBean;
+import com.jingyu.utils.function.CloneBean;
 
 import java.io.File;
 
@@ -8,7 +8,7 @@ import java.io.File;
  * Created by jingyu on 2017/3/5.
  */
 
-public class DownloadInfo extends PlusBean {
+public class DownloadInfo extends CloneBean {
     // 下载保存到文件
     private File file;
     // 下载地址

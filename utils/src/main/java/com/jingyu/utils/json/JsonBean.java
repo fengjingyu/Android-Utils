@@ -1,6 +1,6 @@
 package com.jingyu.utils.json;
 
-import com.jingyu.utils.application.PlusBean;
+import com.jingyu.utils.function.CloneBean;
 import com.jingyu.utils.util.UtilString;
 
 import org.json.JSONObject;
@@ -17,7 +17,7 @@ import java.util.List;
  * int类型的字段可以getString获取String
  * String类型的字段可以getInt获取int
  */
-public class JsonBean extends PlusBean {
+public class JsonBean extends CloneBean {
 
     private HashMap<String, Object> paraMap = new HashMap<String, Object>();
 

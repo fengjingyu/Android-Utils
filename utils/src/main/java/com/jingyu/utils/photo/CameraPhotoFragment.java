@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.photo;
+package com.jingyu.utils.photo;
 
 import android.Manifest;
 import android.app.Activity;

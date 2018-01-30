@@ -1,4 +1,4 @@
-package com.jingyu.utils.application;
+package com.jingyu.utils.function;
 
 
 import com.jingyu.utils.util.UtilIo;
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author  fengjingyu@foxmail.com
  *  1 提供了序列化id 2 浅克隆的方法 3 深克隆的方法
  */
-public abstract class PlusBean implements Serializable, Cloneable {
+public abstract class CloneBean implements Serializable, Cloneable {
 
     protected static final long serialVersionUID = 2161633826093329317L;
 

@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.adapter;
+package com.jingyu.utils.adapter;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

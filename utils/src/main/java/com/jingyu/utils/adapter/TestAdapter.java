@@ -1,4 +1,4 @@
-package com.jingyu.utils.function.adapter;
+package com.jingyu.utils.adapter;
 
 import java.util.ArrayList;
 import java.util.List;

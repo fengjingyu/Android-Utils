@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jingyu.utils.application.PlusFragment;
-import com.jingyu.utils.function.Logger;
+import com.jingyu.android.basictools.activity.PlusFragment;
+import com.jingyu.android.basictools.log.Logger;
 
 /**
  * @author fengjingyu@foxmail.com

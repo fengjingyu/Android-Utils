@@ -76,10 +76,11 @@ dependencies {
     compile 'com.android.support:multidex:1.0.2'
 
     /** 框架库 */
-    compile project(':utils')
-    //compile(name: 'utils', ext: 'aar') //aar方式引入
-    //compile 'com.jingyu.android:utils:1.0.1' //仓库的地址
+    compile 'com.jingyu.java:mytool:0.0.1'
+    compile 'com.jingyu.java:myokhttp:0.0.3'
 
+    compile 'com.jingyu.android:basictools:0.0.3'
+    compile 'com.jingyu.android:resource:0.0.1'
 
 
 }

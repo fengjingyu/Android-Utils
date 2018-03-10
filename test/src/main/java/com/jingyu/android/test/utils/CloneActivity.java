@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import com.jingyu.android.test.utils.model.TestModel;
-import com.jingyu.utils.function.Logger;
-
 public class CloneActivity extends BaseActivity {
 
     @Override

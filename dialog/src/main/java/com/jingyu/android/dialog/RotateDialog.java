@@ -12,8 +12,8 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.jingyu.android.basictools.util.ScreenUtil;
 import com.jingyu.android.middle.App;
-import com.jingyu.utils.util.UtilScreen;
 
 public class RotateDialog extends Dialog {
 
@@ -49,7 +49,7 @@ public class RotateDialog extends Dialog {
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.dimAmount = 0.05f;
         lp.gravity = Gravity.TOP;
-        lp.y = UtilScreen.dip2px(App.getApplication(), 96 + 50);
+        lp.y = ScreenUtil.dip2px(App.getApplication(), 96 + 50);
         window.setAttributes(lp);
     }
 

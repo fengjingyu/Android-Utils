@@ -8,10 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.jingyu.android.basictools.activity.ActivityManager;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.ActivityCollector;
-import com.jingyu.utils.util.UtilIo;
+import com.jingyu.java.mytool.basic.file.FileCreater;
+import com.jingyu.java.mytool.basic.util.IOUtil;
+
+import java.io.File;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -53,17 +56,17 @@ public class TaskActivity3 extends BaseActivity {
 
     private void info() {
         info.setText("");
-        info.append(ActivityCollector.getStack().size() + "-----栈的大小---" + UtilIo.LINE_SEPARATOR);
-        for (Activity item : ActivityCollector.getStack()) {
-            info.append(item.getClass() + "----" + UtilIo.LINE_SEPARATOR);
+        info.append(ActivityManager.getStack().size() + "-----栈的大小---" + FileCreater.LINE_SEPARATOR);
+        for (Activity item : ActivityManager.getStack()) {
+            info.append(item.getClass() + "----" + FileCreater.LINE_SEPARATOR);
         }
-        info.append("TaskActivity0是否存在--" + ActivityCollector.isActivityExist(TaskActivity0.class) + UtilIo.LINE_SEPARATOR);
-        info.append("TaskActivity1是否存在--" + ActivityCollector.isActivityExist(TaskActivity1.class) + UtilIo.LINE_SEPARATOR);
-        info.append("TaskActivity2是否存在--" + ActivityCollector.isActivityExist(TaskActivity2.class) + UtilIo.LINE_SEPARATOR);
-        info.append("TaskActivity3是否存在--" + ActivityCollector.isActivityExist(TaskActivity3.class) + UtilIo.LINE_SEPARATOR);
-        info.append("当前页面--" + ActivityCollector.getCurrentActivity() + UtilIo.LINE_SEPARATOR);
-        info.append("TaskActivity1是否存在--" + ActivityCollector.getActivity(TaskActivity1.class) + UtilIo.LINE_SEPARATOR);
-        info.append("TaskActivity2是否存在--" + ActivityCollector.getActivity(TaskActivity2.class) + UtilIo.LINE_SEPARATOR);
+        info.append("TaskActivity0是否存在--" + ActivityManager.isActivityExist(TaskActivity0.class) + FileCreater.LINE_SEPARATOR);
+        info.append("TaskActivity1是否存在--" + ActivityManager.isActivityExist(TaskActivity1.class) + FileCreater.LINE_SEPARATOR);
+        info.append("TaskActivity2是否存在--" + ActivityManager.isActivityExist(TaskActivity2.class) + FileCreater.LINE_SEPARATOR);
+        info.append("TaskActivity3是否存在--" + ActivityManager.isActivityExist(TaskActivity3.class) + FileCreater.LINE_SEPARATOR);
+        info.append("当前页面--" + ActivityManager.getCurrentActivity() + FileCreater.LINE_SEPARATOR);
+        info.append("TaskActivity1是否存在--" + ActivityManager.getActivity(TaskActivity1.class) + FileCreater.LINE_SEPARATOR);
+        info.append("TaskActivity2是否存在--" + ActivityManager.getActivity(TaskActivity2.class) + FileCreater.LINE_SEPARATOR);
     }
 
     public void setListeners() {
@@ -77,35 +80,35 @@ public class TaskActivity3 extends BaseActivity {
         to_taskactivity0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.toActivity(TaskActivity0.class);
+                ActivityManager.toActivity(TaskActivity0.class);
             }
         });
 
         to_taskactivity1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.toActivity(TaskActivity1.class);
+                ActivityManager.toActivity(TaskActivity1.class);
             }
         });
 
         to_taskactivity2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.toActivity(TaskActivity2.class);
+                ActivityManager.toActivity(TaskActivity2.class);
             }
         });
 
         finish_taskactivity1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.finishActivity(TaskActivity1.class);
+                ActivityManager.finishActivity(TaskActivity1.class);
                 info();
             }
         });
         finish_taskactivity2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.finishActivity(TaskActivity2.class);
+                ActivityManager.finishActivity(TaskActivity2.class);
                 info();
             }
         });
@@ -113,21 +116,21 @@ public class TaskActivity3 extends BaseActivity {
         finish_all_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.finishAllActivity();
+                ActivityManager.finishAllActivity();
             }
         });
 
         finish_current_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.finishCurrentActivity();
+                ActivityManager.finishCurrentActivity();
             }
         });
 
         finish_activity_then_startActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityCollector.finishCurrentActivity();
+                ActivityManager.finishCurrentActivity();
                 startActivity(new Intent(getActivity(), TaskActivity3.class));
             }
         });

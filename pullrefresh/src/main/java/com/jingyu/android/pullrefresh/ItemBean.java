@@ -1,8 +1,7 @@
 package com.jingyu.android.pullrefresh;
 
 
-import com.jingyu.utils.function.CloneBean;
-
+import com.jingyu.java.mytool.basic.bean.CloneBean;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.utils.function.Logger;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnBackPressListener;
 import com.orhanobut.dialogplus.OnCancelListener;

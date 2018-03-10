@@ -8,12 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.takephoto.AblumPhotoPlusFragment;
+import com.jingyu.android.basictools.takephoto.CameraPhotoPlusFragment;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.photo.AblumPhotoFragment;
-import com.jingyu.utils.photo.CameraPhotoFragment;
-
 import java.io.File;
 
 
@@ -21,8 +20,8 @@ import java.io.File;
  * @author fengjingyu@foxmail.com
  */
 public class CamareActivity extends BaseActivity {
-    private CameraPhotoFragment cameraPhotoFragment;
-    private AblumPhotoFragment ablumPhotoFragment;
+    private CameraPhotoPlusFragment cameraPhotoFragment;
+    private AblumPhotoPlusFragment ablumPhotoFragment;
     private Button ablumNoCrop;
     private Button ablumCrop;
     private Button caremaNoCrop;
@@ -40,8 +39,8 @@ public class CamareActivity extends BaseActivity {
     }
 
     public void initWidgets() {
-        cameraPhotoFragment = new CameraPhotoFragment();
-        ablumPhotoFragment = new AblumPhotoFragment();
+        cameraPhotoFragment = new CameraPhotoPlusFragment();
+        ablumPhotoFragment = new AblumPhotoPlusFragment();
 
         ablumNoCrop = getViewById(R.id.ablumNoCrop);
         ablumCrop = getViewById(R.id.ablumCrop);
@@ -71,7 +70,7 @@ public class CamareActivity extends BaseActivity {
             }
         });
 
-        ablumPhotoFragment.setOnAblumListener(new AblumPhotoFragment.OnAblumListener() {
+        ablumPhotoFragment.setOnAblumListener(new AblumPhotoPlusFragment.OnAblumListener() {
             @Override
             public void onPhotoSuccess(File originPhoto, File smallPhoto) {
                 Logger.d(Uri.fromFile(smallPhoto));
@@ -99,7 +98,7 @@ public class CamareActivity extends BaseActivity {
             }
         });
 
-        cameraPhotoFragment.setOnCameraListener(new CameraPhotoFragment.OnCameraListener() {
+        cameraPhotoFragment.setOnCameraListener(new CameraPhotoPlusFragment.OnCameraListener() {
             @Override
             public void onPhotoSuccess(File originPhoto, File smallPhoto) {
                 Logger.d(Uri.fromFile(smallPhoto));

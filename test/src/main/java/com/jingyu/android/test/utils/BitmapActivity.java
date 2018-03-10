@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.AndroidIOUtil;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.function.Logger;
 
 import java.io.InputStream;
 
@@ -46,7 +46,7 @@ public class BitmapActivity extends BaseActivity {
 
     private void test5() {
         //如果这个ic_launchar(72*72)是在hdpi(1)中的,在xhdpi(density 2)的手机里引用了
-        InputStream rawInputStream = UtilIo.getRawInputStream(this, R.drawable.ic_launcher);
+        InputStream rawInputStream = AndroidIOUtil.getRawInputStream(this, R.mipmap.ic_launcher);
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), rawInputStream);
         imageInputStreamResource.setImageDrawable(bitmapDrawable);
         Logger.d(bitmapDrawable.getBitmap().getWidth()); // 72
@@ -54,7 +54,7 @@ public class BitmapActivity extends BaseActivity {
     }
 
     private void test4() {
-        InputStream rawInputStream = UtilIo.getRawInputStream(this, R.drawable.ic_launcher);
+        InputStream rawInputStream = AndroidIOUtil.getRawInputStream(this, R.mipmap.ic_launcher);
         BitmapDrawable bitmapDrawable = new BitmapDrawable(rawInputStream);
         imageInputStream.setImageDrawable(bitmapDrawable);
         Logger.d(bitmapDrawable.getBitmap().getWidth()); // 72
@@ -62,13 +62,13 @@ public class BitmapActivity extends BaseActivity {
     }
 
     private void test3() {
-        imageSetResource.setImageResource(R.drawable.ic_launcher);
+        imageSetResource.setImageResource(R.mipmap.ic_launcher);
         Logger.d(((BitmapDrawable) imageSetResource.getDrawable()).getBitmap().getHeight()); //144
         Logger.d(((BitmapDrawable) imageSetResource.getDrawable()).getBitmap().getWidth()); //144
     }
 
     private void test2() {
-        InputStream rawInputStream = UtilIo.getRawInputStream(this, R.drawable.ic_launcher);
+        InputStream rawInputStream = AndroidIOUtil.getRawInputStream(this, R.mipmap.ic_launcher);
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), rawInputStream);
         Bitmap bitmap = bitmapDrawable.getBitmap();
         Matrix matrix = new Matrix();
@@ -80,7 +80,7 @@ public class BitmapActivity extends BaseActivity {
     }
 
     private void test() {
-        InputStream rawInputStream = UtilIo.getRawInputStream(this, R.drawable.ic_launcher);
+        InputStream rawInputStream = AndroidIOUtil.getRawInputStream(this, R.mipmap.ic_launcher);
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), rawInputStream);
         // BitmapDrawable bitmapDrawable = new BitmapDrawable(rawInputStream);
         Bitmap bitmap = bitmapDrawable.getBitmap();
@@ -108,7 +108,7 @@ public class BitmapActivity extends BaseActivity {
     }
 
     private void test0() {
-        InputStream rawInputStream = UtilIo.getRawInputStream(this, R.drawable.ic_launcher);
+        InputStream rawInputStream = AndroidIOUtil.getRawInputStream(this, R.mipmap.ic_launcher);
         BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), rawInputStream);
         // BitmapDrawable bitmapDrawable = new BitmapDrawable(rawInputStream);
         Bitmap bitmap = bitmapDrawable.getBitmap();

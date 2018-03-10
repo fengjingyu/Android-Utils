@@ -2,8 +2,7 @@ package com.jingyu.android.middle;
 
 import android.app.Application;
 
-import com.jingyu.utils.function.SPHelper;
-
+import com.jingyu.android.basictools.sp.SPHelper;
 
 /**
  * @author fengjingyu@foxmail.com

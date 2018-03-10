@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
@@ -12,7 +13,6 @@ import com.jingyu.android.middle.config.okhttp.resp.JsonRespHandler;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespInfo;
 import com.jingyu.android.pullrefresh.loadmore.IRefreshHandler;
 import com.jingyu.android.pullrefresh.loadmore.ListRefreshLayout;
-import com.jingyu.utils.function.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

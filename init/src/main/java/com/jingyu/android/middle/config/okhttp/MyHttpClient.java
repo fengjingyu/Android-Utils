@@ -2,10 +2,11 @@ package com.jingyu.android.middle.config.okhttp;
 
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespHandler;
-import com.jingyu.utils.util.UtilCollections;
-import com.jingyu.utils.util.UtilString;
+import com.jingyu.java.mytool.basic.util.CollectionsUtil;
+import com.jingyu.java.mytool.basic.util.StringUtil;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -106,7 +107,7 @@ public class MyHttpClient {
     }
 
     public boolean isPostString(MyReqInfo myReqInfo, Request.Builder requestBuilder) {
-        if (UtilString.isAvaliable(myReqInfo.getPostStringContentType())) {
+        if (StringUtil.isAvaliable(myReqInfo.getPostStringContentType())) {
             // requestBuilder.post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json));
             requestBuilder.post(RequestBody.create(MediaType.parse(myReqInfo.getPostStringContentType()), myReqInfo.getPostString()));
             return true;
@@ -121,7 +122,7 @@ public class MyHttpClient {
 
         Map<String, Object> paramsMap = myReqInfo.getParamsMap();
 
-        if (UtilCollections.isMapAvaliable(paramsMap)) {
+        if (CollectionsUtil.isMapAvaliable(paramsMap)) {
             FormBody.Builder formBodyBuilder = new FormBody.Builder();
 
             for (Map.Entry<String, Object> entry : paramsMap.entrySet()) {
@@ -137,7 +138,7 @@ public class MyHttpClient {
 
         Map<String, Object> paramsMap = myReqInfo.getParamsMap();
 
-        if (UtilCollections.isMapAvaliable(paramsMap)) {
+        if (CollectionsUtil.isMapAvaliable(paramsMap)) {
 
             MultipartBody.Builder multiBuilder = new MultipartBody.Builder();
             multiBuilder.setType(MultipartBody.FORM);
@@ -173,7 +174,7 @@ public class MyHttpClient {
 
         Map<String, Object> paramsMap = myReqInfo.getParamsMap();
 
-        if (UtilCollections.isMapAvaliable(paramsMap)) {
+        if (CollectionsUtil.isMapAvaliable(paramsMap)) {
             for (Map.Entry<String, Object> entry : paramsMap.entrySet()) {
                 if (entry.getValue() instanceof File) {
                     return true;
@@ -202,7 +203,7 @@ public class MyHttpClient {
             List<String> values = entry.getValue();
             String key = entry.getKey();
 
-            if (UtilCollections.isListAvaliable(values)) {
+            if (CollectionsUtil.isListAvaliable(values)) {
                 for (String value : values) {
                     builder.addHeader(key, value);
                 }

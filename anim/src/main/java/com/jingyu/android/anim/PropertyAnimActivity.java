@@ -14,9 +14,9 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.ScreenUtil;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilScreen;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -148,10 +148,10 @@ public class PropertyAnimActivity extends BaseActivity {
             flag = false;
             animButton.animate().
                     // x方向
-                            translationXBy(-(UtilScreen.getScreenWidthPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100))).
+                            translationXBy(-(ScreenUtil.getScreenWidthPx(PropertyAnimActivity.this) - ScreenUtil.dip2px(PropertyAnimActivity.this, 100))).
                     setInterpolator(new DecelerateInterpolator()).
                     // y方向
-                            translationYBy(UtilScreen.getScreenHeightPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100)).
+                            translationYBy(ScreenUtil.getScreenHeightPx(PropertyAnimActivity.this) - ScreenUtil.dip2px(PropertyAnimActivity.this, 100)).
                     setInterpolator(new AccelerateInterpolator(1.0f)).
                     // 旋转
                             rotationBy(-1080).setDuration(2000).start();
@@ -160,10 +160,10 @@ public class PropertyAnimActivity extends BaseActivity {
             flag = true;
             animButton.animate().
                     // x方向
-                            translationX(UtilScreen.getScreenWidthPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100)).
+                            translationX(ScreenUtil.getScreenWidthPx(PropertyAnimActivity.this) - ScreenUtil.dip2px(PropertyAnimActivity.this, 100)).
                     setInterpolator(new AccelerateInterpolator(1.0f)).
                     // y方向
-                            translationY(-(UtilScreen.getScreenHeightPx(PropertyAnimActivity.this) - UtilScreen.dip2px(PropertyAnimActivity.this, 100))).
+                            translationY(-(ScreenUtil.getScreenHeightPx(PropertyAnimActivity.this) - ScreenUtil.dip2px(PropertyAnimActivity.this, 100))).
                     setInterpolator(new DecelerateInterpolator()).
                     // 旋转
                             rotation(1080).setDuration(2000).start();

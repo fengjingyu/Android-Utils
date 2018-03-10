@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.jingyu.android.basictools.exception.CrashHandler;
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.ScreenUtil;
+import com.jingyu.android.basictools.util.SystemUtil;
 import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.AppImg;
@@ -13,11 +17,6 @@ import com.jingyu.android.middle.AppSp;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.middle.config.MyEnv;
 import com.jingyu.android.middle.config.okhttp.MyHttpClient;
-import com.jingyu.utils.exception.CrashHandler;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilScreen;
-import com.jingyu.utils.util.UtilSystem;
-
 import java.util.ArrayList;
 
 /**
@@ -75,7 +74,7 @@ public class LaunchActivity extends BaseActivity {
                 if (isAllSuccess) {
                     init();
                 } else {
-                    UtilSystem.toSetting(getActivity());
+                    SystemUtil.toSetting(getActivity());
                     Toast.makeText(getApplicationContext(), "权限被拒绝了", Toast.LENGTH_LONG).show();
                 }
                 break;
@@ -134,23 +133,23 @@ public class LaunchActivity extends BaseActivity {
     // 设备启动时，输出设备与app的基本信息
     public void simpleDeviceInfo() {
         Logger.d("域名环境--" + MyEnv.CURRENT_RUN_ENVIRONMENT);
-        Logger.d("deviceId--" + UtilSystem.getDeviceId(getApplicationContext()));
-        Logger.d("model--" + UtilSystem.getModel());
-        Logger.d("operatorName--" + UtilSystem.getOperatorName(getApplicationContext()));
-        Logger.d("osversion--" + UtilSystem.getOSVersion());
-        Logger.d("osversionsdkint--" + UtilSystem.getOSVersionSDKINT());
-        Logger.d("phonebrand--" + UtilSystem.getPhoneBrand());
-        Logger.d("simNum--" + UtilSystem.getSimSerialNum(getApplicationContext()));
-        Logger.d("language--" + UtilSystem.getSysLanguage());
-        Logger.d("versionCode--" + UtilSystem.getVersionCode(getApplicationContext()));
-        Logger.d("versionName--" + UtilSystem.getVersionName(getApplicationContext()));
-        Logger.d("screenHeightPx--" + UtilScreen.getScreenHeightPx(getApplicationContext()));
-        Logger.d("screenWidthPx--" + UtilScreen.getScreenWidthPx(getApplicationContext()));
-        Logger.d("getDensity--" + UtilScreen.getDensity(getApplicationContext()));
-        Logger.d("getDensityDpi--" + UtilScreen.getDensityDpi(getApplicationContext()));
-        Logger.d("screenHeightDP--" + UtilScreen.getScreenHeightDP(getApplicationContext()));
-        Logger.d("screenWidthDP--" + UtilScreen.getScreenWidthDP(getApplicationContext()));
-        Logger.d("statusBarHeightPx--" + UtilScreen.getStatusBarHeight(getApplicationContext()));
+        Logger.d("deviceId--" + SystemUtil.getDeviceId(getApplicationContext()));
+        Logger.d("model--" + SystemUtil.getModel());
+        Logger.d("operatorName--" + SystemUtil.getOperatorName(getApplicationContext()));
+        Logger.d("osversion--" + SystemUtil.getOSVersion());
+        Logger.d("osversionsdkint--" + SystemUtil.getOSVersionSDKINT());
+        Logger.d("phonebrand--" + SystemUtil.getPhoneBrand());
+        Logger.d("simNum--" + SystemUtil.getSimSerialNum(getApplicationContext()));
+        Logger.d("language--" + SystemUtil.getSysLanguage());
+        Logger.d("versionCode--" + SystemUtil.getVersionCode(getApplicationContext()));
+        Logger.d("versionName--" + SystemUtil.getVersionName(getApplicationContext()));
+        Logger.d("screenHeightPx--" + ScreenUtil.getScreenHeightPx(getApplicationContext()));
+        Logger.d("screenWidthPx--" + ScreenUtil.getScreenWidthPx(getApplicationContext()));
+        Logger.d("getDensity--" + ScreenUtil.getDensity(getApplicationContext()));
+        Logger.d("getDensityDpi--" + ScreenUtil.getDensityDpi(getApplicationContext()));
+        Logger.d("screenHeightDP--" + ScreenUtil.getScreenHeightDP(getApplicationContext()));
+        Logger.d("screenWidthDP--" + ScreenUtil.getScreenWidthDP(getApplicationContext()));
+        Logger.d("statusBarHeightPx--" + ScreenUtil.getStatusBarHeight(getApplicationContext()));
     }
 
 }

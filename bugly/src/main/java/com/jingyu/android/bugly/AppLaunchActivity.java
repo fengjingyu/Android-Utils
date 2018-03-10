@@ -1,7 +1,7 @@
 package com.jingyu.android.bugly;
 
+import com.jingyu.android.basictools.util.SystemUtil;
 import com.jingyu.android.init.LaunchActivity;
-import com.jingyu.utils.util.UtilSystem;
 import com.tencent.bugly.crashreport.CrashReport;
 
 public class AppLaunchActivity extends LaunchActivity {
@@ -11,8 +11,8 @@ public class AppLaunchActivity extends LaunchActivity {
 
         //初始化之前的可选设置
         CrashReport.UserStrategy userStrategy = new CrashReport.UserStrategy(getApplicationContext());
-        userStrategy.setAppChannel(UtilSystem.getAppMetaData(getApplicationContext(), "CHANNEL"));  //设置渠道
-        userStrategy.setAppVersion(UtilSystem.getVersionName(getApplicationContext()));      //App的版本
+        userStrategy.setAppChannel(SystemUtil.getAppMetaData(getApplicationContext(), "CHANNEL"));  //设置渠道
+        userStrategy.setAppVersion(SystemUtil.getVersionName(getApplicationContext()));      //App的版本
         userStrategy.setAppPackageName(getApplicationContext().getPackageName());  //App的包名
         userStrategy.setAppReportDelay(10000);   //默认10秒后联网上传报告
 

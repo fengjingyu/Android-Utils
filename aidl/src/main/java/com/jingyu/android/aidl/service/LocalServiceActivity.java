@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.android.aidl.R;
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.utils.function.Logger;
 
 public class LocalServiceActivity extends BaseActivity implements View.OnClickListener {
 

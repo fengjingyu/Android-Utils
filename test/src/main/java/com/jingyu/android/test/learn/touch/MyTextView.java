@@ -4,8 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-
-import com.jingyu.utils.function.Logger;
+import com.jingyu.android.basictools.log.Logger;
 
 /**
  * @author fengjingyu@foxmail.com

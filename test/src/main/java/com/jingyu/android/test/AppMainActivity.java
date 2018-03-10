@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.jingyu.android.basictools.activity.ActivityManager;
+import com.jingyu.android.basictools.exception.CrashHandler;
+import com.jingyu.android.basictools.exception.ExceptionDb;
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.learn.ContactsActivity;
 import com.jingyu.android.test.learn.DestroyGCActivity;
@@ -28,11 +32,6 @@ import com.jingyu.android.test.utils.HttpActivity;
 import com.jingyu.android.test.utils.LogActivity;
 import com.jingyu.android.test.utils.SPActivity;
 import com.jingyu.android.test.utils.TaskActivity0;
-import com.jingyu.utils.exception.CrashHandler;
-import com.jingyu.utils.exception.ExceptionDb;
-import com.jingyu.utils.function.ActivityCollector;
-import com.jingyu.utils.function.Logger;
-
 
 public class AppMainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -219,7 +218,7 @@ public class AppMainActivity extends BaseActivity implements View.OnClickListene
     public void onBackPressed() {
         long quitTime = System.currentTimeMillis();
         if (quitTime - lastClickQuitTime <= CLICK_QUIT_INTERVAL) {
-            ActivityCollector.appExit();
+            ActivityManager.appExit();
         } else {
             lastClickQuitTime = quitTime;
             Logger.shortToast("快速再按一次退出");

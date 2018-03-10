@@ -18,13 +18,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jingyu.android.basictools.adapter.PlusAdapter;
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.ViewUtil;
 import com.jingyu.android.middle.AppImg;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.function.ThreadHelper;
-import com.jingyu.utils.function.adapter.PlusAdapter;
-import com.jingyu.utils.util.UtilView;
+import com.jingyu.java.mytool.basic.thread.ThreadPool;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -108,7 +108,7 @@ public class ContactsActivity extends BaseActivity {
 
     public void initWidgets() {
         contacts_listview = getViewById(R.id.contacts_list);
-        UtilView.setListViewStyle(contacts_listview, null, 1, false);
+        ViewUtil.setListViewStyle(contacts_listview, null, 1, false);
     }
 
     private void read() {
@@ -117,7 +117,7 @@ public class ContactsActivity extends BaseActivity {
         dialog.setCancelable(false);
         dialog.show();
 
-        ThreadHelper.getCache().execute(new Runnable() {
+        ThreadPool.getCache().execute(new Runnable() {
             @Override
             public void run() {
                 Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);

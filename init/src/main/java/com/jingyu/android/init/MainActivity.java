@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 
+import com.jingyu.android.basictools.activity.ActivityManager;
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.init.fragment.tab.TabFragmentFour;
 import com.jingyu.android.init.fragment.tab.TabFragmentOne;
 import com.jingyu.android.init.fragment.tab.TabFragmentThree;
 import com.jingyu.android.init.fragment.tab.TabFragmentTwo;
 import com.jingyu.android.middle.base.BaseActivity;
-import com.jingyu.utils.function.ActivityCollector;
-import com.jingyu.utils.function.Logger;
 
 public class MainActivity extends BaseActivity {
 
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
         long quitTime = System.currentTimeMillis();
         if (quitTime - lastClickQuitTime <= CLICK_QUIT_INTERVAL) {
-            ActivityCollector.appExit();
+            ActivityManager.appExit();
         } else {
             lastClickQuitTime = quitTime;
             Logger.shortToast("快速再按一次退出");

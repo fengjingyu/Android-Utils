@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
-
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilSystem;
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class AIDLService extends Service {
             sb.append(this.getClass().getName());
             sb.append(", 线程名=" + Thread.currentThread().getName());
             sb.append(", pid = " + Process.myPid());
-            sb.append(", 进程名= " + UtilSystem.getProcessName(getApplicationContext()));
+            sb.append(", 进程名= " + SystemUtil.getProcessName(getApplicationContext()));
             return sb.toString();
         }
 

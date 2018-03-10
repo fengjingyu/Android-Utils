@@ -5,9 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.Logger;
-
 import org.json.JSONObject;
 
 public class JsonActivity extends AppCompatActivity {

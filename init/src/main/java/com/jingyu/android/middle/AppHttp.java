@@ -1,12 +1,12 @@
 package com.jingyu.android.middle;
 
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.config.okhttp.MyHttpClient;
 import com.jingyu.android.middle.config.okhttp.MyInterceptor;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
 import com.jingyu.android.middle.config.okhttp.req.MyReqType;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespHandler;
-import com.jingyu.utils.function.Logger;
 
 import java.util.Arrays;
 import java.util.HashMap;

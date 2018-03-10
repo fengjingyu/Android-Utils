@@ -1,7 +1,7 @@
 package com.jingyu.android.middle.config.okhttp.resp;
 
-import com.jingyu.utils.application.PlusBean;
-import com.jingyu.utils.function.Constants;
+import com.jingyu.java.mytool.basic.Constants;
+import com.jingyu.java.mytool.basic.bean.CloneBean;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Map;
  * @author fengjingyu@foxmail.com
  *  http返回的信息
  */
-public class MyRespInfo extends PlusBean {
+public class MyRespInfo extends CloneBean {
 
     /**
      * 返回的成功失败的类型，目前有5个类型

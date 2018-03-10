@@ -7,10 +7,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.AndroidFileUtil;
+import com.jingyu.android.basictools.util.SystemUtil;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.FileHelper;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilSystem;
+import com.jingyu.java.mytool.basic.file.FileCreater;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,53 +30,53 @@ public class DirActivity extends AppCompatActivity {
     }
 
     private void testlib() {
-        log("FileHelper.Internal.getFile(getApplicationContext(), \"libs\", \"abc\")", FileHelper.Internal.getFile(getApplicationContext(), "libs", "abc"), false);
-        log("FileHelper.Internal.getFile(getApplicationContext(), \"\", \"libs\")", FileHelper.Internal.getFile(getApplicationContext(), "", "libs"), false);
-        log("FileHelper.Internal.getDir(getApplicationContext(), \"libs/abc\")", FileHelper.Internal.getDir(getApplicationContext(), "libs/abc"), false);
+        log("AndroidFileUtil.Internal.getFile(getApplicationContext(), \"libs\", \"abc\")", AndroidFileUtil.Internal.getFile(getApplicationContext(), "libs", "abc"), false);
+        log("AndroidFileUtil.Internal.getFile(getApplicationContext(), \"\", \"libs\")", AndroidFileUtil.Internal.getFile(getApplicationContext(), "", "libs"), false);
+        log("AndroidFileUtil.Internal.getDir(getApplicationContext(), \"libs/abc\")", AndroidFileUtil.Internal.getDir(getApplicationContext(), "libs/abc"), false);
 
-        log("FileHelper.Internal.getFile(getApplicationContext(), \"lib\", \"abc\"", FileHelper.Internal.getFile(getApplicationContext(), "lib", "abc"), false);//权限问题?
-        log("FileHelper.Internal.getFile(getApplicationContext(), \"\", \"lib\")", FileHelper.Internal.getFile(getApplicationContext(), "", "lib"), false);//权限问题?
-        log("FileHelper.Internal.getDir(getApplicationContext(), \"lib/abc\"", FileHelper.Internal.getDir(getApplicationContext(), "lib/abc"), false);//权限问题?
+        log("AndroidFileUtil.Internal.getFile(getApplicationContext(), \"lib\", \"abc\"", AndroidFileUtil.Internal.getFile(getApplicationContext(), "lib", "abc"), false);//权限问题?
+        log("AndroidFileUtil.Internal.getFile(getApplicationContext(), \"\", \"lib\")", AndroidFileUtil.Internal.getFile(getApplicationContext(), "", "lib"), false);//权限问题?
+        log("AndroidFileUtil.Internal.getDir(getApplicationContext(), \"lib/abc\"", AndroidFileUtil.Internal.getDir(getApplicationContext(), "lib/abc"), false);//权限问题?
     }
 
     private void testAndroid() {
-        log("FileHelper.getAndroidDir(getApplicationContext(),\"dirdir_01\")", FileHelper.getAndroidDir(getApplicationContext(), "dirdir_01"), true);
-        log("FileHelper.getAndroidDir(getApplicationContext(),\"dirdir_02/dirdir_03\")", FileHelper.getAndroidDir(getApplicationContext(), "dirdir_02/dirdir_03"), true);
-        log("FileHelper.getAndroidDir(getApplicationContext(),null)", FileHelper.getAndroidDir(getApplicationContext(), null), true);
+        log("AndroidFileUtil.getAndroidDir(getApplicationContext(),\"dirdir_01\")", AndroidFileUtil.getAndroidDir(getApplicationContext(), "dirdir_01"), true);
+        log("AndroidFileUtil.getAndroidDir(getApplicationContext(),\"dirdir_02/dirdir_03\")", AndroidFileUtil.getAndroidDir(getApplicationContext(), "dirdir_02/dirdir_03"), true);
+        log("AndroidFileUtil.getAndroidDir(getApplicationContext(),null)", AndroidFileUtil.getAndroidDir(getApplicationContext(), null), true);
 
-        log("FileHelper.getAndroidFile(getApplicationContext(),\"dirdir_04\",\"filefile_01\")", FileHelper.getAndroidFile(getApplicationContext(), "dirdir_04", "filefile_01"), false);
-        log("FileHelper.getAndroidFile(getApplicationContext(),\"dirdir_05/dirdir_06\",\"filefile_02\"", FileHelper.getAndroidFile(getApplicationContext(), "dirdir_05/dirdir_06", "filefile_02"), false);
-        log("FileHelper.getAndroidFile(getApplicationContext(),\"dirdir_07\"", FileHelper.getAndroidFile(getApplicationContext(), "dirdir_07", ""), false);
+        log("AndroidFileUtil.getAndroidFile(getApplicationContext(),\"dirdir_04\",\"filefile_01\")", AndroidFileUtil.getAndroidFile(getApplicationContext(), "dirdir_04", "filefile_01"), false);
+        log("AndroidFileUtil.getAndroidFile(getApplicationContext(),\"dirdir_05/dirdir_06\",\"filefile_02\"", AndroidFileUtil.getAndroidFile(getApplicationContext(), "dirdir_05/dirdir_06", "filefile_02"), false);
+        log("AndroidFileUtil.getAndroidFile(getApplicationContext(),\"dirdir_07\"", AndroidFileUtil.getAndroidFile(getApplicationContext(), "dirdir_07", ""), false);
     }
 
     private void testInternal() {
-        log("FileHelper.Internal.getDir(this, \"dir_01\")--", FileHelper.Internal.getDir(this, "dir_01"), true);
-        log("FileHelper.Internal.getDir(this, \"dir_02/dir_03/dir_04\")", FileHelper.Internal.getDir(this, "dir_02/dir_03/dir_04"), true);
-        log("FileHelper.Internal.getCacheDir(this)", FileHelper.Internal.getCacheDir(this), true);
-        log("FileHelper.Internal.getFilesDir(this)", FileHelper.Internal.getFilesDir(this), true);
-        log("FileHelper.Internal.getPackageDir(this)", FileHelper.Internal.getDir(this, ""), true);
-        //log("FileHelper.Internal.getAppDir(this, \"dir_05\")", FileHelper.Internal.getAppDir(this, "dir_05"), true);
-        log("FileHelper.Internal.getFile(this, \"dir_06\", \"file_01\")", FileHelper.Internal.getFile(this, "dir_06", "file_01"), false);
-        log("FileHelper.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", FileHelper.Internal.getFile(this, "dir_07/dir_08", "file_02"), false);
-        log("FileHelper.Internal.getFile(this, \"lib\", \"file_03\")", FileHelper.Internal.getFile(this, "lib/dir_09/dir_10", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了
-        log("FileHelper.createFile(FileHelper.Internal.getCacheDir(this), \"file_04\")", FileHelper.createFile(FileHelper.Internal.getCacheDir(this), "file_04"), false);
-        log("FileHelper.Internal.getCacheFile(this, \"file_05\"), false)", FileHelper.Internal.getCacheFile(this, "file_05"), false);
-        log("FileHelper.Internal.getFilesFile(this, \"file_06\")", FileHelper.Internal.getFilesFile(this, "file_06"), false);
+        log("AndroidFileUtil.Internal.getDir(this, \"dir_01\")--", AndroidFileUtil.Internal.getDir(this, "dir_01"), true);
+        log("AndroidFileUtil.Internal.getDir(this, \"dir_02/dir_03/dir_04\")", AndroidFileUtil.Internal.getDir(this, "dir_02/dir_03/dir_04"), true);
+        log("AndroidFileUtil.Internal.getCacheDir(this)", AndroidFileUtil.Internal.getCacheDir(this), true);
+        log("AndroidFileUtil.Internal.getFilesDir(this)", AndroidFileUtil.Internal.getFilesDir(this), true);
+        log("AndroidFileUtil.Internal.getPackageDir(this)", AndroidFileUtil.Internal.getDir(this, ""), true);
+        //log("AndroidFileUtil.Internal.getAppDir(this, \"dir_05\")", AndroidFileUtil.Internal.getAppDir(this, "dir_05"), true);
+        log("AndroidFileUtil.Internal.getFile(this, \"dir_06\", \"file_01\")", AndroidFileUtil.Internal.getFile(this, "dir_06", "file_01"), false);
+        log("AndroidFileUtil.Internal.getFile(this, \"dir_07/dir_8\", \"file_02\")", AndroidFileUtil.Internal.getFile(this, "dir_07/dir_08", "file_02"), false);
+        log("AndroidFileUtil.Internal.getFile(this, \"lib\", \"file_03\")", AndroidFileUtil.Internal.getFile(this, "lib/dir_09/dir_10", "file_03"), false); // 没权限,异常;但有时可以创建,why?貌似如果系统已经创建了lib文件夹,好像我们就不能创建文件了
+        log("AndroidFileUtil.createFile(AndroidFileUtil.Internal.getCacheDir(this), \"file_04\")", FileCreater.createFile(AndroidFileUtil.Internal.getCacheDir(this), "file_04"), false);
+        log("AndroidFileUtil.Internal.getCacheFile(this, \"file_05\"), false)", AndroidFileUtil.Internal.getCacheFile(this, "file_05"), false);
+        log("AndroidFileUtil.Internal.getFilesFile(this, \"file_06\")", AndroidFileUtil.Internal.getFilesFile(this, "file_06"), false);
     }
 
     private void testExternalAndroid() {
-        log("FileHelper.ExternalAndroid.getPackageDir(this)", FileHelper.ExternalAndroid.getDir(this, ""), true);
-        log("FileHelper.ExternalAndroid.getCacheDir(this)", FileHelper.ExternalAndroid.getCacheDir(this), true);
-        log("FileHelper.ExternalAndroid.getFilesDir(this, \"\")", FileHelper.ExternalAndroid.getFilesDir(this, ""), true);
-        log("FileHelper.ExternalAndroid.getFilesDir(this, \"dir_01\")", FileHelper.ExternalAndroid.getFilesDir(this, "dir_01"), true);
-        log("FileHelper.ExternalAndroid.getFilesDir(this, \"dir_02/dir_03\")", FileHelper.ExternalAndroid.getFilesDir(this, "dir_02/dir_03"), true);
-        log("FileHelper.ExternalAndroid.getDir(this, \"dir_04/dir_05\")", FileHelper.ExternalAndroid.getDir(this, "dir_04/dir_05"), true);
-        log("FileHelper.ExternalAndroid.getFile(this, \"dir_06\", \"file_01\")", FileHelper.ExternalAndroid.getFile(this, "dir_06", "file_01"), true);
-        log("FileHelper.ExternalAndroid.getFile(this, \"dir_07/dir_08\", \"file_02\")", FileHelper.ExternalAndroid.getFile(this, "dir_07/dir_08", "file_02"), true);
-        log("FileHelper.createFile(FileHelper.ExternalAndroid.getCacheDir(this), \"file_03\")", FileHelper.createFile(FileHelper.ExternalAndroid.getCacheDir(this), "file_03"), true);
-        log("FileHelper.ExternalAndroid.getCacheFile(this, \"file_04\"), false)", FileHelper.ExternalAndroid.getCacheFile(this, "file_04"), false);
-        log("FileHelper.ExternalAndroid.getFilesFile(this, \"file_05\"), false)", FileHelper.ExternalAndroid.getFilesFile(this, "file_05"), false);
-        log("FileHelper.ExternalAndroid.getFile(this, \"dir_09/dir_10\", \"file_06\")", FileHelper.ExternalAndroid.getFile(this, "dir_09/dir_10", "file_06"), false);
+        log("AndroidFileUtil.ExternalAndroid.getPackageDir(this)", AndroidFileUtil.ExternalAndroid.getDir(this, ""), true);
+        log("AndroidFileUtil.ExternalAndroid.getCacheDir(this)", AndroidFileUtil.ExternalAndroid.getCacheDir(this), true);
+        log("AndroidFileUtil.ExternalAndroid.getFilesDir(this, \"\")", AndroidFileUtil.ExternalAndroid.getFilesDir(this, ""), true);
+        log("AndroidFileUtil.ExternalAndroid.getFilesDir(this, \"dir_01\")", AndroidFileUtil.ExternalAndroid.getFilesDir(this, "dir_01"), true);
+        log("AndroidFileUtil.ExternalAndroid.getFilesDir(this, \"dir_02/dir_03\")", AndroidFileUtil.ExternalAndroid.getFilesDir(this, "dir_02/dir_03"), true);
+        log("AndroidFileUtil.ExternalAndroid.getDir(this, \"dir_04/dir_05\")", AndroidFileUtil.ExternalAndroid.getDir(this, "dir_04/dir_05"), true);
+        log("AndroidFileUtil.ExternalAndroid.getFile(this, \"dir_06\", \"file_01\")", AndroidFileUtil.ExternalAndroid.getFile(this, "dir_06", "file_01"), true);
+        log("AndroidFileUtil.ExternalAndroid.getFile(this, \"dir_07/dir_08\", \"file_02\")", AndroidFileUtil.ExternalAndroid.getFile(this, "dir_07/dir_08", "file_02"), true);
+        log("AndroidFileUtil.createFile(AndroidFileUtil.ExternalAndroid.getCacheDir(this), \"file_03\")", FileCreater.createFile(AndroidFileUtil.ExternalAndroid.getCacheDir(this), "file_03"), true);
+        log("AndroidFileUtil.ExternalAndroid.getCacheFile(this, \"file_04\"), false)", AndroidFileUtil.ExternalAndroid.getCacheFile(this, "file_04"), false);
+        log("AndroidFileUtil.ExternalAndroid.getFilesFile(this, \"file_05\"), false)", AndroidFileUtil.ExternalAndroid.getFilesFile(this, "file_05"), false);
+        log("AndroidFileUtil.ExternalAndroid.getFile(this, \"dir_09/dir_10\", \"file_06\")", AndroidFileUtil.ExternalAndroid.getFile(this, "dir_09/dir_10", "file_06"), false);
     }
 
     private void testFile() {
@@ -96,65 +97,65 @@ public class DirActivity extends AppCompatActivity {
     }
 
     private void testAndroidApi() {
-        Logger.d(Environment.isExternalStorageEmulated() + "--ExternalStorageEmulated-" + UtilSystem.getPhoneBrand());
+        Logger.d(Environment.isExternalStorageEmulated() + "--ExternalStorageEmulated-" + SystemUtil.getPhoneBrand());
         //7.0小米5  true
         //6.0模拟器 true
         //4.3模拟器 false
-        Logger.d(Environment.isExternalStorageRemovable() + "--ExternalStorageRemovable-" + UtilSystem.getPhoneBrand());
+        Logger.d(Environment.isExternalStorageRemovable() + "--ExternalStorageRemovable-" + SystemUtil.getPhoneBrand());
         //7.0小米5  false
         //6.0模拟器 false
         //4.3模拟器 false
-        Logger.d(Environment.getDataDirectory() + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(Environment.getDataDirectory() + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /data
         //6.0模拟器  /data
         //5.1模拟器  /data
         //4.3模拟器  /data
-        Logger.d(Environment.getDownloadCacheDirectory() + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(Environment.getDownloadCacheDirectory() + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /cache
         //7.0小米5   /cache
         //5.1模拟器  /cache
         //4.3模拟器  /cache
-        Logger.d(Environment.getExternalStorageDirectory() + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(Environment.getExternalStorageDirectory() + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /storage/emulated/0
         //6.0模拟器  /storage/emulated/0
         //5.1模拟器  /storage/sdcard
         //4.3模拟器  /storage/sdcard
-        Logger.d(Environment.getExternalStoragePublicDirectory("") + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(Environment.getExternalStoragePublicDirectory("") + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /storage/emulated/0
         //6.0模拟器  /storage/emulated/0
         //5.1模拟器  /storage/sdcard
         //4.3模拟器  /storage/sdcard
-        Logger.d(Environment.getRootDirectory() + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(Environment.getRootDirectory() + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /system
         //6.0模拟器  /system
         //5.1模拟器  /system
         //4.3模拟器  /system
-        Logger.d(getExternalCacheDir() + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(getExternalCacheDir() + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /storage/emulated/0/Android/data/com.jingyu.test/cache
         //6.0模拟器  /storage/emulated/0/Android/data/com.jingyu.test/cache
         //5.1模拟器  /storage/sdcard/Android/data/com.jingyu.test/cache
         //4.3模拟器  /storage/sdcard/Android/data/com.jingyu.test/cache
-        Logger.d(getExternalFilesDir("") + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(getExternalFilesDir("") + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /storage/emulated/0/Android/data/com.jingyu.test/files
         //6.0模拟器  /storage/emulated/0/Android/data/com.jingyu.test/files
         //5.1模拟器  /storage/sdcard/Android/data/com.jingyu.test/files
         //4.3模拟器  /storage/sdcard/Android/data/com.jingyu.test/files
-        Logger.d(getExternalFilesDir("ee") + "--" + UtilSystem.getPhoneBrand());//会创建目录,也可以创建多级目录
+        Logger.d(getExternalFilesDir("ee") + "--" + SystemUtil.getPhoneBrand());//会创建目录,也可以创建多级目录
         //7.0小米5   /storage/emulated/0/Android/data/com.jingyu.test/files/ee
         //6.0模拟器  /storage/emulated/0/Android/data/com.jingyu.test/files/ee
         //5.1模拟器  /storage/sdcard/Android/data/com.jingyu.test/files/ee
         //4.3模拟器  /storage/sdcard/Android/data/com.jingyu.test/files/ee
-        Logger.d(getExternalFilesDir("ff/hh/ii") + "--" + UtilSystem.getPhoneBrand());//会创建目录,也可以创建多级目录
+        Logger.d(getExternalFilesDir("ff/hh/ii") + "--" + SystemUtil.getPhoneBrand());//会创建目录,也可以创建多级目录
         //7.0小米5   /storage/emulated/0/Android/data/com.jingyu.test/files/ff/hh/ii
         //6.0模拟器  /storage/emulated/0/Android/data/com.jingyu.test/files/ff/hh/ii
         //5.1模拟器  /storage/sdcard/Android/data/com.jingyu.test/files/ff/hh/ii
         //4.3模拟器  /storage/sdcard/Android/data/com.jingyu.test/files/ff/hh/ii
-        Logger.d(getCacheDir() + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(getCacheDir() + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /data/user/0/com.jingyu.test/cache
         //6.0模拟器  /data/user/0/com.jingyu.test/cache
         //5.1模拟器  /data/data/com.jingyu.test/cache
         //4.3模拟器  /data/data/com.jingyu.test/cache
-        Logger.d(getFilesDir() + "--" + UtilSystem.getPhoneBrand());
+        Logger.d(getFilesDir() + "--" + SystemUtil.getPhoneBrand());
         //7.0小米5   /data/user/0/com.jingyu.test/files
         //6.0模拟器  /data/user/0/com.jingyu.test/files
         //5.1模拟器  /data/data/com.jingyu.test/files
@@ -165,7 +166,7 @@ public class DirActivity extends AppCompatActivity {
         Logger.d(getFileStreamPath("file1")); //不会创建文件,仅仅返回一个file的路径,如果该文件不存在,并不会创建,得手动创建 // 该api不能含有path分隔符,否则异常;这个getFileStreamPath
         //5.1模拟器  /data/data/com.jingyu.test/files/file1
         //7.0小米5   /data/user/0/com.jingyu.test/files/file1
-        Logger.d(Environment.getExternalStoragePublicDirectory("testdir2/123").mkdirs() + "--" + UtilSystem.getPhoneBrand()); //不会创建目录,可以多级目录即可含有path分隔符, 但仅仅返回一个file的路径,如果该文件夹不存在,并不会创建,得手动创建
+        Logger.d(Environment.getExternalStoragePublicDirectory("testdir2/123").mkdirs() + "--" + SystemUtil.getPhoneBrand()); //不会创建目录,可以多级目录即可含有path分隔符, 但仅仅返回一个file的路径,如果该文件夹不存在,并不会创建,得手动创建
         Logger.d(getDir("", Context.MODE_PRIVATE));//会创建目录 /data/user/0/com.jingyu.test/app_
         Logger.d(getDir(null, Context.MODE_PRIVATE));//会创建目录/data/user/0/com.jingyu.test/app_null
     }

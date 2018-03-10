@@ -2,9 +2,8 @@ package com.jingyu.android.middle;
 
 import android.content.Context;
 
+import com.jingyu.android.basictools.util.AndroidFileUtil;
 import com.jingyu.android.middle.config.MyEnv;
-import com.jingyu.utils.function.FileHelper;
-
 import java.io.File;
 
 /**
@@ -23,28 +22,28 @@ public class AppFile {
      * app目录
      */
     public static File getAppDir(Context context) {
-        return FileHelper.getAndroidDir(context, MyEnv.getAppDirName());
+        return AndroidFileUtil.getAndroidDir(context, MyEnv.getAppDirName());
     }
 
     /**
      * 图片目录
      */
     public static File getPhotoDir(Context context) {
-        return FileHelper.getAndroidDir(context, MyEnv.getAppDirName() + File.separator + PHOTO_DIR_NAME);
+        return AndroidFileUtil.getAndroidDir(context, MyEnv.getAppDirName() + File.separator + PHOTO_DIR_NAME);
     }
 
     /**
      * 日志目录
      */
     public static File getLogDir(Context context) {
-        return FileHelper.getAndroidDir(context, MyEnv.getAppDirName() + File.separator + LOG_DIR_NAME);
+        return AndroidFileUtil.getAndroidDir(context, MyEnv.getAppDirName() + File.separator + LOG_DIR_NAME);
     }
 
     /**
      * crash目录
      */
     public static File getCrashDir(Context context) {
-        return FileHelper.getAndroidDir(context, MyEnv.getAppDirName() + File.separator + CRASH_DIR_NAME);
+        return AndroidFileUtil.getAndroidDir(context, MyEnv.getAppDirName() + File.separator + CRASH_DIR_NAME);
     }
 
 }

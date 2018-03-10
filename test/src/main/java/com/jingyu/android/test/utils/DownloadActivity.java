@@ -9,13 +9,13 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.AndroidFileUtil;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.download.DownloadInfo;
-import com.jingyu.utils.download.DownloadService;
-import com.jingyu.utils.encryption.md5.Md5Helper;
-import com.jingyu.utils.function.FileHelper;
-import com.jingyu.utils.function.Logger;
+import com.jingyu.android.test.utils.download.DownloadInfo;
+import com.jingyu.android.test.utils.download.DownloadService;
+import com.jingyu.java.mytool.basic.encryption.Md5;
 
 public class DownloadActivity extends BaseActivity implements View.OnClickListener {
 
@@ -71,7 +71,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                 case R.id.startDownload:
                     DownloadInfo downloadInfo = new DownloadInfo();
                     downloadInfo.setUrl("http://192.168.0.102/android/appv2.apk");
-                    downloadInfo.setFile(FileHelper.ExternalAndroid.getFile(getApplicationContext(), "download", Md5Helper.MD5Encode(downloadInfo.getUrl()) + ".apk"));
+                    downloadInfo.setFile(AndroidFileUtil.ExternalAndroid.getFile(getApplicationContext(), "download", Md5.encode(downloadInfo.getUrl()) + ".apk"));
                     downloadBinder.startDownload(downloadInfo);
                     break;
                 case R.id.pauseDownload:
@@ -83,7 +83,7 @@ public class DownloadActivity extends BaseActivity implements View.OnClickListen
                 case R.id.startRangeDownload:
                     DownloadInfo downloadInfo2 = new DownloadInfo();
                     downloadInfo2.setUrl("http://192.168.0.102/android/appv2.apk");
-                    downloadInfo2.setFile(FileHelper.ExternalAndroid.getFile(getApplicationContext(), "download", Md5Helper.MD5Encode(downloadInfo2.getUrl()) + ".apk"));
+                    downloadInfo2.setFile(AndroidFileUtil.ExternalAndroid.getFile(getApplicationContext(), "download", Md5.encode(downloadInfo2.getUrl()) + ".apk"));
                     downloadInfo2.setRange(true);
                     downloadBinder.startDownload(downloadInfo2);
                     break;

@@ -6,18 +6,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.takephoto.AblumPhotoPlusFragment;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.function.photo.AblumPhotoFragment;
-
 /**
  * @author fengjingyu@foxmail.com
  */
 public class DestroyGCActivity extends BaseActivity {
     private int i = 10;
     private ImageView imageView;
-    private AblumPhotoFragment ablumPhotoFragment;
+    private AblumPhotoPlusFragment ablumPhotoFragment;
     private Handler handler = new Handler();
 
     @Override
@@ -26,7 +25,7 @@ public class DestroyGCActivity extends BaseActivity {
         setContentView(R.layout.activity_destroygc);
 
         imageView = getViewById(R.id.gc_imageview);
-        addFragment(R.id.gc_fragment, ablumPhotoFragment = new AblumPhotoFragment());
+        addFragment(R.id.gc_fragment, ablumPhotoFragment = new AblumPhotoPlusFragment());
 
         new Thread(new Runnable() {
             @Override

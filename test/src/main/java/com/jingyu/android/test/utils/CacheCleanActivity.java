@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.CacheCleaner;
 
 import java.io.File;
 

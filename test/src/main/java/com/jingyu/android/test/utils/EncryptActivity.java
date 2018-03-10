@@ -4,15 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
-
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.encryption.aes.AesEncryptAndDecrypt;
-import com.jingyu.utils.encryption.des.DesEncryptAndDecrypt;
-import com.jingyu.utils.encryption.md5.Md5Helper;
-import com.jingyu.utils.encryption.rsa.Base64Helper;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilString;
+import com.jingyu.java.mytool.basic.encryption.Md5;
+import com.jingyu.java.mytool.basic.encryption.aes.Aes;
+import com.jingyu.java.mytool.basic.encryption.des.Des;
+import com.jingyu.java.mytool.basic.util.StringUtil;
 
 public class EncryptActivity extends BaseActivity {
 
@@ -25,25 +23,25 @@ public class EncryptActivity extends BaseActivity {
     }
 
     private void testEncrypt() {
-        String one = Md5Helper.MD5Encode("123456abc");
-        String two = Md5Helper.MD5Encode2("123456abc");
+        String one = Md5.encode("123456abc");
+        String two = Md5.encode("123456abc");
         Logger.d(one);
         Logger.d(two);
-        Logger.d(UtilString.equals(one, two)); // true
+        Logger.d(StringUtil.equals(one, two)); // true
 
-        String des_close = DesEncryptAndDecrypt.encodeRequestStr("today is haha 123");
-        String des_open = DesEncryptAndDecrypt.decodeResponseStr(des_close);
+        String des_close = Des.encodeRequestStr("today is haha 123");
+        String des_open = Des.decodeResponseStr(des_close);
         Logger.d(des_close);
         Logger.d(des_open);
 
-        String aes_close = AesEncryptAndDecrypt.encodeRequestStr("computer 123 macpro");
-        String aes_open = AesEncryptAndDecrypt.decodeResponseStr(aes_close);
+        String aes_close = Aes.encodeRequestStr("computer 123 macpro");
+        String aes_open = Aes.decodeResponseStr(aes_close);
         Logger.d(aes_close);
         Logger.d(aes_open);
 
         try {
-            String base64_e = Base64Helper.encode("123  HEHE".getBytes());
-            String base64_d = new String(Base64Helper.decode(base64_e), "utf-8");
+            String base64_e = Base64.encodeToString("123  HEHE".getBytes(),Base64.DEFAULT);
+            String base64_d = new String(Base64.decode(base64_e,Base64.DEFAULT), "utf-8");
             Logger.d(base64_e);
             Logger.d(base64_d);
         } catch (Exception e) {

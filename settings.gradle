@@ -1,1 +1,1 @@
-include ':test', ':utils', ':kotlin', ':init', ':material', ':anim', ':dialog', ':aidl', ':upgrade', ':titlebar', ':roundimg', ':pullrefresh', ':banner', ':percentlayout', ':scaleimg', ':leakcanary', ':bugly', ':viewpagertitle', ':picgrogressbar', ':guidebg'
+include ':test', ':kotlin', ':init', ':material', ':anim', ':dialog', ':aidl', ':titlebar', ':roundimg', ':pullrefresh', ':banner', ':percentlayout', ':scaleimg', ':leakcanary', ':bugly', ':viewpagertitle', ':picgrogressbar', ':guidebg'

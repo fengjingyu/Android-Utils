@@ -3,17 +3,20 @@ package com.jingyu.android.middle.config.okhttp;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespHandler;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespType;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilCollections;
-import com.jingyu.utils.util.UtilIo;
+import com.jingyu.java.mytool.basic.file.FileCreater;
+import com.jingyu.java.mytool.basic.util.CollectionsUtil;
+import com.jingyu.java.mytool.basic.util.IOUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -75,7 +78,7 @@ public class MyCallback<T> implements Callback {
             } else {
                 // 只能读一次，否则异常
                 // byte[] bytes = response.body().bytes();
-                byte[] bytes = UtilIo.getBytes(inputStream);
+                byte[] bytes = IOUtil.getBytes(inputStream);
                 myRespInfo.setDataBytes(bytes);
                 myRespInfo.setDataString(bytes);
                 // 子线程解析
@@ -158,7 +161,7 @@ public class MyCallback<T> implements Callback {
 
                 List<String> values = header.getValue();
 
-                if (UtilCollections.isListAvaliable(values)) {
+                if (CollectionsUtil.isListAvaliable(values)) {
                     Logger.d(TAG_HTTP, "headers--->" + header.getKey() + "=" + Arrays.toString(values.toArray()));
                 }
             }
@@ -178,7 +181,7 @@ public class MyCallback<T> implements Callback {
     protected T parse() {
         try {
 
-            Logger.d(TAG_HTTP, this + UtilIo.LINE_SEPARATOR + myReqInfo + UtilIo.LINE_SEPARATOR);
+            Logger.d(TAG_HTTP, this + FileCreater.LINE_SEPARATOR + myReqInfo + FileCreater.LINE_SEPARATOR);
             Logger.logFormatContent(TAG_HTTP, "", myRespInfo.getDataString());
 
             // 如果解析失败一定得返回null或者crash

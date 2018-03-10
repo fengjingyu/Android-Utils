@@ -3,10 +3,8 @@ package com.jingyu.android.pullrefresh.loadmore;
 import android.content.Context;
 import android.util.AttributeSet;
 
-
+import com.jingyu.android.basictools.util.ScreenUtil;
 import com.jingyu.android.pullrefresh.R;
-import com.jingyu.utils.util.UtilScreen;
-
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 
@@ -30,7 +28,7 @@ public class MaterialRefreshLayout extends RefreshLayout {
         int[] colors = getResources().getIntArray(R.array.google_colors);
         header.setColorSchemeColors(colors);
         header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-        header.setPadding(0, UtilScreen.dip2px(getContext(), 15), 0, UtilScreen.dip2px(getContext(), 10));
+        header.setPadding(0, ScreenUtil.dip2px(getContext(), 15), 0, ScreenUtil.dip2px(getContext(), 10));
         header.setPtrFrameLayout(mPtrRefreshLayout);
         mPtrRefreshLayout.setHeaderView(header);
         mPtrRefreshLayout.addPtrUIHandler(header);

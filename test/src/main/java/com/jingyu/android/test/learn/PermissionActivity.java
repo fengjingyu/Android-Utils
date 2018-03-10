@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.SystemUtil;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilSystem;
 
 public class PermissionActivity extends BaseActivity {
 
@@ -48,7 +48,7 @@ public class PermissionActivity extends BaseActivity {
     }
 
     public void call() {
-        startActivity(UtilSystem.getCallIntent("10086"));
+        startActivity(SystemUtil.getCallIntent("10086"));
     }
 
     public static void actionStart(Activity activity) {

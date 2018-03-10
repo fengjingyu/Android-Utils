@@ -3,9 +3,8 @@ package com.jingyu.android.middle.config.okhttp.loading;
 import android.app.Activity;
 import android.app.Dialog;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.config.okhttp.MyCallback;
-import com.jingyu.utils.function.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 

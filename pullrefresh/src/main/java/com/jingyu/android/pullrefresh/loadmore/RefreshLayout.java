@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.headerfooter.songhang.library.SmartRecyclerAdapter;
 import com.jingyu.android.pullrefresh.R;
-import com.jingyu.utils.util.UtilString;
+import com.jingyu.java.mytool.basic.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -314,21 +314,21 @@ abstract public class RefreshLayout extends FrameLayout {
             dataEmptyImageView.setVisibility(View.VISIBLE);
         }
 
-        if (UtilString.isBlank(dataEmptyTextViewUpHint)) {
+        if (StringUtil.isBlank(dataEmptyTextViewUpHint)) {
             dataEmptyTextViewUp.setVisibility(View.GONE);
         } else {
             dataEmptyTextViewUp.setText(dataEmptyTextViewUpHint);
             dataEmptyTextViewUp.setVisibility(View.VISIBLE);
         }
 
-        if (UtilString.isBlank(dataEmptyTextViewDownHint)) {
+        if (StringUtil.isBlank(dataEmptyTextViewDownHint)) {
             dataEmptyTextViewDown.setVisibility(View.GONE);
         } else {
             dataEmptyTextViewDown.setText(dataEmptyTextViewDownHint);
             dataEmptyTextViewDown.setVisibility(View.VISIBLE);
         }
 
-        if (UtilString.isBlank(dataEmptyButtonHint)) {
+        if (StringUtil.isBlank(dataEmptyButtonHint)) {
             dataEmptyButton.setVisibility(View.GONE);
         } else {
             dataEmptyButton.setText(dataEmptyButtonHint);

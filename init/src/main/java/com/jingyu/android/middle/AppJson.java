@@ -1,8 +1,8 @@
 package com.jingyu.android.middle;
 
 import com.google.gson.Gson;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilString;
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.java.mytool.basic.util.StringUtil;
 
 import java.lang.reflect.Type;
 
@@ -28,7 +28,7 @@ public class AppJson {
 
     //----------------------------------------json2bean------------------------------------------
     public static <T> T parseJson(String json, Class<T> clazz) {
-        if (!UtilString.isBlank(json)) {
+        if (!StringUtil.isBlank(json)) {
             try {
                 return getGson().fromJson(json, clazz);
             } catch (Exception e) {
@@ -45,7 +45,7 @@ public class AppJson {
      * @return
      */
     public static <T> T parseJson(String json, Type typeOfT) {
-        if (!UtilString.isBlank(json)) {
+        if (!StringUtil.isBlank(json)) {
             try {
                 return getGson().fromJson(json, typeOfT);
             } catch (Exception e) {

@@ -12,14 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jingyu.android.basictools.activity.PlusActivity;
+import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.basictools.util.BroadcastUtil;
 import com.jingyu.android.init.R;
 import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.config.okhttp.MyInterceptor;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespHandler;
-import com.jingyu.utils.application.PlusActivity;
-import com.jingyu.utils.function.Logger;
-import com.jingyu.utils.util.UtilBroadcast;
 
 /**
  * @author fengjingyu@foxmail.com
@@ -71,11 +71,11 @@ public abstract class BaseActivity extends PlusActivity {
     }
 
     private void initReceiver() {
-        UtilBroadcast.register(this, 1000, ConnectivityManager.CONNECTIVITY_ACTION, mNetReceiver);
+        BroadcastUtil.register(this, 1000, ConnectivityManager.CONNECTIVITY_ACTION, mNetReceiver);
     }
 
     private void unbindReceiver() {
-        UtilBroadcast.unRegister(this, mNetReceiver);
+        BroadcastUtil.unRegister(this, mNetReceiver);
     }
 
     @Override

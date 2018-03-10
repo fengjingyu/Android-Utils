@@ -12,10 +12,9 @@ import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.function.Logger;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;

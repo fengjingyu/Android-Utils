@@ -1,9 +1,10 @@
 package com.jingyu.android.middle.config.okhttp.req;
 
-import com.jingyu.utils.application.PlusBean;
-import com.jingyu.utils.util.UtilCollections;
-import com.jingyu.utils.util.UtilString;
+import com.jingyu.java.mytool.basic.bean.CloneBean;
+import com.jingyu.java.mytool.basic.util.CollectionsUtil;
+import com.jingyu.java.mytool.basic.util.StringUtil;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
  * @author fengjingyu@foxmail.com
  *  http请求的信息
  */
-public class MyReqInfo extends PlusBean {
+public class MyReqInfo extends CloneBean {
     /**
      * POST  GET
      */
@@ -210,7 +211,7 @@ public class MyReqInfo extends PlusBean {
      */
     public String buildGetParams(Map<String, Object> params) {
 
-        if (UtilCollections.isMapAvaliable(params)) {
+        if (CollectionsUtil.isMapAvaliable(params)) {
             StringBuilder sb = new StringBuilder();
 
             sb.append(QUESTION);
@@ -222,7 +223,7 @@ public class MyReqInfo extends PlusBean {
                 sb.append(entry.getKey() + EQUAL + entry.getValue() + AND);
             }
 
-            return UtilString.subStringBeforeLastSimbol(sb.toString(), AND);
+            return StringUtil.subStringBeforeLastSimbol(sb.toString(), AND);
 
         } else {
             // 无参数

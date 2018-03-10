@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.utils.util.UtilIo;
-import com.jingyu.utils.function.Logger;
+import com.jingyu.java.mytool.basic.util.IOUtil;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -40,8 +40,8 @@ public class LogActivity extends BaseActivity {
                 Object obj = null;
                 Logger.d(obj);
 
-                Logger.d(UtilIo.getAllFilesByDirQueue(AppFile.getAppDir(getApplicationContext())));
-                Logger.d(UtilIo.getFilterFiles(AppFile.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
+                Logger.d(IOUtil.getAllFilesByDirQueue(AppFile.getAppDir(getApplicationContext())));
+                Logger.d(IOUtil.getFilterFiles(AppFile.getAppDir(getApplicationContext()), new LinkedList<File>(), null));
             }
         });
 

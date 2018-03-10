@@ -1,8 +1,8 @@
 package com.jingyu.android.middle.config.okhttp.resp;
 
+import com.jingyu.android.basictools.log.Logger;
 import com.jingyu.android.middle.config.okhttp.MyCallback;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
-import com.jingyu.utils.function.Logger;
 
 import java.io.InputStream;
 

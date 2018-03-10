@@ -2,7 +2,7 @@ package com.jingyu.android.middle;
 
 import android.content.Context;
 
-import com.jingyu.android.basictools.util.AndroidFileUtil;
+import com.jingyu.android.common.util.AndroidFileUtil;
 import com.jingyu.android.middle.config.MyEnv;
 import java.io.File;
 

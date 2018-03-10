@@ -17,10 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.material.recyclerview.WaterFallAdapter;
+
 public class MaterialActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;

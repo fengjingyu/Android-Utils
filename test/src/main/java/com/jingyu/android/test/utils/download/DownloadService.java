@@ -8,8 +8,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
-
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.util.SystemUtil;
 import com.jingyu.android.test.R;
 
 import java.io.File;

@@ -5,13 +5,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.init.MainActivity;
 import com.jingyu.android.middle.config.okhttp.MyCallback;
 import com.jingyu.android.middle.config.okhttp.loading.DialogManager;
 import com.jingyu.android.middle.config.okhttp.loading.HttpLoadingDialog;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
-import com.jingyu.java.mytool.basic.util.StringUtil;
+import com.jingyu.java.mytool.util.StringUtil;
 
 /**
  * @author fengjingyu@foxmail.com

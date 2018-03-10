@@ -13,9 +13,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
-
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.ScreenUtil;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.ScreenUtil;
 import com.jingyu.android.middle.base.BaseActivity;
 
 /**

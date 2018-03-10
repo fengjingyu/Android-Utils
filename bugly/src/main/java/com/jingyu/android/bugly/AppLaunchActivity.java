@@ -1,6 +1,5 @@
 package com.jingyu.android.bugly;
-
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.util.SystemUtil;
 import com.jingyu.android.init.LaunchActivity;
 import com.tencent.bugly.crashreport.CrashReport;
 

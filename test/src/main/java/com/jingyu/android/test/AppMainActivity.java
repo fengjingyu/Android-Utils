@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.jingyu.android.basictools.activity.ActivityManager;
-import com.jingyu.android.basictools.exception.CrashHandler;
-import com.jingyu.android.basictools.exception.ExceptionDb;
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.activity.ActivityManager;
+import com.jingyu.android.common.exception.CrashHandler;
+import com.jingyu.android.common.exception.ExceptionDb;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.learn.ContactsActivity;
 import com.jingyu.android.test.learn.DestroyGCActivity;

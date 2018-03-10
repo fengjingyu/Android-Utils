@@ -1,10 +1,9 @@
 package com.jingyu.android.middle.config.okhttp.req;
 
-import com.jingyu.java.mytool.basic.bean.CloneBean;
-import com.jingyu.java.mytool.basic.util.CollectionsUtil;
-import com.jingyu.java.mytool.basic.util.StringUtil;
+import com.jingyu.java.mytool.bean.CloneBean;
+import com.jingyu.java.mytool.util.CollectionsUtil;
+import com.jingyu.java.mytool.util.StringUtil;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

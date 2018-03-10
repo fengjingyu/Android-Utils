@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.Process;
 import android.os.RemoteException;
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.SystemUtil;
 
 import java.util.ArrayList;
 import java.util.List;

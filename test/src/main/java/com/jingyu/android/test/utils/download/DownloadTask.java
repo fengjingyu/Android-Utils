@@ -2,10 +2,8 @@ package com.jingyu.android.test.utils.download;
 
 import android.os.AsyncTask;
 import android.os.Build;
-
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.java.mytool.basic.file.FileCreater;
-
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.java.mytool.file.FileCreater;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.RandomAccessFile;

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnBackPressListener;

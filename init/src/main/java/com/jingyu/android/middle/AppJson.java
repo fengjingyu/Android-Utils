@@ -1,9 +1,8 @@
 package com.jingyu.android.middle;
 
 import com.google.gson.Gson;
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.java.mytool.basic.util.StringUtil;
-
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.java.mytool.util.StringUtil;
 import java.lang.reflect.Type;
 
 public class AppJson {

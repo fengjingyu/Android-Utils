@@ -3,8 +3,7 @@ package com.jingyu.android.test.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import com.jingyu.android.test.utils.model.TestModel;

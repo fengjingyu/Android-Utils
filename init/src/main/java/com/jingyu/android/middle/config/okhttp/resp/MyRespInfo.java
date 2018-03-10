@@ -1,7 +1,6 @@
 package com.jingyu.android.middle.config.okhttp.resp;
-
-import com.jingyu.java.mytool.basic.Constants;
-import com.jingyu.java.mytool.basic.bean.CloneBean;
+import com.jingyu.java.mytool.Constants;
+import com.jingyu.java.mytool.bean.CloneBean;
 
 import java.util.HashMap;
 import java.util.List;

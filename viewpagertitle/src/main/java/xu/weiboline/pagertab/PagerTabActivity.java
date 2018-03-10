@@ -6,8 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-
-import com.jingyu.android.basictools.adapter.PlusAdapterPagerFragment;
+import com.jingyu.android.common.adapter.PlusAdapterPagerFragment;
 import com.jingyu.android.init.fragment.tab.TabFragmentOne;
 import com.jingyu.android.init.fragment.tab.TabFragmentTwo;
 import com.jingyu.android.middle.base.BaseActivity;

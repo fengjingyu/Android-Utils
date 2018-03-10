@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jingyu.android.aidl.R;
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 public class AIDLServiceActivity extends BaseActivity implements View.OnClickListener {
 

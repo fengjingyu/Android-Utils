@@ -2,8 +2,7 @@ package com.jingyu.android.pullrefresh.loadmore;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
-import com.jingyu.android.basictools.util.ScreenUtil;
+import com.jingyu.android.common.util.ScreenUtil;
 import com.jingyu.android.pullrefresh.R;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.MaterialHeader;

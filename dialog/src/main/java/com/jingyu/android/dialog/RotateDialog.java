@@ -11,8 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
-
-import com.jingyu.android.basictools.util.ScreenUtil;
+import com.jingyu.android.common.util.ScreenUtil;
 import com.jingyu.android.middle.App;
 
 public class RotateDialog extends Dialog {

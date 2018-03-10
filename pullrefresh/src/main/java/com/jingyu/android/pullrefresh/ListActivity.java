@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;

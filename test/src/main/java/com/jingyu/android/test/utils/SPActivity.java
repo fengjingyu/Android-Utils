@@ -4,9 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.sp.SPHelper;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.sp.SPHelper;
 import com.jingyu.android.middle.AppSp;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;

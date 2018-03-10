@@ -11,10 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.jingyu.android.basictools.activity.PlusActivity;
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.BroadcastUtil;
+import com.jingyu.android.common.activity.PlusActivity;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.BroadcastUtil;
 import com.jingyu.android.init.R;
 import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.config.okhttp.MyInterceptor;

@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 
-import com.jingyu.android.basictools.activity.ActivityManager;
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.activity.ActivityManager;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.init.fragment.tab.TabFragmentFour;
 import com.jingyu.android.init.fragment.tab.TabFragmentOne;
 import com.jingyu.android.init.fragment.tab.TabFragmentThree;

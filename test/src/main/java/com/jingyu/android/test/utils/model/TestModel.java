@@ -1,7 +1,8 @@
 package com.jingyu.android.test.utils.model;
 
 import com.jingyu.android.middle.config.okhttp.resp.IRespMsgCode;
-import com.jingyu.java.mytool.basic.bean.CloneBean;
+import com.jingyu.java.mytool.bean.CloneBean;
+
 /**
  * @author fengjingyu@foxmail.com
  */

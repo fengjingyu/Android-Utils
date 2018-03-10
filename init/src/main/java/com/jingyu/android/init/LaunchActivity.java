@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
-import com.jingyu.android.basictools.exception.CrashHandler;
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.ScreenUtil;
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.exception.CrashHandler;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.ScreenUtil;
+import com.jingyu.android.common.util.SystemUtil;
 import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.AppImg;

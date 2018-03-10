@@ -6,9 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.jingyu.android.basictools.activity.PlusFragment;
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.activity.PlusFragment;
+import com.jingyu.android.common.log.Logger;
 
 /**
  * @author fengjingyu@foxmail.com

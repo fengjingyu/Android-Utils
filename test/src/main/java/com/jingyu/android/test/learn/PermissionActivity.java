@@ -7,9 +7,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.SystemUtil;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 

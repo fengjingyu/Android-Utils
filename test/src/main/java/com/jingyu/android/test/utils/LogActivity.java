@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.java.mytool.basic.util.IOUtil;
-
+import com.jingyu.java.mytool.util.IOUtil;
 import java.io.File;
 import java.util.LinkedList;
 

@@ -3,8 +3,9 @@ package com.jingyu.android.test.learn.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.SystemUtil;
+
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.SystemUtil;
 
 /**
  * 国内定制系统:仅在程序开启或在后台时可以收到静态广播

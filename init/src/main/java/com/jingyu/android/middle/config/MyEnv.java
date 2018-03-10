@@ -1,6 +1,6 @@
 package com.jingyu.android.middle.config;
 
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 
 /**
  * @author fengjingyu@foxmail.com

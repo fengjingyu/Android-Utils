@@ -18,13 +18,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jingyu.android.basictools.adapter.PlusAdapter;
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.ViewUtil;
+import com.jingyu.android.common.adapter.PlusAdapter;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.ViewUtil;
 import com.jingyu.android.middle.AppImg;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.java.mytool.basic.thread.ThreadPool;
+import com.jingyu.java.mytool.thread.ThreadPool;
 
 import java.util.LinkedList;
 import java.util.List;

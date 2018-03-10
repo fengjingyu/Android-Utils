@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.jingyu.android.basictools.adapter.PlusAdapter;
+
+import com.jingyu.android.common.adapter.PlusAdapter;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import java.util.ArrayList;

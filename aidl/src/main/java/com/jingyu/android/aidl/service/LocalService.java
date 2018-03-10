@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.Process;
-
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.SystemUtil;
 
 public class LocalService extends Service {
 

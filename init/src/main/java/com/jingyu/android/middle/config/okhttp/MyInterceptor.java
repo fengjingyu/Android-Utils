@@ -1,6 +1,6 @@
 package com.jingyu.android.middle.config.okhttp;
 
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespInfo;
 

@@ -1,11 +1,9 @@
 package com.jingyu.android.test.utils;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.AppFile;
 import com.jingyu.android.middle.AppHttp;
 import com.jingyu.android.middle.base.BaseActivity;
@@ -16,9 +14,8 @@ import com.jingyu.android.middle.config.okhttp.resp.BaseRespHandler;
 import com.jingyu.android.middle.config.okhttp.resp.JsonRespHandler;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespInfo;
 import com.jingyu.android.test.utils.model.TestModel;
-import com.jingyu.java.mytool.basic.file.FileCreater;
-import com.jingyu.java.mytool.basic.util.IOUtil;
-
+import com.jingyu.java.mytool.file.FileCreater;
+import com.jingyu.java.mytool.util.IOUtil;
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;

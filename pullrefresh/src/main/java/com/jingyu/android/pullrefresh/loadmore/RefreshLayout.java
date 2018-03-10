@@ -13,14 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.headerfooter.songhang.library.SmartRecyclerAdapter;
 import com.jingyu.android.pullrefresh.R;
-import com.jingyu.java.mytool.basic.util.StringUtil;
-
+import com.jingyu.java.mytool.util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
-
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;

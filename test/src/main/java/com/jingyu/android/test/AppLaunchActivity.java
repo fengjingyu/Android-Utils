@@ -1,7 +1,7 @@
 package com.jingyu.android.test;
 
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.SystemUtil;
 import com.jingyu.android.init.LaunchActivity;
 
 /**

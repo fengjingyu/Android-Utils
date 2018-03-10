@@ -9,8 +9,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 /**

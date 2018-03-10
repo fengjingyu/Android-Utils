@@ -1,14 +1,12 @@
 package com.jingyu.android.pullrefresh;
 
-
-import com.jingyu.java.mytool.basic.bean.CloneBean;
+import com.jingyu.java.mytool.bean.CloneBean;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by xtyx_jy on 2017/4/26.
  */
-
 public class ItemBean extends CloneBean {
 
     private String code;

@@ -7,10 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.takephoto.AblumPhotoPlusFragment;
-import com.jingyu.android.basictools.takephoto.CameraPhotoPlusFragment;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.takephoto.AblumPhotoPlusFragment;
+import com.jingyu.android.common.takephoto.CameraPhotoPlusFragment;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
 import java.io.File;

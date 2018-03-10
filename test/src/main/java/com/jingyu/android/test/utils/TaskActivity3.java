@@ -7,14 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.jingyu.android.basictools.activity.ActivityManager;
+import com.jingyu.android.common.activity.ActivityManager;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.java.mytool.basic.file.FileCreater;
-import com.jingyu.java.mytool.basic.util.IOUtil;
-
-import java.io.File;
+import com.jingyu.java.mytool.file.FileCreater;
 
 /**
  * @author fengjingyu@foxmail.com

@@ -6,13 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-
-import com.jingyu.android.basictools.log.Logger;
-import com.jingyu.android.basictools.util.AndroidFileUtil;
-import com.jingyu.android.basictools.util.SystemUtil;
+import com.jingyu.android.common.log.Logger;
+import com.jingyu.android.common.util.AndroidFileUtil;
+import com.jingyu.android.common.util.SystemUtil;
 import com.jingyu.android.test.R;
-import com.jingyu.java.mytool.basic.file.FileCreater;
-
+import com.jingyu.java.mytool.file.FileCreater;
 import java.io.File;
 import java.io.IOException;
 

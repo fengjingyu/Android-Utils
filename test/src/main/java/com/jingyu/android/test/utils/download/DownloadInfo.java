@@ -1,6 +1,6 @@
 package com.jingyu.android.test.utils.download;
 
-import com.jingyu.java.mytool.basic.bean.CloneBean;
+import com.jingyu.java.mytool.bean.CloneBean;
 
 import java.io.File;
 

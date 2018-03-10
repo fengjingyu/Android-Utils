@@ -1,11 +1,9 @@
 package com.jingyu.android.middle.config.okhttp.resp;
 
 import android.app.Activity;
-
-import com.jingyu.android.basictools.bean.JsonBean;
-import com.jingyu.android.basictools.bean.JsonParse;
+import com.jingyu.android.common.bean.JsonBean;
+import com.jingyu.android.common.bean.JsonParse;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
-
 /**
  * @author fengjingyu@foxmail.com
  * @description 适用于小接口（如添加收藏等接口）

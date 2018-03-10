@@ -2,11 +2,10 @@ package com.jingyu.android.middle.config.okhttp;
 
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespHandler;
-import com.jingyu.java.mytool.basic.util.CollectionsUtil;
-import com.jingyu.java.mytool.basic.util.StringUtil;
+import com.jingyu.java.mytool.util.CollectionsUtil;
+import com.jingyu.java.mytool.util.StringUtil;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 

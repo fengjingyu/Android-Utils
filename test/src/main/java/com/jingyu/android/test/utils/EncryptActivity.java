@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
-import com.jingyu.android.basictools.log.Logger;
+
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.base.BaseActivity;
 import com.jingyu.android.test.R;
-import com.jingyu.java.mytool.basic.encryption.Md5;
-import com.jingyu.java.mytool.basic.encryption.aes.Aes;
-import com.jingyu.java.mytool.basic.encryption.des.Des;
-import com.jingyu.java.mytool.basic.util.StringUtil;
+import com.jingyu.java.mytool.encryption.Md5;
+import com.jingyu.java.mytool.encryption.aes.Aes;
+import com.jingyu.java.mytool.encryption.des.Des;
+import com.jingyu.java.mytool.util.StringUtil;
 
 public class EncryptActivity extends BaseActivity {
 

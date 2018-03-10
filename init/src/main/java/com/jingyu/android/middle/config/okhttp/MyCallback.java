@@ -2,21 +2,18 @@ package com.jingyu.android.middle.config.okhttp;
 
 import android.os.Handler;
 import android.os.Looper;
-
-import com.jingyu.android.basictools.log.Logger;
+import com.jingyu.android.common.log.Logger;
 import com.jingyu.android.middle.config.okhttp.req.MyReqInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespHandler;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespInfo;
 import com.jingyu.android.middle.config.okhttp.resp.MyRespType;
-import com.jingyu.java.mytool.basic.file.FileCreater;
-import com.jingyu.java.mytool.basic.util.CollectionsUtil;
-import com.jingyu.java.mytool.basic.util.IOUtil;
+import com.jingyu.java.mytool.file.FileCreater;
+import com.jingyu.java.mytool.util.CollectionsUtil;
+import com.jingyu.java.mytool.util.IOUtil;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
